@@ -44,14 +44,9 @@
 
 #pragma mark - Request
 
-- (void)requestData:(NSDictionary *)parameters completed:(HandlerBlock)completedBlock;
+- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed;
 
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(HandlerBlock)completedBlock;
-
-
-- (void)resetDataAry:(NSArray *)newDataAry;
-
-- (void)addDataAry:(NSArray *)newDataAry;
+- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed;
 
 
 @end

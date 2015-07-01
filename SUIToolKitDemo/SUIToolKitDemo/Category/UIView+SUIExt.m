@@ -11,7 +11,7 @@
 @implementation UIView (SUIExt)
 
 
-#pragma mark - frame
+#pragma mark - Frame
 
 - (void)setX:(CGFloat)x
 {

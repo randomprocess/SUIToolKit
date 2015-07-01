@@ -22,10 +22,10 @@
     [SUIBaseConfig sharedConfig].httpMethod = @"GET";
     [SUIBaseConfig sharedConfig].httpHost = @"http://gc.ditu.aliyun.com/geocoding";
     
-
+    
     // tableView不分组的情况下
     //
-
+    
     // 新建一个继承SUIBaseVC的类①
     // 命名以 SUI 开头, VC 结尾 (类似介个SUIRootVC)
     //
@@ -62,31 +62,19 @@
 
 - (void)handlerMainLoadData:(BOOL)loadMoreData
 {
-    uWeakSelf
-    
     // 请求数据都是用requestData:这个方法, 如果是不同域名的其他请求 可以用SUIHttpClient中的方法
-    // 请求到的数据推荐使用 MJExtension 快速打包成model
-    [self requestData:nil replace:YES completed:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
-        
+    // 写在这个方法内replace的值为YES, 这样会自动刷新tableView
+    [self requestData:@{@"a": @"杭州市"} replace:YES completed:^NSArray *(NSError *error, id responseObject) {
         uLog(@"%@", responseObject);
         
-        // 打包成model
+        // 请求到的数据推荐使用 MJExtension 快速打包成model
         SUIWeatherMD *wMD = [SUIWeatherMD objectWithKeyValues:responseObject];
         
         uLog(@"address=%@, alevel=%zd, cityName=%@, lat=%f, lon=%f, level=%zd", wMD.address, wMD.alevel, wMD.cityName, wMD.lat, wMD.lon, wMD.level);
         
-        
-        // 下方两个方法是更新数据源的, addDataAry会在末尾插入数据, resetDataAry会刷新数据
-        // 传入的数组外面的括号是分组用的, 如果不分组就是[[model]]
-        
-        if (loadMoreData)
-        {
-            [weakSelf addDataAry:@[@[wMD]]];
-        }
-        else
-        {
-            [weakSelf resetDataAry:@[@[wMD]]];
-        }
+        // 返回打包好的model数组, 用来刷新tableView, 若不需要则返回nil
+        // 外面的括号是分组用的, 如果不分组就是[[model]]
+        return @[@[wMD]];
     }];
 }
 

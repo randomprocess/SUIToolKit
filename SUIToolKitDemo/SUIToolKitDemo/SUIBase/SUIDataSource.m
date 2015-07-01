@@ -23,6 +23,8 @@
 
 @property (nonatomic,weak) NSURLSessionDataTask *currTask;
 
+@property (nonatomic,assign,getter=loadMoreData) BOOL isLoadMoreData;
+
 @end
 
 @implementation SUIDataSource
@@ -288,7 +290,7 @@
 
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
-          completed:(HandlerBlock)completedBlock
+          completed:(SUIDataSourceBlock)completed
 {
     uWeakSelf
     NSURLSessionDataTask *curTask =
@@ -296,15 +298,19 @@
      requestWithHost:[SUIBaseConfig sharedConfig].httpHost
      httpMethod:[SUIBaseConfig sharedConfig].httpMethod
      parameters:parameters
-     completionHandler:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
-         SUIDataSource *curDataSource = weakSelf;
-         if (curDataSource) {
-             completedBlock(task, error, responseObject);
+     completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
+         if (weakSelf) {
+             NSArray *newDataAry = completed(error, responseObject);
              [weakSelf headerRefreshStop];
              [weakSelf footerRefreshStop];
+             
+             if (weakSelf.loadMoreData) {
+                 [weakSelf addDataAry:newDataAry];
+             } else {
+                 [weakSelf resetDataAry:newDataAry];
+             }
          }
      }];
-    
     if (replace)
     {
         [self.currTask cancel];

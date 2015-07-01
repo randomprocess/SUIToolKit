@@ -11,7 +11,7 @@
 @interface UIView (SUIExt)
 
 
-#pragma mark - frame
+#pragma mark - Frame
 
 @property (nonatomic,assign) CGFloat x;
 @property (nonatomic,assign) CGFloat y;

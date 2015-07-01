@@ -136,26 +136,16 @@
 
 #pragma mark - Request
 
-- (void)requestData:(NSDictionary *)parameters completed:(HandlerBlock)completedBlock
+- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed
 {
-    [self requestData:parameters replace:NO completed:completedBlock];
+    [self requestData:parameters replace:NO completed:completed];
 }
 
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(HandlerBlock)completedBlock
+- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed
 {
-    [self.currDataSource requestData:parameters replace:replace completed:completedBlock];
+    [self.currDataSource requestData:parameters replace:replace completed:completed];
 }
 
-
-- (void)resetDataAry:(NSArray *)newDataAry
-{
-    [self.currDataSource resetDataAry:newDataAry];
-}
-
-- (void)addDataAry:(NSArray *)newDataAry
-{
-    [self.currDataSource addDataAry:newDataAry];
-}
 
 
 @end

@@ -14,7 +14,7 @@
 
 - (void)displayWithCurrModel
 {
-    _latLbl.text = [NSString stringWithFormat:@"%f", ((SUIWeatherMD *)self.currModle).lat];
+    _latLbl.text = [NSString stringWithFormat:@"lat:%f", ((SUIWeatherMD *)self.currModle).lat];
 }
 
 

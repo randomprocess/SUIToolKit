@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^HandlerBlock)(NSURLSessionDataTask *task, NSError *error, id responseObject);
+typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
 @interface SUIDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
@@ -18,11 +18,7 @@ typedef void (^HandlerBlock)(NSURLSessionDataTask *task, NSError *error, id resp
 
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
-          completed:(HandlerBlock)completedBlock;
-
-- (void)resetDataAry:(NSArray *)newDataAry;
-
-- (void)addDataAry:(NSArray *)newDataAry;
+          completed:(SUIDataSourceBlock)completed;
 
 - (id)modelPassed;
 

@@ -36,7 +36,7 @@
 - (NSURLSessionDataTask *)requestWithHost:(NSString *)httpHost
                                httpMethod:(NSString *)httpMethod
                                parameters:(NSDictionary *)parameters
-                        completionHandler:(HandlerBlock)completionHandler;
+                               completion:(SUIHttpCompletionBlock)completion;
 {
     NSURLSessionDataTask *currTask = nil;
     NSString *curHttpMethod = [httpMethod uppercaseString];
@@ -46,9 +46,9 @@
         [self.ignoringCacheManager POST:httpHost
                              parameters:parameters
                                 success:^(NSURLSessionDataTask *task, id responseObject) {
-                                    completionHandler(task, nil, responseObject);
+                                    completion(task, nil, responseObject);
                                 } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                    completionHandler(task, error, nil);
+                                    completion(task, error, nil);
                                 }];
     }
     else if ([curHttpMethod isEqualToString:@"GET"])
@@ -57,9 +57,9 @@
         [self.ignoringCacheManager GET:httpHost
                             parameters:parameters
                                success:^(NSURLSessionDataTask *task, id responseObject) {
-                                   completionHandler(task, nil, responseObject);
+                                   completion(task, nil, responseObject);
                                } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                                   completionHandler(task, error, nil);
+                                   completion(task, error, nil);
                                }];
     }
     return currTask;

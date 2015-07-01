@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SUIHttpCompletionBlock)(NSURLSessionDataTask *task, NSError *error, id responseObject);
+
+
 @interface SUIHttpClient : NSObject
 
 
@@ -17,7 +20,7 @@
 - (NSURLSessionDataTask *)requestWithHost:(NSString *)httpHost
                                httpMethod:(NSString *)httpMethod
                                parameters:(NSDictionary *)parameters
-                        completionHandler:(HandlerBlock)completionHandler;
+                               completion:(SUIHttpCompletionBlock)completion;
 
 
 
