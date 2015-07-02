@@ -29,9 +29,6 @@
 
 
 
-
-#define kRemoteNoti kAboveIOS8 ? [[UIApplication sharedApplication] isRegisteredForRemoteNotifications] : ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] ? YES : NO)
-
 #define kCameraAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
 #define kCameraRearAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]
 #define kCameraFrontAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]

@@ -62,4 +62,12 @@
     }
 }
 
+- (void)doAction:(id)sender cModel:(id)cModel
+{
+    if ([self.cellActionDelegate respondsToSelector:@selector(doAction:cModel:)])
+    {
+        [self.cellActionDelegate doAction:sender cModel:self.currModle];
+    }
+}
+
 @end

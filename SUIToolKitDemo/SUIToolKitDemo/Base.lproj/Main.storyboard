@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gL3-Nx-ZfX">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
     </dependencies>
     <scenes>
@@ -16,25 +17,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-Ci-xaH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="135" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-Ci-xaH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUIRootCell" rowHeight="101" id="mIU-FD-CbY" customClass="SUIRootCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUIRootCell" rowHeight="135" id="mIU-FD-CbY" customClass="SUIRootCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mIU-FD-CbY" id="agW-8T-BFp">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q2R-R5-vh8">
-                                                    <rect key="frame" x="46" y="39" width="42" height="21"/>
+                                                    <rect key="frame" x="46" y="39" width="42" height="55"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tQ-XX-vcg" customClass="SUIAnimalView">
+                                                    <rect key="frame" x="208" y="33" width="80" height="67"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="GY9-lk-e5H"/>
+                                                        <constraint firstAttribute="height" constant="67" id="seG-o3-UJy"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="ibDelegate" destination="mIU-FD-CbY" id="7Dw-dg-4xu"/>
+                                                    </connections>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="3tQ-XX-vcg" secondAttribute="centerY" id="4kZ-1T-aiB"/>
                                                 <constraint firstItem="q2R-R5-vh8" firstAttribute="top" secondItem="agW-8T-BFp" secondAttribute="top" constant="39" id="Fx0-hN-pGD"/>
+                                                <constraint firstAttribute="trailing" secondItem="3tQ-XX-vcg" secondAttribute="trailing" constant="32" id="Ob9-4A-XFI"/>
                                                 <constraint firstItem="q2R-R5-vh8" firstAttribute="leading" secondItem="agW-8T-BFp" secondAttribute="leading" constant="46" id="z71-IU-uE4"/>
                                                 <constraint firstAttribute="bottom" secondItem="q2R-R5-vh8" secondAttribute="bottom" constant="40" id="zyM-Hr-cOu"/>
                                             </constraints>
