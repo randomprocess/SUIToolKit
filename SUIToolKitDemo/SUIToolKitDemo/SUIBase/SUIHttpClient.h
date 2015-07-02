@@ -10,18 +10,13 @@
 
 typedef void (^SUIHttpCompletionBlock)(NSURLSessionDataTask *task, NSError *error, id responseObject);
 
-
 @interface SUIHttpClient : NSObject
 
-
 + (instancetype)sharedClient;
-
 
 - (NSURLSessionDataTask *)requestWithHost:(NSString *)httpHost
                                httpMethod:(NSString *)httpMethod
                                parameters:(NSDictionary *)parameters
                                completion:(SUIHttpCompletionBlock)completion;
-
-
 
 @end

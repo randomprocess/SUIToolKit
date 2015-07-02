@@ -57,6 +57,23 @@
     // 只要在storyboard的属性检查器中选择就好, 当然也可以直接写代码, 具体看 SUIBaseProtocol
     
     // ③这里用的都是Dynamic Prototypes, 如果要用Static Cells, 那么VC的父类需要继承SUIBaseTVC(之后会加上)
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu"
+    [[UIApplication sharedApplication] enabledRemoteNotificationTypes] ? YES : NO;
+    
+    if (kAboveIOS8)
+    {
+        
+    }
+    else
+        
+        
+    {
+        [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    }
+#pragma clang diagnostic pop
+
 }
 
 

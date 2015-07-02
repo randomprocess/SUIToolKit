@@ -9,16 +9,13 @@
 #import "SUIHttpClient.h"
 #import "AFNetworking.h"
 
-
 @interface SUIHttpClient ()
 
 @property (nonatomic, strong) AFHTTPSessionManager *ignoringCacheManager;
 
 @end
 
-
 @implementation SUIHttpClient
-
 
 + (instancetype)sharedClient
 {
@@ -31,7 +28,6 @@
     
     return sharedSingleton;
 }
-
 
 - (NSURLSessionDataTask *)requestWithHost:(NSString *)httpHost
                                httpMethod:(NSString *)httpMethod
@@ -65,7 +61,6 @@
     return currTask;
 }
 
-
 - (AFHTTPSessionManager *)ignoringCacheManager
 {
     if (_ignoringCacheManager == nil)
@@ -85,6 +80,5 @@
     }
     return _ignoringCacheManager;
 }
-
 
 @end

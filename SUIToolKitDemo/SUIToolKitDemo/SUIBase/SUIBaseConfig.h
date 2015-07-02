@@ -9,15 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
-typedef void (^PagingBlock)(id responseObject);
-
-
 @interface SUIBaseConfig : NSObject
 
-
 + (instancetype)sharedConfig;
-
 
 /** VC和TVC的背景颜色, 默认whiteColor */
 @property (nonatomic,strong) UIColor *backgroundColor;
@@ -34,10 +28,8 @@ typedef void (^PagingBlock)(id responseObject);
 @property (nonatomic,copy) NSString *httpHost;
 
 
-
 // _____________________________________________________________________________
 
 - (void)configureController:(id<SUIBaseProtocol>)curController;
-
 
 @end

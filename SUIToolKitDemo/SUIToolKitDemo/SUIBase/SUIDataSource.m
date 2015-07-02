@@ -58,8 +58,8 @@
     SUIBaseCell *currCell = [tableView dequeueReusableCellWithIdentifier:currConfig[0] forIndexPath:indexPath];
     currCell.cellActionDelegate = self.dataSourceDelegate;
     currCell.currModle = currConfig[1];
-    [currCell displayWithCalculateCellHeight];
-    [currCell displayWithCurrModel];
+    [currCell displayWithCalculateCellHeight:currCell.currModle];
+    [currCell displayWithCurrModel:currCell.currModle];
     return currCell;
 }
 
@@ -69,7 +69,7 @@
     return [tableView fd_heightForCellWithIdentifier:currConfig[0] cacheByIndexPath:indexPath configuration:^(id cell) {
         SUIBaseCell *curCell = (SUIBaseCell *)cell;
         curCell.currModle = currConfig[1];
-        [curCell displayWithCalculateCellHeight];
+        [curCell displayWithCalculateCellHeight:curCell.currModle];
     }];
 }
 
@@ -300,14 +300,15 @@
      parameters:parameters
      completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
          if (weakSelf) {
+             uStrongSelf
              NSArray *newDataAry = completed(error, responseObject);
-             [weakSelf headerRefreshStop];
-             [weakSelf footerRefreshStop];
+             [strongSelf headerRefreshStop];
+             [strongSelf footerRefreshStop];
              
-             if (weakSelf.loadMoreData) {
-                 [weakSelf addDataAry:newDataAry];
+             if (strongSelf.loadMoreData) {
+                 [strongSelf addDataAry:newDataAry];
              } else {
-                 [weakSelf resetDataAry:newDataAry];
+                 [strongSelf resetDataAry:newDataAry];
              }
          }
      }];

@@ -12,9 +12,9 @@
 @implementation SUIRootCell
 
 
-- (void)displayWithCurrModel
+- (void)displayWithCurrModel:(id)cModel
 {
-    _latLbl.text = [NSString stringWithFormat:@"lat:%f", ((SUIWeatherMD *)self.currModle).lat];
+    _latLbl.text = [NSString stringWithFormat:@"lat:%f", ((SUIWeatherMD *)cModel).lat];
 }
 
 

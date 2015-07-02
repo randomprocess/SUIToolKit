@@ -1,14 +1,14 @@
 //
-//  SUIBaseVC.m
+//  SUIBaseTVC.m
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/6/24.
+//  Created by zzZ on 15/7/1.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
-#import "SUIBaseVC.h"
+#import "SUIBaseTVC.h"
 
-@implementation SUIBaseVC
+@implementation SUIBaseTVC
 
 #pragma mark - viewDidLoad
 

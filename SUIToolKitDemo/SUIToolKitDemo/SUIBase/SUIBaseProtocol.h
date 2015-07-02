@@ -6,21 +6,20 @@
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
-
 @class SUIDataSource;
 
 @protocol SUIBaseProtocol <NSObject>
 @optional
 
 
-// 添加的属性
+#pragma mark - Properties added
 
 @property (nonatomic,strong) UITableView *currTableView;
 @property (nonatomic,copy) NSString *currIdentifier;
 @property (nonatomic,strong) SUIDataSource *currDataSource;
 
 
-// IB面板属性检查器中添加的设置选项
+#pragma mark - Attributes inspector
 
 /** 添加搜索 */
 //@property (nonatomic) BOOL addSearch;

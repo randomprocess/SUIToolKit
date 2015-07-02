@@ -10,17 +10,49 @@
 #define SUIToolKitDemo_SUIToolKitConst_h
 
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+#error SUIKitTool doesn't support Deployement Target version < 7.0
+#endif
+
+
+// _____________________________________________________________________________
+
+#pragma mark - k
+
+#define kAboveIOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define kAboveIOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
+#define kPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+#define kBuildVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
+#define kVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+
+
+
+
+#define kRemoteNoti kAboveIOS8 ? [[UIApplication sharedApplication] isRegisteredForRemoteNotifications] : ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] ? YES : NO)
+
+#define kCameraAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
+#define kCameraRearAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]
+#define kCameraFrontAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]
+#define kPhotoLibraryAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
 
 // _____________________________________________________________________________
 
 #pragma mark - g
 
-#define gClassName(__obj) [NSString stringWithUTF8String:object_getClassName(__obj)]
+#define gLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
+#define gDocuments [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#define gWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])
 
 #define gRGB(__r,__g,__b) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:1.0f]
 #define gRGBA(__r,__g,__b,__a) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:__a]
 
-#define gLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
+#define gFont(__fontSize) [UIFont systemFontOfSize:__fontSize]
+#define gBFont(__fontSize) [UIFont boldSystemFontOfSize:__fontSize]
+
+#define gImageNamed(__name) [UIImage imageNamed:__name]
+#define gClassName(__obj) [NSString stringWithUTF8String:object_getClassName(__obj)]
 
 
 
@@ -29,11 +61,16 @@
 #pragma mark - u
 
 #define uWeakSelf typeof(self) __weak weakSelf = self;
+#define uStrongSelf typeof(weakSelf) __strong strongSelf = weakSelf;
 
 #define uMainQueue(__stuff) \
-dispatch_async(dispatch_get_main_queue(), ^{ \
-__stuff \
-});
+if ([NSThread isMainThread]) { \
+    __stuff \
+} else { \
+    dispatch_async(dispatch_get_main_queue(), ^{ \
+        __stuff \
+    }); \
+} \
 
 
 
@@ -82,10 +119,19 @@ __stuff \
 
 #pragma mark - Warc
 
-#define uPerformSelectorLeakWarning(__stuff) \
+#define uWarcPerformSelector(__stuff) \
 do { \
 _Pragma("clang diagnostic push") \
 _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+__stuff \
+_Pragma("clang diagnostic pop") \
+} while (0);
+
+
+#define uWarcWunreachable(__stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wunreachable-code\"") \
 __stuff \
 _Pragma("clang diagnostic pop") \
 } while (0);

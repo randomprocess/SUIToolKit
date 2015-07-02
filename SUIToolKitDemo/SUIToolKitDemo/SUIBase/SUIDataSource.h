@@ -12,15 +12,12 @@ typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
 @interface SUIDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-
 @property (nonatomic, weak) id<SUIBaseProtocol> dataSourceDelegate;
-
 
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
           completed:(SUIDataSourceBlock)completed;
 
 - (id)modelPassed;
-
 
 @end

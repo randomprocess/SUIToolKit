@@ -8,12 +8,7 @@
 
 #import "SUIBaseConfig.h"
 
-@interface SUIBaseConfig ()
-
-@end
-
 @implementation SUIBaseConfig
-
 
 + (instancetype)sharedConfig
 {
@@ -76,42 +71,41 @@
 
 // _____________________________________________________________________________
 
-
-
 - (void)configureController:(id<SUIBaseProtocol>)curController
 {
-    // 统一背景颜色
+    // backgroundColor
     UIViewController *curVC = (UIViewController *)curController;
     curVC.view.backgroundColor = self.backgroundColor;
     
-    // 设置Identifier
+    // currIdentifier
     [self configureIdentifier:curController];
     
-    // 设置currTableView
-    if ([curController isKindOfClass:[SUIBaseVC class]])
+    // data processing
+    SUIDataSource *curDataSource = [[SUIDataSource alloc] init];
+    
+    // currTableView
+    if ([curController isKindOfClass:[UITableViewController class]])
     {
-        for (UIView *subView in ((SUIBaseVC *)curController).view.subviews)
+        curController.currTableView = ((UITableViewController *)curController).tableView;
+        [self configureTableView:curController.currTableView tvc:YES];
+        curController.currDataSource = curDataSource;
+        curDataSource.dataSourceDelegate = curController;
+    }
+    else if ([curController isKindOfClass:[UIViewController class]])
+    {
+        for (UIView *subView in ((UIViewController *)curController).view.subviews)
         {
             if ([subView isKindOfClass:[UITableView class]])
             {
                 curController.currTableView = (UITableView *)subView;
+                [self configureTableView:curController.currTableView tvc:NO];
+                curController.currDataSource = curDataSource;
+                curController.currTableView.delegate = curController.currDataSource;
+                curController.currTableView.dataSource = curController.currDataSource;
+                curDataSource.dataSourceDelegate = curController;
                 break;
             }
         }
-    }
-    
-    // 用来处理数据
-    SUIDataSource *curDataSource = [[SUIDataSource alloc] init];
-    curDataSource.dataSourceDelegate = curController;
-    
-    // 统一tableView样式和代理
-    if (curController.currTableView)
-    {
-        [self configureTableView:curController.currTableView];
-        
-        curController.currDataSource = curDataSource;
-        curController.currTableView.delegate = curController.currDataSource;
-        curController.currTableView.dataSource = curController.currDataSource;
     }
 }
 
@@ -121,7 +115,11 @@
     NSAssert([currClassName hasPrefix:@"SUI"], @"className prefix with 'SUI'");
     
     NSString *curSuffixStr = nil;
-    if ([curController isKindOfClass:[SUIBaseVC class]])
+    if ([curController isKindOfClass:[UITableViewController class]])
+    {
+        curSuffixStr = @"TVC";
+    }
+    else if ([curController isKindOfClass:[UIViewController class]])
     {
         curSuffixStr = @"VC";
     }
@@ -135,7 +133,7 @@
     curController.currIdentifier = [currClassName substringWithRange:curRange];
 }
 
-- (void)configureTableView:(UITableView *)curTableView
+- (void)configureTableView:(UITableView *)curTableView tvc:(BOOL)tvc
 {
     curTableView.separatorColor = self.separatorColor;
     curTableView.separatorInset = UIEdgeInsetsFromString(self.separatorInset);
@@ -148,15 +146,23 @@
     curTableView.tableFooterView = curFootView;
     
     UIView *curBackgroundView = [[UIView alloc] init];
-    curBackgroundView.backgroundColor = [UIColor clearColor];
     curTableView.backgroundView = curBackgroundView;
+    
+    if (tvc)
+    {
+        curBackgroundView.frame = curTableView.bounds;
+        curBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        curBackgroundView.backgroundColor = [SUIBaseConfig sharedConfig].backgroundColor;
+    }
+    else
+    {
+        curBackgroundView.backgroundColor = [UIColor clearColor];
+    }
     
     // estimatedRowHeight 默认为0
     // ios7计算cell动态高度应为0, ios8应不为0, 不计算高度应该给个值
     // .... 方便起见, 干脆为0好了 > <....
     //curTableView.estimatedRowHeight = curTableView.rowHeight;
 }
-
-
 
 @end

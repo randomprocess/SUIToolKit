@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		28E76DCB52269C8376DB87FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA561482F072FF6D556247C /* libPods.a */; };
-		6D18DBEF1B4297E40036A7E7 /* SUIPushVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D18DBEE1B4297E40036A7E7 /* SUIPushVC.m */; };
 		6D18DBF21B429F2D0036A7E7 /* SUIWeatherMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D18DBF11B429F2D0036A7E7 /* SUIWeatherMD.m */; };
 		6D18DBF51B42A1800036A7E7 /* SUIRootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D18DBF41B42A1800036A7E7 /* SUIRootCell.m */; };
 		6D18DBF81B42AB610036A7E7 /* SUIBasePushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D18DBF71B42AB610036A7E7 /* SUIBasePushSegue.m */; };
@@ -21,6 +20,8 @@
 		6DA091EC1B3A46AD00DA06A3 /* SUIToolKitDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091EB1B3A46AD00DA06A3 /* SUIToolKitDemoTests.m */; };
 		6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091F71B3A48C800DA06A3 /* AppDelegate.m */; };
 		6DA091FD1B3A49D300DA06A3 /* SUIBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091FC1B3A49D300DA06A3 /* SUIBaseVC.m */; };
+		6DCCD6791B43DE6E00DE624D /* SUIBaseTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCD6781B43DE6E00DE624D /* SUIBaseTVC.m */; };
+		6DCCD67C1B43E84700DE624D /* SUIAnimalTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCCD67B1B43E84700DE624D /* SUIAnimalTVC.m */; };
 		6DD81EBD1B3CE9C7007E013E /* SUIRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD81EBC1B3CE9C7007E013E /* SUIRootVC.m */; };
 		6DD81EC01B3CEE9F007E013E /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD81EBF1B3CEE9F007E013E /* SUIBaseConfig.m */; };
 		6DD81EC41B3CFF11007E013E /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD81EC31B3CFF11007E013E /* UIView+SUIExt.m */; };
@@ -41,8 +42,6 @@
 /* Begin PBXFileReference section */
 		0020EA114C7BFEDDB6D76CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3FA561482F072FF6D556247C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D18DBED1B4297E40036A7E7 /* SUIPushVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIPushVC.h; sourceTree = "<group>"; };
-		6D18DBEE1B4297E40036A7E7 /* SUIPushVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIPushVC.m; sourceTree = "<group>"; };
 		6D18DBF01B429F2D0036A7E7 /* SUIWeatherMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIWeatherMD.h; sourceTree = "<group>"; };
 		6D18DBF11B429F2D0036A7E7 /* SUIWeatherMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIWeatherMD.m; sourceTree = "<group>"; };
 		6D18DBF31B42A1800036A7E7 /* SUIRootCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIRootCell.h; sourceTree = "<group>"; };
@@ -69,6 +68,10 @@
 		6DA091FC1B3A49D300DA06A3 /* SUIBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseVC.m; sourceTree = "<group>"; };
 		6DA091FE1B3A534D00DA06A3 /* SUIToolKitConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUIToolKitConst.h; sourceTree = "<group>"; };
 		6DA091FF1B3A537500DA06A3 /* SUIToolKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
+		6DCCD6771B43DE6E00DE624D /* SUIBaseTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseTVC.h; sourceTree = "<group>"; };
+		6DCCD6781B43DE6E00DE624D /* SUIBaseTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseTVC.m; sourceTree = "<group>"; };
+		6DCCD67A1B43E84700DE624D /* SUIAnimalTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAnimalTVC.h; sourceTree = "<group>"; };
+		6DCCD67B1B43E84700DE624D /* SUIAnimalTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAnimalTVC.m; sourceTree = "<group>"; };
 		6DD81EBB1B3CE9C7007E013E /* SUIRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIRootVC.h; sourceTree = "<group>"; };
 		6DD81EBC1B3CE9C7007E013E /* SUIRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIRootVC.m; sourceTree = "<group>"; };
 		6DD81EBE1B3CEE9F007E013E /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 			children = (
 				6DA091FB1B3A49D300DA06A3 /* SUIBaseVC.h */,
 				6DA091FC1B3A49D300DA06A3 /* SUIBaseVC.m */,
+				6DCCD6771B43DE6E00DE624D /* SUIBaseTVC.h */,
+				6DCCD6781B43DE6E00DE624D /* SUIBaseTVC.m */,
 				6DD81EBE1B3CEE9F007E013E /* SUIBaseConfig.h */,
 				6DD81EBF1B3CEE9F007E013E /* SUIBaseConfig.m */,
 				6D44C1B91B40EC8100FC3F5A /* SUIBaseCell.h */,
@@ -200,12 +205,12 @@
 			children = (
 				6DD81EBB1B3CE9C7007E013E /* SUIRootVC.h */,
 				6DD81EBC1B3CE9C7007E013E /* SUIRootVC.m */,
-				6D18DBED1B4297E40036A7E7 /* SUIPushVC.h */,
-				6D18DBEE1B4297E40036A7E7 /* SUIPushVC.m */,
 				6D18DBF01B429F2D0036A7E7 /* SUIWeatherMD.h */,
 				6D18DBF11B429F2D0036A7E7 /* SUIWeatherMD.m */,
 				6D18DBF31B42A1800036A7E7 /* SUIRootCell.h */,
 				6D18DBF41B42A1800036A7E7 /* SUIRootCell.m */,
+				6DCCD67A1B43E84700DE624D /* SUIAnimalTVC.h */,
+				6DCCD67B1B43E84700DE624D /* SUIAnimalTVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -382,11 +387,12 @@
 				6DD81EC01B3CEE9F007E013E /* SUIBaseConfig.m in Sources */,
 				6DD81EC81B3D159C007E013E /* UIViewController+SUIExt.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
+				6DCCD67C1B43E84700DE624D /* SUIAnimalTVC.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
 				6D18DBF81B42AB610036A7E7 /* SUIBasePushSegue.m in Sources */,
+				6DCCD6791B43DE6E00DE624D /* SUIBaseTVC.m in Sources */,
 				6DD81ECB1B3D4A45007E013E /* SUIDataSource.m in Sources */,
 				6DA091FD1B3A49D300DA06A3 /* SUIBaseVC.m in Sources */,
-				6D18DBEF1B4297E40036A7E7 /* SUIPushVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -527,6 +534,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
