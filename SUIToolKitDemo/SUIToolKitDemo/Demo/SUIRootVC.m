@@ -13,14 +13,13 @@
 @implementation SUIRootVC
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     // SUIBaseConfig中做一些统一的设置, 一般写到最前面的AppDelegate里
     [SUIBaseConfig sharedConfig].httpMethod = @"GET";
-    [SUIBaseConfig sharedConfig].httpHost = @"http://gc.ditu.aliyun.com/geocoding";
+    [SUIBaseConfig sharedConfig].httpHost = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
     
     
     // tableView不分组的情况下
@@ -57,7 +56,10 @@
     // 只要在storyboard的属性检查器中选择就好, 当然也可以直接写代码, 具体看 SUIBaseProtocol
     
     // ③这里用的都是Dynamic Prototypes, 如果要用Static Cells, 那么VC的父类需要继承SUIBaseTVC(之后会加上)
-
+    
+    
+    
+    
 }
 
 
@@ -84,7 +86,6 @@
 {
     uFun
 }
-
 
 
 @end

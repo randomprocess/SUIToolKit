@@ -25,6 +25,8 @@
 
 @property (nonatomic,assign,getter=loadMoreData) BOOL isLoadMoreData;
 
+
+
 @end
 
 @implementation SUIDataSource
@@ -131,6 +133,15 @@
         return [self.dataSourceDelegate canDelete];
     }
     return NO;
+}
+
+
+
+#warning - search
+-(void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+{
+    [tableView setContentInset:UIEdgeInsetsZero];
+    [tableView setScrollIndicatorInsets:UIEdgeInsetsZero];
 }
 
 

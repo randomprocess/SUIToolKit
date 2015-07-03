@@ -29,4 +29,20 @@
     _lonLbl.text = [NSString stringWithFormat:@"lon:%f", wMD.lon];
 }
 
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    
+    uFun
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    
+    
+    uFun
+}
+
+
 @end
