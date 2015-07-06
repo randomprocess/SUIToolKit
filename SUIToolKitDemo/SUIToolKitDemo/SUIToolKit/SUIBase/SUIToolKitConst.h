@@ -134,5 +134,13 @@ _Pragma("clang diagnostic pop") \
 } while (0);
 
 
+#define uWarcWunusedGetter(__stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wunused-getter-return-value\"") \
+__stuff \
+_Pragma("clang diagnostic pop") \
+} while (0);
+
 
 #endif

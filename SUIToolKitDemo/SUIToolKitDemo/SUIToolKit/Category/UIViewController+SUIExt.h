@@ -23,7 +23,9 @@
 
 #pragma mark - IB
 
-//@property (nonatomic) IBInspectable BOOL addSearch;
+@property (nonatomic) IBInspectable BOOL addSearch;
+@property (nonatomic,copy) IBInspectable NSString *searchIdentifier;
+
 @property (nonatomic) IBInspectable BOOL canDelete;
 
 @property (nonatomic) IBInspectable BOOL addHeader;
@@ -32,12 +34,16 @@
 
 
 
+#pragma mark - Search
+
+- (IBAction)searchButtonAction:(id)sender;
+
+
+
 #pragma mark - Dismiss
 
 - (IBAction)navPopToLast:(id)sender;
-
 - (IBAction)navPopToRoot:(id)sender;
-
 - (IBAction)navDismiss:(id)sender;
 
 
@@ -45,7 +51,6 @@
 #pragma mark - Request
 
 - (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed;
-
 - (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed;
 
 

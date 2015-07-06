@@ -17,6 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [SUIBaseConfig sharedConfig].httpMethod = @"GET";
+    [SUIBaseConfig sharedConfig].httpHost = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
+    [SUIBaseConfig sharedConfig].backgroundColor = [UIColor colorWithRed:0.395 green:0.500 blue:1.000 alpha:1.000];
+    [SUIBaseConfig sharedConfig].separatorColor = [UIColor colorWithRed:1.000 green:0.577 blue:1.000 alpha:1.000];
+    [SUIBaseConfig sharedConfig].selectionStyle = @"Gray";
+    [SUIBaseConfig sharedConfig].separatorInset = @"{0,15,0,0}";
+    
     return YES;
 }
 

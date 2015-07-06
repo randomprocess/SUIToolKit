@@ -1,13 +1,13 @@
 //
-//  SUIAnimalTVC.h
+//  SUIMainTVC.h
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/7/1.
+//  Created by zzZ on 15/7/6.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
 #import "SUIBaseTVC.h"
 
-@interface SUIAnimalTVC : SUIBaseTVC
+@interface SUIMainTVC : SUIBaseTVC
 
 @end

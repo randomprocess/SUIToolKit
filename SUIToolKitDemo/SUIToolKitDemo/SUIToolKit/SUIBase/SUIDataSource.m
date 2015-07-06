@@ -11,7 +11,7 @@
 #import "MJRefresh.h"
 #import "SUIHttpClient.h"
 
-@interface SUIDataSource () <NSFetchedResultsControllerDelegate>
+@interface SUIDataSource () <NSFetchedResultsControllerDelegate, UISearchResultsUpdating>
 
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -25,7 +25,9 @@
 
 @property (nonatomic,assign,getter=loadMoreData) BOOL isLoadMoreData;
 
+@property (nonatomic,strong) UISearchController *currSearchController;
 
+@property (nonatomic,strong) NSMutableArray *currSearchDataAry;
 
 @end
 
@@ -36,6 +38,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (_currSearchController != nil)
+    {
+        if (self.currSearchController.active)
+        {
+            return 1;
+        }
+    }
+    
     if (_fetchedResultsController != nil)
     {
         return _fetchedResultsController.sections.count;
@@ -45,6 +55,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_currSearchController != nil)
+    {
+        if (self.currSearchController.active)
+        {
+            return self.currSearchDataAry.count;
+        }
+    }
+    
     if (_fetchedResultsController != nil)
     {
         id<NSFetchedResultsSectionInfo> sectionInfo = _fetchedResultsController.sections[section];
@@ -77,6 +95,16 @@
 
 - (NSArray *)configureCell:(NSIndexPath *)indexPath
 {
+    if (_fetchedResultsController != nil)
+    {
+        if (self.currSearchController.active)
+        {
+            NSString *curCellIdentifier = self.currCellIdentifier[indexPath.section][indexPath.row];
+            id currSourceData = self.currSearchDataAry[indexPath.row];
+            return @[curCellIdentifier, currSourceData];
+        }
+    }
+    
     NSArray *curCellIdentifierSection = self.currCellIdentifier[indexPath.section];
     NSString *curCellIdentifier = (curCellIdentifierSection.count == 1) ?
     curCellIdentifierSection[0] : curCellIdentifierSection[indexPath.row];
@@ -106,6 +134,7 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // TODO: - currSearchController
     return UITableViewCellEditingStyleDelete;
 }
 
@@ -172,6 +201,17 @@
 }
 
 
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    [self.currSearchDataAry removeAllObjects];
+    [self.currSearchDataAry addObjectsFromArray:self.currDataAry[0]];
+    
+    [[self.dataSourceDelegate currTableView] reloadData];
+}
+
+
 #pragma mark - NSFetchedResultsControllerDelegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -223,13 +263,17 @@
 
 
 
-#pragma mark - RefreshHeader
+#pragma mark -
 
 - (void)setDataSourceDelegate:(id<SUIBaseProtocol>)dataSourceDelegate
 {
     _dataSourceDelegate = dataSourceDelegate;
     [self configureRefreshHeader];
+    [self configureSearchController];
 }
+
+
+#pragma mark - RefreshHeader
 
 - (void)configureRefreshHeader
 {
@@ -297,6 +341,33 @@
 }
 
 
+#pragma mark - Search
+
+- (void)configureSearchController
+{
+    if (kAboveIOS8)
+    {
+        uWarcWunusedGetter(
+                           self.currSearchController;
+        )
+    }
+    
+    
+    
+}
+
+- (void)searchButtonAction
+{
+    if (kAboveIOS8)
+    {
+        [((UIViewController *)_dataSourceDelegate) presentViewController:self.currSearchController animated:YES completion:^{
+        }];
+    }
+    
+    
+}
+
+
 #pragma mark - Request
 
 - (void)requestData:(NSDictionary *)parameters
@@ -316,10 +387,13 @@
              [strongSelf headerRefreshStop];
              [strongSelf footerRefreshStop];
              
-             if (strongSelf.loadMoreData) {
-                 [strongSelf addDataAry:newDataAry];
-             } else {
-                 [strongSelf resetDataAry:newDataAry];
+             if (newDataAry)
+             {
+                 if (strongSelf.loadMoreData) {
+                     [strongSelf addDataAry:newDataAry];
+                 } else {
+                     [strongSelf resetDataAry:newDataAry];
+                 }
              }
          }
      }];
@@ -336,7 +410,7 @@
 {
     [self.currDataAry removeAllObjects];
     [self.currDataAry addObjectsFromArray:newDataAry];
-    [[self.dataSourceDelegate currTableView] reloadData];
+    [[_dataSourceDelegate currTableView] reloadData];
 }
 
 - (void)addDataAry:(NSArray *)newDataAry
@@ -415,6 +489,39 @@
         _currIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     }
     return _currIndexPath;
+}
+
+- (UISearchController *)currSearchController
+{
+    if (_currSearchController == nil)
+    {
+        UIViewController *resultsVC = nil;
+        if ([_dataSourceDelegate searchIdentifier] != nil)
+        {
+            resultsVC = [[((UIViewController *)_dataSourceDelegate) storyboard]
+                         instantiateViewControllerWithIdentifier:
+                         [_dataSourceDelegate searchIdentifier]];
+        }
+        _currSearchController = [[UISearchController alloc] initWithSearchResultsController:resultsVC];
+        _currSearchController.searchResultsUpdater = self;
+        
+        if ([_dataSourceDelegate addSearch])
+        {
+            [_currSearchController.searchBar sizeToFit];
+            [_dataSourceDelegate currTableView].tableHeaderView = _currSearchController.searchBar;
+            ((UIViewController *)_dataSourceDelegate).definesPresentationContext = YES;
+        }
+    }
+    return _currSearchController;
+}
+
+- (NSMutableArray *)currSearchDataAry
+{
+    if (_currSearchDataAry == nil)
+    {
+        _currSearchDataAry = [NSMutableArray array];
+    }
+    return _currSearchDataAry;
 }
 
 

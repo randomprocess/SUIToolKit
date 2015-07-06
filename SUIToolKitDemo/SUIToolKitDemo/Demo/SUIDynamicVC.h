@@ -1,13 +1,13 @@
 //
-//  SUIScccVC.h
+//  SUIDynamicVC.h
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/7/3.
+//  Created by zzZ on 15/7/6.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
 #import "SUIBaseVC.h"
 
-@interface SUIScccVC : SUIBaseVC
+@interface SUIDynamicVC : SUIBaseVC
 
 @end

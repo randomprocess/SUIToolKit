@@ -78,6 +78,26 @@
 
 #pragma mark - IB
 
+
+- (BOOL)addSearch
+{
+    return [objc_getAssociatedObject(self, @selector(addSearch)) boolValue];
+}
+- (void)setAddSearch:(BOOL)addSearch
+{
+    objc_setAssociatedObject(self, @selector(addSearch), @(addSearch), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)searchIdentifier
+{
+    return objc_getAssociatedObject(self, @selector(searchIdentifier));
+}
+- (void)setSearchIdentifier:(NSString *)searchIdentifier
+{
+    objc_setAssociatedObject(self, @selector(searchIdentifier), searchIdentifier, OBJC_ASSOCIATION_COPY);
+}
+
+
 - (BOOL)canDelete
 {
     return [objc_getAssociatedObject(self, @selector(canDelete)) boolValue];
@@ -86,6 +106,7 @@
 {
     objc_setAssociatedObject(self, @selector(canDelete), @(canDelete), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 
 - (BOOL)addHeader
 {
@@ -116,6 +137,15 @@
 
 
 
+#pragma mark - Search
+
+- (IBAction)searchBarButtonAction:(id)sender
+{
+    [self.currDataSource searchButtonAction];
+}
+
+
+
 #pragma mark - Dismiss
 
 - (IBAction)navPopToLast:(id)sender
@@ -140,7 +170,6 @@
 {
     [self requestData:parameters replace:NO completed:completed];
 }
-
 - (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed
 {
     [self.currDataSource requestData:parameters replace:replace completed:completed];
