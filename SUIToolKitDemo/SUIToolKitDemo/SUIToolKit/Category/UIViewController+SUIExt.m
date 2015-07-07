@@ -88,15 +88,6 @@
     objc_setAssociatedObject(self, @selector(addSearch), @(addSearch), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSString *)searchIdentifier
-{
-    return objc_getAssociatedObject(self, @selector(searchIdentifier));
-}
-- (void)setSearchIdentifier:(NSString *)searchIdentifier
-{
-    objc_setAssociatedObject(self, @selector(searchIdentifier), searchIdentifier, OBJC_ASSOCIATION_COPY);
-}
-
 
 - (BOOL)canDelete
 {
@@ -134,16 +125,6 @@
 {
     objc_setAssociatedObject(self, @selector(addHeaderAndRefreshStart), @(addHeaderAndRefreshStart), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
-
-
-#pragma mark - Search
-
-- (IBAction)searchBarButtonAction:(id)sender
-{
-    [self.currDataSource searchButtonAction];
-}
-
 
 
 #pragma mark - Dismiss

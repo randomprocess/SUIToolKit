@@ -35,31 +35,15 @@
                 {
                     uLog(@"%@", responseObject);
                     
-                    [SUIAlbumMD setupReplacedKeyFromPropertyName121:^NSString *(NSString *propertyName) {
-                        
-                        if ([propertyName isEqualToString:@"id"])
-                        {
-                            return @"albumId";
-                        }
-                        return propertyName;
-                    }];
-                    
-                    [SUIArtistMD setupReplacedKeyFromPropertyName121:^NSString *(NSString *propertyName) {
-                        
-                        if ([propertyName isEqualToString:@"id"])
-                        {
-                            return @"artistId";
-                        }
-                        return propertyName;
-                    }];
-                    
                     NSDictionary *curDict = responseObject;
                     NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
                     
                     for (SUIAlbumMD *aMd in albumAry)
                     {
-                        uLog(@"albumId:%zd name:%@", aMd.albumId, aMd.name);
+                        uLog(@"%@", aMd.description);
                     }
+                    
+                    return @[albumAry];
                 }
                 else
                 {
@@ -68,6 +52,14 @@
                 
                 return nil;
             }];
+}
+
+- (NSArray *)searchResultsWithSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    uLog(@"%@", searchBar.text);
+    
+    
+    return nil;
 }
 
 

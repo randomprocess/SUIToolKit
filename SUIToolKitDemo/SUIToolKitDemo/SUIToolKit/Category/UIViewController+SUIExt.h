@@ -24,19 +24,11 @@
 #pragma mark - IB
 
 @property (nonatomic) IBInspectable BOOL addSearch;
-@property (nonatomic,copy) IBInspectable NSString *searchIdentifier;
-
 @property (nonatomic) IBInspectable BOOL canDelete;
 
 @property (nonatomic) IBInspectable BOOL addHeader;
 @property (nonatomic) IBInspectable BOOL addFooter;
 @property (nonatomic) IBInspectable BOOL addHeaderAndRefreshStart;
-
-
-
-#pragma mark - Search
-
-- (IBAction)searchButtonAction:(id)sender;
 
 
 

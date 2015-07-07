@@ -14,8 +14,6 @@ typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
 @property (nonatomic, weak) id<SUIBaseProtocol> dataSourceDelegate;
 
-- (void)searchButtonAction;
-
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
           completed:(SUIDataSourceBlock)completed;

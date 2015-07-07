@@ -11,13 +11,17 @@
 #import "MJRefresh.h"
 #import "SUIHttpClient.h"
 
-@interface SUIDataSource () <NSFetchedResultsControllerDelegate, UISearchResultsUpdating>
+@interface SUIDataSource () <
+    NSFetchedResultsControllerDelegate,
+    UISearchResultsUpdating,
+    UISearchDisplayDelegate,
+    UISearchBarDelegate>
 
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic,strong) NSMutableArray *currDataAry;
 
-@property (nonatomic,strong) NSIndexPath *currIndexPath;
+@property (nonatomic,strong) id scrModel;
 
 @property (nonatomic,strong) NSArray *currCellIdentifier;
 
@@ -26,6 +30,7 @@
 @property (nonatomic,assign,getter=loadMoreData) BOOL isLoadMoreData;
 
 @property (nonatomic,strong) UISearchController *currSearchController;
+@property (nonatomic,strong) UISearchDisplayController *currSearchDisplayController;
 
 @property (nonatomic,strong) NSMutableArray *currSearchDataAry;
 
@@ -38,12 +43,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (_currSearchController != nil)
+    if (_currSearchController.active || _currSearchDisplayController.searchResultsTableView == tableView)
     {
-        if (self.currSearchController.active)
-        {
-            return 1;
-        }
+        return self.currSearchDataAry.count;
     }
     
     if (_fetchedResultsController != nil)
@@ -55,12 +57,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_currSearchController != nil)
+    if (_currSearchController.active || _currSearchDisplayController.searchResultsTableView == tableView)
     {
-        if (self.currSearchController.active)
-        {
-            return self.currSearchDataAry.count;
-        }
+        return [self.currSearchDataAry[section] count];
     }
     
     if (_fetchedResultsController != nil)
@@ -68,13 +67,14 @@
         id<NSFetchedResultsSectionInfo> sectionInfo = _fetchedResultsController.sections[section];
         return [sectionInfo numberOfObjects];
     }
+    
     NSInteger numOfRows = [self.currDataAry[section] count];
     return numOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *currConfig = [self configureCell:indexPath];
+    NSArray *currConfig = [self configureCell:indexPath tableView:tableView];
     SUIBaseCell *currCell = [tableView dequeueReusableCellWithIdentifier:currConfig[0] forIndexPath:indexPath];
     currCell.cellActionDelegate = self.dataSourceDelegate;
     currCell.currModle = currConfig[1];
@@ -85,7 +85,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *currConfig = [self configureCell:indexPath];
+    NSArray *currConfig = [self configureCell:indexPath tableView:tableView];
     return [tableView fd_heightForCellWithIdentifier:currConfig[0] cacheByIndexPath:indexPath configuration:^(id cell) {
         SUIBaseCell *curCell = (SUIBaseCell *)cell;
         curCell.currModle = currConfig[1];
@@ -93,16 +93,13 @@
     }];
 }
 
-- (NSArray *)configureCell:(NSIndexPath *)indexPath
+- (NSArray *)configureCell:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
-    if (_fetchedResultsController != nil)
+    if (_currSearchController.active || _currSearchDisplayController.searchResultsTableView == tableView)
     {
-        if (self.currSearchController.active)
-        {
-            NSString *curCellIdentifier = self.currCellIdentifier[indexPath.section][indexPath.row];
-            id currSourceData = self.currSearchDataAry[indexPath.row];
-            return @[curCellIdentifier, currSourceData];
-        }
+        NSString *curCellIdentifier = self.currCellIdentifier[indexPath.section][indexPath.row];
+        id currSourceData = self.currSearchDataAry[indexPath.section][indexPath.row];
+        return @[curCellIdentifier, currSourceData];
     }
     
     NSArray *curCellIdentifierSection = self.currCellIdentifier[indexPath.section];
@@ -179,7 +176,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.currIndexPath = indexPath;
+    
+//    if (_currSearchController.active || _currSearchDisplayController.searchResultsTableView == tableView)
+//    {
+//        return self.currSearchDataAry.count;
+//    }
+    
     if ([self.dataSourceDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:cModel:)])
     {
         [self.dataSourceDelegate tableView:tableView didSelectRowAtIndexPath:indexPath cModel:[self currentModelAtIndex:indexPath]];
@@ -198,17 +200,6 @@
 - (id)currentModelAtIndex:(NSIndexPath *)indexPath
 {
     return self.currDataAry[indexPath.section][indexPath.row];
-}
-
-
-#pragma mark - UISearchResultsUpdating
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-    [self.currSearchDataAry removeAllObjects];
-    [self.currSearchDataAry addObjectsFromArray:self.currDataAry[0]];
-    
-    [[self.dataSourceDelegate currTableView] reloadData];
 }
 
 
@@ -345,26 +336,66 @@
 
 - (void)configureSearchController
 {
-    if (kAboveIOS8)
+    if ([_dataSourceDelegate addSearch])
     {
-        uWarcWunusedGetter(
-                           self.currSearchController;
-        )
+        if (kAboveIOS8)
+        {
+            uWarcWunusedGetter(
+                               self.currSearchController;
+                               )
+        }
+        else
+        {
+            uWarcWunusedGetter(
+                               self.currSearchDisplayController;
+                               )
+        }
     }
-    
-    
-    
 }
 
-- (void)searchButtonAction
+
+#pragma mark UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    if (kAboveIOS8)
+    [self.currSearchDataAry removeAllObjects];
+    
+    if (self.currDataAry.count > 0)
     {
-        [((UIViewController *)_dataSourceDelegate) presentViewController:self.currSearchController animated:YES completion:^{
-        }];
+        NSArray *searchList = self.currDataAry[0];
+        
+        if (searchList.count > 0)
+        {
+            NSString *searchString = [searchController.searchBar text];
+            
+            uLog(@"%@", [searchList[0] description]);
+            
+            NSPredicate *preicate = [NSPredicate predicateWithFormat:@"albumId > 25553"];
+            
+            NSArray *newList = [searchList filteredArrayUsingPredicate:preicate];
+            
+            [self.currSearchDataAry addObjectsFromArray:newList];
+        }
     }
     
+    [[self.dataSourceDelegate currTableView] reloadData];
+}
+
+
+#pragma mark UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self.currSearchDataAry removeAllObjects];
     
+    if ([_dataSourceDelegate respondsToSelector:@selector(searchResultsWithSearchBar:textDidChange:)])
+    {
+        NSArray *curResults = [_dataSourceDelegate searchResultsWithSearchBar:searchBar textDidChange:searchText];
+        if (curResults.count > 0)
+        {
+            [self resetDataAry:curResults];
+        }
+    }
 }
 
 
@@ -397,6 +428,7 @@
              }
          }
      }];
+    
     if (replace)
     {
         [self.currTask cancel];
@@ -442,14 +474,16 @@
 
 - (id)modelPassed
 {
-    if (_fetchedResultsController == nil)
-    {
-        return self.currDataAry[self.currIndexPath.section][self.currIndexPath.row];
-    }
-    else
-    {
-        return [_fetchedResultsController objectAtIndexPath:self.currIndexPath];
-    }
+    return _scrModel;
+    
+//    if (_fetchedResultsController == nil)
+//    {
+//        return self.currDataAry[self.currIndexPath.section][self.currIndexPath.row];
+//    }
+//    else
+//    {
+//        return [_fetchedResultsController objectAtIndexPath:self.currIndexPath];
+//    }
 }
 
 
@@ -482,37 +516,47 @@
     return _currCellIdentifier;
 }
 
-- (NSIndexPath *)currIndexPath
-{
-    if (_currIndexPath == nil)
-    {
-        _currIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    }
-    return _currIndexPath;
-}
-
 - (UISearchController *)currSearchController
 {
     if (_currSearchController == nil)
     {
-        UIViewController *resultsVC = nil;
-        if ([_dataSourceDelegate searchIdentifier] != nil)
-        {
-            resultsVC = [[((UIViewController *)_dataSourceDelegate) storyboard]
-                         instantiateViewControllerWithIdentifier:
-                         [_dataSourceDelegate searchIdentifier]];
-        }
-        _currSearchController = [[UISearchController alloc] initWithSearchResultsController:resultsVC];
+        _currSearchController = [[UISearchController alloc]
+                                 initWithSearchResultsController:(UIViewController *)_dataSourceDelegate];
         _currSearchController.searchResultsUpdater = self;
-        
-        if ([_dataSourceDelegate addSearch])
-        {
-            [_currSearchController.searchBar sizeToFit];
-            [_dataSourceDelegate currTableView].tableHeaderView = _currSearchController.searchBar;
-            ((UIViewController *)_dataSourceDelegate).definesPresentationContext = YES;
-        }
+        [self displaySearchBar:_currSearchController.searchBar];
     }
     return _currSearchController;
+}
+
+- (UISearchDisplayController *)currSearchDisplayController
+{
+    if (_currSearchDisplayController == nil)
+    {
+        UISearchBar *currSearchBar = [[UISearchBar alloc] init];
+        UIViewController *resultsVC = (UIViewController *)_dataSourceDelegate;
+        
+        _currSearchDisplayController = [[UISearchDisplayController alloc]
+                                        initWithSearchBar:currSearchBar
+                                        contentsController:resultsVC];
+        
+        _currSearchDisplayController.searchResultsDataSource = self;
+        _currSearchDisplayController.searchResultsDelegate = self;
+        currSearchBar.delegate = self;
+        
+        _currSearchDisplayController.searchResultsTableView.backgroundColor = [SUIBaseConfig sharedConfig].backgroundColor;
+        _currSearchDisplayController.searchResultsTableView.separatorColor = [SUIBaseConfig sharedConfig].separatorColor;
+        _currSearchDisplayController.searchResultsTableView.separatorInset = UIEdgeInsetsFromString([SUIBaseConfig sharedConfig].separatorInset);
+        
+        [self displaySearchBar:currSearchBar];
+    }
+    return _currSearchDisplayController;
+}
+
+- (void)displaySearchBar:(UISearchBar *)curSearchBar
+{
+    [curSearchBar sizeToFit];
+    [_dataSourceDelegate currTableView].tableHeaderView = curSearchBar;
+    ((UIViewController *)_dataSourceDelegate).definesPresentationContext = YES;
 }
 
 - (NSMutableArray *)currSearchDataAry

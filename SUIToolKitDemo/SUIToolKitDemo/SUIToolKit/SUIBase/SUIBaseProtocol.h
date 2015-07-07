@@ -23,22 +23,8 @@
 /** 在属性检查器中设置, 或代码写在调用configureController()之前 */
 #pragma mark - Attributes inspector
 
-/**
- *  1.搜索框或搜索按钮
- *
- *      -> 将介个addSearch设置为On, 则会在currTableView的tableHeaderView添加搜索框
- *      -> 如果是自己添加的搜索按钮, 连线搜索按钮的点击事件到searchButtonAction()
- *
- *  2.自定义resultsVC
- *
- *      -> 需要自定义resultsVC, 则searchIdentifier填入与新建VC中Storyboard ID相同的字符串
- *      -> 不需要自定义resultsVC, 则不需要填写searchIdentifier
- *
- *      -> 注: 现在currTableView分组或resultsTableView需分组则必须自定义
- */
+/** 将介个addSearch设置为On, 则会在currTableView的tableHeaderView添加搜索框 */
 @property (nonatomic) BOOL addSearch;
-@property (nonatomic,copy) NSString *searchIdentifier;
-
 /** tableView左滑删除 */
 @property (nonatomic) BOOL canDelete;
 
@@ -67,6 +53,11 @@
 - (void)doAction:(id)sender cModel:(id)cModel;
 
 
+/**
+ *  返回搜索结果的分组, 格式为[[Model]], 对应arrayOfCellIdentifier()返回的数组
+ */
+- (NSArray *)searchResultsWithSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+
 
 #pragma mark - TableView grouping
 
@@ -79,15 +70,9 @@
 
 
 /**
- *  用于BasePushSegue的model传递, tableView分组时需要实现
+ *  用于BasePushSegue的model传递
  */
 - (id)modelPassed;
-
-
-/**
- *  点击了搜索按钮推出搜索控制器
- */
-- (IBAction)searchButtonAction:(id)sender;
 
 
 
