@@ -1,13 +1,13 @@
 //
-//  SUIDynamicCell.h
+//  SUIAlbumCell.h
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/7/6.
+//  Created by zzZ on 15/7/8.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
 #import "SUIBaseCell.h"
 
-@interface SUIDynamicCell : SUIBaseCell
+@interface SUIAlbumCell : SUIBaseCell
 
 @end

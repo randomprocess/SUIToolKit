@@ -19,7 +19,6 @@
 @property (nonatomic,strong) SUIDataSource *currDataSource;
 
 
-
 /** 在属性检查器中设置, 或代码写在调用configureController()之前 */
 #pragma mark - Attributes inspector
 
@@ -44,19 +43,13 @@
 /**
  *  有下拉或上拉的请求写在这个方法内, 请求数据调用requestData()
  */
-- (void)handlerMainLoadData:(BOOL)loadMoreData;
+- (void)handlerMainRequest:(BOOL)loadMoreData;
 
 
 /**
  *  将cell上视图的Touch事件连线到cell的doAction()后在这个方法内处理
  */
-- (void)doAction:(id)sender cModel:(id)cModel;
-
-
-/**
- *  返回搜索结果的分组, 格式为[[Model]], 对应arrayOfCellIdentifier()返回的数组
- */
-- (NSArray *)searchResultsWithSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+- (void)handlerAction:(id)sender cModel:(id)cModel;
 
 
 #pragma mark - TableView grouping
@@ -84,12 +77,18 @@
 - (void)tableView:(UITableView *)tableView commitRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 
 
+#pragma mark - SearchBar delegate
+
+- (NSArray *)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
+
 
 #pragma mark - Dismiss
 
 - (IBAction)navPopToLast:(id)sender;
 - (IBAction)navPopToRoot:(id)sender;
 - (IBAction)navDismiss:(id)sender;
+
+
 
 @end
 

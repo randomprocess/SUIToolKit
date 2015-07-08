@@ -1,13 +1,13 @@
 //
-//  SUIRootVC.h
+//  SUIAlbumVC.h
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/6/26.
+//  Created by zzZ on 15/7/8.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
 #import "SUIBaseVC.h"
 
-@interface SUIRootVC : SUIBaseVC
+@interface SUIAlbumVC : SUIBaseVC
 
 @end

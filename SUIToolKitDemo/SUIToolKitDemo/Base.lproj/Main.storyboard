@@ -68,10 +68,10 @@
             </objects>
             <point key="canvasLocation" x="334" y="210"/>
         </scene>
-        <!--Dynamic  non-grouping-->
+        <!--Album-->
         <scene sceneID="all-af-jFu">
             <objects>
-                <viewController id="fo7-Zw-5bm" customClass="SUIDynamicVC" sceneMemberID="viewController">
+                <viewController id="fo7-Zw-5bm" customClass="SUIAlbumVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qBF-jA-btK"/>
                         <viewControllerLayoutGuide type="bottom" id="CyU-J1-rJh"/>
@@ -84,7 +84,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUIDynamicCell" rowHeight="80" id="sLS-fG-eKt" customClass="SUIDynamicCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SUIAlbumCell" rowHeight="80" id="sLS-fG-eKt" customClass="SUIAlbumCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sLS-fG-eKt" id="UYN-u6-kmC">
@@ -124,7 +124,7 @@
                                                 <constraint firstItem="z3A-6u-0cz" firstAttribute="leading" secondItem="UYN-u6-kmC" secondAttribute="leading" constant="15" id="Z33-AL-VGG"/>
                                                 <constraint firstItem="YrO-U9-nsk" firstAttribute="leading" secondItem="z3A-6u-0cz" secondAttribute="trailing" constant="14" id="ZSp-Gj-xJc"/>
                                                 <constraint firstItem="Su7-Jq-0dz" firstAttribute="leading" secondItem="z3A-6u-0cz" secondAttribute="trailing" constant="12" id="aJF-DC-4lh"/>
-                                                <constraint firstAttribute="bottom" secondItem="z3A-6u-0cz" secondAttribute="bottom" constant="9" id="aYW-g5-ZYg"/>
+                                                <constraint firstAttribute="bottom" secondItem="z3A-6u-0cz" secondAttribute="bottom" priority="850" constant="9" id="aYW-g5-ZYg"/>
                                                 <constraint firstItem="z3A-6u-0cz" firstAttribute="top" secondItem="UYN-u6-kmC" secondAttribute="top" constant="10" id="d60-le-Rhn"/>
                                                 <constraint firstItem="Su7-Jq-0dz" firstAttribute="top" secondItem="YrO-U9-nsk" secondAttribute="bottom" constant="6" id="eNn-QH-hox"/>
                                                 <constraint firstItem="z3A-6u-0cz" firstAttribute="top" secondItem="YrO-U9-nsk" secondAttribute="top" id="gfZ-Px-qei"/>
@@ -142,10 +142,11 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="coverView" destination="z3A-6u-0cz" id="gLg-7O-5c8"/>
-                                            <outlet property="dateLbl" destination="OXI-ML-0e1" id="sRC-9r-Zm1"/>
-                                            <outlet property="idLbl" destination="YrO-U9-nsk" id="a4u-fo-D0h"/>
-                                            <outlet property="nameLbl" destination="Su7-Jq-0dz" id="kag-UT-Iuy"/>
+                                            <outlet property="coverView" destination="z3A-6u-0cz" id="pK9-Wd-nU1"/>
+                                            <outlet property="dateLbl" destination="OXI-ML-0e1" id="hGQ-rJ-0TP"/>
+                                            <outlet property="idLbl" destination="YrO-U9-nsk" id="YGI-ur-yBy"/>
+                                            <outlet property="nameLbl" destination="Su7-Jq-0dz" id="l4n-lK-m7c"/>
+                                            <segue destination="1fM-o8-UA4" kind="custom" customClass="SUIBasePushSegue" id="wgd-zf-EQP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -159,7 +160,7 @@
                             <constraint firstItem="CyU-J1-rJh" firstAttribute="top" secondItem="sWA-C8-aWa" secondAttribute="bottom" id="isE-lU-Qjb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Dynamic  non-grouping" id="HrX-wf-J2k"/>
+                    <navigationItem key="navigationItem" title="Album" id="HrX-wf-J2k"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <userDefinedRuntimeAttributes>
@@ -170,6 +171,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEa-tG-pbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="782" y="210"/>
+        </scene>
+        <!--Artist-->
+        <scene sceneID="1OO-H4-aDa">
+            <objects>
+                <viewController id="1fM-o8-UA4" customClass="SUIArtistVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BaT-RH-qfr"/>
+                        <viewControllerLayoutGuide type="bottom" id="8FH-Oh-w95"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oVQ-wq-0Ub">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Artist" id="bRY-TV-bQb"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MAI-Qn-7IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1225" y="210"/>
         </scene>
     </scenes>
 </document>

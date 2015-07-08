@@ -32,4 +32,7 @@
 
 - (void)configureController:(id<SUIBaseProtocol>)curController;
 
+- (void)configureTableView:(UITableView *)curTableView tvc:(BOOL)tvc;
+
+
 @end

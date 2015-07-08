@@ -56,17 +56,17 @@
 
 - (IBAction)doAction:(id)sender
 {
-    if ([self.cellActionDelegate respondsToSelector:@selector(doAction:)])
+    if ([self.cellActionDelegate respondsToSelector:@selector(handlerAction:cModel:)])
     {
-        [self.cellActionDelegate doAction:sender cModel:self.currModle];
+        [self.cellActionDelegate handlerAction:sender cModel:self.currModle];
     }
 }
 
-- (void)doAction:(id)sender cModel:(id)cModel
+- (void)handlerAction:(id)sender cModel:(id)cModel;
 {
-    if ([self.cellActionDelegate respondsToSelector:@selector(doAction:cModel:)])
+    if ([self.cellActionDelegate respondsToSelector:@selector(handlerAction:cModel:)])
     {
-        [self.cellActionDelegate doAction:sender cModel:self.currModle];
+        [self.cellActionDelegate handlerAction:sender cModel:self.currModle];
     }
 }
 

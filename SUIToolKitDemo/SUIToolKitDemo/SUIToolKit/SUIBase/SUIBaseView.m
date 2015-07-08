@@ -49,9 +49,9 @@
 
 - (IBAction)doAction:(id)sender
 {
-    if ([self.bsDelegate respondsToSelector:@selector(doAction:)])
+    if ([self.bsDelegate respondsToSelector:@selector(handlerAction:cModel:)])
     {
-        [self.bsDelegate doAction:sender cModel:nil];
+        [self.bsDelegate handlerAction:sender cModel:nil];
     }
 }
 

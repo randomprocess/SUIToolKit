@@ -15,7 +15,7 @@
 
 @property (nonatomic, assign) BOOL available;
 
-@property (nonatomic, assign) NSInteger albumId;
+@property (nonatomic, copy) NSString *albumId;
 
 @property (nonatomic, copy) NSString *company;
 
@@ -33,7 +33,7 @@
 
 @interface SUIArtistMD : NSObject
 
-@property (nonatomic, assign) NSInteger artistId;
+@property (nonatomic, copy) NSString *artistId;
 
 @property (nonatomic, copy) NSString *name;
 
