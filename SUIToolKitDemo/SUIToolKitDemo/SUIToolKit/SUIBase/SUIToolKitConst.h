@@ -76,10 +76,10 @@ if ([NSThread isMainThread]) { \
 
 #pragma mark - Log
 
-#define uXCODE_COLORS_ESCAPE    @"\033["
-#define uXCODE_COLORS_RESET_FG  uXCODE_COLORS_ESCAPE  @"fg;"
-#define uXCODE_COLORS_RESET_BG  uXCODE_COLORS_ESCAPE  @"bg;"
-#define uXCODE_COLORS_RESET     uXCODE_COLORS_ESCAPE  @";"
+#define uXCODE_COLORS_ESCAPE        @"\033["
+#define uXCODE_COLORS_RESET_FG      uXCODE_COLORS_ESCAPE  @"fg;"
+#define uXCODE_COLORS_RESET_BG      uXCODE_COLORS_ESCAPE  @"bg;"
+#define uXCODE_COLORS_RESET         uXCODE_COLORS_ESCAPE  @";"
 
 #ifndef __OPTIMIZE__
 
@@ -90,9 +90,9 @@ if ([NSThread isMainThread]) { \
 #define uLogError(format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 #define uRect(_rect)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_rect, NSStringFromCGRect(_rect));
-#define uPoint(_point)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_point, NSStringFromCGPoint(_point));
+#define uPoint(_point)              NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_point, NSStringFromCGPoint(_point));
 #define uIndexPath(_indexPath)      NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %ld %ld" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_indexPath, indexPath.section, indexPath.row);
-#define uEdgeInsets(_edgeInsets)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_edgeInsets, NSStringFromUIEdgeInsets(_edgeInsets));
+#define uEdgeInsets(_edgeInsets)    NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_edgeInsets, NSStringFromUIEdgeInsets(_edgeInsets));
 
 #else
 

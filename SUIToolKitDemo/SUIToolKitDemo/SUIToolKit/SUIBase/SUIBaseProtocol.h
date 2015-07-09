@@ -17,6 +17,8 @@
 @property (nonatomic,strong) UITableView *currTableView;
 @property (nonatomic,copy) NSString *currIdentifier;
 @property (nonatomic,strong) SUIDataSource *currDataSource;
+@property (nonatomic,assign) NSInteger pageSize;
+@property (nonatomic,assign) NSInteger pageIndex;
 
 
 /** 在属性检查器中设置, 或代码写在调用configureController()之前 */

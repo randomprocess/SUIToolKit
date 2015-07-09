@@ -58,12 +58,9 @@
         return curScrModel;
     }
     
-    if ([self.currDelegate respondsToSelector:@selector(modelPassed)])
-    {
+    if ([self.currDelegate respondsToSelector:@selector(modelPassed)]) {
         curScrModel = [self.currDelegate modelPassed];
-    }
-    else
-    {
+    } else {
         curScrModel = [[self.currDelegate currDataSource] modelPassed];
     }
     self.scrModel = curScrModel;
@@ -72,6 +69,29 @@
 - (void)setScrModel:(id)scrModel
 {
     objc_setAssociatedObject(self, @selector(scrModel), scrModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSInteger)pageSize
+{
+    NSInteger curPageSize = [objc_getAssociatedObject(self, @selector(pageSize)) integerValue];
+    if (curPageSize == 0) {
+        curPageSize = [SUIBaseConfig sharedConfig].pageSize;
+    }
+    self.pageSize = curPageSize;
+    return curPageSize;
+}
+- (void)setPageSize:(NSInteger)pageSize
+{
+    objc_setAssociatedObject(self, @selector(pageSize), @(pageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSInteger)pageIndex
+{
+    return [objc_getAssociatedObject(self, @selector(pageIndex)) integerValue];
+}
+- (void)setPageIndex:(NSInteger)pageIndex
+{
+    objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 

@@ -13,20 +13,21 @@
 
 + (instancetype)sharedConfig;
 
-/** VC和TVC的背景颜色, 默认whiteColor */
+/** default is whiteColor */
 @property (nonatomic,strong) UIColor *backgroundColor;
-/** tableView分割线颜色, 默认20,20,20,1 */
+/** default is 20,20,20,1 */
 @property (nonatomic,strong) UIColor *separatorColor;
-/** tableView分割线缩进, 默认@"{0,10,0,0}" */
+/** default is {0,10,0,0} */
 @property (nonatomic,copy) NSString *separatorInset;
-/** tableView选中的风格 (None, Blue, Gray) 默认不统一设置 */
+/** default is Default ... (None, Blue, Gray) */
 @property (nonatomic,copy) NSString *selectionStyle;
 
-/** http数据传输方法 (GET, POST) 默认POST */
+/** default is POST (GET, POST) */
 @property (nonatomic,copy) NSString *httpMethod;
-/** http域名 */
 @property (nonatomic,copy) NSString *httpHost;
 
+/** default is 20 */
+@property (nonatomic,assign) NSInteger pageSize;
 
 // _____________________________________________________________________________
 

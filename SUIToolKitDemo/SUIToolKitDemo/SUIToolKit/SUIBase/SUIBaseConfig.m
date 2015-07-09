@@ -16,8 +16,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedSingleton = [[self alloc] init];
+        [sharedSingleton commonInit];
     });
     return sharedSingleton;
+}
+
+- (void)commonInit
+{
+    _pageSize = 20;
 }
 
 

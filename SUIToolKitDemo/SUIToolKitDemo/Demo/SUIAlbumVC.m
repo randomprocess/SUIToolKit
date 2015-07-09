@@ -22,6 +22,8 @@
 
 @interface SUIAlbumVC ()
 
+@property (nonatomic,assign) NSInteger currPage;
+
 @end
 
 @implementation SUIAlbumVC
@@ -31,6 +33,11 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)dealloc
+{
+    uFun
+}
+
 - (void)handlerMainRequest:(BOOL)loadMoreData
 {
     // kw=喵&pi=1&pz=20
@@ -38,7 +45,7 @@
     // 使用requestData()请求数据, 其中http请求使用的传输方法和域名在AppDelegate中设置的
     // 其他请求也可以用SUIHttpClient中的方法
     [self requestData: @{
-                         @"kw": @"喵"
+                         @"kw": @"猫"
                          }
               replace:YES
             completed:^NSArray *(NSError *error, id responseObject) {
@@ -52,7 +59,7 @@
                     
                     for (SUIAlbumMD *aMd in albumAry)
                     {
-                        uLog(@"%@", aMd.description);
+                        uLog(@"%@", aMd);
                     }
                     
                     // 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil

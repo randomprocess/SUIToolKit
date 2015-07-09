@@ -41,5 +41,42 @@
 
 @property (nonatomic, assign) BOOL valid;
 
+@property (nonatomic, assign) NSInteger num_albums;
+
+@property (nonatomic, assign) NSInteger num_tracks;
+
+@end
+
+@interface SUIMediaMD : NSObject
+
+@property (nonatomic, assign) NSInteger bitrate;
+
+@property (nonatomic, copy) NSString *p2purl;
+
+@end
+
+@interface SUITrackMD : NSObject
+
+@property (nonatomic, copy) NSString *dlyric;
+
+@property (nonatomic, strong) NSArray *medias;
+
+@property (nonatomic, copy) NSString *availability;
+
+@property (nonatomic, assign) NSInteger trackId;
+
+@property (nonatomic, copy) NSString *slyric;
+
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, copy) NSString *isdown;
+
+@property (nonatomic, assign) NSInteger mv;
+
+@property (nonatomic, strong) SUIAlbumMD *album;
+
+@property (nonatomic, copy) NSString *isplay;
+
+@property (nonatomic, strong) NSArray *artists;
 
 @end

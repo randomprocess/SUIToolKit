@@ -11,15 +11,19 @@
 @interface UIView (SUIExt)
 
 
+
+#pragma mark - IB
+
+@property (nonatomic,assign) IBInspectable CGFloat cornerRadius;
+
+
+
 #pragma mark - Frame
 
 @property (nonatomic,assign) CGFloat x;
 @property (nonatomic,assign) CGFloat y;
 @property (nonatomic,assign) CGFloat width;
 @property (nonatomic,assign) CGFloat height;
-
-
-
 
 
 

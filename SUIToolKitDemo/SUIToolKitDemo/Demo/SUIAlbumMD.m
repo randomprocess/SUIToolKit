@@ -27,7 +27,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"albumId:%@ \t name:%@ \t type:%@ \t cover:%@ \t num_tracks:%zd \t company:%@ \t  available:%zd \t release_date:%@", _albumId, _name, _type, _cover, _num_tracks, _company, _available, _release_date];
+    return [NSString stringWithFormat:@"albumId:%@      name:%@     type:%@     cover:%@        num_tracks:%zd      company:%@      available:%zd       release_date:%@", _albumId, _name, _type, _cover, _num_tracks, _company, _available, _release_date];
 }
 
 @end
@@ -40,6 +40,26 @@
 {
     return @{
              @"artistId": @"id"
+             };
+}
+
+@end
+
+@implementation SUIMediaMD
+
+@end
+
+@implementation SUITrackMD
+
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"artists":[SUIArtistMD class], @"medias":[SUIMediaMD class]};
+}
+
++ (NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{
+             @"trackId": @"id"
              };
 }
 

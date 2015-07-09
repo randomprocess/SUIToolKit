@@ -277,6 +277,7 @@
     if ([_dataSourceDelegate addFooter])
     {
         [self addRefreshFooter];
+        _dataSourceDelegate.currTableView.footer.hidden = YES;
     }
 }
 
@@ -318,12 +319,16 @@
     }
 }
 
+
 - (void)handlerLoadLastData
 {
+    _isLoadMoreData = NO;
+    _dataSourceDelegate.pageIndex = 0;
     [_dataSourceDelegate handlerMainRequest:NO];
 }
 - (void)handlerLoadMoreData
 {
+    _isLoadMoreData = YES;
     [_dataSourceDelegate handlerMainRequest:YES];
 }
 
@@ -400,6 +405,9 @@
             replace:(BOOL)replace
           completed:(SUIDataSourceBlock)completed
 {
+    uLogInfo("========= parameters =========")
+    uLogInfo("%@", parameters);
+    
     uWeakSelf
     NSURLSessionDataTask *curTask =
     [[SUIHttpClient sharedClient]
@@ -415,9 +423,38 @@
              
              if (newDataAry)
              {
-                 if (strongSelf.loadMoreData) {
+                 if ([strongSelf.dataSourceDelegate addFooter])
+                 {
+                     NSInteger curDataCount = 0;
+                     for (NSArray *curSubAry in newDataAry)
+                     {
+                         curDataCount = MAX(curDataCount, curSubAry.count);
+                     }
+                     
+                     if (curDataCount < strongSelf.dataSourceDelegate.pageSize)
+                     {
+                         if (!strongSelf.dataSourceDelegate.currTableView.footer.hidden)
+                         {
+                             strongSelf.dataSourceDelegate.currTableView.footer.hidden = YES;
+                         }
+                     }
+                     else if (curDataCount > 0)
+                     {
+                         strongSelf.dataSourceDelegate.pageIndex ++;
+                         if (strongSelf.dataSourceDelegate.currTableView.footer.hidden)
+                         {
+                             strongSelf.dataSourceDelegate.currTableView.footer.hidden = NO;
+                         }
+                     }
+                 }
+                 
+                 
+                 if (strongSelf.loadMoreData)
+                 {
                      [strongSelf addDataAry:newDataAry];
-                 } else {
+                 }
+                 else
+                 {
                      [strongSelf resetDataAry:newDataAry];
                  }
              }
@@ -448,7 +485,7 @@
         NSArray *curSectionAry = newDataAry[i];
         if (curSectionAry.count != 0)
         {
-            for (NSInteger idx=0; i<curSectionAry.count; i++)
+            for (NSInteger idx=0; idx<curSectionAry.count; idx++)
             {
                 NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:[self.currDataAry[i] count]+idx inSection:i];
                 [curIndexPathAry addObject:curIndexPath];

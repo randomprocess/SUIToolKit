@@ -11,6 +11,21 @@
 @implementation UIView (SUIExt)
 
 
+
+#pragma mark - IB
+
+- (CGFloat)cornerRadius
+{
+    return self.layer.cornerRadius;
+}
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    self.layer.cornerRadius = cornerRadius;
+    self.layer.masksToBounds = cornerRadius > 0;
+}
+
+
+
 #pragma mark - Frame
 
 - (void)setX:(CGFloat)x
@@ -66,13 +81,6 @@
 {
     return self.frame.size.height;
 }
-
-
-
-
-
-
-
 
 
 

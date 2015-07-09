@@ -18,6 +18,8 @@
 @property (nonatomic,strong) SUIDataSource *currDataSource;
 @property (nonatomic,weak) id<SUIBaseProtocol> currDelegate;
 @property (nonatomic,strong) id scrModel;
+@property (nonatomic,assign) NSInteger pageSize;
+@property (nonatomic,assign) NSInteger pageIndex;
 
 
 
