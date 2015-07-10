@@ -137,7 +137,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *preferredLanguage = gLanguage;
+    NSString *preferredLanguage = kLanguage;
     if ([preferredLanguage isEqualToString:@"zh-Hans"]) {
         return @"删除";
     } else if ([preferredLanguage isEqualToString:@"zh-Hant"]) {

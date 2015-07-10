@@ -12,8 +12,6 @@
 
 @interface SUITrackVC ()
 
-@property (nonatomic,assign) NSInteger pi;
-
 @end
 
 @implementation SUITrackVC

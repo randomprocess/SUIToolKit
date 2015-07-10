@@ -29,6 +29,7 @@
 		6DCC7E051B4D190400EE8E5B /* SUIAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCC7E041B4D190400EE8E5B /* SUIAlbumCell.m */; };
 		6DE515911B4E2C0300032191 /* SUITrackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE515901B4E2C0300032191 /* SUITrackVC.m */; };
 		6DE515941B4E2C1A00032191 /* SUITrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE515931B4E2C1A00032191 /* SUITrackCell.m */; };
+		6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		6DE515901B4E2C0300032191 /* SUITrackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackVC.m; sourceTree = "<group>"; };
 		6DE515921B4E2C1A00032191 /* SUITrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITrackCell.h; sourceTree = "<group>"; };
 		6DE515931B4E2C1A00032191 /* SUITrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackCell.m; sourceTree = "<group>"; };
+		6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUIToolKitDemo.xcdatamodel; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 				6D9D5AE71B4535B900B285DE /* SUIToolKit */,
 				6D9D5AD51B4535A900B285DE /* Demo */,
 				6DA091D91B3A46AC00DA06A3 /* Main.storyboard */,
+				6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */,
 				6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */,
 				6DA091F51B3A48A500DA06A3 /* Others */,
 				6DA091CF1B3A46AC00DA06A3 /* Supporting Files */,
@@ -413,6 +416,7 @@
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
 				6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */,
 				6D9D5B071B4535B900B285DE /* SUIBaseVC.m in Sources */,
+				6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */,
 				6DE515911B4E2C0300032191 /* SUITrackVC.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
 			);
@@ -621,6 +625,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */,
+			);
+			currentVersion = 6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */;
+			path = SUIToolKitDemo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6DA091C41B3A46AC00DA06A3 /* Project object */;
 }

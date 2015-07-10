@@ -5,3 +5,5 @@ pod 'AFNetworking', '~> 2.5.4'
 pod 'MJRefresh', '~> 1.4.7'
 
 pod 'MJExtension', '~> 2.3.7'
+
+pod 'MagicalRecord', '~> 2.3.0'

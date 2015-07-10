@@ -28,19 +28,23 @@
 #define kVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 
+#define kLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
+#define kDocuments [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#define kWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])
+
+#define kProjectName [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey]
+
 
 #define kCameraAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
 #define kCameraRearAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]
 #define kCameraFrontAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]
 #define kPhotoLibraryAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
 
+
 // _____________________________________________________________________________
 
 #pragma mark - g
 
-#define gLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
-#define gDocuments [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
-#define gWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])
 
 #define gRGB(__r,__g,__b) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:1.0f]
 #define gRGBA(__r,__g,__b,__a) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:__a]

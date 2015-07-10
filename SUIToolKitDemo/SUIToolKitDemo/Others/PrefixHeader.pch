@@ -14,4 +14,6 @@
 
 #import "SUIToolKit.h"
 
+#import "MagicalRecord.h"
+
 #endif

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -200,17 +201,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7A-27-2LH">
-                                                    <rect key="frame" x="32" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="139" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="u7A-27-2LH" firstAttribute="leading" secondItem="Ofo-nD-Kt3" secondAttribute="leading" constant="32" id="4XW-ZB-dOC"/>
+                                                <constraint firstAttribute="centerX" secondItem="u7A-27-2LH" secondAttribute="centerX" id="ADT-Nl-qZM"/>
                                                 <constraint firstItem="u7A-27-2LH" firstAttribute="top" secondItem="Ofo-nD-Kt3" secondAttribute="top" constant="11" id="BMB-U4-SBu"/>
                                                 <constraint firstAttribute="bottom" secondItem="u7A-27-2LH" secondAttribute="bottom" constant="11" id="JV4-mU-LZa"/>
+                                                <constraint firstAttribute="centerX" secondItem="u7A-27-2LH" secondAttribute="centerX" multiplier="10:1" id="h3F-9T-Ept"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="h3F-9T-Ept"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>

@@ -22,8 +22,6 @@
 
 @interface SUIAlbumVC ()
 
-@property (nonatomic,assign) NSInteger currPage;
-
 @end
 
 @implementation SUIAlbumVC
@@ -31,11 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
-- (void)dealloc
-{
-    uFun
 }
 
 - (void)handlerMainRequest:(BOOL)loadMoreData
