@@ -10,4 +10,6 @@
 
 @interface SUITrackCell : SUIBaseCell
 
+@property (weak, nonatomic) IBOutlet UILabel *trackLbl;
+
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "SUITrackVC.h"
-#import "MJExtension.h"
 #import "SUIAlbumMD.h"
+#import "SUIMediaMD.h"
+#import "SUITrackMD.h"
+#import "MagicalRecord.h"
 
 @interface SUITrackVC ()
 
@@ -21,6 +23,8 @@
     // Do any additional setup after loading the view.
     
     self.pageSize = 15;
+    
+    self.fetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
 }
 
 - (void)handlerMainRequest:(BOOL)loadMoreData
@@ -37,10 +41,9 @@
                 
                 if (error == nil)
                 {
-                    uLog(@"%@", responseObject);
-                    
                     NSDictionary *curDic = responseObject;
-                    NSArray *trackAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"]];
+                    
+                    NSArray *trackAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:self.managedObjectContext];
                     
                     return @[trackAry];
                 }

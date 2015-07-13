@@ -14,6 +14,8 @@
 #pragma mark - Property
 
 @property (nonatomic,strong) UITableView *currTableView;
+@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,copy) NSString *currIdentifier;
 @property (nonatomic,strong) SUIDataSource *currDataSource;
 @property (nonatomic,weak) id<SUIBaseProtocol> currDelegate;

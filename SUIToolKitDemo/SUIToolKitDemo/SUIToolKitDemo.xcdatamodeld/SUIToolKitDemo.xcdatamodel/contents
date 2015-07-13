@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+    <entity name="SUIMediaMD" representedClassName="SUIMediaMD" syncable="YES">
+        <attribute name="attribute" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="p2purl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SUITrackMD" inverseName="medias" inverseEntity="SUITrackMD" syncable="YES"/>
+    </entity>
+    <entity name="SUITrackMD" representedClassName="SUITrackMD" syncable="YES">
+        <attribute name="availability" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dlyric" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isdown" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isplay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mv" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="slyric" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="medias" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SUIMediaMD" inverseName="relationship" inverseEntity="SUIMediaMD" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SUITrackMD" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="SUIMediaMD" positionX="-54" positionY="9" width="128" height="90"/>
+    </elements>
 </model>

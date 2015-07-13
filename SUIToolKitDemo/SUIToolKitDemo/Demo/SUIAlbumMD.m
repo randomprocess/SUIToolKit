@@ -44,23 +44,23 @@
 }
 
 @end
-
-@implementation SUIMediaMD
-
-@end
-
-@implementation SUITrackMD
-
-
-+ (NSDictionary *)objectClassInArray{
-    return @{@"artists":[SUIArtistMD class], @"medias":[SUIMediaMD class]};
-}
-
-+ (NSDictionary *)replacedKeyFromPropertyName
-{
-    return @{
-             @"trackId": @"id"
-             };
-}
-
-@end
+//
+//@implementation SUIMediaMD
+//
+//@end
+//
+//@implementation SUITrackMD
+//
+//
+//+ (NSDictionary *)objectClassInArray{
+//    return @{@"artists":[SUIArtistMD class], @"medias":[SUIMediaMD class]};
+//}
+//
+//+ (NSDictionary *)replacedKeyFromPropertyName
+//{
+//    return @{
+//             @"trackId": @"id"
+//             };
+//}
+//
+//@end

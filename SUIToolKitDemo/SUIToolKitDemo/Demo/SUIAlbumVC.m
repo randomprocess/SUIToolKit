@@ -17,7 +17,6 @@
  */
 
 #import "SUIAlbumVC.h"
-#import "MJExtension.h"
 #import "SUIAlbumMD.h"
 
 @interface SUIAlbumVC ()
@@ -45,8 +44,6 @@
                 
                 if (error == nil)
                 {
-                    uLog(@"%@", responseObject);
-                    
                     NSDictionary *curDict = responseObject;
                     NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
                     

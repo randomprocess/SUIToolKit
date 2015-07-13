@@ -24,6 +24,10 @@
 #import "SUIBaseVC.h"
 
 
+#import "MJExtension.h"
+#import "MagicalRecord.h"
+
+
 #import "UIView+SUIExt.h"
 #import "UIViewController+SUIExt.h"
 

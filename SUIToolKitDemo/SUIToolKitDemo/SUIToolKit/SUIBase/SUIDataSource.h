@@ -10,7 +10,10 @@
 
 typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
-@interface SUIDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface SUIDataSource : NSObject <
+    UITableViewDataSource,
+    UITableViewDelegate,
+    NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, weak) id<SUIBaseProtocol> dataSourceDelegate;
 

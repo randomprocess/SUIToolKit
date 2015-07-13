@@ -12,13 +12,10 @@
 #import "SUIHttpClient.h"
 
 @interface SUIDataSource () <
-    NSFetchedResultsControllerDelegate,
     UISearchControllerDelegate,
     UISearchResultsUpdating,
     UISearchDisplayDelegate,
     UISearchBarDelegate>
-
-@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic,strong) NSMutableArray *currDataAry;
 
@@ -49,9 +46,9 @@
         return self.currSearchDataAry.count;
     }
     
-    if (_fetchedResultsController != nil)
+    if ([_dataSourceDelegate fetchedResultsController] != nil)
     {
-        return _fetchedResultsController.sections.count;
+        return [_dataSourceDelegate fetchedResultsController].sections.count;
     }
     return self.currDataAry.count;
 }
@@ -63,9 +60,9 @@
         return [self.currSearchDataAry[section] count];
     }
     
-    if (_fetchedResultsController != nil)
+    if ([_dataSourceDelegate fetchedResultsController] != nil)
     {
-        id<NSFetchedResultsSectionInfo> sectionInfo = _fetchedResultsController.sections[section];
+        id<NSFetchedResultsSectionInfo> sectionInfo = [_dataSourceDelegate fetchedResultsController].sections[section];
         return [sectionInfo numberOfObjects];
     }
     
@@ -107,16 +104,16 @@
     }
     
     id currSourceData = nil;
-    if (_fetchedResultsController != nil)
+    if ([_dataSourceDelegate fetchedResultsController] != nil)
     {
-        id<NSFetchedResultsSectionInfo> sectionInfo = _fetchedResultsController.sections[indexPath.section];
+        id<NSFetchedResultsSectionInfo> sectionInfo = [_dataSourceDelegate fetchedResultsController].sections[indexPath.section];
         if ([sectionInfo numberOfObjects] == 1)
         {
-            currSourceData = [_fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+            currSourceData = [[_dataSourceDelegate fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
         }
         else
         {
-            currSourceData = [_fetchedResultsController objectAtIndexPath:indexPath];
+            currSourceData = [[_dataSourceDelegate fetchedResultsController] objectAtIndexPath:indexPath];
         }
     }
     else
@@ -417,6 +414,23 @@
      completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
          if (weakSelf) {
              uStrongSelf
+             
+             uLogInfo("========== response ==========")
+             uLogInfo("%@", responseObject);
+             
+             
+             if ([strongSelf.dataSourceDelegate fetchedResultsController])
+             {
+                 if (replace && !strongSelf.loadMoreData)
+                 {
+                     NSManagedObjectContext *curManagedObjectContext = [strongSelf.dataSourceDelegate managedObjectContext];
+                     for (NSManagedObject *ct in [curManagedObjectContext registeredObjects]) {
+                         [curManagedObjectContext deleteObject:ct];
+                     }
+                     [curManagedObjectContext save:nil];
+                 }
+             }
+             
              NSArray *newDataAry = completed(error, responseObject);
              [strongSelf headerRefreshStop];
              [strongSelf footerRefreshStop];
@@ -448,16 +462,20 @@
                      }
                  }
                  
-                 
-                 if (strongSelf.loadMoreData)
+                 if (replace)
                  {
-                     [strongSelf addDataAry:newDataAry];
-                 }
-                 else
-                 {
-                     [strongSelf resetDataAry:newDataAry];
+                     if ([strongSelf.dataSourceDelegate fetchedResultsController])
+                     {
+                         [[strongSelf.dataSourceDelegate managedObjectContext] save:nil];
+                     }
+                     else
+                     {
+                         (strongSelf.loadMoreData) ? [strongSelf addDataAry:newDataAry] : [strongSelf resetDataAry:newDataAry];
+                     }
                  }
              }
+             
+             uLogInfo("========== end ==========")
          }
      }];
     

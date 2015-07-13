@@ -24,6 +24,31 @@
     objc_setAssociatedObject(self, @selector(currTableView), currTableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    return objc_getAssociatedObject(self, @selector(fetchedResultsController));
+}
+- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+{
+    objc_setAssociatedObject(self, @selector(fetchedResultsController), fetchedResultsController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    fetchedResultsController.delegate = self.currDataSource;
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    NSManagedObjectContext *curManagedObjectContext = objc_getAssociatedObject(self, @selector(managedObjectContext));
+    if (curManagedObjectContext) {
+        return curManagedObjectContext;
+    }
+    curManagedObjectContext = [NSManagedObjectContext MR_defaultContext];
+    self.managedObjectContext = curManagedObjectContext;
+    return curManagedObjectContext;
+}
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    objc_setAssociatedObject(self, @selector(managedObjectContext), managedObjectContext, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (NSString *)currIdentifier
 {
     return objc_getAssociatedObject(self, @selector(currIdentifier));

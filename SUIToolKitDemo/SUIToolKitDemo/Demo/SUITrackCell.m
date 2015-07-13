@@ -7,15 +7,17 @@
 //
 
 #import "SUITrackCell.h"
+#import "SUITrackMD.h"
 
 @implementation SUITrackCell
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+- (void)displayWithCurrModel:(id)cModel
+{
+    SUITrackMD *tMd = cModel;
+    
+    _trackLbl.text = [NSString stringWithFormat:@"%@", tMd.trackId];
 }
-*/
+
 
 @end
