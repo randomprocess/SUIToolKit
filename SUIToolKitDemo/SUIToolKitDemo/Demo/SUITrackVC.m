@@ -25,12 +25,15 @@
     self.pageSize = 15;
     
     self.fetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
+    
+    [self handlerMainRequest:NO];
 }
 
 - (void)handlerMainRequest:(BOOL)loadMoreData
 {
     SUIAlbumMD *aMd = self.scrModel;
     
+    uWeakSelf
     [self requestData:@{
                         @"kw": aMd.name,
                         @"pi": @(self.pageIndex+1),
@@ -38,6 +41,8 @@
                         }
               replace:YES
             completed:^NSArray *(NSError *error, id responseObject) {
+                
+                [weakSelf loadingViewDissmiss];
                 
                 if (error == nil)
                 {

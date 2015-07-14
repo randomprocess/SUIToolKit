@@ -75,6 +75,7 @@
 }
 
 
+
 // _____________________________________________________________________________
 
 - (void)configureController:(id<SUIBaseProtocol>)curController
@@ -113,6 +114,9 @@
             }
         }
     }
+    
+    // loadingView
+    [self configureLoadingView:curController];
 }
 
 - (void)configureIdentifier:(id<SUIBaseProtocol>)curController
@@ -170,5 +174,14 @@
     // .... 方便起见, 干脆为0好了 > <....
     //curTableView.estimatedRowHeight = curTableView.rowHeight;
 }
+
+- (void)configureLoadingView:(id<SUIBaseProtocol>)curController
+{
+    if ([curController addLoading])
+    {
+        [curController loadingViewShow];
+    }
+}
+
 
 @end

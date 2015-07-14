@@ -31,6 +31,8 @@
 		6DCC7E051B4D190400EE8E5B /* SUIAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCC7E041B4D190400EE8E5B /* SUIAlbumCell.m */; };
 		6DE515911B4E2C0300032191 /* SUITrackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE515901B4E2C0300032191 /* SUITrackVC.m */; };
 		6DE515941B4E2C1A00032191 /* SUITrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE515931B4E2C1A00032191 /* SUITrackCell.m */; };
+		6DEDB3671B54ED7B00BF9191 /* SUILoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDB3661B54ED7B00BF9191 /* SUILoadingView.m */; };
+		6DEDB3691B54ED8B00BF9191 /* SUILoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DEDB3681B54ED8B00BF9191 /* SUILoadingView.xib */; };
 		6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +99,9 @@
 		6DE515901B4E2C0300032191 /* SUITrackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackVC.m; sourceTree = "<group>"; };
 		6DE515921B4E2C1A00032191 /* SUITrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITrackCell.h; sourceTree = "<group>"; };
 		6DE515931B4E2C1A00032191 /* SUITrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackCell.m; sourceTree = "<group>"; };
+		6DEDB3651B54ED7B00BF9191 /* SUILoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUILoadingView.h; sourceTree = "<group>"; };
+		6DEDB3661B54ED7B00BF9191 /* SUILoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUILoadingView.m; sourceTree = "<group>"; };
+		6DEDB3681B54ED8B00BF9191 /* SUILoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUILoadingView.xib; sourceTree = "<group>"; };
 		6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUIToolKitDemo.xcdatamodel; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +144,9 @@
 				6D44D9131B53588C0067E225 /* SUIMediaMD.m */,
 				6D44D90F1B53588B0067E225 /* SUITrackMD.h */,
 				6D44D9101B53588B0067E225 /* SUITrackMD.m */,
+				6DEDB3651B54ED7B00BF9191 /* SUILoadingView.h */,
+				6DEDB3661B54ED7B00BF9191 /* SUILoadingView.m */,
+				6DEDB3681B54ED8B00BF9191 /* SUILoadingView.xib */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -360,6 +368,7 @@
 			files = (
 				6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */,
 				6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */,
+				6DEDB3691B54ED8B00BF9191 /* SUILoadingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +434,7 @@
 				6D9D5B041B4535B900B285DE /* SUIBaseConfig.m in Sources */,
 				6D44D9141B53588C0067E225 /* SUIMediaMD.m in Sources */,
 				6D9D5B081B4535B900B285DE /* SUIBaseView.m in Sources */,
+				6DEDB3671B54ED7B00BF9191 /* SUILoadingView.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
 				6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */,
 				6D9D5B071B4535B900B285DE /* SUIBaseVC.m in Sources */,

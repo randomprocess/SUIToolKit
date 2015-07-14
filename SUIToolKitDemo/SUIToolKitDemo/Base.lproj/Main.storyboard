@@ -238,8 +238,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="addHeaderAndRefreshStart" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="addFooter" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="addLoading" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="addHeader" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MAI-Qn-7IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

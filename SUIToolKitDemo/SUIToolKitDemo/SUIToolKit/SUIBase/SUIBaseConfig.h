@@ -24,10 +24,14 @@
 
 /** default is POST (GET, POST) */
 @property (nonatomic,copy) NSString *httpMethod;
+/** set httpHost before using requestData() */
 @property (nonatomic,copy) NSString *httpHost;
 
 /** default is 20 */
 @property (nonatomic,assign) NSInteger pageSize;
+
+/** default is nil */
+@property (nonatomic,copy) NSString *classNameOfLoadingView;
 
 // _____________________________________________________________________________
 

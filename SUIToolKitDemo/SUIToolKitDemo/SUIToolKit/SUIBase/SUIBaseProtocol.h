@@ -38,6 +38,8 @@
 /** 添加下拉刷新,并自动下拉 */
 @property (nonatomic) BOOL addHeaderAndRefreshStart;
 
+@property (nonatomic) BOOL addLoading;
+
 // _____________________________________________________________________________
 
 
@@ -72,7 +74,6 @@
 - (id)modelPassed;
 
 
-
 #pragma mark - TableView delegate & dataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
@@ -86,11 +87,18 @@
 - (NSArray *)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
 
 
-#pragma mark - Dismiss
+#pragma mark -
+
+#pragma mark Dismiss
 
 - (IBAction)navPopToLast:(id)sender;
 - (IBAction)navPopToRoot:(id)sender;
 - (IBAction)navDismiss:(id)sender;
+
+#pragma mark LoadingView
+
+- (void)loadingViewShow;
+- (void)loadingViewDissmiss;
 
 
 

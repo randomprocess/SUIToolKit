@@ -34,7 +34,17 @@
 @property (nonatomic) IBInspectable BOOL addFooter;
 @property (nonatomic) IBInspectable BOOL addHeaderAndRefreshStart;
 
+@property (nonatomic) IBInspectable BOOL addLoading;
 
+
+
+#pragma mark - Request
+
+- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed;
+- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed;
+
+
+#pragma mark -
 
 #pragma mark - Dismiss
 
@@ -42,11 +52,10 @@
 - (IBAction)navPopToRoot:(id)sender;
 - (IBAction)navDismiss:(id)sender;
 
+#pragma mark - LoadView
 
-#pragma mark - Request
-
-- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed;
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed;
+- (void)loadingViewShow;
+- (void)loadingViewDissmiss;
 
 
 @end

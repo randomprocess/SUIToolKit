@@ -171,6 +171,27 @@
     objc_setAssociatedObject(self, @selector(addHeaderAndRefreshStart), @(addHeaderAndRefreshStart), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (BOOL)addLoading
+{
+    return [objc_getAssociatedObject(self, @selector(addLoading)) boolValue];
+}
+- (void)setAddLoading:(BOOL)addLoading
+{
+    objc_setAssociatedObject(self, @selector(addLoading), @(addLoading), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+
+#pragma mark - Request
+
+- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed
+{
+    [self requestData:parameters replace:NO completed:completed];
+}
+- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed
+{
+    [self.currDataSource requestData:parameters replace:replace completed:completed];
+}
 
 
 
@@ -192,17 +213,43 @@
 
 
 
-#pragma mark - Request
+#pragma mark - LoadView
 
-- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed
+- (void)loadingViewShow
 {
-    [self requestData:parameters replace:NO completed:completed];
+    UIView *curLoadingView = [self.view viewWithTag:427012201];
+    if (curLoadingView) {
+        return;
+    }
+    
+    uLog(@"%@", [SUIBaseConfig sharedConfig].classNameOfLoadingView);
+    
+    if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
+        curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
+    } else {
+        curLoadingView = [[UIView alloc] init];
+        curLoadingView.contentMode = UIViewContentModeCenter;
+        UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [curActivityIndicatorView sizeToFit];
+        [curActivityIndicatorView startAnimating];
+        [curLoadingView addSubview:curActivityIndicatorView];
+    }
+    curLoadingView.frame = self.view.bounds;
+    curLoadingView.tag = 427012201;
+    curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:curLoadingView];
 }
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed
+- (void)loadingViewDissmiss
 {
-    [self.currDataSource requestData:parameters replace:replace completed:completed];
+    __weak UIView *curLoadingView = [self.view viewWithTag:427012201];
+    if (curLoadingView) {
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             curLoadingView.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             [curLoadingView removeFromSuperview];
+                         }];
+    }
 }
-
-
 
 @end
