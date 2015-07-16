@@ -8,9 +8,12 @@
 
 #import "SUIDataSource.h"
 #import "SUIToolKitConst.h"
+#import "SUIBaseConfig.h"
+#import "SUIBaseCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
 #import "SUIHttpClient.h"
+
 
 @interface SUIDataSource () <
     UISearchControllerDelegate,

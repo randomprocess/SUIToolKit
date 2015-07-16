@@ -16,7 +16,7 @@
     UIViewController *srcVC = self.sourceViewController;
     UIViewController *destVC = self.destinationViewController;
     uWarcPerformSelector(
-                         [destVC performSelector:@selector(setCurrDelegate:) withObject:srcVC];
+                         [destVC performSelector:NSSelectorFromString(@"setCurrDelegate:") withObject:srcVC];
     )
     [srcVC.navigationController pushViewController:destVC animated:YES];
 }

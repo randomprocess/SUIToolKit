@@ -7,6 +7,7 @@
 //
 
 #import "SUIBaseView.h"
+#import "SUIToolKitConst.h"
 
 @interface SUIBaseView ()
 

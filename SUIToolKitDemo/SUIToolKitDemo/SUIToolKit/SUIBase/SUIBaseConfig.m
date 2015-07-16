@@ -8,6 +8,7 @@
 
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
+#import "SUIDataSource.h"
 
 @implementation SUIBaseConfig
 
@@ -152,7 +153,7 @@
     
     // 去掉tableView下方多余的分割线
     UIView *curFootView = [[UIView alloc] init];
-    curFootView.frame = (CGRect){{0.0, 1.0}, {curTableView.width, 1.0}};
+    curFootView.frame = (CGRect){{0.0, 1.0}, {curTableView.frame.size.width, 1.0}};
     curFootView.backgroundColor = [UIColor clearColor];
     curTableView.tableFooterView = curFootView;
     

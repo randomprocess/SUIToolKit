@@ -6,6 +6,10 @@
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
 @class SUIDataSource;
 
 @protocol SUIBaseProtocol <NSObject>
