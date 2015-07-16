@@ -78,7 +78,6 @@
 		6D9D5AFC1B4535B900B285DE /* SUIDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDataSource.m; sourceTree = "<group>"; };
 		6D9D5AFD1B4535B900B285DE /* SUIHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIHttpClient.h; sourceTree = "<group>"; };
 		6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIHttpClient.m; sourceTree = "<group>"; };
-		6D9D5AFF1B4535B900B285DE /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6D9D5B001B4535B900B285DE /* SUIToolKitConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKitConst.h; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		6DA091F61B3A48C800DA06A3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6DA091F71B3A48C800DA06A3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6DA091F91B3A48F100DA06A3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6DB6D5171B57617400B79674 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6DCC7E001B4D188B00EE8E5B /* SUIAlbumVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumVC.h; sourceTree = "<group>"; };
 		6DCC7E011B4D188B00EE8E5B /* SUIAlbumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumVC.m; sourceTree = "<group>"; };
 		6DCC7E031B4D190400EE8E5B /* SUIAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumCell.h; sourceTree = "<group>"; };
@@ -154,6 +154,7 @@
 		6D9D5AE71B4535B900B285DE /* SUIToolKit */ = {
 			isa = PBXGroup;
 			children = (
+				6DB6D5171B57617400B79674 /* SUIToolKit.h */,
 				6D9D5AE81B4535B900B285DE /* Category */,
 				6D9D5AED1B4535B900B285DE /* SUIBase */,
 			);
@@ -191,7 +192,6 @@
 				6D9D5AFC1B4535B900B285DE /* SUIDataSource.m */,
 				6D9D5AFD1B4535B900B285DE /* SUIHttpClient.h */,
 				6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */,
-				6D9D5AFF1B4535B900B285DE /* SUIToolKit.h */,
 				6D9D5B001B4535B900B285DE /* SUIToolKitConst.h */,
 			);
 			path = SUIBase;
