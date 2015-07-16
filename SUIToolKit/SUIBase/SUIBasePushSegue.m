@@ -7,6 +7,7 @@
 //
 
 #import "SUIBasePushSegue.h"
+#import "SUIToolKitConst.h"
 
 @implementation SUIBasePushSegue
 
@@ -14,8 +15,9 @@
 {
     UIViewController *srcVC = self.sourceViewController;
     UIViewController *destVC = self.destinationViewController;
-    
-    [destVC performSelector:@selector(setCurrDelegate:) withObject:srcVC];
+    uWarcPerformSelector(
+                         [destVC performSelector:@selector(setCurrDelegate:) withObject:srcVC];
+    )
     [srcVC.navigationController pushViewController:destVC animated:YES];
 }
 

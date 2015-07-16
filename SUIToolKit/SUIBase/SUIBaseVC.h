@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SUIBaseProtocol.h"
+
 @interface SUIBaseVC : UIViewController <SUIBaseProtocol>
 
 @end

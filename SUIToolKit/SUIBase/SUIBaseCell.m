@@ -7,6 +7,7 @@
 //
 
 #import "SUIBaseCell.h"
+#import "SUIBaseConfig.h"
 
 @implementation SUIBaseCell
 

@@ -7,6 +7,7 @@
 //
 
 #import "SUIDataSource.h"
+#import "SUIToolKitConst.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "MJRefresh.h"
 #import "SUIHttpClient.h"

@@ -18,6 +18,7 @@
 
 #import "SUIAlbumVC.h"
 #import "SUIAlbumMD.h"
+#import "UIViewController+SUIExt.h"
 
 @interface SUIAlbumVC ()
 

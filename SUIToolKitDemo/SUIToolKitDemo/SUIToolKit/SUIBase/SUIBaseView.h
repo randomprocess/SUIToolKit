@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SUIBaseProtocol.h"
+
 @interface SUIBaseView : UIView
 
 @property (nonatomic,weak) IBOutlet id ibDelegate;

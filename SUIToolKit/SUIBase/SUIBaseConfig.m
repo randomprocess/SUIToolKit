@@ -7,6 +7,7 @@
 //
 
 #import "SUIBaseConfig.h"
+#import "SUIToolKitConst.h"
 
 @implementation SUIBaseConfig
 
@@ -162,7 +163,7 @@
     {
         curBackgroundView.frame = curTableView.bounds;
         curBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        curBackgroundView.backgroundColor = [SUIBaseConfig sharedConfig].backgroundColor;
+        curBackgroundView.backgroundColor = self.backgroundColor;
     }
     else
     {

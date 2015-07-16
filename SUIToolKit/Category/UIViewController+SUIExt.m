@@ -8,7 +8,7 @@
 
 #import "UIViewController+SUIExt.h"
 #import <objc/runtime.h>
-
+#import "MagicalRecord.h"
 
 @implementation UIViewController (SUIExt)
 
@@ -221,9 +221,7 @@
     if (curLoadingView) {
         return;
     }
-    
-    uLog(@"%@", [SUIBaseConfig sharedConfig].classNameOfLoadingView);
-    
+        
     if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
         curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
     } else {

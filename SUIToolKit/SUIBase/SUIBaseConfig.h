@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "SUIBaseProtocol.h"
+
 @interface SUIBaseConfig : NSObject
 
 + (instancetype)sharedConfig;

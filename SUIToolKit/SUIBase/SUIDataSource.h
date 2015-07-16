@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SUIBaseProtocol.h"
+
 typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
 @interface SUIDataSource : NSObject <

@@ -7,6 +7,7 @@
 //
 
 #import "SUIBaseTVC.h"
+#import "SUIBaseConfig.h"
 
 @implementation SUIBaseTVC
 

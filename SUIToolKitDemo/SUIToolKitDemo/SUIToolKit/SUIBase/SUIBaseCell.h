@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SUIBaseProtocol.h"
+
 @interface SUIBaseCell : UITableViewCell <SUIBaseProtocol>
 
 @property (nonatomic,strong) id currModle;

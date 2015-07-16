@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "SUIBaseConfig.h"
+#import "SUIDataSource.h"
+
 @interface UIViewController (SUIExt)
 
 

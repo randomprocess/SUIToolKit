@@ -7,6 +7,7 @@
 //
 
 #import "SUIBaseVC.h"
+#import "SUIBaseConfig.h"
 
 @implementation SUIBaseVC
 
