@@ -12,6 +12,7 @@
 		6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F1E0C1B4A9A4E00A2DC39 /* SUIMainTVC.m */; };
 		6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9101B53588B0067E225 /* SUITrackMD.m */; };
 		6D44D9141B53588C0067E225 /* SUIMediaMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9131B53588C0067E225 /* SUIMediaMD.m */; };
+		6D5546A91B5C93E700038C80 /* SUITool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5546A81B5C93E700038C80 /* SUITool.m */; };
 		6D9D5B011B4535B900B285DE /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEA1B4535B900B285DE /* UIView+SUIExt.m */; };
 		6D9D5B021B4535B900B285DE /* UIViewController+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEC1B4535B900B285DE /* UIViewController+SUIExt.m */; };
 		6D9D5B031B4535B900B285DE /* SUIBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEF1B4535B900B285DE /* SUIBaseCell.m */; };
@@ -57,6 +58,8 @@
 		6D44D9101B53588B0067E225 /* SUITrackMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackMD.m; sourceTree = "<group>"; };
 		6D44D9121B53588C0067E225 /* SUIMediaMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMediaMD.h; sourceTree = "<group>"; };
 		6D44D9131B53588C0067E225 /* SUIMediaMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMediaMD.m; sourceTree = "<group>"; };
+		6D5546A71B5C93E700038C80 /* SUITool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITool.h; sourceTree = "<group>"; };
+		6D5546A81B5C93E700038C80 /* SUITool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITool.m; sourceTree = "<group>"; };
 		6D9D5AE91B4535B900B285DE /* UIView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIExt.h"; sourceTree = "<group>"; };
 		6D9D5AEA1B4535B900B285DE /* UIView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SUIExt.m"; sourceTree = "<group>"; };
 		6D9D5AEB1B4535B900B285DE /* UIViewController+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SUIExt.h"; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				6D9D5AFD1B4535B900B285DE /* SUIHttpClient.h */,
 				6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */,
 				6D9D5B001B4535B900B285DE /* SUIToolKitConst.h */,
+				6D5546A71B5C93E700038C80 /* SUITool.h */,
+				6D5546A81B5C93E700038C80 /* SUITool.m */,
 			);
 			path = SUIBase;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 			files = (
 				6D9D5B021B4535B900B285DE /* UIViewController+SUIExt.m in Sources */,
 				6D9D5B011B4535B900B285DE /* UIView+SUIExt.m in Sources */,
+				6D5546A91B5C93E700038C80 /* SUITool.m in Sources */,
 				6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */,
 				6D9D5B061B4535B900B285DE /* SUIBaseTVC.m in Sources */,
 				6DCC7E051B4D190400EE8E5B /* SUIAlbumCell.m in Sources */,

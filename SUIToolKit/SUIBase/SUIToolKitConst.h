@@ -35,11 +35,6 @@
 #define kProjectName [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey]
 
 
-#define kCameraAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
-#define kCameraRearAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]
-#define kCameraFrontAvailable [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]
-#define kPhotoLibraryAvailable [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
-
 
 // _____________________________________________________________________________
 
@@ -55,6 +50,11 @@
 #define gImageNamed(__name) [UIImage imageNamed:__name]
 #define gClassName(__obj) [NSString stringWithUTF8String:object_getClassName(__obj)]
 
+#define gUserDefaults [NSUserDefaults standardUserDefaults]
+#define gUserDefaultsBoolForKey(__key) [[NSUserDefaults standardUserDefaults] boolForKey:__key]
+#define gUserDefaultsObjForKey(__key) [[NSUserDefaults standardUserDefaults] objectForKey:__key]
+
+#define gNotificationCenter [NSNotificationCenter defaultCenter]
 
 
 // _____________________________________________________________________________
@@ -91,7 +91,7 @@ if ([NSThread isMainThread]) { \
 #define uFun                        NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__,                    __LINE__);
 #define uLog(format, ...)           NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  ##__VA_ARGS__);
 #define uLogInfo(format, ...)       NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,    ##__VA_ARGS__);
-#define uLogError(format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define uLogError(format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 #define uRect(_rect)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_rect, NSStringFromCGRect(_rect));
 #define uPoint(_point)              NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_point, NSStringFromCGPoint(_point));

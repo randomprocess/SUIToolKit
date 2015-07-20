@@ -15,6 +15,7 @@
 
 
 #import "SUIToolKitConst.h"
+#import "SUITool.h"
 #import "SUIBaseProtocol.h"
 #import "SUIDataSource.h"
 #import "SUIBaseConfig.h"
