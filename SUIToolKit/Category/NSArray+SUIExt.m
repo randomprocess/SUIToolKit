@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+SUIExt.h"
+#import "SUIToolKitConst.h"
 
 @implementation NSArray (SUIExt)
 

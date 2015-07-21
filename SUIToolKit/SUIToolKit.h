@@ -32,5 +32,8 @@
 #import "UIView+SUIExt.h"
 #import "UIViewController+SUIExt.h"
 #import "NSArray+SUIExt.h"
+#import "NSString+SUIExt.h"
+#import "NSData+SUIExt.h"
+#import "NSDictionary+SUIExt.h"
 
 #endif

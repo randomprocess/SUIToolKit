@@ -24,6 +24,9 @@
 		6D94709D1B5E378900860B27 /* SUIDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94708D1B5E378900860B27 /* SUIDataSource.m */; };
 		6D94709E1B5E378900860B27 /* SUIHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94708F1B5E378900860B27 /* SUIHttpClient.m */; };
 		6D94709F1B5E378900860B27 /* SUITool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470911B5E378900860B27 /* SUITool.m */; };
+		6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */; };
+		6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */; };
+		6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */; };
 		6DA091D21B3A46AC00DA06A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091D11B3A46AC00DA06A3 /* main.m */; };
 		6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091D91B3A46AC00DA06A3 /* Main.storyboard */; };
 		6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */; };
@@ -86,6 +89,12 @@
 		6D9470911B5E378900860B27 /* SUITool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITool.m; sourceTree = "<group>"; };
 		6D9470921B5E378900860B27 /* SUIToolKitConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKitConst.h; sourceTree = "<group>"; };
 		6D9470931B5E378900860B27 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
+		6D9470A01B5E3B8A00860B27 /* NSString+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SUIExt.h"; sourceTree = "<group>"; };
+		6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SUIExt.m"; sourceTree = "<group>"; };
+		6D9470A31B5E3C8200860B27 /* NSData+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SUIExt.h"; sourceTree = "<group>"; };
+		6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SUIExt.m"; sourceTree = "<group>"; };
+		6D9470A61B5E4AC700860B27 /* NSDictionary+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SUIExt.h"; sourceTree = "<group>"; };
+		6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SUIExt.m"; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DA091D11B3A46AC00DA06A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,6 +160,12 @@
 				6D94707B1B5E378900860B27 /* UIView+SUIExt.m */,
 				6D94707C1B5E378900860B27 /* UIViewController+SUIExt.h */,
 				6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */,
+				6D9470A01B5E3B8A00860B27 /* NSString+SUIExt.h */,
+				6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */,
+				6D9470A31B5E3C8200860B27 /* NSData+SUIExt.h */,
+				6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */,
+				6D9470A61B5E4AC700860B27 /* NSDictionary+SUIExt.h */,
+				6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -430,8 +445,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */,
 				6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */,
 				6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */,
+				6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */,
 				6D94709E1B5E378900860B27 /* SUIHttpClient.m in Sources */,
 				6D94709F1B5E378900860B27 /* SUITool.m in Sources */,
 				6DCC7E051B4D190400EE8E5B /* SUIAlbumCell.m in Sources */,
@@ -449,6 +466,7 @@
 				6D94709C1B5E378900860B27 /* SUIBaseView.m in Sources */,
 				6D9470991B5E378900860B27 /* SUIBasePushSegue.m in Sources */,
 				6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */,
+				6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */,
 				6D94709B1B5E378900860B27 /* SUIBaseVC.m in Sources */,
 				6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */,
 				6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */,
