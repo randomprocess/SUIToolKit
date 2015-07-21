@@ -12,17 +12,18 @@
 		6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F1E0C1B4A9A4E00A2DC39 /* SUIMainTVC.m */; };
 		6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9101B53588B0067E225 /* SUITrackMD.m */; };
 		6D44D9141B53588C0067E225 /* SUIMediaMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9131B53588C0067E225 /* SUIMediaMD.m */; };
-		6D5546A91B5C93E700038C80 /* SUITool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5546A81B5C93E700038C80 /* SUITool.m */; };
-		6D9D5B011B4535B900B285DE /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEA1B4535B900B285DE /* UIView+SUIExt.m */; };
-		6D9D5B021B4535B900B285DE /* UIViewController+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEC1B4535B900B285DE /* UIViewController+SUIExt.m */; };
-		6D9D5B031B4535B900B285DE /* SUIBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AEF1B4535B900B285DE /* SUIBaseCell.m */; };
-		6D9D5B041B4535B900B285DE /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AF11B4535B900B285DE /* SUIBaseConfig.m */; };
-		6D9D5B051B4535B900B285DE /* SUIBasePushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AF41B4535B900B285DE /* SUIBasePushSegue.m */; };
-		6D9D5B061B4535B900B285DE /* SUIBaseTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AF61B4535B900B285DE /* SUIBaseTVC.m */; };
-		6D9D5B071B4535B900B285DE /* SUIBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AF81B4535B900B285DE /* SUIBaseVC.m */; };
-		6D9D5B081B4535B900B285DE /* SUIBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AFA1B4535B900B285DE /* SUIBaseView.m */; };
-		6D9D5B091B4535B900B285DE /* SUIDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AFC1B4535B900B285DE /* SUIDataSource.m */; };
-		6D9D5B0A1B4535B900B285DE /* SUIHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */; };
+		6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470791B5E378900860B27 /* NSArray+SUIExt.m */; };
+		6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707B1B5E378900860B27 /* UIView+SUIExt.m */; };
+		6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */; };
+		6D9470971B5E378900860B27 /* SUIBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470801B5E378900860B27 /* SUIBaseCell.m */; };
+		6D9470981B5E378900860B27 /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470821B5E378900860B27 /* SUIBaseConfig.m */; };
+		6D9470991B5E378900860B27 /* SUIBasePushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470851B5E378900860B27 /* SUIBasePushSegue.m */; };
+		6D94709A1B5E378900860B27 /* SUIBaseTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470871B5E378900860B27 /* SUIBaseTVC.m */; };
+		6D94709B1B5E378900860B27 /* SUIBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470891B5E378900860B27 /* SUIBaseVC.m */; };
+		6D94709C1B5E378900860B27 /* SUIBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94708B1B5E378900860B27 /* SUIBaseView.m */; };
+		6D94709D1B5E378900860B27 /* SUIDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94708D1B5E378900860B27 /* SUIDataSource.m */; };
+		6D94709E1B5E378900860B27 /* SUIHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94708F1B5E378900860B27 /* SUIHttpClient.m */; };
+		6D94709F1B5E378900860B27 /* SUITool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470911B5E378900860B27 /* SUITool.m */; };
 		6DA091D21B3A46AC00DA06A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091D11B3A46AC00DA06A3 /* main.m */; };
 		6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091D91B3A46AC00DA06A3 /* Main.storyboard */; };
 		6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */; };
@@ -58,30 +59,33 @@
 		6D44D9101B53588B0067E225 /* SUITrackMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackMD.m; sourceTree = "<group>"; };
 		6D44D9121B53588C0067E225 /* SUIMediaMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMediaMD.h; sourceTree = "<group>"; };
 		6D44D9131B53588C0067E225 /* SUIMediaMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMediaMD.m; sourceTree = "<group>"; };
-		6D5546A71B5C93E700038C80 /* SUITool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITool.h; sourceTree = "<group>"; };
-		6D5546A81B5C93E700038C80 /* SUITool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITool.m; sourceTree = "<group>"; };
-		6D9D5AE91B4535B900B285DE /* UIView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIExt.h"; sourceTree = "<group>"; };
-		6D9D5AEA1B4535B900B285DE /* UIView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SUIExt.m"; sourceTree = "<group>"; };
-		6D9D5AEB1B4535B900B285DE /* UIViewController+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SUIExt.h"; sourceTree = "<group>"; };
-		6D9D5AEC1B4535B900B285DE /* UIViewController+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SUIExt.m"; sourceTree = "<group>"; };
-		6D9D5AEE1B4535B900B285DE /* SUIBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseCell.h; sourceTree = "<group>"; };
-		6D9D5AEF1B4535B900B285DE /* SUIBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseCell.m; sourceTree = "<group>"; };
-		6D9D5AF01B4535B900B285DE /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
-		6D9D5AF11B4535B900B285DE /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
-		6D9D5AF21B4535B900B285DE /* SUIBaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseProtocol.h; sourceTree = "<group>"; };
-		6D9D5AF31B4535B900B285DE /* SUIBasePushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBasePushSegue.h; sourceTree = "<group>"; };
-		6D9D5AF41B4535B900B285DE /* SUIBasePushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBasePushSegue.m; sourceTree = "<group>"; };
-		6D9D5AF51B4535B900B285DE /* SUIBaseTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseTVC.h; sourceTree = "<group>"; };
-		6D9D5AF61B4535B900B285DE /* SUIBaseTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseTVC.m; sourceTree = "<group>"; };
-		6D9D5AF71B4535B900B285DE /* SUIBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseVC.h; sourceTree = "<group>"; };
-		6D9D5AF81B4535B900B285DE /* SUIBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseVC.m; sourceTree = "<group>"; };
-		6D9D5AF91B4535B900B285DE /* SUIBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseView.h; sourceTree = "<group>"; };
-		6D9D5AFA1B4535B900B285DE /* SUIBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseView.m; sourceTree = "<group>"; };
-		6D9D5AFB1B4535B900B285DE /* SUIDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDataSource.h; sourceTree = "<group>"; };
-		6D9D5AFC1B4535B900B285DE /* SUIDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDataSource.m; sourceTree = "<group>"; };
-		6D9D5AFD1B4535B900B285DE /* SUIHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIHttpClient.h; sourceTree = "<group>"; };
-		6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIHttpClient.m; sourceTree = "<group>"; };
-		6D9D5B001B4535B900B285DE /* SUIToolKitConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKitConst.h; sourceTree = "<group>"; };
+		6D9470781B5E378900860B27 /* NSArray+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SUIExt.h"; sourceTree = "<group>"; };
+		6D9470791B5E378900860B27 /* NSArray+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SUIExt.m"; sourceTree = "<group>"; };
+		6D94707A1B5E378900860B27 /* UIView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIExt.h"; sourceTree = "<group>"; };
+		6D94707B1B5E378900860B27 /* UIView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SUIExt.m"; sourceTree = "<group>"; };
+		6D94707C1B5E378900860B27 /* UIViewController+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SUIExt.h"; sourceTree = "<group>"; };
+		6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SUIExt.m"; sourceTree = "<group>"; };
+		6D94707F1B5E378900860B27 /* SUIBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseCell.h; sourceTree = "<group>"; };
+		6D9470801B5E378900860B27 /* SUIBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseCell.m; sourceTree = "<group>"; };
+		6D9470811B5E378900860B27 /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
+		6D9470821B5E378900860B27 /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
+		6D9470831B5E378900860B27 /* SUIBaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseProtocol.h; sourceTree = "<group>"; };
+		6D9470841B5E378900860B27 /* SUIBasePushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBasePushSegue.h; sourceTree = "<group>"; };
+		6D9470851B5E378900860B27 /* SUIBasePushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBasePushSegue.m; sourceTree = "<group>"; };
+		6D9470861B5E378900860B27 /* SUIBaseTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseTVC.h; sourceTree = "<group>"; };
+		6D9470871B5E378900860B27 /* SUIBaseTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseTVC.m; sourceTree = "<group>"; };
+		6D9470881B5E378900860B27 /* SUIBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseVC.h; sourceTree = "<group>"; };
+		6D9470891B5E378900860B27 /* SUIBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseVC.m; sourceTree = "<group>"; };
+		6D94708A1B5E378900860B27 /* SUIBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseView.h; sourceTree = "<group>"; };
+		6D94708B1B5E378900860B27 /* SUIBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseView.m; sourceTree = "<group>"; };
+		6D94708C1B5E378900860B27 /* SUIDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDataSource.h; sourceTree = "<group>"; };
+		6D94708D1B5E378900860B27 /* SUIDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDataSource.m; sourceTree = "<group>"; };
+		6D94708E1B5E378900860B27 /* SUIHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIHttpClient.h; sourceTree = "<group>"; };
+		6D94708F1B5E378900860B27 /* SUIHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIHttpClient.m; sourceTree = "<group>"; };
+		6D9470901B5E378900860B27 /* SUITool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITool.h; sourceTree = "<group>"; };
+		6D9470911B5E378900860B27 /* SUITool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITool.m; sourceTree = "<group>"; };
+		6D9470921B5E378900860B27 /* SUIToolKitConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKitConst.h; sourceTree = "<group>"; };
+		6D9470931B5E378900860B27 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DA091D11B3A46AC00DA06A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,7 +97,6 @@
 		6DA091F61B3A48C800DA06A3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6DA091F71B3A48C800DA06A3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6DA091F91B3A48F100DA06A3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		6DB6D5171B57617400B79674 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6DCC7E001B4D188B00EE8E5B /* SUIAlbumVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumVC.h; sourceTree = "<group>"; };
 		6DCC7E011B4D188B00EE8E5B /* SUIAlbumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumVC.m; sourceTree = "<group>"; };
 		6DCC7E031B4D190400EE8E5B /* SUIAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumCell.h; sourceTree = "<group>"; };
@@ -128,6 +131,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D9470761B5E378900860B27 /* SUIToolKit */ = {
+			isa = PBXGroup;
+			children = (
+				6D9470771B5E378900860B27 /* Category */,
+				6D94707E1B5E378900860B27 /* SUIBase */,
+				6D9470931B5E378900860B27 /* SUIToolKit.h */,
+			);
+			name = SUIToolKit;
+			path = ../../SUIToolKit;
+			sourceTree = "<group>";
+		};
+		6D9470771B5E378900860B27 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				6D9470781B5E378900860B27 /* NSArray+SUIExt.h */,
+				6D9470791B5E378900860B27 /* NSArray+SUIExt.m */,
+				6D94707A1B5E378900860B27 /* UIView+SUIExt.h */,
+				6D94707B1B5E378900860B27 /* UIView+SUIExt.m */,
+				6D94707C1B5E378900860B27 /* UIViewController+SUIExt.h */,
+				6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		6D94707E1B5E378900860B27 /* SUIBase */ = {
+			isa = PBXGroup;
+			children = (
+				6D94707F1B5E378900860B27 /* SUIBaseCell.h */,
+				6D9470801B5E378900860B27 /* SUIBaseCell.m */,
+				6D9470811B5E378900860B27 /* SUIBaseConfig.h */,
+				6D9470821B5E378900860B27 /* SUIBaseConfig.m */,
+				6D9470831B5E378900860B27 /* SUIBaseProtocol.h */,
+				6D9470841B5E378900860B27 /* SUIBasePushSegue.h */,
+				6D9470851B5E378900860B27 /* SUIBasePushSegue.m */,
+				6D9470861B5E378900860B27 /* SUIBaseTVC.h */,
+				6D9470871B5E378900860B27 /* SUIBaseTVC.m */,
+				6D9470881B5E378900860B27 /* SUIBaseVC.h */,
+				6D9470891B5E378900860B27 /* SUIBaseVC.m */,
+				6D94708A1B5E378900860B27 /* SUIBaseView.h */,
+				6D94708B1B5E378900860B27 /* SUIBaseView.m */,
+				6D94708C1B5E378900860B27 /* SUIDataSource.h */,
+				6D94708D1B5E378900860B27 /* SUIDataSource.m */,
+				6D94708E1B5E378900860B27 /* SUIHttpClient.h */,
+				6D94708F1B5E378900860B27 /* SUIHttpClient.m */,
+				6D9470901B5E378900860B27 /* SUITool.h */,
+				6D9470911B5E378900860B27 /* SUITool.m */,
+				6D9470921B5E378900860B27 /* SUIToolKitConst.h */,
+			);
+			path = SUIBase;
+			sourceTree = "<group>";
+		};
 		6D9D5AD51B4535A900B285DE /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,54 +208,6 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		6D9D5AE71B4535B900B285DE /* SUIToolKit */ = {
-			isa = PBXGroup;
-			children = (
-				6DB6D5171B57617400B79674 /* SUIToolKit.h */,
-				6D9D5AE81B4535B900B285DE /* Category */,
-				6D9D5AED1B4535B900B285DE /* SUIBase */,
-			);
-			path = SUIToolKit;
-			sourceTree = "<group>";
-		};
-		6D9D5AE81B4535B900B285DE /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				6D9D5AE91B4535B900B285DE /* UIView+SUIExt.h */,
-				6D9D5AEA1B4535B900B285DE /* UIView+SUIExt.m */,
-				6D9D5AEB1B4535B900B285DE /* UIViewController+SUIExt.h */,
-				6D9D5AEC1B4535B900B285DE /* UIViewController+SUIExt.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		6D9D5AED1B4535B900B285DE /* SUIBase */ = {
-			isa = PBXGroup;
-			children = (
-				6D9D5AEE1B4535B900B285DE /* SUIBaseCell.h */,
-				6D9D5AEF1B4535B900B285DE /* SUIBaseCell.m */,
-				6D9D5AF01B4535B900B285DE /* SUIBaseConfig.h */,
-				6D9D5AF11B4535B900B285DE /* SUIBaseConfig.m */,
-				6D9D5AF21B4535B900B285DE /* SUIBaseProtocol.h */,
-				6D9D5AF31B4535B900B285DE /* SUIBasePushSegue.h */,
-				6D9D5AF41B4535B900B285DE /* SUIBasePushSegue.m */,
-				6D9D5AF51B4535B900B285DE /* SUIBaseTVC.h */,
-				6D9D5AF61B4535B900B285DE /* SUIBaseTVC.m */,
-				6D9D5AF71B4535B900B285DE /* SUIBaseVC.h */,
-				6D9D5AF81B4535B900B285DE /* SUIBaseVC.m */,
-				6D9D5AF91B4535B900B285DE /* SUIBaseView.h */,
-				6D9D5AFA1B4535B900B285DE /* SUIBaseView.m */,
-				6D9D5AFB1B4535B900B285DE /* SUIDataSource.h */,
-				6D9D5AFC1B4535B900B285DE /* SUIDataSource.m */,
-				6D9D5AFD1B4535B900B285DE /* SUIHttpClient.h */,
-				6D9D5AFE1B4535B900B285DE /* SUIHttpClient.m */,
-				6D9D5B001B4535B900B285DE /* SUIToolKitConst.h */,
-				6D5546A71B5C93E700038C80 /* SUITool.h */,
-				6D5546A81B5C93E700038C80 /* SUITool.m */,
-			);
-			path = SUIBase;
-			sourceTree = "<group>";
-		};
 		6DA091C31B3A46AC00DA06A3 = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +231,7 @@
 		6DA091CE1B3A46AC00DA06A3 /* SUIToolKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				6D9D5AE71B4535B900B285DE /* SUIToolKit */,
+				6D9470761B5E378900860B27 /* SUIToolKit */,
 				6D9D5AD51B4535A900B285DE /* Demo */,
 				6DA091D91B3A46AC00DA06A3 /* Main.storyboard */,
 				6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */,
@@ -424,26 +430,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D9D5B021B4535B900B285DE /* UIViewController+SUIExt.m in Sources */,
-				6D9D5B011B4535B900B285DE /* UIView+SUIExt.m in Sources */,
-				6D5546A91B5C93E700038C80 /* SUITool.m in Sources */,
+				6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */,
 				6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */,
-				6D9D5B061B4535B900B285DE /* SUIBaseTVC.m in Sources */,
+				6D94709E1B5E378900860B27 /* SUIHttpClient.m in Sources */,
+				6D94709F1B5E378900860B27 /* SUITool.m in Sources */,
 				6DCC7E051B4D190400EE8E5B /* SUIAlbumCell.m in Sources */,
 				6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */,
+				6D9470971B5E378900860B27 /* SUIBaseCell.m in Sources */,
 				6DCC7E021B4D188B00EE8E5B /* SUIAlbumVC.m in Sources */,
-				6D9D5B031B4535B900B285DE /* SUIBaseCell.m in Sources */,
-				6D9D5B091B4535B900B285DE /* SUIDataSource.m in Sources */,
-				6D9D5B0A1B4535B900B285DE /* SUIHttpClient.m in Sources */,
-				6D9D5B051B4535B900B285DE /* SUIBasePushSegue.m in Sources */,
 				6DE515941B4E2C1A00032191 /* SUITrackCell.m in Sources */,
-				6D9D5B041B4535B900B285DE /* SUIBaseConfig.m in Sources */,
 				6D44D9141B53588C0067E225 /* SUIMediaMD.m in Sources */,
-				6D9D5B081B4535B900B285DE /* SUIBaseView.m in Sources */,
+				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,
+				6D94709A1B5E378900860B27 /* SUIBaseTVC.m in Sources */,
 				6DEDB3671B54ED7B00BF9191 /* SUILoadingView.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
+				6D94709D1B5E378900860B27 /* SUIDataSource.m in Sources */,
+				6D9470981B5E378900860B27 /* SUIBaseConfig.m in Sources */,
+				6D94709C1B5E378900860B27 /* SUIBaseView.m in Sources */,
+				6D9470991B5E378900860B27 /* SUIBasePushSegue.m in Sources */,
 				6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */,
-				6D9D5B071B4535B900B285DE /* SUIBaseVC.m in Sources */,
+				6D94709B1B5E378900860B27 /* SUIBaseVC.m in Sources */,
+				6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */,
 				6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */,
 				6DE515911B4E2C0300032191 /* SUITrackVC.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,

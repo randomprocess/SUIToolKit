@@ -32,13 +32,24 @@
 + (double)keyboardAnimationDuration;
 
 
-#pragma mark - File
+#define mark - Unique identifier
+
++ (NSString *)uuidString;
+
++ (NSString *)idfvString;
+
+
+#pragma mark - File Manager
 
 + (BOOL)fileCreateDirectory:(NSString *)filePath;
 
 + (BOOL)fileExist:(NSString *)filePath;
 
-+ (BOOL)fileWrite:(NSData *)data atPath:(NSString *)filePath;
++ (BOOL)fileWrite:(NSData *)data toPath:(NSString *)filePath;
+
++ (BOOL)fileMove:(NSString *)sourcePath toPath:(NSString *)filePath;
+
++ (BOOL)fileCopy:(NSString *)sourcePath toPath:(NSString *)filePath;
 
 + (NSData *)fileRead:(NSString *)filePath;
 
@@ -47,7 +58,7 @@
 + (BOOL)fileDelete:(NSString *)filePath;
 
 
-#pragma mark - Camera
+#pragma mark - Camera & PhotoLibrary
 
 + (BOOL)cameraAvailable;
 

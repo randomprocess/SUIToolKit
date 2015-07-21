@@ -31,6 +31,6 @@
 
 #import "UIView+SUIExt.h"
 #import "UIViewController+SUIExt.h"
-
+#import "NSArray+SUIExt.h"
 
 #endif

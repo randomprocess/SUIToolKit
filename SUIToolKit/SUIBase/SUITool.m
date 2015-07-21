@@ -165,7 +165,29 @@ NSString *const SUICurr_Version = @"Curr_Version";
 }
 
 
-#pragma mark - File
+#define mark - Unique identifier
+
++ (NSString *)uuidString
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    NSString *curUUID = (__bridge_transfer NSString*)
+    CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    NSString *currUUID = [[curUUID lowercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    uLogInfo(@"uuid > %@ <", currUUID);
+    return currUUID;
+}
+
++ (NSString *)idfvString
+{
+    NSString *curIdfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *currIdfv = [[curIdfv lowercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    uLogInfo(@"idfv > %@ <", currIdfv);
+    return currIdfv;
+}
+
+
+#pragma mark - File Manager
 
 + (BOOL)fileCreateDirectory:(NSString *)filePath
 {
@@ -198,16 +220,46 @@ NSString *const SUICurr_Version = @"Curr_Version";
     return ret;
 }
 
-+ (BOOL)fileWrite:(NSData *)data atPath:(NSString *)filePath
++ (BOOL)fileWrite:(NSData *)data toPath:(NSString *)filePath
 {
     NSError *anyError = nil;
     BOOL ret = [data writeToFile:filePath
                          options:NSDataWritingAtomic
                            error:&anyError];
     if (ret) {
-        uLogInfo(@"file write succeed At > %@ <", filePath);
+        uLogInfo(@"file write succeed To > %@ <", filePath);
     } else {
-        uLogError(@"file write Error > %@ <  At > %@ <", anyError, filePath);
+        uLogError(@"file write Error > %@ <  To > %@ <", anyError, filePath);
+    }
+    return ret;
+}
+
++ (BOOL)fileMove:(NSString *)sourcePath toPath:(NSString *)filePath
+{
+    NSError *anyError = nil;
+    BOOL ret = [[NSFileManager defaultManager]
+                moveItemAtPath:sourcePath
+                toPath:filePath
+                error:&anyError];
+    if (ret) {
+        uLogInfo(@"file move succeed Source > %@ <  To > %@ <", sourcePath, filePath);
+    } else {
+        uLogError(@"file move Error > %@ <  Source > %@ <  To > %@ <", anyError, sourcePath, filePath);
+    }
+    return ret;
+}
+
++ (BOOL)fileCopy:(NSString *)sourcePath toPath:(NSString *)filePath
+{
+    NSError *anyError = nil;
+    BOOL ret = [[NSFileManager defaultManager]
+                copyItemAtPath:sourcePath
+                toPath:filePath
+                error:&anyError];
+    if (ret) {
+        uLogInfo(@"file copy succeed Source > %@ <  To > %@ <", sourcePath, filePath);
+    } else {
+        uLogError(@"file copy Error > %@ <  Source > %@ <  To > %@ <", anyError, sourcePath, filePath);
     }
     return ret;
 }
@@ -265,7 +317,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 
 
-#pragma mark - Camera
+#pragma mark - Camera & PhotoLibrary
 
 + (BOOL)cameraAvailable
 {
