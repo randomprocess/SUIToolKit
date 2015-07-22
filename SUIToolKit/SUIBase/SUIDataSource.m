@@ -406,9 +406,6 @@
             replace:(BOOL)replace
           completed:(SUIDataSourceBlock)completed
 {
-    uLogInfo("========= parameters =========")
-    uLogInfo("%@", parameters);
-    
     uWeakSelf
     NSURLSessionDataTask *curTask =
     [[SUIHttpClient sharedClient]
@@ -419,9 +416,7 @@
          if (weakSelf) {
              uStrongSelf
              
-             uLogInfo("========== response ==========")
-             uLogInfo("%@", responseObject);
-             
+             uLogInfo("========== response ==========\n%@\n", responseObject);
              
              if ([strongSelf.dataSourceDelegate fetchedResultsController])
              {
@@ -478,8 +473,6 @@
                      }
                  }
              }
-             
-             uLogInfo("========== end ==========")
          }
      }];
     

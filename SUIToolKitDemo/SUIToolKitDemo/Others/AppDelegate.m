@@ -31,7 +31,6 @@
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:databaseName];
     
     
-    
     return YES;
 }
 

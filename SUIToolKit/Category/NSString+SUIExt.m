@@ -19,7 +19,7 @@
 {
     NSData *curData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSString *curStr = [curData base64EncodedStringWithOptions:0];
-    uLogInfo(@"base64 encoded String > %@ <  Base64Str > %@ <", self, curStr);
+    uLogInfo(@"base64 encoded String ⤭ %@ ⤪  Base64Str ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -27,21 +27,21 @@
 {
     NSData *curData = [[NSData alloc] initWithBase64EncodedString:self options:0];
     NSString *curStr = [[NSString alloc] initWithData:curData encoding:NSUTF8StringEncoding];
-    uLogInfo(@"base64 decoded String > %@ <  Base64Str > %@ <", curStr, self);
+    uLogInfo(@"base64 decoded String ⤭ %@ ⤪  Base64Str ⤭ %@ ⤪", curStr, self);
     return curStr;
 }
 
 - (NSData *)base64EncodedData
 {
     NSData *curData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    uLogInfo(@"base64 encoded String > %@ < return NSData", self);
+    uLogInfo(@"base64 encoded String ⤭ %@ ⤪ return NSData", self);
     return curData;
 }
 
 - (NSData *)base64DecodedData
 {
     NSData *curData = [[NSData alloc] initWithBase64EncodedString:self options:0];
-    uLogInfo(@"base64 decoded String > %@ < return NSData", self);
+    uLogInfo(@"base64 decoded String ⤭ %@ ⤪ return NSData", self);
     return curData;
 }
 
@@ -59,7 +59,7 @@
         [hash appendFormat:@"%02X", result[i]];
     }
     NSString *curStr = [hash lowercaseString];
-    uLogInfo(@"md5 String > %@ <  Md5 > %@ <", self, curStr);
+    uLogInfo(@"md5 String ⤭ %@ ⤪  Md5 ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -67,7 +67,7 @@
 {
     NSString *hash = [self md5HexDigest];
     NSString *curStr = [hash substringWithRange:NSMakeRange(CC_MD5_DIGEST_LENGTH/2, CC_MD5_DIGEST_LENGTH)];
-    uLogInfo(@"md5_16 String > %@ <  Md5_16 > %@ <", self, curStr);
+    uLogInfo(@"md5_16 String ⤭ %@ ⤪  Md5_16 ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -127,7 +127,7 @@
         
         result = [result stringByReplacingCharactersInRange:NSMakeRange(x, 1) withString:[NSString stringWithCharacters:&ch_y length:1]];
     }
-    uLogInfo(@"rc4 String > %@ <  Rc4 > %@ <", self, result);
+    uLogInfo(@"rc4 String ⤭ %@ ⤪  Rc4 ⤭ %@ ⤪", self, result);
     return result;
 }
 

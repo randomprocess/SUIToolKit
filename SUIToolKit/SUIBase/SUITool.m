@@ -42,7 +42,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
         if ([self.everVersion isEqualToString:currVersion])
         {
             self.firstLaunched = NO;
-            uLogInfo(@"ever launched non-update-version CurrVersion > %@ <", currVersion);
+            uLogInfo(@"ever launched non-update-version CurrVersion ⤭ %@ ⤪", currVersion);
         }
         else
         {
@@ -50,7 +50,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
             [gUserDefaults synchronize];
             
             self.firstLaunched = YES;
-            uLogInfo(@"ever launched update-version EverVersion > %@ <  CurrVersion > %@ <", self.everVersion, currVersion);
+            uLogInfo(@"ever launched update-version EverVersion ⤭ %@ ⤪  CurrVersion ⤭ %@ ⤪", self.everVersion, currVersion);
         }
     }
     else
@@ -60,7 +60,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
         [gUserDefaults synchronize];
         
         self.firstLaunched = YES;
-        uLogInfo(@"first launched CurrVersion > %@ <", kVersion);
+        uLogInfo(@"first launched CurrVersion ⤭ %@ ⤪", kVersion);
     }
 }
 
@@ -174,7 +174,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
     CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     NSString *currUUID = [[curUUID lowercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    uLogInfo(@"uuid > %@ <", currUUID);
+    uLogInfo(@"uuid ⤭ %@ ⤪", currUUID);
     return currUUID;
 }
 
@@ -182,7 +182,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 {
     NSString *curIdfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString *currIdfv = [[curIdfv lowercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    uLogInfo(@"idfv > %@ <", currIdfv);
+    uLogInfo(@"idfv ⤭ %@ ⤪", currIdfv);
     return currIdfv;
 }
 
@@ -191,7 +191,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 + (BOOL)fileCreateDirectory:(NSString *)filePath
 {
-    if ([self fileExist:filePath])
+    if (![self fileExist:filePath])
     {
         NSError *anyError = nil;
         BOOL ret = [[NSFileManager defaultManager]
@@ -200,9 +200,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                     attributes:nil
                     error:&anyError];
         if (ret) {
-            uLogInfo(@"file create director succeed At > %@ <", filePath);
+            uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath);
         } else {
-            uLogError(@"file create director Error > %@ <    At > %@ <", anyError, filePath);
+            uLogError(@"file create director Error ⤭ %@ ⤪    At ⤭ %@ ⤪", anyError, filePath);
         }
         return ret;
     }
@@ -213,9 +213,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
 {
     BOOL ret = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     if (ret) {
-        uLogInfo(@"file exist At > %@ <", filePath);
+        uLogInfo(@"file exist At ⤭ %@ ⤪", filePath);
     } else {
-        uLogInfo(@"file not exist At > %@ <", filePath);
+        uLogInfo(@"file not exist At ⤭ %@ ⤪", filePath);
     }
     return ret;
 }
@@ -227,9 +227,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                          options:NSDataWritingAtomic
                            error:&anyError];
     if (ret) {
-        uLogInfo(@"file write succeed To > %@ <", filePath);
+        uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath);
     } else {
-        uLogError(@"file write Error > %@ <  To > %@ <", anyError, filePath);
+        uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
     }
     return ret;
 }
@@ -242,9 +242,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 toPath:filePath
                 error:&anyError];
     if (ret) {
-        uLogInfo(@"file move succeed Source > %@ <  To > %@ <", sourcePath, filePath);
+        uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
     } else {
-        uLogError(@"file move Error > %@ <  Source > %@ <  To > %@ <", anyError, sourcePath, filePath);
+        uLogError(@"file move Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     }
     return ret;
 }
@@ -257,9 +257,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 toPath:filePath
                 error:&anyError];
     if (ret) {
-        uLogInfo(@"file copy succeed Source > %@ <  To > %@ <", sourcePath, filePath);
+        uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
     } else {
-        uLogError(@"file copy Error > %@ <  Source > %@ <  To > %@ <", anyError, sourcePath, filePath);
+        uLogError(@"file copy Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     }
     return ret;
 }
@@ -271,9 +271,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                                               options:NSDataReadingMappedIfSafe
                                                 error:&anyError];
     if (!anyError) {
-        uLogInfo(@"file read succeed Length > %zd <  At > %@ <", readData.length, filePath);
+        uLogInfo(@"file read succeed Length ⤭ %zd ⤪  At ⤭ %@ ⤪", readData.length, filePath);
     } else {
-        uLogError(@"file read Error > %@ <  At > %@ <", anyError, filePath);
+        uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
     }
     return readData;
 }
@@ -288,10 +288,10 @@ NSString *const SUICurr_Version = @"Curr_Version";
                                     error:&anyError];
         if (!anyError) {
             NSInteger fSize = [[attributes objectForKey:NSFileSize] integerValue];
-            uLogInfo(@"file size succeed Size > %zd < At > %@ <", fSize, filePath);
+            uLogInfo(@"file size succeed Size ⤭ %zd ⤪  At ⤭ %@ ⤪", fSize, filePath);
             return fSize;
         } else {
-            uLogError(@"file size Error > %@ <  At > %@ <", anyError, filePath);
+            uLogError(@"file size Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
         }
     }
     return 0;
@@ -306,9 +306,9 @@ NSString *const SUICurr_Version = @"Curr_Version";
                     removeItemAtPath:filePath
                     error:&anyError];
         if (ret) {
-            uLogInfo(@"file delete succeed At > %@ <", filePath);
+            uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath);
         } else {
-            uLogError(@"file delete Error > %@ <  At > %@ <", anyError, filePath);
+            uLogError(@"file delete Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
         }
         return ret;
     }

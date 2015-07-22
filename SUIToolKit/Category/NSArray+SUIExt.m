@@ -19,16 +19,16 @@
         NSError *anyError = nil;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&anyError];
         if (anyError) {
-            uLogError(@"array to string Error > %@ <", anyError);
+            uLogError(@"array to string Error ⤭ %@ ⤪", anyError);
             return nil;
         }
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        uLogInfo(@"array to string succeed String > %@ <", json);
+        uLogInfo(@"array to string succeed String ⤭ %@ ⤪", json);
         return json;
     }
     else
     {
-        uLogError(@"array to string invalid Array > %@ <", self);
+        uLogError(@"array to string invalid Array ⤭ %@ ⤪", self);
     }
     return nil;
 }

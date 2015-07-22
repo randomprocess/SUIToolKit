@@ -19,16 +19,16 @@
         NSError *anyError = nil;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&anyError];
         if (anyError) {
-            uLogError(@"dict to string Error > %@ <", anyError);
+            uLogError(@"dict to string Error ⤭ %@ ⤪", anyError);
             return nil;
         }
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        uLogInfo(@"dict to string succeed String > %@ <", json);
+        uLogInfo(@"dict to string succeed String ⤭ %@ ⤪", json);
         return json;
     }
     else
     {
-        uLogError(@"dict to string invalid Dict > %@ <", self);
+        uLogError(@"dict to string invalid Dict ⤭ %@ ⤪", self);
     }
     return nil;
 }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28E76DCB52269C8376DB87FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA561482F072FF6D556247C /* libPods.a */; };
+		6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0DD9491B5F85A100BEBEE5 /* UITextField+SUIExt.m */; };
+		6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0DD94C1B5F862F00BEBEE5 /* UITextView+SUIExt.m */; };
 		6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F1E091B4A95C800A2DC39 /* SUIAlbumMD.m */; };
 		6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F1E0C1B4A9A4E00A2DC39 /* SUIMainTVC.m */; };
 		6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9101B53588B0067E225 /* SUITrackMD.m */; };
@@ -54,6 +56,10 @@
 /* Begin PBXFileReference section */
 		0020EA114C7BFEDDB6D76CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3FA561482F072FF6D556247C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D0DD9481B5F85A100BEBEE5 /* UITextField+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+SUIExt.h"; sourceTree = "<group>"; };
+		6D0DD9491B5F85A100BEBEE5 /* UITextField+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+SUIExt.m"; sourceTree = "<group>"; };
+		6D0DD94B1B5F862F00BEBEE5 /* UITextView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+SUIExt.h"; sourceTree = "<group>"; };
+		6D0DD94C1B5F862F00BEBEE5 /* UITextView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+SUIExt.m"; sourceTree = "<group>"; };
 		6D1F1E081B4A95C800A2DC39 /* SUIAlbumMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumMD.h; sourceTree = "<group>"; };
 		6D1F1E091B4A95C800A2DC39 /* SUIAlbumMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumMD.m; sourceTree = "<group>"; };
 		6D1F1E0B1B4A9A4E00A2DC39 /* SUIMainTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMainTVC.h; sourceTree = "<group>"; };
@@ -166,6 +172,10 @@
 				6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */,
 				6D9470A61B5E4AC700860B27 /* NSDictionary+SUIExt.h */,
 				6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */,
+				6D0DD9481B5F85A100BEBEE5 /* UITextField+SUIExt.h */,
+				6D0DD9491B5F85A100BEBEE5 /* UITextField+SUIExt.m */,
+				6D0DD94B1B5F862F00BEBEE5 /* UITextView+SUIExt.h */,
+				6D0DD94C1B5F862F00BEBEE5 /* UITextView+SUIExt.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -460,6 +470,8 @@
 				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,
 				6D94709A1B5E378900860B27 /* SUIBaseTVC.m in Sources */,
 				6DEDB3671B54ED7B00BF9191 /* SUILoadingView.m in Sources */,
+				6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */,
+				6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
 				6D94709D1B5E378900860B27 /* SUIDataSource.m in Sources */,
 				6D9470981B5E378900860B27 /* SUIBaseConfig.m in Sources */,

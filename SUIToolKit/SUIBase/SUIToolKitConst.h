@@ -30,7 +30,6 @@
 
 #define kLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
 #define kProjectName [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey]
-#define kWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])
 
 #define kDocument [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
 #define kDocumentURL [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]
@@ -41,6 +40,8 @@
 #pragma mark - g
 
 
+#define gFormat(__format, ...) [NSString stringWithFormat:__format, ##__VA_ARGS__]
+
 #define gRGB(__r,__g,__b) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:1.0f]
 #define gRGBA(__r,__g,__b,__a) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:__a]
 
@@ -50,11 +51,17 @@
 #define gImageNamed(__name) [UIImage imageNamed:__name]
 #define gClassName(__obj) [NSString stringWithUTF8String:object_getClassName(__obj)]
 
+#define gWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])
+
 #define gUserDefaults [NSUserDefaults standardUserDefaults]
 #define gUserDefaultsBoolForKey(__key) [[NSUserDefaults standardUserDefaults] boolForKey:__key]
 #define gUserDefaultsObjForKey(__key) [[NSUserDefaults standardUserDefaults] objectForKey:__key]
+#define gUserDefaultsIntegerForKey(__key) [[NSUserDefaults standardUserDefaults] integerForKey:__key]
 
 #define gNotificationCenter [NSNotificationCenter defaultCenter]
+
+#define gMainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
+#define gViewControllerInstantiate(__storyboardId) [gMainStoryboard instantiateViewControllerWithIdentifier:__storyboardId]
 
 
 // _____________________________________________________________________________
@@ -66,14 +73,12 @@
 
 #define uMainQueue(__stuff) \
 if ([NSThread isMainThread]) { \
-    __stuff \
+__stuff \
 } else { \
-    dispatch_async(dispatch_get_main_queue(), ^{ \
-        __stuff \
-    }); \
+dispatch_async(dispatch_get_main_queue(), ^{ \
+__stuff \
+}); \
 } \
-
-
 
 
 // _____________________________________________________________________________
@@ -89,27 +94,27 @@ if ([NSThread isMainThread]) { \
 
 #define NSLog(...)                  NSLog(__VA_ARGS__);
 #define uFun                        NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__,                    __LINE__);
-#define uLog(format, ...)           NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  ##__VA_ARGS__);
-#define uLogInfo(format, ...)       NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"%s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,    ##__VA_ARGS__);
-#define uLogError(format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d> " format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define uLog(__format, ...)           NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  ##__VA_ARGS__);
+#define uLogInfo(__format, ...)       NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,    ##__VA_ARGS__);
+#define uLogError(__format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
-#define uRect(_rect)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_rect, NSStringFromCGRect(_rect));
-#define uPoint(_point)              NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_point, NSStringFromCGPoint(_point));
-#define uIndexPath(_indexPath)      NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %ld %ld" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_indexPath, indexPath.section, indexPath.row);
-#define uEdgeInsets(_edgeInsets)    NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #_edgeInsets, NSStringFromUIEdgeInsets(_edgeInsets));
+#define uRect(__rect)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__rect, NSStringFromCGRect(__rect));
+#define uPoint(__point)              NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__point, NSStringFromCGPoint(__point));
+#define uIndexPath(__indexPath)      NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %ld %ld" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__indexPath, __indexPath.section, __indexPath.row);
+#define uEdgeInsets(__edgeInsets)    NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__edgeInsets, NSStringFromUIEdgeInsets(__edgeInsets));
 
 #else
 
 #define NSLog(...) {}
 #define uFun {}
-#define uLog(format, ...) {}
-#define uLogInfo(format, ...) {}
-#define uLogError(format, ...) {}
+#define uLog(__format, ...) {}
+#define uLogInfo(__format, ...) {}
+#define uLogError(__format, ...) {}
 
-#define uRect(_rect) {}
-#define uPoint(_point) {}
-#define uIndexPath(_indexPath) {}
-#define uEdgeInsets(_edgeInsets) {}
+#define uRect(__rect) {}
+#define uPoint(__point) {}
+#define uIndexPath(__indexPath) {}
+#define uEdgeInsets(__edgeInsets) {}
 
 #endif
 
