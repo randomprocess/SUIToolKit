@@ -69,4 +69,16 @@
 + (BOOL)photoLibraryAvailable;
 
 
+#pragma mark - Others
+
++ (BOOL)goToAppStore:(NSString *)appId;
+
+
+typedef void (^SUIDelayTask)(BOOL cancel);
+
++ (SUIDelayTask)delay:(NSTimeInterval)delayInSeconds cb:(void (^)(void))completionBlock;
+
++ (void)cancelDelayTask:(SUIDelayTask)currTask;
+
+
 @end

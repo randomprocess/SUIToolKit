@@ -33,6 +33,8 @@
 #import "UIViewController+SUIExt.h"
 #import "UITextField+SUIExt.h"
 #import "UITextView+SUIExt.h"
+#import "UIButton+SUIExt.h"
+#import "UIImage+SUIExt.h"
 
 #import "NSArray+SUIExt.h"
 #import "NSString+SUIExt.h"

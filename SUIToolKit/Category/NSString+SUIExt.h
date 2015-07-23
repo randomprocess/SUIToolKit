@@ -11,6 +11,12 @@
 @interface NSString (SUIExt)
 
 
+#pragma mark - URL
+
+- (NSString *)URLEncoded;
+- (NSString *)URLDecoded;
+
+
 #pragma mark - Base64
 
 - (NSString *)base64EncodedString;

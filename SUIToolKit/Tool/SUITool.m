@@ -364,4 +364,64 @@ NSString *const SUICurr_Version = @"Curr_Version";
 }
 
 
+
+#pragma mark - Others
+
++ (BOOL)goToAppStore:(NSString *)appId;
+{
+    NSString *curURL = gFormat(@"itms-apps://itunes.apple.com/app/id%@", appId);
+    BOOL ret = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
+    if (ret) {
+        uLogInfo(@"to app store succeed AppId ⤭ %@ ⤪", appId);
+    } else {
+        uLogError(@"to app store failed AppId ⤭ %@ ⤪", appId);
+    }
+    
+    return ret;
+}
+
+
++ (SUIDelayTask)delay:(NSTimeInterval)delayInSeconds cb:(void (^)(void))completionBlock
+{
+    __block dispatch_block_t closure = completionBlock;
+    __block SUIDelayTask currTask = nil;
+    
+    SUIDelayTask delayedBlock = ^(BOOL cancel) {
+        
+        if (cancel == NO)
+        {
+            dispatch_async(dispatch_get_main_queue(), closure);
+        }
+        
+        closure = nil;
+        currTask = nil;
+    };
+    
+    currTask = delayedBlock;
+    
+    [self delayExecutive:delayInSeconds cb:^{
+        if (currTask)
+        {
+            currTask(NO);
+        }
+    }];
+    
+    return currTask;
+}
+
++ (void)delayExecutive:(double)delayInSeconds cb:(void (^)(void))completionBlock
+{
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), completionBlock);
+}
+
++ (void)cancelDelayTask:(SUIDelayTask)currTask
+{
+    if (currTask)
+    {
+        currTask(YES);
+    }
+}
+
+
 @end

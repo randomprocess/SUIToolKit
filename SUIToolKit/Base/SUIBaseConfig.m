@@ -13,24 +13,42 @@
 
 @implementation SUIBaseConfig
 
+
+#pragma mark - Shared
+
 + (instancetype)sharedConfig
 {
     static SUIBaseConfig *sharedSingleton = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedSingleton = [[self alloc] init];
-        [sharedSingleton commonInit];
     });
     return sharedSingleton;
 }
 
-- (void)commonInit
+
+#pragma mark - Http
+
+- (NSString *)httpMethod
 {
-    _pageSize = 20;
+    if (_httpMethod == nil)
+    {
+        _httpMethod = @"POST";
+    }
+    return _httpMethod;
+}
+
+- (NSString *)httpHost
+{
+    if (_httpHost == nil)
+    {
+        NSAssert(NO, @"should set httpHost");
+    }
+    return _httpHost;
 }
 
 
-#pragma mark -
+#pragma mark - VC
 
 - (UIColor *)backgroundColor
 {
@@ -59,27 +77,18 @@
     return _separatorInset;
 }
 
-- (NSString *)httpMethod
+- (NSInteger)pageSize
 {
-    if (_httpMethod == nil)
+    if (_pageSize == 0)
     {
-        _httpMethod = @"POST";
+        _pageSize = 20;
     }
-    return _httpMethod;
-}
-
-- (NSString *)httpHost
-{
-    if (_httpHost == nil)
-    {
-        NSAssert(NO, @"should set httpHost");
-    }
-    return _httpHost;
+    return _pageSize;
 }
 
 
 
-// _____________________________________________________________________________
+#pragma mark -
 
 - (void)configureController:(id<SUIBaseProtocol>)curController
 {

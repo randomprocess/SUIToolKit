@@ -27,4 +27,13 @@
 
 
 
+#pragma mark -
+
+- (UIViewController *)currVC;
+
+- (NSLayoutConstraint *)contantBottom;
+
+- (NSLayoutConstraint *)contantHeight;
+
+
 @end

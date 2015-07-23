@@ -84,4 +84,49 @@
 
 
 
+#pragma mark -
+
+- (UIViewController *)currVC
+{
+    for (UIView *next = [self superview]; next; next = next.superview)
+    {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[NSClassFromString(@"UIViewController") class]])
+        {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+
+- (NSLayoutConstraint *)contantBottom
+{
+    UIView *next = [self superview];
+    if (next)
+    {
+        for (NSLayoutConstraint *subConstraint in next.constraints)
+        {
+            if (subConstraint.secondItem == self && subConstraint.firstAttribute == NSLayoutAttributeBottom)
+            {
+                return subConstraint;
+            }
+        }
+    }
+    return nil;
+}
+
+- (NSLayoutConstraint *)contantHeight
+{
+    for (NSLayoutConstraint *subConstraint in self.constraints)
+    {
+        if (subConstraint.firstAttribute == NSLayoutAttributeHeight)
+        {
+            return subConstraint;
+        }
+    }
+    return nil;
+}
+
+
 @end

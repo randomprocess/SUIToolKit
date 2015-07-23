@@ -13,13 +13,35 @@
 @implementation NSString (SUIExt)
 
 
+#pragma mark - URL
+
+- (NSString *)URLEncoded
+{
+    NSString *curStr = (NSString *)CFBridgingRelease
+    (CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                             (CFStringRef)self,
+                                             NULL,
+                                             (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                             kCFStringEncodingUTF8));
+    return curStr;
+}
+
+- (NSString *)URLDecoded
+{
+    NSString *curStr = (NSString *)CFBridgingRelease
+    (CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+                                                             (CFStringRef)self,CFSTR(""),
+                                                             kCFStringEncodingUTF8));
+    return curStr;
+}
+
+
 #pragma mark - Base64
 
 - (NSString *)base64EncodedString
 {
     NSData *curData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSString *curStr = [curData base64EncodedStringWithOptions:0];
-    uLogInfo(@"base64 encoded String ⤭ %@ ⤪  Base64Str ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -27,21 +49,18 @@
 {
     NSData *curData = [[NSData alloc] initWithBase64EncodedString:self options:0];
     NSString *curStr = [[NSString alloc] initWithData:curData encoding:NSUTF8StringEncoding];
-    uLogInfo(@"base64 decoded String ⤭ %@ ⤪  Base64Str ⤭ %@ ⤪", curStr, self);
     return curStr;
 }
 
 - (NSData *)base64EncodedData
 {
     NSData *curData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    uLogInfo(@"base64 encoded String ⤭ %@ ⤪ return NSData", self);
     return curData;
 }
 
 - (NSData *)base64DecodedData
 {
     NSData *curData = [[NSData alloc] initWithBase64EncodedString:self options:0];
-    uLogInfo(@"base64 decoded String ⤭ %@ ⤪ return NSData", self);
     return curData;
 }
 

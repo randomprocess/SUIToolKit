@@ -13,7 +13,21 @@
 
 @interface SUIBaseConfig : NSObject
 
+
+#pragma mark - Shared
+
 + (instancetype)sharedConfig;
+
+
+#pragma mark - Http
+
+/** default is POST (GET, POST) */
+@property (nonatomic,copy) NSString *httpMethod;
+/** set httpHost before using requestData() */
+@property (nonatomic,copy) NSString *httpHost;
+
+
+#pragma mark - VC
 
 /** default is whiteColor */
 @property (nonatomic,strong) UIColor *backgroundColor;
@@ -24,18 +38,15 @@
 /** default is Default ... (None, Blue, Gray) */
 @property (nonatomic,copy) NSString *selectionStyle;
 
-/** default is POST (GET, POST) */
-@property (nonatomic,copy) NSString *httpMethod;
-/** set httpHost before using requestData() */
-@property (nonatomic,copy) NSString *httpHost;
-
 /** default is 20 */
 @property (nonatomic,assign) NSInteger pageSize;
 
 /** default is nil */
 @property (nonatomic,copy) NSString *classNameOfLoadingView;
 
-// _____________________________________________________________________________
+
+
+#pragma mark -
 
 - (void)configureController:(id<SUIBaseProtocol>)curController;
 
