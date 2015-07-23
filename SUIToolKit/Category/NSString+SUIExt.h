@@ -11,7 +11,7 @@
 @interface NSString (SUIExt)
 
 
-#pragma mark - base64
+#pragma mark - Base64
 
 - (NSString *)base64EncodedString;
 - (NSString *)base64DecodedString;
@@ -19,16 +19,25 @@
 - (NSData *)base64DecodedData;
 
 
-#pragma mark - md5
+#pragma mark - Md5
 
 - (NSString *)md5HexDigest; // 32
 - (NSString *)md5HexDigest16; // 16
 
 
-#pragma mark - rc4
+#pragma mark - Rc4
 
 - (NSString *)rc4Key:(NSString *)aKey;
 - (NSData *)rc4DataWithKey:(NSString*)key;
+
+
+
+#pragma mark - Remove Spaces & Wrap
+
+- (NSString *)removeTrailingSpaces;
+- (NSString *)removeTrailingWrap;
+- (NSString *)removeTrailingSpacesAndWrap;
+- (NSString *)removeContinuousWrap;
 
 
 @end

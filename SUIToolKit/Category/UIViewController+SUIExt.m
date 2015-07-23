@@ -184,15 +184,28 @@
 
 #pragma mark - Request
 
-- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed
+- (void)requestData:(NSDictionary *)parameters
+          completed:(SUIDataSourceCompletionBlock)completed
 {
     [self requestData:parameters replace:NO completed:completed];
 }
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed
+
+- (void)requestData:(NSDictionary *)parameters
+            replace:(BOOL)replace
+          completed:(SUIDataSourceCompletionBlock)completed
 {
-    [self.currDataSource requestData:parameters replace:replace completed:completed];
+    [self requestData:parameters replace:replace refreshTable:nil completed:completed];
 }
 
+- (void)requestData:(NSDictionary *)parameters
+            replace:(BOOL)replace
+       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
+          completed:(SUIDataSourceCompletionBlock)completed
+{
+    [self.currDataSource requestData:parameters
+                             replace:replace refreshTable:refreshTable
+                           completed:completed];
+}
 
 
 #pragma mark - Dismiss

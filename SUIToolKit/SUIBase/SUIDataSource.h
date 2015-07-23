@@ -10,7 +10,9 @@
 
 #import "SUIBaseProtocol.h"
 
-typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
+typedef void (^SUIDataSourceCompletionBlock)(NSError *error, id responseObject);
+typedef NSArray * (^SUIDataSourceRefreshTableBlock)(id responseObject);
+
 
 @interface SUIDataSource : NSObject <
     UITableViewDataSource,
@@ -19,9 +21,11 @@ typedef NSArray * (^SUIDataSourceBlock)(NSError *error, id responseObject);
 
 @property (nonatomic, weak) id<SUIBaseProtocol> dataSourceDelegate;
 
+
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
-          completed:(SUIDataSourceBlock)completed;
+       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
+          completed:(SUIDataSourceCompletionBlock)completed;
 
 - (id)modelPassed;
 

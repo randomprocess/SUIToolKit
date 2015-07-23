@@ -13,7 +13,7 @@
 @implementation NSString (SUIExt)
 
 
-#pragma mark - base64
+#pragma mark - Base64
 
 - (NSString *)base64EncodedString
 {
@@ -46,7 +46,7 @@
 }
 
 
-#pragma mark - md5
+#pragma mark - Md5
 
 - (NSString *)md5HexDigest
 {
@@ -72,7 +72,7 @@
 }
 
 
-#pragma mark - rc4
+#pragma mark - Rc4
 
 - (NSString *)rc4Key:(NSString *)aKey
 {
@@ -174,6 +174,88 @@ void swap(unsigned char *first, unsigned char *second)
     NSData *data = [NSData dataWithBytes:result length:sizeof(unsigned char)*len];
     
     return data;
+}
+
+
+
+#pragma mark - Remove Spaces & Wrap
+
+- (NSString *)removeTrailingSpaces
+{
+    NSString *netString = self;
+    while (1)
+    {
+        if ([netString hasPrefix:@" "]) {
+            netString = [netString substringFromIndex:1];
+            continue;
+        } else if ([netString hasSuffix:@" "]) {
+            netString = [netString substringToIndex:netString.length-1];
+            continue;
+        } else {
+            break;
+        }
+    }
+    uLogInfo(@"remove spaces Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
+}
+
+- (NSString *)removeTrailingWrap
+{
+    NSString *netString = self;
+    while (1)
+    {
+        if ([netString hasPrefix:@"\n"]) {
+            netString = [netString substringFromIndex:1];
+            continue;
+        } else if ([netString hasSuffix:@"\n"]) {
+            netString = [netString substringToIndex:netString.length-1];
+            continue;
+        } else {
+            break;
+        }
+    }
+    uLogInfo(@"remove wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
+}
+
+- (NSString *)removeTrailingSpacesAndWrap
+{
+    NSString *netString = self;
+    while (1)
+    {
+        if ([netString hasPrefix:@" "]) {
+            netString = [netString substringFromIndex:1];
+            continue;
+        } else if ([netString hasSuffix:@" "]) {
+            netString = [netString substringToIndex:netString.length-1];
+            continue;
+        } if ([netString hasPrefix:@"\n"]) {
+            netString = [netString substringFromIndex:1];
+            continue;
+        } else if ([netString hasSuffix:@"\n"]) {
+            netString = [netString substringToIndex:netString.length-1];
+            continue;
+        } else {
+            break;
+        }
+    }
+    uLogInfo(@"remove spaces and wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
+}
+
+- (NSString *)removeContinuousWrap
+{
+    NSString *netString = self;
+    while (1)
+    {
+        NSRange range = [netString rangeOfString:@"\n\n\n"];
+        if (range.location == NSNotFound) {
+            break;
+        }
+        netString = [netString stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\n\n"];
+    }
+    uLogInfo(@"remove continuous wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
 }
 
 

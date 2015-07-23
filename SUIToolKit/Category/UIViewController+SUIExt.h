@@ -43,8 +43,17 @@
 
 #pragma mark - Request
 
-- (void)requestData:(NSDictionary *)parameters completed:(SUIDataSourceBlock)completed;
-- (void)requestData:(NSDictionary *)parameters replace:(BOOL)replace completed:(SUIDataSourceBlock)completed;
+- (void)requestData:(NSDictionary *)parameters
+          completed:(SUIDataSourceCompletionBlock)completed;
+
+- (void)requestData:(NSDictionary *)parameters
+            replace:(BOOL)replace
+          completed:(SUIDataSourceCompletionBlock)completed;
+
+- (void)requestData:(NSDictionary *)parameters
+            replace:(BOOL)replace
+       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
+          completed:(SUIDataSourceCompletionBlock)completed;
 
 
 #pragma mark -

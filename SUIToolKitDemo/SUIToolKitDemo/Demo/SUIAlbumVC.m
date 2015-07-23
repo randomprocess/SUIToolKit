@@ -37,32 +37,26 @@
     
     // 使用requestData()请求数据, 其中http请求使用的传输方法和域名在AppDelegate中设置的
     // 其他请求也可以用SUIHttpClient中的方法
-    [self requestData: @{
-                         @"kw": @"猫"
-                         }
+    [self requestData:@{
+                        @"kw": @"猫"
+                        }
               replace:YES
-            completed:^NSArray *(NSError *error, id responseObject) {
-                
-                if (error == nil)
-                {
-                    NSDictionary *curDict = responseObject;
-                    NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
-                    
-                    for (SUIAlbumMD *aMd in albumAry)
-                    {
-                        uLog(@"%@", aMd);
-                    }
-                    
-                    // 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil
-                    return @[albumAry];
-                }
-                else
-                {
-                    uLog(@"%@", error);
-                }
-                
-                return nil;
-            }];
+         refreshTable:^NSArray *(id responseObject) {
+             
+             NSDictionary *curDict = responseObject;
+             NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
+             
+             for (SUIAlbumMD *aMd in albumAry)
+             {
+                 uLog(@"%@", aMd);
+             }
+             
+             // 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil
+             return @[albumAry];
+             
+         } completed:^(NSError *error, id responseObject) {
+             
+         }];
 }
 
 - (NSArray *)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry

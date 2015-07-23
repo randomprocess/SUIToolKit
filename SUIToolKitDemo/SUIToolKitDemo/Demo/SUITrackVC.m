@@ -38,23 +38,16 @@
                         @"kw": aMd.name,
                         @"pi": @(self.pageIndex+1),
                         @"pz": @(self.pageSize)
-                        }
-              replace:YES
-            completed:^NSArray *(NSError *error, id responseObject) {
-                
-                [weakSelf loadingViewDissmiss];
-                
-                if (error == nil)
-                {
-                    NSDictionary *curDic = responseObject;
-                    
-                    NSArray *trackAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:self.managedObjectContext];
-                    
-                    return @[trackAry];
-                }
-                
-                return nil;
-            }];
+                        } replace:YES
+         refreshTable:^NSArray *(id responseObject) {
+             
+             NSDictionary *curDic = responseObject;
+             NSArray *trackAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:self.managedObjectContext];
+             return @[trackAry];
+             
+         } completed:^(NSError *error, id responseObject) {
+             [weakSelf loadingViewDissmiss];
+         }];
 }
 
 @end

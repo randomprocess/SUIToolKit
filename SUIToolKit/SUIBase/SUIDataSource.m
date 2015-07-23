@@ -15,6 +15,15 @@
 #import "SUIHttpClient.h"
 
 
+static dispatch_queue_t data_sorce_refresh_table_queue() {
+    static dispatch_queue_t sui_data_source_refresh_table_queue;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sui_data_source_refresh_table_queue = dispatch_queue_create([gFormat(@"com.%@.datasource.refreshtable", kProjectName) UTF8String], DISPATCH_QUEUE_SERIAL);
+    });
+    return sui_data_source_refresh_table_queue;
+}
+
 @interface SUIDataSource () <
     UISearchControllerDelegate,
     UISearchResultsUpdating,
@@ -402,9 +411,11 @@
 
 #pragma mark - Request
 
+
 - (void)requestData:(NSDictionary *)parameters
             replace:(BOOL)replace
-          completed:(SUIDataSourceBlock)completed
+       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
+          completed:(SUIDataSourceCompletionBlock)completed
 {
     uWeakSelf
     NSURLSessionDataTask *curTask =
@@ -415,7 +426,7 @@
      completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
          if (weakSelf) {
              uStrongSelf
-             
+
              uLogInfo("========== response ==========\n%@\n", responseObject);
              
              if ([strongSelf.dataSourceDelegate fetchedResultsController])
@@ -430,47 +441,70 @@
                  }
              }
              
-             NSArray *newDataAry = completed(error, responseObject);
-             [strongSelf headerRefreshStop];
-             [strongSelf footerRefreshStop];
-             
-             if (newDataAry)
+             if (refreshTable)
              {
-                 if ([strongSelf.dataSourceDelegate addFooter])
-                 {
-                     NSInteger curDataCount = 0;
-                     for (NSArray *curSubAry in newDataAry)
-                     {
-                         curDataCount = MAX(curDataCount, curSubAry.count);
+                 typeof(strongSelf) __weak weakSelf = strongSelf;
+                 dispatch_async(data_sorce_refresh_table_queue(), ^{
+                     NSArray *newDataAry = nil;
+                     if (error == nil) {
+                         newDataAry = refreshTable(responseObject);
                      }
                      
-                     if (curDataCount < strongSelf.dataSourceDelegate.pageSize)
-                     {
-                         if (!strongSelf.dataSourceDelegate.currTableView.footer.hidden)
-                         {
-                             strongSelf.dataSourceDelegate.currTableView.footer.hidden = YES;
-                         }
-                     }
-                     else if (curDataCount > 0)
-                     {
-                         strongSelf.dataSourceDelegate.pageIndex ++;
-                         if (strongSelf.dataSourceDelegate.currTableView.footer.hidden)
-                         {
-                             strongSelf.dataSourceDelegate.currTableView.footer.hidden = NO;
-                         }
-                     }
-                 }
-                 
-                 if (replace)
+                     uMainQueue(
+                                if (weakSelf)
+                                {
+                                    uStrongSelf
+                                    
+                                    [strongSelf headerRefreshStop];
+                                    [strongSelf footerRefreshStop];
+                                    
+                                    if (newDataAry)
+                                    {
+                                        if ([strongSelf.dataSourceDelegate addFooter])
+                                        {
+                                            NSInteger curDataCount = 0;
+                                            for (NSArray *curSubAry in newDataAry)
+                                            {
+                                                curDataCount = MAX(curDataCount, curSubAry.count);
+                                            }
+                                            
+                                            if (curDataCount < strongSelf.dataSourceDelegate.pageSize) {
+                                                if (!strongSelf.dataSourceDelegate.currTableView.footer.hidden) {
+                                                    strongSelf.dataSourceDelegate.currTableView.footer.hidden = YES;
+                                                }
+                                            }  else if (curDataCount > 0) {
+                                                strongSelf.dataSourceDelegate.pageIndex ++;
+                                                if (strongSelf.dataSourceDelegate.currTableView.footer.hidden) {
+                                                    strongSelf.dataSourceDelegate.currTableView.footer.hidden = NO;
+                                                }
+                                            }
+                                        }
+                                        
+                                        if (replace)
+                                        {
+                                            if ([strongSelf.dataSourceDelegate fetchedResultsController]) {
+                                                [[strongSelf.dataSourceDelegate managedObjectContext] save:nil];
+                                            } else {
+                                                (strongSelf.loadMoreData) ? [strongSelf addDataAry:newDataAry] : [strongSelf resetDataAry:newDataAry];
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                if (completed)
+                                {
+                                   completed(error, responseObject);
+                                }
+                        );
+                 });
+             }
+             else
+             {
+                 if (completed)
                  {
-                     if ([strongSelf.dataSourceDelegate fetchedResultsController])
-                     {
-                         [[strongSelf.dataSourceDelegate managedObjectContext] save:nil];
-                     }
-                     else
-                     {
-                         (strongSelf.loadMoreData) ? [strongSelf addDataAry:newDataAry] : [strongSelf resetDataAry:newDataAry];
-                     }
+                     uMainQueue(
+                                completed(error, responseObject);
+                     )
                  }
              }
          }
@@ -483,7 +517,6 @@
         self.currTask = curTask;
     }
 }
-
 
 - (void)resetDataAry:(NSArray *)newDataAry
 {
