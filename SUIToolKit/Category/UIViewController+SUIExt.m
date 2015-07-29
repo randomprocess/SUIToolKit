@@ -134,16 +134,6 @@
 }
 
 
-- (BOOL)canDelete
-{
-    return [objc_getAssociatedObject(self, @selector(canDelete)) boolValue];
-}
-- (void)setCanDelete:(BOOL)canDelete
-{
-    objc_setAssociatedObject(self, @selector(canDelete), @(canDelete), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
 - (BOOL)addHeader
 {
     return [objc_getAssociatedObject(self, @selector(addHeader)) boolValue];
@@ -203,7 +193,8 @@
           completed:(SUIDataSourceCompletionBlock)completed
 {
     [self.currDataSource requestData:parameters
-                             replace:replace refreshTable:refreshTable
+                             replace:replace
+                        refreshTable:refreshTable
                            completed:completed];
 }
 

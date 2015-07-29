@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MGSwipeTableCell.h"
 #import "SUIBaseProtocol.h"
 
-@interface SUIBaseCell : UITableViewCell <SUIBaseProtocol>
+@class SUIBaseProtocol;
+
+
+@interface SUIBaseCell : MGSwipeTableCell <SUIBaseProtocol>
 
 @property (nonatomic,strong) id currModle;
 

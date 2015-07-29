@@ -34,6 +34,8 @@
 #define kDocument [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
 #define kDocumentURL [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]
 
+#define kOpenRemoteNoti ((kAboveIOS8) ? [[UIApplication sharedApplication] isRegisteredForRemoteNotifications] : ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] ? YES : NO))
+
 
 // _____________________________________________________________________________
 
@@ -62,6 +64,9 @@
 
 #define gMainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
 #define gViewControllerInstantiate(__storyboardId) [gMainStoryboard instantiateViewControllerWithIdentifier:__storyboardId]
+
+#define gRandomInRange(__startIndex, __endIndex) (int)(arc4random_uniform(__endIndex-__startIndex) + __startIndex) // __startIndex ~ (__endIndex - 1)
+#define gRandomColo [UIColor colorWithRed:gRandomInRange(0, 256)/255.0f green:gRandomInRange(0, 256)/255.0f blue:gRandomInRange(0, 256)/255.0f alpha:1.0f]
 
 
 // _____________________________________________________________________________

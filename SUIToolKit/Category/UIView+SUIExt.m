@@ -129,4 +129,19 @@
 }
 
 
+
+
+- (id)subviewWithClassName:(NSString *)className
+{
+    for (UIView *subView in self.subviews)
+    {
+        if ([subView isKindOfClass:NSClassFromString(className)])
+        {
+            return subView;
+        }
+    }
+    return nil;
+}
+
+
 @end

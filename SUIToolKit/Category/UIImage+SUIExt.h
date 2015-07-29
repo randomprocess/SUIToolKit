@@ -17,4 +17,13 @@
 - (UIImage *)toSize:(CGSize)targetSize;
 
 
+
+- (UIImage *)imageWithTintColo:(UIColor *)tintColor;
+
+- (UIImage *)imageWithGradientTintColo:(UIColor *)tintColor;
+
+- (UIImage *)imageWithTintColo:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
+
+
+
 @end

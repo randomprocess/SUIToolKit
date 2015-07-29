@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MGSwipeTableCell.h"
 
-@class SUIDataSource;
+@class SUIDataSource, SUIBaseCell;
+
+
+typedef NS_ENUM(NSInteger, SUISwipeDirection) {
+    SUISwipeDirectionToRight = 0,
+    SUISwipeDirectionToLeft = 1
+};
 
 @protocol SUIBaseProtocol <NSObject>
 @optional
@@ -79,17 +86,19 @@
 - (id)modelPassed;
 
 
-#pragma mark - TableView delegate & dataSource
+#pragma mark - TableView
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel; //不实现这个方法,则根据IB中canDelete属性
-- (void)tableView:(UITableView *)tableView commitRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
+- (void)suiTableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 
 
-#pragma mark - SearchBar delegate
+- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell canSwipe:(SUISwipeDirection)direction;
+- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings;
+- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction;
 
-- (NSArray *)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
+
+#pragma mark - SearchBar
+
+- (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
 
 
 #pragma mark -

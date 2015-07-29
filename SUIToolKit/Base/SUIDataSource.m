@@ -15,7 +15,7 @@
 #import "SUIHttpClient.h"
 
 
-static dispatch_queue_t data_sorce_refresh_table_queue() {
+static dispatch_queue_t data_source_refresh_table_queue() {
     static dispatch_queue_t sui_data_source_refresh_table_queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -28,7 +28,9 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
     UISearchControllerDelegate,
     UISearchResultsUpdating,
     UISearchDisplayDelegate,
-    UISearchBarDelegate>
+    UISearchBarDelegate,
+    MGSwipeTableCellDelegate>
+
 
 @property (nonatomic,strong) NSMutableArray *currDataAry;
 
@@ -88,6 +90,7 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
     NSArray *currConfig = [self configureCell:indexPath tableView:tableView];
     SUIBaseCell *currCell = [[_dataSourceDelegate currTableView] dequeueReusableCellWithIdentifier:currConfig[0]];
     currCell.cellActionDelegate = self.dataSourceDelegate;
+    currCell.delegate = self;
     currCell.currModle = currConfig[1];
     [currCell displayWithCalculateCellHeight:currCell.currModle];
     [currCell displayWithCurrModel:currCell.currModle];
@@ -139,39 +142,6 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
     return @[curCellIdentifier, currSourceData];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // TODO: - currSearchController
-    return UITableViewCellEditingStyleDelete;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *preferredLanguage = kLanguage;
-    if ([preferredLanguage isEqualToString:@"zh-Hans"]) {
-        return @"删除";
-    } else if ([preferredLanguage isEqualToString:@"zh-Hant"]) {
-        return @"刪除";
-    } else {
-        return @"Delete";
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(tableView:canEditRowAtIndexPath:cModel:)])
-    {
-        return [self.dataSourceDelegate tableView:tableView canEditRowAtIndexPath:indexPath cModel:[self currentModelAtIndex:indexPath tableView:tableView]];
-    }
-    
-    if ([self.dataSourceDelegate respondsToSelector:@selector(canDelete)])
-    {
-        return [self.dataSourceDelegate canDelete];
-    }
-    return NO;
-}
-
-
 
 // _____________________________________________________________________________
 
@@ -181,20 +151,11 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
     
     _scrModel = [self currentModelAtIndex:indexPath tableView:tableView];
     
-    if ([self.dataSourceDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:cModel:)])
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:didSelectRowAtIndexPath:cModel:)])
     {
-        [self.dataSourceDelegate tableView:tableView didSelectRowAtIndexPath:indexPath cModel:[self currentModelAtIndex:indexPath tableView:tableView]];
+        [self.dataSourceDelegate suiTableView:tableView didSelectRowAtIndexPath:indexPath cModel:[self currentModelAtIndex:indexPath tableView:tableView]];
     }
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(tableView:commitRowAtIndexPath:cModel:)])
-    {
-        [self.dataSourceDelegate tableView:tableView commitRowAtIndexPath:indexPath cModel:[self currentModelAtIndex:indexPath tableView:tableView]];
-    }
-}
-
 
 - (id)currentModelAtIndex:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
@@ -204,10 +165,70 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
     }
     else
     {
-        return self.currDataAry[indexPath.section][indexPath.row];
+        id currSourceData = nil;
+        if ([_dataSourceDelegate fetchedResultsController] != nil)
+        {
+            id<NSFetchedResultsSectionInfo> sectionInfo = [_dataSourceDelegate fetchedResultsController].sections[indexPath.section];
+            if ([sectionInfo numberOfObjects] == 1)
+            {
+                currSourceData = [[_dataSourceDelegate fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+            }
+            else
+            {
+                currSourceData = [[_dataSourceDelegate fetchedResultsController] objectAtIndexPath:indexPath];
+            }
+        }
+        else
+        {
+            NSArray *curCellSourceDataSection = self.currDataAry[indexPath.section];
+            currSourceData = (curCellSourceDataSection.count == 1) ?
+            curCellSourceDataSection[0] : curCellSourceDataSection[indexPath.row];
+        }
+        
+        return currSourceData;
     }
 }
 
+
+// _____________________________________________________________________________
+
+#pragma mark - MGSwipeTableCellDelegate
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction fromPoint:(CGPoint)point
+{
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:canSwipe:)])
+    {
+        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell canSwipe:curDirection];
+    }
+    return YES;
+}
+
+- (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
+{
+    swipeSettings.transition = MGSwipeTransitionDrag;
+    expansionSettings.fillOnTrigger = YES;
+    
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:direction:swipeSettings:expansionSettings:)])
+    {
+        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell direction:curDirection swipeSettings:swipeSettings expansionSettings:expansionSettings];
+    }
+    return nil;
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:tappedAtIndex:direction:)])
+    {
+        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell tappedAtIndex:index direction:curDirection];
+    }
+    return YES;
+}
+
+
+// _____________________________________________________________________________
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
@@ -381,11 +402,11 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    if ([_dataSourceDelegate respondsToSelector:@selector(searchBar:textDidChange:dataAry:)])
+    if ([_dataSourceDelegate respondsToSelector:@selector(suiSearchBar:textDidChange:dataAry:)])
     {
         if (self.currDataAry.count > 0)
         {
-            NSArray *curResults = [_dataSourceDelegate searchBar:searchBar textDidChange:searchText dataAry:self.currDataAry];
+            NSArray *curResults = [_dataSourceDelegate suiSearchBar:searchBar textDidChange:searchText dataAry:self.currDataAry];
             if (curResults == nil) return;
             
             [self.currSearchDataAry removeAllObjects];
@@ -427,7 +448,13 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
          if (weakSelf) {
              uStrongSelf
 
-             uLogInfo("========== response ==========\n%@\n", responseObject);
+#if DEBUG
+             if (error == nil) {
+                 uLogInfo("========== response ==========\n%@\n", responseObject);
+             } else {
+                 uLogError("========== error ==========\n%@\n", error)
+             }
+#endif
              
              if ([strongSelf.dataSourceDelegate fetchedResultsController])
              {
@@ -444,7 +471,7 @@ static dispatch_queue_t data_sorce_refresh_table_queue() {
              if (refreshTable)
              {
                  typeof(strongSelf) __weak weakSelf = strongSelf;
-                 dispatch_async(data_sorce_refresh_table_queue(), ^{
+                 dispatch_async(data_source_refresh_table_queue(), ^{
                      NSArray *newDataAry = nil;
                      if (error == nil) {
                          newDataAry = refreshTable(responseObject);

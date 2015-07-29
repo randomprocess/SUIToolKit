@@ -8,6 +8,7 @@
 
 #import "SUITool.h"
 #import "SUIToolKitConst.h"
+#import "SUIHttpClient.h"
 
 NSString *const SUIEver_Launched = @"Ever_Launched";
 NSString *const SUICurr_Version = @"Curr_Version";
@@ -24,6 +25,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 @property (nonatomic,assign) CGFloat keyboardHeight;
 @property (nonatomic,assign) double keyboardAnimationDuration;
 
+@property (nonatomic,copy) SUIAppStoreVersionCompletionBlock appStoreVersionCompletion;
 
 @end
 
@@ -367,7 +369,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 #pragma mark - Others
 
-+ (BOOL)goToAppStore:(NSString *)appId;
++ (BOOL)goToAppStore:(NSString *)appId
 {
     NSString *curURL = gFormat(@"itms-apps://itunes.apple.com/app/id%@", appId);
     BOOL ret = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
@@ -380,6 +382,46 @@ NSString *const SUICurr_Version = @"Curr_Version";
     return ret;
 }
 
++ (void)appStoreVersion:(NSString *)appId cb:(SUIAppStoreVersionCompletionBlock)completionBlock
+{
+    if ([SUITool sharedInstance].appStoreVersionCompletion)
+    {
+        return;
+    }
+    
+    [SUITool sharedInstance].appStoreVersionCompletion = completionBlock;
+    
+    [[SUIHttpClient sharedClient]
+     requestWithHost:@"http://itunes.apple.com/lookup"
+     httpMethod:@"GET"
+     parameters:@{
+                  @"id": appId
+                  }
+     completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
+         
+         if (error == nil)
+         {
+             NSDictionary *dict = (NSDictionary *)responseObject;
+             
+             NSArray *resultsAry = dict[@"results"];
+             NSDictionary *resultDic = resultsAry[0];
+             
+             NSString *appVersion = resultDic[@"version"];
+             
+             uLogInfo("AppVersion ⤭ %@ ⤪  CurrVersion ⤭ %@ ⤪", responseObject, kVersion);
+             
+             [SUITool sharedInstance].appStoreVersionCompletion(nil, appVersion);
+         }
+         else
+         {
+             uLogError(@"appStore version Error ⤭ %@ ⤪", error);
+             
+             [SUITool sharedInstance].appStoreVersionCompletion(error, nil);
+         }
+         [SUITool sharedInstance].appStoreVersionCompletion = nil;
+     }];
+    
+}
 
 + (SUIDelayTask)delay:(NSTimeInterval)delayInSeconds cb:(void (^)(void))completionBlock
 {

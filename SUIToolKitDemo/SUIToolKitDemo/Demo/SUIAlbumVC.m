@@ -59,7 +59,7 @@
          }];
 }
 
-- (NSArray *)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry
+- (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry
 {
     NSPredicate *albumPredicate = [NSPredicate predicateWithFormat:@"albumId CONTAINS[c] %@", searchBar.text];
     NSArray *result = [cDataAry[0] filteredArrayUsingPredicate:albumPredicate];
@@ -69,6 +69,35 @@
     // 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil
     return @[result];
 }
+
+
+- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
+{
+    if (direction == SUISwipeDirectionToLeft)
+    {
+        swipeSettings.onlySwipeButtons = YES;
+        
+        UIButton *coneBtn = [UIButton customBtn];
+        coneBtn.normalTitle = @"miao";
+        coneBtn.backgroundColor = gRandomColo;
+        coneBtn.padding = 25.0f;
+        coneBtn.clickBlock = ^() {
+            uLog(@"miao miao");
+        };
+        
+        UIButton *ctowBtn = [UIButton customBtn];
+        ctowBtn.normalTitle = @"aowu";
+        ctowBtn.backgroundColor = gRandomColo;
+        ctowBtn.padding = 25.0f;
+        ctowBtn.clickBlock = ^() {
+            uLog(@"aoao aoao");
+        };
+        
+        return @[coneBtn, ctowBtn];
+    }
+    return nil;
+}
+
 
 
 

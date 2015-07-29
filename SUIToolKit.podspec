@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'SUIToolKit'
-  s.version      = '0.1'
+  s.version      = '0.1.1'
   s.platform     = :ios, '7.0'
   s.summary      = 'A collection of convenient classes for iOS.'
 
@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
     ss.dependency 'MagicalRecord', '~> 2.3.0'
+    ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.source_files = 'SUIToolKit/Base/*.{h,m}'
   end
 
@@ -41,6 +42,6 @@ Pod::Spec.new do |s|
   end
 
 
-  s.frameworks = 'UIKit', 'Foundation', 'CoreData'
+  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore'
 
 end

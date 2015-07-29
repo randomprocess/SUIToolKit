@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SUIDelayTask)(BOOL cancel);
+typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appVersion);
+
 @interface SUITool : NSObject
 
 
@@ -73,8 +76,7 @@
 
 + (BOOL)goToAppStore:(NSString *)appId;
 
-
-typedef void (^SUIDelayTask)(BOOL cancel);
++ (void)appStoreVersion:(NSString *)appId cb:(SUIAppStoreVersionCompletionBlock)completionBlock;
 
 + (SUIDelayTask)delay:(NSTimeInterval)delayInSeconds cb:(void (^)(void))completionBlock;
 

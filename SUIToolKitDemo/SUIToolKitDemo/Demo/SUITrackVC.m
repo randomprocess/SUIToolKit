@@ -42,9 +42,16 @@
          refreshTable:^NSArray *(id responseObject) {
              
              NSDictionary *curDic = responseObject;
+             id curTrackAry = curDic[@"tracks"];
+             
+             if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
+             {
+                 return nil;
+             }
+             
              NSArray *trackAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:self.managedObjectContext];
              return @[trackAry];
-             
+
          } completed:^(NSError *error, id responseObject) {
              [weakSelf loadingViewDissmiss];
          }];

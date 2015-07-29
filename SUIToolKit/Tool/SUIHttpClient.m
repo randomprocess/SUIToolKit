@@ -76,7 +76,7 @@
         
         _ignoringCacheManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:ignoringCacheConfig];
         _ignoringCacheManager.responseSerializer = [AFJSONResponseSerializer serializer];
-        _ignoringCacheManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/plain", @"text/html", nil];
+        _ignoringCacheManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/plain", @"text/html", @"text/javascript", nil];
     }
     return _ignoringCacheManager;
 }

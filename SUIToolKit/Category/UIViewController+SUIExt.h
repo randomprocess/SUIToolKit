@@ -31,7 +31,6 @@
 #pragma mark - IB
 
 @property (nonatomic) IBInspectable BOOL addSearch;
-@property (nonatomic) IBInspectable BOOL canDelete;
 
 @property (nonatomic) IBInspectable BOOL addHeader;
 @property (nonatomic) IBInspectable BOOL addFooter;

@@ -7,15 +7,22 @@
 //
 
 #import "UIButton+SUIExt.h"
+#import <QuartzCore/QuartzCore.h>
+
+
+const CGFloat WZFlashInnerCircleInitialRaius = 20;
+
 
 @implementation UIButton (SUIExt)
 
 
-+ (UIButton *)customBtn
++ (instancetype)customBtn
 {
     return [UIButton buttonWithType:UIButtonTypeCustom];
 }
 
+
+// _____________________________________________________________________________
 
 - (void)setNormalTitle:(NSString *)normalTitle
 {
@@ -54,6 +61,8 @@
 }
 
 
+// _____________________________________________________________________________
+
 - (void)setPressedTitle:(NSString *)pressedTitle
 {
     [self setTitle:pressedTitle forState:UIControlStateHighlighted];
@@ -81,6 +90,8 @@
     return [self imageForState:UIControlStateHighlighted];
 }
 
+
+// _____________________________________________________________________________
 
 - (void)setSelectedTitle:(NSString *)selectedTitle
 {
@@ -110,6 +121,8 @@
 }
 
 
+// _____________________________________________________________________________
+
 - (void)setDisabledTitle:(NSString *)disabledTitle
 {
     [self setTitle:disabledTitle forState:UIControlStateDisabled];
@@ -138,10 +151,179 @@
 }
 
 
+// _____________________________________________________________________________
 
-- (void)addClickTarget:(id)target action:(SEL)action
+- (void)setPadding:(CGFloat)padding
 {
-    [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    self.contentEdgeInsets = UIEdgeInsetsMake(0, padding, 0, padding);
+    [self sizeToFit];
+}
+- (CGFloat)padding
+{
+    UIEdgeInsets curInsets = self.contentEdgeInsets;
+    if (curInsets.left == curInsets.right)
+    {
+        return curInsets.left;
+    }
+    return 0;
+}
+
+- (void)setInsets:(UIEdgeInsets)insets
+{
+    self.contentEdgeInsets = insets;
+    [self sizeToFit];
+}
+- (UIEdgeInsets)insets
+{
+    return self.contentEdgeInsets;
+}
+
+
+// _____________________________________________________________________________
+
+- (SUIButtonFlashType)flashType
+{
+    return [objc_getAssociatedObject(self, @selector(flashType)) integerValue];
+}
+- (void)setFlashType:(SUIButtonFlashType)flashType
+{
+    if (flashType == self.flashType)
+    {
+        return;
+    }
+    
+    if (self.flashType == SUIButtonFlashTypeNormal)
+    {
+        UITapGestureRecognizer *curTapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doFlashTap:)];
+        curTapGes.cancelsTouchesInView = NO;
+        [self addGestureRecognizer:curTapGes];
+        curTapGes.view.tag = 1649052;
+    }
+    else
+    {
+        for (UIGestureRecognizer *curGes in [self gestureRecognizers]) {
+            if ([curGes isKindOfClass:[UITapGestureRecognizer class]])
+            {
+                if (curGes.view.tag == 1649052)
+                {
+                    [self removeGestureRecognizer:curGes];
+                    break;
+                }
+            }
+        }
+        
+        self.clipsToBounds = (self.flashType == SUIButtonFlashTypeInner);
+    }
+    
+    objc_setAssociatedObject(self, @selector(flashType), @(flashType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIColor *)flashColor
+{
+    return objc_getAssociatedObject(self, @selector(flashColor));
+}
+- (void)setFlashColor:(UIColor *)flashColor
+{
+    objc_setAssociatedObject(self, @selector(flashColor), flashColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+- (void)doFlashTap:(UITapGestureRecognizer *)tapGes
+{
+    CGPoint tapLocation = [tapGes locationInView:self];
+    CAShapeLayer *circleShape = nil;
+    CGFloat scale = 1.0f;
+    
+    CGFloat width = self.bounds.size.width, height = self.bounds.size.height;
+    
+    if (self.flashType == SUIButtonFlashTypeInner) {
+        CGFloat biggerEdge = width > height ? width : height;
+        CGFloat smallerEdge = width > height ? height : width;
+        CGFloat radius = smallerEdge / 2 > WZFlashInnerCircleInitialRaius ? WZFlashInnerCircleInitialRaius : smallerEdge / 2;
+        
+        scale = biggerEdge / radius + 0.5;
+        circleShape = [self createCircleShapeWithPosition:CGPointMake(tapLocation.x - radius, tapLocation.y - radius)
+                                                 pathRect:CGRectMake(0, 0, radius * 2, radius * 2)
+                                                   radius:radius];
+    } else {
+        scale = 2.5f;
+        circleShape = [self createCircleShapeWithPosition:CGPointMake(width/2, height/2)
+                                                 pathRect:CGRectMake(-CGRectGetMidX(self.bounds), -CGRectGetMidY(self.bounds), width, height)
+                                                   radius:self.layer.cornerRadius];
+    }
+    
+    [self.layer addSublayer:circleShape];
+    
+    CAAnimationGroup *groupAnimation = [self createFlashAnimationWithScale:scale duration:0.5f];
+    
+    /* Use KVC to remove layer to avoid memory leak */
+    [groupAnimation setValue:circleShape forKey:@"circleShaperLayer"];
+    
+    [circleShape addAnimation:groupAnimation forKey:nil];
+//    [circleShape setDelegate:self];
+}
+
+- (CAShapeLayer *)createCircleShapeWithPosition:(CGPoint)position pathRect:(CGRect)rect radius:(CGFloat)radius
+{
+    CAShapeLayer *circleShape = [CAShapeLayer layer];
+    circleShape.path = [self createCirclePathWithRadius:rect radius:radius];
+    circleShape.position = position;
+    
+    if (self.flashType == SUIButtonFlashTypeInner) {
+        circleShape.bounds = CGRectMake(0, 0, radius * 2, radius * 2);
+        circleShape.fillColor = self.flashColor ? self.flashColor.CGColor : [UIColor whiteColor].CGColor;
+    } else {
+        circleShape.fillColor = [UIColor clearColor].CGColor;
+        circleShape.strokeColor = self.flashColor ? self.flashColor.CGColor : [UIColor purpleColor].CGColor;
+    }
+    
+    circleShape.opacity = 0;
+    circleShape.lineWidth = 1;
+    
+    return circleShape;
+}
+
+- (CAAnimationGroup *)createFlashAnimationWithScale:(CGFloat)scale duration:(CGFloat)duration
+{
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(scale, scale, 1)];
+    
+    CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    alphaAnimation.fromValue = @1;
+    alphaAnimation.toValue = @0;
+    
+    CAAnimationGroup *animation = [CAAnimationGroup animation];
+    animation.animations = @[scaleAnimation, alphaAnimation];
+    animation.duration = duration;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    
+    return animation;
+}
+
+- (CGPathRef)createCirclePathWithRadius:(CGRect)frame radius:(CGFloat)radius
+{
+    return [UIBezierPath bezierPathWithRoundedRect:frame cornerRadius:radius].CGPath;
+}
+
+
+
+- (SUIButtonClickBlock)clickBlock
+{
+    return objc_getAssociatedObject(self, @selector(clickBlock));
+}
+- (void)setClickBlock:(SUIButtonClickBlock)clickBlock
+{
+    [self addTarget:self action:@selector(clickBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    objc_setAssociatedObject(self, @selector(clickBlock), clickBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)clickBtnAction
+{
+    if (self.clickBlock)
+    {
+        self.clickBlock();
+    }
 }
 
 
