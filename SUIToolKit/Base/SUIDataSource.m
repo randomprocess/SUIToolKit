@@ -40,7 +40,7 @@ static dispatch_queue_t data_source_refresh_table_queue() {
 
 @property (nonatomic,weak) NSURLSessionDataTask *currTask;
 
-@property (nonatomic,assign,getter=loadMoreData) BOOL isLoadMoreData;
+@property (nonatomic,assign,getter=isLoadMoreData) BOOL loadMoreData;
 
 @property (nonatomic,strong) UISearchController *currSearchController;
 @property (nonatomic,strong) UISearchDisplayController *currSearchDisplayController;
@@ -196,35 +196,41 @@ static dispatch_queue_t data_source_refresh_table_queue() {
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction fromPoint:(CGPoint)point
 {
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:canSwipe:)])
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:canSwipe:cModel:)])
     {
         SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell canSwipe:curDirection];
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell canSwipe:curDirection cModel:[self modelOfSwipeTableCell:cell]];
     }
     return YES;
 }
 
 - (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
 {
-    swipeSettings.transition = MGSwipeTransitionDrag;
-    expansionSettings.fillOnTrigger = YES;
-    
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:direction:swipeSettings:expansionSettings:)])
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:direction:swipeSettings:expansionSettings:cModel:)])
     {
+        swipeSettings.transition = MGSwipeTransitionDrag;
+        expansionSettings.fillOnTrigger = YES;
+        
         SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell direction:curDirection swipeSettings:swipeSettings expansionSettings:expansionSettings];
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell direction:curDirection swipeSettings:swipeSettings expansionSettings:expansionSettings cModel:[self modelOfSwipeTableCell:cell]];
     }
     return nil;
 }
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:tappedAtIndex:direction:)])
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:tappedAtIndex:direction:cModel:)])
     {
         SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell tappedAtIndex:index direction:curDirection];
+        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell tappedAtIndex:index direction:curDirection cModel:[self modelOfSwipeTableCell:cell]];
     }
     return YES;
+}
+
+- (id)modelOfSwipeTableCell:(MGSwipeTableCell *)cell
+{
+    NSIndexPath* curIndexPath = [[self.dataSourceDelegate currTableView] indexPathForCell:cell];
+    return [self currentModelAtIndex:curIndexPath tableView:[self.dataSourceDelegate currTableView]];
 }
 
 
@@ -353,13 +359,13 @@ static dispatch_queue_t data_source_refresh_table_queue() {
 
 - (void)handlerLoadLastData
 {
-    _isLoadMoreData = NO;
+    self.loadMoreData = NO;
     _dataSourceDelegate.pageIndex = 0;
     [_dataSourceDelegate handlerMainRequest:NO];
 }
 - (void)handlerLoadMoreData
 {
-    _isLoadMoreData = YES;
+    self.loadMoreData = YES;
     [_dataSourceDelegate handlerMainRequest:YES];
 }
 

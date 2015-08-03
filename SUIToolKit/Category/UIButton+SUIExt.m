@@ -34,11 +34,11 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     return [self titleForState:UIControlStateNormal];
 }
 
-- (void)setNormalTitleColor:(UIColor *)normalTitleColor
+- (void)setNormalTitleColo:(UIColor *)normalTitleColo
 {
-    [self setTitleColor:normalTitleColor forState:UIControlStateNormal];
+    [self setTitleColor:normalTitleColo forState:UIControlStateNormal];
 }
-- (UIColor *)normalTitleColor
+- (UIColor *)normalTitleColo
 {
     return [self titleColorForState:UIControlStateNormal];
 }
@@ -73,11 +73,11 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     return [self titleForState:UIControlStateHighlighted];
 }
 
-- (void)setPressedTitleColor:(UIColor *)pressedTitleColor
+- (void)setPressedTitleColo:(UIColor *)pressedTitleColo
 {
-    [self setTitleColor:pressedTitleColor forState:UIControlStateHighlighted];
+    [self setTitleColor:pressedTitleColo forState:UIControlStateHighlighted];
 }
-- (UIColor *)pressedTitleColor
+- (UIColor *)pressedTitleColo
 {
     return [self titleColorForState:UIControlStateHighlighted];
 }
@@ -103,11 +103,11 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     return [self titleForState:UIControlStateSelected];
 }
 
-- (void)setSelectedTitleColor:(UIColor *)selectedTitleColor
+- (void)setSelectedTitleColo:(UIColor *)selectedTitleColo
 {
-    [self setSelectedTitleColor:selectedTitleColor];
+    [self setTitleColor:selectedTitleColo forState:UIControlStateSelected];
 }
-- (UIColor *)selectedTitleColor
+- (UIColor *)selectedTitleColo
 {
     return [self titleColorForState:UIControlStateSelected];
 }
@@ -133,11 +133,11 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     return [self titleForState:UIControlStateDisabled];
 }
 
-- (void)setDisabledTitleColor:(UIColor *)disabledTitleColor
+- (void)setDisabledTitleColo:(UIColor *)disabledTitleColo
 {
-    [self setTitleColor:disabledTitleColor forState:UIControlStateDisabled];
+    [self setTitleColor:disabledTitleColo forState:UIControlStateDisabled];
 }
-- (UIColor *)disabledTitleColor
+- (UIColor *)disabledTitleColo
 {
     return [self titleColorForState:UIControlStateDisabled];
 }
@@ -219,13 +219,13 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     objc_setAssociatedObject(self, @selector(flashType), @(flashType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIColor *)flashColor
+- (UIColor *)flashColo
 {
-    return objc_getAssociatedObject(self, @selector(flashColor));
+    return objc_getAssociatedObject(self, @selector(flashColo));
 }
-- (void)setFlashColor:(UIColor *)flashColor
+- (void)setFlashColo:(UIColor *)flashColo
 {
-    objc_setAssociatedObject(self, @selector(flashColor), flashColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(flashColo), flashColo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
@@ -272,10 +272,10 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     
     if (self.flashType == SUIButtonFlashTypeInner) {
         circleShape.bounds = CGRectMake(0, 0, radius * 2, radius * 2);
-        circleShape.fillColor = self.flashColor ? self.flashColor.CGColor : [UIColor whiteColor].CGColor;
+        circleShape.fillColor = self.flashColo ? self.flashColo.CGColor : [UIColor whiteColor].CGColor;
     } else {
         circleShape.fillColor = [UIColor clearColor].CGColor;
-        circleShape.strokeColor = self.flashColor ? self.flashColor.CGColor : [UIColor purpleColor].CGColor;
+        circleShape.strokeColor = self.flashColo ? self.flashColo.CGColor : [UIColor purpleColor].CGColor;
     }
     
     circleShape.opacity = 0;

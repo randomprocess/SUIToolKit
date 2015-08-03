@@ -24,26 +24,26 @@ typedef NS_ENUM(NSInteger, SUIButtonFlashType) {
 // _____________________________________________________________________________
 
 @property (nonatomic,copy) NSString *normalTitle;
-@property (nonatomic,strong) UIColor *normalTitleColor;
+@property (nonatomic,strong) UIColor *normalTitleColo;
 @property (nonatomic,strong) UIImage *normalImage;
 @property (nonatomic,strong) UIImage *normalBackgroundImage;
 
 // _____________________________________________________________________________
 
 @property (nonatomic,copy) NSString *pressedTitle;
-@property (nonatomic,strong) UIColor *pressedTitleColor;
+@property (nonatomic,strong) UIColor *pressedTitleColo;
 @property (nonatomic,strong) UIImage *pressedImage;
 
 // _____________________________________________________________________________
 
 @property (nonatomic,copy) NSString *selectedTitle;
-@property (nonatomic,strong) UIColor *selectedTitleColor;
+@property (nonatomic,strong) UIColor *selectedTitleColo;
 @property (nonatomic,strong) UIImage *selectedImage;
 
 // _____________________________________________________________________________
 
 @property (nonatomic,copy) NSString *disabledTitle;
-@property (nonatomic,strong) UIColor *disabledTitleColor;
+@property (nonatomic,strong) UIColor *disabledTitleColo;
 @property (nonatomic,strong) UIImage *disabledImage;
 
 // _____________________________________________________________________________
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, SUIButtonFlashType) {
 // _____________________________________________________________________________
 
 @property (nonatomic,assign) SUIButtonFlashType flashType;
-@property (nonatomic,strong) UIColor *flashColor;
+@property (nonatomic,strong) UIColor *flashColo;
 
 // _____________________________________________________________________________
 

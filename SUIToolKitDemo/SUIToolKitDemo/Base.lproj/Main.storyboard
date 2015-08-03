@@ -175,6 +175,11 @@
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEa-tG-pbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="kUx-sT-y7l" customClass="SUIDropdownTitleView">
+                    <connections>
+                        <outlet property="currVC" destination="fo7-Zw-5bm" id="jCf-E8-1X1"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="782" y="210"/>
         </scene>

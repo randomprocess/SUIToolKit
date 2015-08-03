@@ -27,6 +27,8 @@
 #define kBuildVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 #define kVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 #define kLanguage [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0] // @"zh-Hans", @"zh-Hant", @"en" ...
 #define kProjectName [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleExecutableKey]
@@ -43,6 +45,7 @@
 
 
 #define gFormat(__format, ...) [NSString stringWithFormat:__format, ##__VA_ARGS__]
+#define gPredicate(__format, ...) [NSPredicate predicateWithFormat:__format, ##__VA_ARGS__]
 
 #define gRGB(__r,__g,__b) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:1.0f]
 #define gRGBA(__r,__g,__b,__a) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:__a]
@@ -68,6 +71,8 @@
 #define gRandomInRange(__startIndex, __endIndex) (int)(arc4random_uniform(__endIndex-__startIndex) + __startIndex) // __startIndex ~ (__endIndex - 1)
 #define gRandomColo [UIColor colorWithRed:gRandomInRange(0, 256)/255.0f green:gRandomInRange(0, 256)/255.0f blue:gRandomInRange(0, 256)/255.0f alpha:1.0f]
 
+#define gAdapt(__length) round( kScreenWidth / 320.0 * __length )
+
 
 // _____________________________________________________________________________
 
@@ -75,6 +80,8 @@
 
 #define uWeakSelf typeof(self) __weak weakSelf = self;
 #define uStrongSelf typeof(weakSelf) __strong strongSelf = weakSelf;
+
+#define uBorder(__view) __view.layer.borderColor=[gRandomColo CGColor];__view.layer.borderWidth=1;
 
 #define uMainQueue(__stuff) \
 if ([NSThread isMainThread]) { \
@@ -84,6 +91,8 @@ dispatch_async(dispatch_get_main_queue(), ^{ \
 __stuff \
 }); \
 } \
+
+#define uRegisterRemoteNoti {if (kAboveIOS8) { [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound categories:nil]]; [[UIApplication sharedApplication] registerForRemoteNotifications]; } else { [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound]; }}
 
 
 // _____________________________________________________________________________

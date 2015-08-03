@@ -75,8 +75,6 @@
 {
     if (direction == SUISwipeDirectionToLeft)
     {
-        swipeSettings.onlySwipeButtons = YES;
-        
         UIButton *coneBtn = [UIButton customBtn];
         coneBtn.normalTitle = @"miao";
         coneBtn.backgroundColor = gRandomColo;
@@ -98,6 +96,16 @@
     return nil;
 }
 
+
+- (NSArray *)suiDropdownTitleMenu
+{
+    return @[@"miao", @"aoao", @"meow"];
+}
+
+- (void)suiDropdownTitleDidSelectAtIndex:(NSInteger)curIndex
+{
+    uLog(@"%zd", curIndex);
+}
 
 
 

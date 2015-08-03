@@ -45,7 +45,6 @@
 @property (nonatomic,copy) NSString *classNameOfLoadingView;
 
 
-
 #pragma mark -
 
 - (void)configureController:(id<SUIBaseProtocol>)curController;
