@@ -11,7 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "MGSwipeTableCell.h"
 
-@class SUIDataSource, SUIBaseCell;
+@class SUIDataSource, SUIBaseCell, SUIDropdownTitleMenu;
 
 
 typedef NS_ENUM(NSInteger, SUISwipeDirection) {
@@ -106,8 +106,10 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 #pragma mark - DropdownTitleView
 
 /** @return [TitleString] */
-- (NSArray *)suiDropdownTitleMenu;
-- (void)suiDropdownTitleDidSelectAtIndex:(NSInteger)curIndex;
+- (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView;
+/** @return [View] */
+- (NSArray *)suiDropdownTitleMenuViews:(SUIDropdownTitleMenu *)cView;
+- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)curIndex;
 
 
 #pragma mark -

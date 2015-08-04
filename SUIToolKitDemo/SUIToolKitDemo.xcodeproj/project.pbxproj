@@ -25,7 +25,7 @@
 		6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1F1E0C1B4A9A4E00A2DC39 /* SUIMainTVC.m */; };
 		6D44D9111B53588B0067E225 /* SUITrackMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9101B53588B0067E225 /* SUITrackMD.m */; };
 		6D44D9141B53588C0067E225 /* SUIMediaMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D44D9131B53588C0067E225 /* SUIMediaMD.m */; };
-		6D8E2D2A1B6F1C0100A95DCF /* SUIDropdownTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E2D291B6F1C0100A95DCF /* SUIDropdownTitleView.m */; };
+		6D67E7601B7062DF00CD691D /* SUIDropdownTitleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E75F1B7062DF00CD691D /* SUIDropdownTitleMenu.m */; };
 		6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470791B5E378900860B27 /* NSArray+SUIExt.m */; };
 		6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707B1B5E378900860B27 /* UIView+SUIExt.m */; };
 		6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */; };
@@ -95,8 +95,8 @@
 		6D44D9101B53588B0067E225 /* SUITrackMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITrackMD.m; sourceTree = "<group>"; };
 		6D44D9121B53588C0067E225 /* SUIMediaMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMediaMD.h; sourceTree = "<group>"; };
 		6D44D9131B53588C0067E225 /* SUIMediaMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMediaMD.m; sourceTree = "<group>"; };
-		6D8E2D281B6F1C0100A95DCF /* SUIDropdownTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDropdownTitleView.h; sourceTree = "<group>"; };
-		6D8E2D291B6F1C0100A95DCF /* SUIDropdownTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDropdownTitleView.m; sourceTree = "<group>"; };
+		6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDropdownTitleMenu.h; sourceTree = "<group>"; };
+		6D67E75F1B7062DF00CD691D /* SUIDropdownTitleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDropdownTitleMenu.m; sourceTree = "<group>"; };
 		6D9470781B5E378900860B27 /* NSArray+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SUIExt.h"; sourceTree = "<group>"; };
 		6D9470791B5E378900860B27 /* NSArray+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SUIExt.m"; sourceTree = "<group>"; };
 		6D94707A1B5E378900860B27 /* UIView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIExt.h"; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 		6D8E2D271B6F1B9C00A95DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6D8E2D281B6F1C0100A95DCF /* SUIDropdownTitleView.h */,
-				6D8E2D291B6F1C0100A95DCF /* SUIDropdownTitleView.m */,
+				6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */,
+				6D67E75F1B7062DF00CD691D /* SUIDropdownTitleMenu.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -498,7 +498,6 @@
 				6D1F1E0D1B4A9A4E00A2DC39 /* SUIMainTVC.m in Sources */,
 				6D1241411B60C961005DC05F /* SUIBaseConfig.m in Sources */,
 				6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */,
-				6D8E2D2A1B6F1C0100A95DCF /* SUIDropdownTitleView.m in Sources */,
 				6DCC7E021B4D188B00EE8E5B /* SUIAlbumVC.m in Sources */,
 				6D1241401B60C961005DC05F /* SUIBaseCell.m in Sources */,
 				6DE515941B4E2C1A00032191 /* SUITrackCell.m in Sources */,
@@ -510,6 +509,7 @@
 				6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */,
 				6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
+				6D67E7601B7062DF00CD691D /* SUIDropdownTitleMenu.m in Sources */,
 				6D1F1E0A1B4A95C800A2DC39 /* SUIAlbumMD.m in Sources */,
 				6D1241561B60E04A005DC05F /* UIButton+SUIExt.m in Sources */,
 				6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */,

@@ -68,10 +68,11 @@
 #define gMainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
 #define gViewControllerInstantiate(__storyboardId) [gMainStoryboard instantiateViewControllerWithIdentifier:__storyboardId]
 
-#define gRandomInRange(__startIndex, __endIndex) (int)(arc4random_uniform(__endIndex-__startIndex) + __startIndex) // __startIndex ~ (__endIndex - 1)
-#define gRandomColo [UIColor colorWithRed:gRandomInRange(0, 256)/255.0f green:gRandomInRange(0, 256)/255.0f blue:gRandomInRange(0, 256)/255.0f alpha:1.0f]
+#define gRandomInRange(__startIndex, __endIndex) (int)(arc4random_uniform(__endIndex-__startIndex+1) + __startIndex) // __startIndex ~ __endIndex
+#define gRandomColo [UIColor colorWithRed:gRandomInRange(0, 255)/255.0f green:gRandomInRange(0, 255)/255.0f blue:gRandomInRange(0, 255)/255.0f alpha:1.0f]
 
 #define gAdapt(__length) round( kScreenWidth / 320.0 * __length )
+#define gDegree(__para) __para*M_PI/180.0
 
 
 // _____________________________________________________________________________

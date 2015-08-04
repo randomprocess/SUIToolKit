@@ -37,6 +37,8 @@
 
 
 
+- (UIImage *)snapshot;
+
 - (id)subviewWithClassName:(NSString *)className;
 
 

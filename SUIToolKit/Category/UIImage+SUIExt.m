@@ -29,6 +29,22 @@
     return [self toSize:targetSize];
 }
 
+- (UIImage *)toFitHeight:(CGFloat)maxHeight
+{
+    CGFloat btWidth = 0;
+    CGFloat btHeight = 0;
+    
+    if (self.size.height > self.size.width) {
+        btWidth = maxHeight;
+        btHeight = self.size.height * (maxHeight / self.size.width);
+    } else {
+        btHeight = maxHeight;
+        btWidth = self.size.width * (maxHeight / self.size.height);
+    }
+    CGSize targetSize = CGSizeMake(btWidth, btHeight);
+    return [self toSize:targetSize];
+}
+
 - (UIImage *)toSize:(CGSize)targetSize
 {
     CGSize curSize = self.size;

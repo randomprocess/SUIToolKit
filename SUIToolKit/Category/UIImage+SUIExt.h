@@ -14,6 +14,8 @@
 
 - (UIImage *)toFitWidth:(CGFloat)maxWidth;
 
+- (UIImage *)toFitHeight:(CGFloat)maxHeight;
+
 - (UIImage *)toSize:(CGSize)targetSize;
 
 

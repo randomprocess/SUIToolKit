@@ -175,9 +175,9 @@
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEa-tG-pbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="kUx-sT-y7l" customClass="SUIDropdownTitleView">
+                <customObject id="kUx-sT-y7l" customClass="SUIDropdownTitleMenu">
                     <connections>
-                        <outlet property="currVC" destination="fo7-Zw-5bm" id="jCf-E8-1X1"/>
+                        <outlet property="currVC" destination="fo7-Zw-5bm" id="zS2-ad-Vmq"/>
                     </connections>
                 </customObject>
             </objects>

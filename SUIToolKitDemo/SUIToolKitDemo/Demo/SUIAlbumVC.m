@@ -19,6 +19,7 @@
 #import "SUIAlbumVC.h"
 #import "SUIAlbumMD.h"
 #import "UIViewController+SUIExt.h"
+#import "SUIDropdownTitleMenu.h"
 
 @interface SUIAlbumVC ()
 
@@ -97,12 +98,12 @@
 }
 
 
-- (NSArray *)suiDropdownTitleMenu
+- (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView
 {
     return @[@"miao", @"aoao", @"meow"];
 }
 
-- (void)suiDropdownTitleDidSelectAtIndex:(NSInteger)curIndex
+- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)curIndex
 {
     uLog(@"%zd", curIndex);
 }

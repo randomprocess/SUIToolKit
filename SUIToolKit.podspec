@@ -45,6 +45,7 @@ Pod::Spec.new do |s|
   s.subspec 'View' do |ss|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Base'
+    ss.dependency 'SUIToolKit/Category'
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
 

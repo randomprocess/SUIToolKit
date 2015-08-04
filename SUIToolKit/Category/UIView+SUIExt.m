@@ -129,7 +129,14 @@
 }
 
 
-
+- (UIImage *)snapshot
+{
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [[UIScreen mainScreen] scale]);
+    [self drawViewHierarchyInRect:self.frame afterScreenUpdates:YES];
+    UIImage* curImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return curImage;
+}
 
 - (id)subviewWithClassName:(NSString *)className
 {

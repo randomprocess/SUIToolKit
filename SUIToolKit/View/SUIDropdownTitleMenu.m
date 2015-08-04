@@ -1,36 +1,37 @@
 //
-//  SUIDropdownTitleView.m
+//  SUIDropdownTitleMenu.m
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/8/3.
+//  Created by zzZ on 15/8/4.
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
-#import "SUIDropdownTitleView.h"
+#import "SUIDropdownTitleMenu.h"
+#import <QuartzCore/QuartzCore.h>
 #import "SUIToolKitConst.h"
 #import "SUIBaseProtocol.h"
 #import "SUITool.h"
+#import "UIView+SUIExt.h"
+#import "UIImage+SUIExt.h"
 
-typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
+typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
 {
-    SUIDropdownTitleViewStateWillOpen   = 0,
-    SUIDropdownTitleViewStateDidOpen    = 1,
-    SUIDropdownTitleViewStateWillClose  = 2,
-    SUIDropdownTitleViewStateDidClose   = 3
+    SUIDropdownTitleMenuStateWillOpen   = 0,
+    SUIDropdownTitleMenuStateDidOpen    = 1,
+    SUIDropdownTitleMenuStateWillClose  = 2,
+    SUIDropdownTitleMenuStateDidClose   = 3
 };
 
-#define tBackgroundColor gRGB(40, 196, 80)
 #define tAnimationDuration 0.8
-#define tBlurRadius 5.0
 #define tBlackMaskAlpha 0.8
 #define tMenuHeight 50.0
-
+#define tMenuView_MaxHeight 30.0
 
 // _____________________________________________________________________________
 
 @interface SUIDropdownMenuItemCell: UITableViewCell
 
-@property (nonatomic,strong) UILabel *menuLbl;
+@property (nonatomic,strong) UIImageView *menuView;
 @property (nonatomic,strong) UIImageView *selectImgView;
 
 @end
@@ -44,32 +45,29 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
     if (self)
     {
         self.backgroundColor = [UIColor clearColor];
-        self.contentView.frame = CGRectMake(0, 0, kScreenWidth, tMenuHeight-1);
-        [self.contentView addSubview:self.menuLbl];
+        [self.contentView addSubview:self.menuView];
         [self.contentView addSubview:self.selectImgView];
     }
     return self;
 }
 
-- (UILabel *)menuLbl
+- (UIImageView *)menuView
 {
-    if (!_menuLbl) {
-        _menuLbl = [[UILabel alloc] init];
-        _menuLbl.backgroundColor = [UIColor clearColor];
-        _menuLbl.textColor = [UIColor blackColor];
-        _menuLbl.font = [UIFont systemFontOfSize:16.0f];
-        _menuLbl.textAlignment = NSTextAlignmentCenter;
-        _menuLbl.frame = self.contentView.bounds;
-        _menuLbl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    if (!_menuView) {
+        _menuView = [[UIImageView alloc] init];
+        _menuView.contentMode = UIViewContentModeCenter;
+        _menuView.frame = self.contentView.bounds;
+        _menuView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
-    return _menuLbl;
+    return _menuView;
 }
+
 
 - (UIImageView *)selectImgView
 {
     if (!_selectImgView) {
         _selectImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 13)];
-        _selectImgView.center = CGPointMake(self.contentView.frame.size.width / 4 * 3, self.contentView.frame.size.height / 2);
+        _selectImgView.center = CGPointMake(self.contentView.width / 4 * 3, self.contentView.height / 2);
         _selectImgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         _selectImgView.image = [self imageIfCamvas];
     }
@@ -109,23 +107,25 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
 
 // _____________________________________________________________________________
 
-@interface SUIDropdownTitleView () <UITableViewDataSource, UITableViewDelegate, SUIBaseProtocol>
+@interface SUIDropdownTitleMenu () <UITableViewDataSource, UITableViewDelegate, SUIBaseProtocol>
 
 @property (nonatomic,assign) NSInteger currIndex;
 @property (nonatomic,strong) NSArray *currTitles;
 
 @property (nonatomic,strong) UIButton *currTitleBtn;
+@property (nonatomic,strong) UIImageView *arrowView;
+
 @property (nonatomic,strong) UITableView *menuTableView;
 @property (nonatomic,strong) UIView *menuView;
 @property (nonatomic,strong) UIScrollView *mainView;
 @property (nonatomic,strong) UIButton *backgroundButton;
 
-@property (nonatomic,assign) SUIDropdownTitleViewState currState;
+@property (nonatomic,assign) SUIDropdownTitleMenuState currState;
 @property (nonatomic,assign) CGFloat currNavBarHeight;
 
 @end
 
-@implementation SUIDropdownTitleView
+@implementation SUIDropdownTitleMenu
 
 - (void)awakeFromNib
 {
@@ -133,17 +133,17 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
     
     self.currVC.navigationItem.titleView = self.currTitleBtn;
     self.currIndex = 0;
-    self.currState = SUIDropdownTitleViewStateDidClose;
+    self.currState = SUIDropdownTitleMenuStateDidClose;
     
-    
+    uWeakSelf
     [SUITool delay:0.1 cb:^{
         UINavigationBar *curNavigationBar = self.currVC.navigationController.navigationBar;
         if (curNavigationBar.translucent)
         {
-            self.currNavBarHeight = curNavigationBar.bounds.size.height;
+            weakSelf.currNavBarHeight = curNavigationBar.bounds.size.height;
             if (![UIApplication sharedApplication].statusBarHidden)
             {
-                self.currNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
+                weakSelf.currNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
             }
         }
     }];
@@ -168,30 +168,30 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
 
 - (BOOL)isShowing
 {
-    return self.currState == SUIDropdownTitleViewStateDidOpen;
+    return self.currState == SUIDropdownTitleMenuStateDidOpen;
 }
 
 - (void)show
 {
-    if (self.currState == SUIDropdownTitleViewStateDidClose)
+    if (self.currState == SUIDropdownTitleMenuStateDidClose)
     {
-        self.currState = SUIDropdownTitleViewStateWillOpen;
+        self.currState = SUIDropdownTitleMenuStateWillOpen;
         
         [self setupMenu];
         [self addMenuAnimation];
         
         uWeakSelf
         [SUITool delay:tAnimationDuration cb:^{
-            weakSelf.currState = SUIDropdownTitleViewStateDidOpen;
+            weakSelf.currState = SUIDropdownTitleMenuStateDidOpen;
         }];
     }
 }
 
 - (void)dismiss
 {
-    if (self.currState == SUIDropdownTitleViewStateDidOpen)
+    if (self.currState == SUIDropdownTitleMenuStateDidOpen)
     {
-        self.currState = SUIDropdownTitleViewStateWillClose;
+        self.currState = SUIDropdownTitleMenuStateWillClose;
         
         [self addMenuAnimation];
         
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
                              [weakSelf.backgroundButton removeFromSuperview];
                              [weakSelf.menuTableView removeFromSuperview];
                              [weakSelf.mainView removeFromSuperview];
-                             weakSelf.currState = SUIDropdownTitleViewStateDidClose;
+                             weakSelf.currState = SUIDropdownTitleMenuStateDidClose;
                          }];
     }
 }
@@ -215,28 +215,36 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
     self.mainView.frame = self.currVC.view.bounds;
     [self.currVC.view addSubview:self.mainView];
     
-    self.backgroundButton.frame = CGRectMake(0, 0, self.mainView.frame.size.width, self.mainView.frame.size.height);
+    self.backgroundButton.frame = CGRectMake(0, 0, self.mainView.width, self.mainView.height);
     self.backgroundButton.alpha = 1.0;
     [self.mainView addSubview:self.backgroundButton];
     
-    self.menuView.frame = CGRectMake(0, -self.mainView.frame.size.height, self.mainView.frame.size.width, self.mainView.frame.size.height);
+    self.menuView.frame = CGRectMake(0, -self.mainView.height, self.mainView.width, self.mainView.height);
     [self.mainView addSubview:self.menuView];
     
     CGFloat menuHeight = self.currTitles.count * tMenuHeight;
-    self.menuTableView.frame = CGRectMake(0, self.menuView.frame.size.height - menuHeight, kScreenWidth, menuHeight);
+    self.menuTableView.frame = CGRectMake(0, self.menuView.height - menuHeight, kScreenWidth, menuHeight);
     [self.menuTableView reloadData];
     [self.menuView addSubview:self.menuTableView];
 }
 
 
-#pragma mark - Keyframe Animation
+#pragma mark - Animation
 
 - (void)addMenuAnimation
 {
+    CATransform3D rotationTransform = CATransform3DMakeRotation(0, 0, 0, 0);
+    
     CGFloat curMenuViewY = - self.mainView.height;
-    if (self.currState == SUIDropdownTitleViewStateWillOpen || self.currState == SUIDropdownTitleViewStateDidOpen)
+    if (self.currState == SUIDropdownTitleMenuStateWillOpen || self.currState == SUIDropdownTitleMenuStateDidOpen)
     {
-        curMenuViewY += (self.menuTableView.frame.size.height + self.currNavBarHeight);
+        curMenuViewY += (self.menuTableView.height + self.currNavBarHeight);
+        
+        if (gRandomInRange(0, 1)) {
+            rotationTransform = CATransform3DMakeRotation(gDegree(180), 1, 0, 0);
+        } else {
+            rotationTransform = CATransform3DMakeRotation(gDegree(180), 0, 0, 1);
+        }
     }
     
     if (curMenuViewY != self.menuView.frame.origin.y)
@@ -248,9 +256,8 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
               initialSpringVelocity:0
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             CGRect curMenuRect = weakSelf.menuView.frame;
-                             curMenuRect.origin.y = curMenuViewY;
-                             weakSelf.menuView.frame = curMenuRect;
+                             weakSelf.menuView.y = curMenuViewY;
+                             weakSelf.arrowView.layer.transform = rotationTransform;
                          } completion:^(BOOL finished) {
                          }];
     }
@@ -278,7 +285,7 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
         curCell = [[SUIDropdownMenuItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    curCell.menuLbl.text = self.currTitles[indexPath.row];
+    curCell.menuView.image = self.currTitles[indexPath.row];
     curCell.selectImgView.hidden = (indexPath.row != self.currIndex);
     return curCell;
 }
@@ -296,9 +303,9 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
         SUIDropdownMenuItemCell *currCell = (SUIDropdownMenuItemCell *)[tableView cellForRowAtIndexPath:indexPath];
         currCell.selectImgView.hidden = NO;
         
-        if ([self.currVC respondsToSelector:@selector(suiDropdownTitleDidSelectAtIndex:)])
+        if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuDidSelectAtIndex:)])
         {
-            [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleDidSelectAtIndex:indexPath.row];
+            [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuDidSelectAtIndex:indexPath.row];
         }
     }
     
@@ -312,14 +319,54 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
 {
     _currIndex = currIndex;
     
-    if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenu)])
+    UIImage *curImage = self.currTitles[_currIndex];
+    [self.currTitleBtn setImage:curImage forState:UIControlStateNormal];
+}
+
+- (NSArray *)currTitles
+{
+    if (!_currTitles)
     {
-        self.currTitles = [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenu];
+        NSMutableArray *titleAry = [NSMutableArray array];
+        for (UIView *curView in [self currMenuViews])
+        {
+            UIImage *curImage = [curView snapshot];
+            if (curImage.size.height > tMenuView_MaxHeight) {
+                [titleAry addObject:[curImage toFitHeight:tMenuView_MaxHeight]];
+            } else {
+                [titleAry addObject:curImage];
+            }
+        }
+        _currTitles = titleAry;
     }
-    
-    NSAssert(_currIndex < self.currTitles.count, @"currIndex MUST < suiDropdownTitleMenu().count");
-    
-    [self.currTitleBtn setNormalTitle:self.currTitles[currIndex]];
+    return _currTitles;
+}
+
+- (NSArray *)currMenuViews
+{
+    NSArray *menuViews = nil;
+    if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuViews:)])
+    {
+        menuViews = [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuViews:self];
+    }
+    else if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuTitles:)])
+    {
+        NSArray *menuTitles = [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuTitles:self];
+        NSMutableArray *titleAry = [NSMutableArray array];
+        for (NSString *curTitle in menuTitles)
+        {
+            UILabel *titleLbl = [[UILabel alloc] init];
+            titleLbl.backgroundColor = [UIColor clearColor];
+            titleLbl.tintColor = self.titleColo ? self.titleColo : [UIColor blackColor];
+            titleLbl.font = gFont(16);
+            titleLbl.text = curTitle;
+            [titleLbl sizeToFit];
+            [titleAry addObject:titleLbl];
+        }
+        menuViews = titleAry;
+    }
+    NSAssert(menuViews.count > 0, @"menuViews.count MUST > 0");
+    return menuViews;
 }
 
 - (UIButton *)currTitleBtn
@@ -329,19 +376,35 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
         _currTitleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _currTitleBtn.backgroundColor = [UIColor clearColor];
         _currTitleBtn.frame = CGRectMake(0, 0, gAdapt(150), 44);
-        UIColor *curTitleColo = self.titleColo ? self.titleColo : [UIColor blackColor];
-        [_currTitleBtn setTitleColor:curTitleColo forState:UIControlStateNormal];
-        [_currTitleBtn setBackgroundImage:[self imageIfCamvas] forState:UIControlStateNormal];
         [_currTitleBtn addTarget:self action:@selector(doTitleBtn) forControlEvents:UIControlEventTouchUpInside];
+        _currTitleBtn.contentMode = UIViewContentModeCenter;
+        
+        [_currTitleBtn addSubview:self.arrowView];
+        self.arrowView.frame = (CGRect) {
+            {(_currTitleBtn.width-self.arrowView.width)/2,
+                _currTitleBtn.height-self.arrowView.height-5},
+            {self.arrowView.width, self.arrowView.height}
+        };
+        self.arrowView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     }
     return _currTitleBtn;
 }
 
+- (UIImageView *)arrowView
+{
+    if (!_arrowView)
+    {
+        _arrowView = [[UIImageView alloc] init];
+        _arrowView.image = [self imageOfArrow];
+        [_arrowView sizeToFit];
+    }
+    return _arrowView;
+}
 
-- (UIImage *)imageIfCamvas
+- (UIImage *)imageOfArrow
 {
     UIImage *curImage;
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(150, 44), NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(12, 4), NO, 0.0f);
     [self drawCanvas];
     curImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -350,20 +413,29 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
 
 - (void)drawCanvas
 {
-    UIColor* color = [UIColor colorWithRed:0.04f green:0.83f blue:0.09f alpha:0.5f];
-    UIColor* color2 = [UIColor colorWithRed:0.53f green:0.99f blue:0.44f alpha:0.5f];
+    //// Color Declarations
+    UIColor* color = [UIColor colorWithRed: 0.096 green: 0.38 blue: 0.673 alpha: 0.617];
+    UIColor* color2 = [UIColor colorWithRed: 0.118 green: 0.852 blue: 0.118 alpha: 1];
     
-    //// Bezier Drawing
-    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-    [bezierPath moveToPoint: CGPointMake(79, 34)];
-    [bezierPath addCurveToPoint: CGPointMake(71, 34) controlPoint1: CGPointMake(71, 34) controlPoint2: CGPointMake(71, 34)];
-    [bezierPath addLineToPoint: CGPointMake(75, 39)];
-    [bezierPath addLineToPoint: CGPointMake(79, 34)];
-    [color setFill];
-    [bezierPath fill];
-    [color2 setStroke];
-    bezierPath.lineWidth = 1.0;
-    [bezierPath stroke];
+    //// Bezier 3 Drawing
+    UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
+    [bezier3Path moveToPoint: CGPointMake(0, 0)];
+    [bezier3Path addLineToPoint: CGPointMake(0.83, 0)];
+    [bezier3Path addLineToPoint: CGPointMake(6, 3.68)];
+    [bezier3Path addLineToPoint: CGPointMake(6, 4)];
+    [bezier3Path addLineToPoint: CGPointMake(0, 0)];
+    [bezier3Path closePath];
+    [bezier3Path moveToPoint: CGPointMake(12, 0)];
+    [bezier3Path addLineToPoint: CGPointMake(11.17, 0)];
+    [bezier3Path addLineToPoint: CGPointMake(6, 3.68)];
+    [bezier3Path addLineToPoint: CGPointMake(6, 4)];
+    [bezier3Path addLineToPoint: CGPointMake(12, 0)];
+    [bezier3Path closePath];
+    [color2 setFill];
+    [bezier3Path fill];
+    [color setStroke];
+    bezier3Path.lineWidth = 0.5;
+    [bezier3Path stroke];
 }
 
 - (UITableView *)menuTableView
@@ -382,7 +454,7 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleViewState)
 {
     if (!_menuView) {
         _menuView = [UIView new];
-        _menuView.backgroundColor = tBackgroundColor;
+        _menuView.backgroundColor = self.backgroundColo ? self.backgroundColo : gRGB(40, 196, 80);
     }
     return _menuView;
 }
