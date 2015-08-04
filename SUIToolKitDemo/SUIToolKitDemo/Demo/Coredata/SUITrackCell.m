@@ -16,7 +16,14 @@
 {
     SUITrackMD *tMd = cModel;
     
-    _trackLbl.text = [NSString stringWithFormat:@"%@", tMd.trackId];
+    if (!gRandomInRange(0, 10))
+    {
+        _trackLbl.text = [NSString stringWithFormat:@"%@  左滑删除", tMd.trackId];
+    }
+    else
+    {
+        _trackLbl.text = [NSString stringWithFormat:@"trackId: %@", tMd.trackId];
+    }
 }
 
 

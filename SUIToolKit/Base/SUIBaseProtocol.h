@@ -91,19 +91,20 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 - (void)suiTableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 
 
+#pragma mark - SearchBar
+
+- (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
+
+
+#pragma mark - SwipeTableCell
+
 - (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell canSwipe:(SUISwipeDirection)direction cModel:(id)cModel;
 /** @return [UIButton] */
 - (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel;
 - (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
 
 
-#pragma mark - SearchBar
-
-
-- (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
-
-
-#pragma mark - DropdownTitleView
+#pragma mark - DropdownTitleMenu
 
 /** @return [TitleString] */
 - (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView;
