@@ -167,7 +167,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 }
 
 
-#define mark - Unique identifier
+#pragma mark - Unique identifier
 
 + (NSString *)uuidString
 {

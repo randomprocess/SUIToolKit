@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef void (^SUIDelayTask)(BOOL cancel);
 typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appVersion);
+
 
 @interface SUITool : NSObject
 
@@ -35,7 +37,7 @@ typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appV
 + (double)keyboardAnimationDuration;
 
 
-#define mark - Unique identifier
+#pragma mark - Unique identifier
 
 + (NSString *)uuidString;
 

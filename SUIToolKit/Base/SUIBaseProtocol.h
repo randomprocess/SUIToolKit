@@ -39,8 +39,6 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 
 /** 将介个addSearch设置为On, 则会在currTableView的tableHeaderView添加搜索框 */
 @property (nonatomic) BOOL addSearch;
-/** tableView左滑删除 */
-@property (nonatomic) BOOL canDelete;
 
 /** 添加下拉刷新 */
 @property (nonatomic) BOOL addHeader;
