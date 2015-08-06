@@ -8,6 +8,7 @@
 
 #import "UIActionSheet+SUIExt.h"
 #import "SUIToolKitConst.h"
+#import <objc/runtime.h>
 
 @interface SUIActionSheetDelegate : NSObject <UIActionSheetDelegate>
 

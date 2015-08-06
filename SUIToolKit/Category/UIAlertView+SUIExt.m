@@ -8,6 +8,7 @@
 
 #import "UIAlertView+SUIExt.h"
 #import "SUIToolKitConst.h"
+#import <objc/runtime.h>
 
 @interface SUIAlertViewDelegate : NSObject <UIAlertViewDelegate>
 
