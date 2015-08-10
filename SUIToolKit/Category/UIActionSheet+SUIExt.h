@@ -17,5 +17,10 @@ typedef void (^SUIActionClickBlock)(BOOL cancel, NSInteger idx);
                    otherButtonTitles:(NSArray *)otherButtonTitles
                           clickBlock:(SUIActionClickBlock)clickBlock;
 
++ (instancetype)actionSheetWithTitle:(NSString *)title
+                   cancelButtonTitle:(NSString *)cancelButtonTitle
+                   otherButtonTitles:(NSArray *)otherButtonTitles
+              destructiveButtonIndex:(NSInteger)destructiveButtonIndex
+                          clickBlock:(SUIActionClickBlock)clickBlock;
 
 @end

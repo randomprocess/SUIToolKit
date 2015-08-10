@@ -11,7 +11,7 @@
 #import <CoreData/CoreData.h>
 #import "MGSwipeTableCell.h"
 
-@class SUIDataSource, SUIBaseCell, SUIDropdownTitleMenu;
+@class SUITableDataSource, SUIBaseCell, SUIDropdownTitleMenu;
 
 
 typedef NS_ENUM(NSInteger, SUISwipeDirection) {
@@ -26,12 +26,7 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 #pragma mark - Properties added
 
 @property (nonatomic,strong) UITableView *currTableView;
-@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,copy) NSString *currIdentifier;
-@property (nonatomic,strong) SUIDataSource *currDataSource;
-@property (nonatomic,assign) NSInteger pageSize;
-@property (nonatomic,assign) NSInteger pageIndex;
 
 
 /** 在属性检查器中设置, 或代码写在调用configureController()之前 */
@@ -49,6 +44,9 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 
 
 @property (nonatomic) BOOL addLoading;
+
+@property (nonatomic) BOOL addEmptyDataSet;
+
 
 // _____________________________________________________________________________
 
@@ -109,6 +107,19 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 /** @return [View] */
 - (NSArray *)suiDropdownTitleMenuViews:(SUIDropdownTitleMenu *)cView;
 - (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)curIndex;
+
+
+#pragma mark - EmptyDataSet
+
+- (NSAttributedString *)suiEmptyDataSetTitleForScrollView:(UIScrollView *)scrollView;
+- (NSAttributedString *)suiEmptyDataSetDescriptionForScrollView:(UIScrollView *)scrollView;
+- (UIImage *)suiEmptyDataSetImageForScrollView:(UIScrollView *)scrollView;
+- (UIView *)suiEmptyDataSetCustomViewForScrollView:(UIScrollView *)scrollView generalView:(UIView *)generalView;
+
+- (BOOL)suiEmptyDataSetShouldDisplay:(UIScrollView *)scrollView; // Default is NO;
+- (BOOL)suiEmptyDataSetShouldAllowTouch:(UIScrollView *)scrollView; // Default is YES;
+- (BOOL)suiEmptyDataSetShouldAllowScroll:(UIScrollView *)scrollView; // Default is YES;
+- (void)suiEmptyDataSetDidTapView:(UIScrollView *)scrollView; // Default is YES;
 
 
 #pragma mark -

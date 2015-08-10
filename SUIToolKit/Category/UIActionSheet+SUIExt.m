@@ -22,7 +22,7 @@
 {
     if (self.clickBlock)
     {
-        uLog(@"actionSheet ButtonIndex ⤭ %zd ⤪", buttonIndex);
+        uLogInfo(@"actionSheet ButtonIndex ⤭ %zd ⤪", buttonIndex);
         if ([actionSheet cancelButtonIndex] == buttonIndex) {
             self.clickBlock(YES, buttonIndex);
         } else {
@@ -41,6 +41,21 @@
                    otherButtonTitles:(NSArray *)otherButtonTitles
                           clickBlock:(SUIActionClickBlock)clickBlock
 {
+    
+    return [self actionSheetWithTitle:title
+                    cancelButtonTitle:cancelButtonTitle
+                    otherButtonTitles:otherButtonTitles
+               destructiveButtonIndex:-1
+                           clickBlock:clickBlock];
+}
+
+
++ (instancetype)actionSheetWithTitle:(NSString *)title
+                   cancelButtonTitle:(NSString *)cancelButtonTitle
+                   otherButtonTitles:(NSArray *)otherButtonTitles
+              destructiveButtonIndex:(NSInteger)destructiveButtonIndex
+                          clickBlock:(SUIActionClickBlock)clickBlock
+{
     SUIActionSheetDelegate *curDelegate = [SUIActionSheetDelegate new];
     curDelegate.clickBlock = clickBlock;
     
@@ -56,7 +71,7 @@
     }
     
     [curAction setActionSheetDelegate:curDelegate];
-    
+    curAction.destructiveButtonIndex = destructiveButtonIndex;
     [curAction showInView:gWindow];
     return curAction;
 }

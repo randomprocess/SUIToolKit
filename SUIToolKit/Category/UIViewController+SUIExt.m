@@ -9,6 +9,9 @@
 #import "UIViewController+SUIExt.h"
 #import <objc/runtime.h>
 #import "MagicalRecord.h"
+#import "UITableView+SUIExt.h"
+#import "SUIBaseConfig.h"
+#import "SUIToolKitConst.h"
 
 @implementation UIViewController (SUIExt)
 
@@ -24,31 +27,6 @@
     objc_setAssociatedObject(self, @selector(currTableView), currTableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    return objc_getAssociatedObject(self, @selector(fetchedResultsController));
-}
-- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
-{
-    objc_setAssociatedObject(self, @selector(fetchedResultsController), fetchedResultsController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    fetchedResultsController.delegate = self.currDataSource;
-}
-
-- (NSManagedObjectContext *)managedObjectContext
-{
-    NSManagedObjectContext *curManagedObjectContext = objc_getAssociatedObject(self, @selector(managedObjectContext));
-    if (curManagedObjectContext) {
-        return curManagedObjectContext;
-    }
-    curManagedObjectContext = [NSManagedObjectContext MR_defaultContext];
-    self.managedObjectContext = curManagedObjectContext;
-    return curManagedObjectContext;
-}
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
-{
-    objc_setAssociatedObject(self, @selector(managedObjectContext), managedObjectContext, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (NSString *)currIdentifier
 {
     return objc_getAssociatedObject(self, @selector(currIdentifier));
@@ -56,15 +34,6 @@
 - (void)setCurrIdentifier:(NSString *)currIdentifier
 {
     objc_setAssociatedObject(self, @selector(currIdentifier), currIdentifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (SUIDataSource *)currDataSource
-{
-    return objc_getAssociatedObject(self, @selector(currDataSource));
-}
-- (void)setCurrDataSource:(NSMutableArray *)currDataSource
-{
-    objc_setAssociatedObject(self, @selector(currDataSource), currDataSource, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (id<SUIBaseProtocol>)currDelegate
@@ -78,47 +47,20 @@
 
 - (id)scrModel
 {
-    id curScrModel = objc_getAssociatedObject(self, @selector(scrModel));
-    if (curScrModel) {
-        return curScrModel;
-    }
+    id curScrModel = nil;
     
     if ([self.currDelegate respondsToSelector:@selector(modelPassed)]) {
         curScrModel = [self.currDelegate modelPassed];
     } else {
-        curScrModel = [[self.currDelegate currDataSource] modelPassed];
+        curScrModel = self.currDelegate.currTableView.currDataSource.scrModel;
     }
-    self.scrModel = curScrModel;
+    
     return curScrModel;
 }
 - (void)setScrModel:(id)scrModel
 {
     objc_setAssociatedObject(self, @selector(scrModel), scrModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
-- (NSInteger)pageSize
-{
-    NSInteger curPageSize = [objc_getAssociatedObject(self, @selector(pageSize)) integerValue];
-    if (curPageSize == 0) {
-        curPageSize = [SUIBaseConfig sharedConfig].pageSize;
-    }
-    self.pageSize = curPageSize;
-    return curPageSize;
-}
-- (void)setPageSize:(NSInteger)pageSize
-{
-    objc_setAssociatedObject(self, @selector(pageSize), @(pageSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NSInteger)pageIndex
-{
-    return [objc_getAssociatedObject(self, @selector(pageIndex)) integerValue];
-}
-- (void)setPageIndex:(NSInteger)pageIndex
-{
-    objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 
 
 #pragma mark - IB
@@ -170,32 +112,13 @@
     objc_setAssociatedObject(self, @selector(addLoading), @(addLoading), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-
-
-#pragma mark - Request
-
-- (void)requestData:(NSDictionary *)parameters
-          completed:(SUIDataSourceCompletionBlock)completed
+- (BOOL)addEmptyDataSet
 {
-    [self requestData:parameters replace:NO completed:completed];
+    return [objc_getAssociatedObject(self, @selector(addEmptyDataSet)) boolValue];
 }
-
-- (void)requestData:(NSDictionary *)parameters
-            replace:(BOOL)replace
-          completed:(SUIDataSourceCompletionBlock)completed
+- (void)setAddEmptyDataSet:(BOOL)addEmptyDataSet
 {
-    [self requestData:parameters replace:replace refreshTable:nil completed:completed];
-}
-
-- (void)requestData:(NSDictionary *)parameters
-            replace:(BOOL)replace
-       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
-          completed:(SUIDataSourceCompletionBlock)completed
-{
-    [self.currDataSource requestData:parameters
-                             replace:replace
-                        refreshTable:refreshTable
-                           completed:completed];
+    objc_setAssociatedObject(self, @selector(addEmptyDataSet), @(addEmptyDataSet), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
@@ -216,42 +139,54 @@
 }
 
 
-
 #pragma mark - LoadView
+
+- (UIView *)loadingView
+{
+    UIView *curLoadingView = objc_getAssociatedObject(self, @selector(loadingView));
+    if (curLoadingView == nil)
+    {
+        if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
+            curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
+        } else {
+            curLoadingView = [[UIView alloc] init];
+            curLoadingView.contentMode = UIViewContentModeCenter;
+            UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [curActivityIndicatorView sizeToFit];
+            [curActivityIndicatorView startAnimating];
+            [curLoadingView addSubview:curActivityIndicatorView];
+        }
+        curLoadingView.frame = self.view.bounds;
+        curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.loadingView = curLoadingView;
+    }
+    return curLoadingView;
+}
+- (void)setLoadingView:(UIView *)loadingView
+{
+    objc_setAssociatedObject(self, @selector(loadingView), loadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 - (void)loadingViewShow
 {
-    UIView *curLoadingView = [self.view viewWithTag:427012201];
-    if (curLoadingView) {
-        return;
-    }
-        
-    if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
-        curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
-    } else {
-        curLoadingView = [[UIView alloc] init];
-        curLoadingView.contentMode = UIViewContentModeCenter;
-        UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [curActivityIndicatorView sizeToFit];
-        [curActivityIndicatorView startAnimating];
-        [curLoadingView addSubview:curActivityIndicatorView];
-    }
-    curLoadingView.frame = self.view.bounds;
-    curLoadingView.tag = 427012201;
-    curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:curLoadingView];
+    [self.view addSubview:self.loadingView];
 }
 - (void)loadingViewDissmiss
 {
-    __weak UIView *curLoadingView = [self.view viewWithTag:427012201];
-    if (curLoadingView) {
+    if (self.loadingView.superview)
+    {
+        uWeakSelf
         [UIView animateWithDuration:0.25
                          animations:^{
-                             curLoadingView.alpha = 0;
+                             weakSelf.loadingView.alpha = 0;
                          } completion:^(BOOL finished) {
-                             [curLoadingView removeFromSuperview];
+                             [weakSelf.loadingView removeFromSuperview];
                          }];
     }
 }
+
+
+
+
 
 @end

@@ -8,24 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SUIBaseConfig.h"
-#import "SUIDataSource.h"
-
 @interface UIViewController (SUIExt)
 
 
 #pragma mark - Property
 
 @property (nonatomic,strong) UITableView *currTableView;
-@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,copy) NSString *currIdentifier;
-@property (nonatomic,strong) SUIDataSource *currDataSource;
 @property (nonatomic,weak) id<SUIBaseProtocol> currDelegate;
 @property (nonatomic,strong) id scrModel;
-@property (nonatomic,assign) NSInteger pageSize;
-@property (nonatomic,assign) NSInteger pageIndex;
-
 
 
 #pragma mark - IB
@@ -37,25 +28,8 @@
 @property (nonatomic) IBInspectable BOOL addHeaderAndRefreshStart;
 
 @property (nonatomic) IBInspectable BOOL addLoading;
+@property (nonatomic) IBInspectable BOOL addEmptyDataSet;
 
-
-
-#pragma mark - Request
-
-- (void)requestData:(NSDictionary *)parameters
-          completed:(SUIDataSourceCompletionBlock)completed;
-
-- (void)requestData:(NSDictionary *)parameters
-            replace:(BOOL)replace
-          completed:(SUIDataSourceCompletionBlock)completed;
-
-- (void)requestData:(NSDictionary *)parameters
-            replace:(BOOL)replace
-       refreshTable:(SUIDataSourceRefreshTableBlock)refreshTable
-          completed:(SUIDataSourceCompletionBlock)completed;
-
-
-#pragma mark -
 
 #pragma mark - Dismiss
 
@@ -63,7 +37,10 @@
 - (IBAction)navPopToRoot:(id)sender;
 - (IBAction)navDismiss:(id)sender;
 
-#pragma mark - LoadView
+
+#pragma mark - LoadingView
+
+@property (nonatomic,strong) UIView *loadingView;
 
 - (void)loadingViewShow;
 - (void)loadingViewDissmiss;

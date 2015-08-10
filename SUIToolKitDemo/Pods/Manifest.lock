@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - DZNEmptyDataSet (1.7)
   - MagicalRecord (2.3.0)
   - MGSwipeTableCell (1.5.1)
   - MJExtension (2.3.8)
@@ -28,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
+  - DZNEmptyDataSet (~> 1.7)
   - MagicalRecord (~> 2.3.0)
   - MGSwipeTableCell (~> 1.5.1)
   - MJExtension (~> 2.3.7)
@@ -36,10 +38,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  DZNEmptyDataSet: 896f8efb3b0961c5ccb59d4959ccf9280854aa3d
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
   MJExtension: d83b55e6cb95c6274388539c782386b56f394a6d
   MJRefresh: 6b140993028fa30f1fcb88e82925a7c7911415cf
   UITableView+FDTemplateLayoutCell: d5be6056b5060313f5955a2590ecd33142ad713d
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

@@ -260,6 +260,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="addFooter" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="addLoading" value="YES"/>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="addHeader" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="addEmptyDataSet" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MAI-Qn-7IZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

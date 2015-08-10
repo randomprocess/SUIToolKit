@@ -8,7 +8,7 @@
 
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
-#import "SUIDataSource.h"
+#import "UIScrollView+EmptyDataSet.h"
 
 
 @implementation SUIBaseConfig
@@ -24,6 +24,16 @@
         sharedSingleton = [[self alloc] init];
     });
     return sharedSingleton;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _requesets = [NSMutableArray array];
+    }
+    return self;
 }
 
 
@@ -90,58 +100,33 @@
 
 #pragma mark -
 
-- (void)configureController:(id<SUIBaseProtocol>)curController
+- (void)configureController:(id<SUIBaseProtocol>)cController
 {
     // backgroundColor
-    UIViewController *curVC = (UIViewController *)curController;
+    UIViewController *curVC = (UIViewController *)cController;
     curVC.view.backgroundColor = self.backgroundColor;
     
     // currIdentifier
-    [self configureIdentifier:curController];
+    [self configureIdentifier:cController];
     
     // data processing
-    SUIDataSource *curDataSource = [[SUIDataSource alloc] init];
-    
-    // currTableView
-    if ([curController isKindOfClass:[UITableViewController class]])
-    {
-        curController.currTableView = ((UITableViewController *)curController).tableView;
-        [self configureTableView:curController.currTableView tvc:YES];
-        curController.currDataSource = curDataSource;
-        curDataSource.dataSourceDelegate = curController;
-    }
-    else if ([curController isKindOfClass:[UIViewController class]])
-    {
-        for (UIView *subView in ((UIViewController *)curController).view.subviews)
-        {
-            if ([subView isKindOfClass:[UITableView class]])
-            {
-                curController.currTableView = (UITableView *)subView;
-                [self configureTableView:curController.currTableView tvc:NO];
-                curController.currDataSource = curDataSource;
-                curController.currTableView.delegate = curController.currDataSource;
-                curController.currTableView.dataSource = curController.currDataSource;
-                curDataSource.dataSourceDelegate = curController;
-                break;
-            }
-        }
-    }
+    [self configureDataSource:cController];
     
     // loadingView
-    [self configureLoadingView:curController];
+    [self configureLoadingView:cController];
 }
 
-- (void)configureIdentifier:(id<SUIBaseProtocol>)curController
+- (void)configureIdentifier:(id<SUIBaseProtocol>)cController
 {
-    NSString *currClassName = gClassName(curController);
+    NSString *currClassName = gClassName(cController);
     NSAssert([currClassName hasPrefix:@"SUI"], @"className prefix with 'SUI'");
     
     NSString *curSuffixStr = nil;
-    if ([curController isKindOfClass:[UITableViewController class]])
+    if ([cController isKindOfClass:[UITableViewController class]])
     {
         curSuffixStr = @"TVC";
     }
-    else if ([curController isKindOfClass:[UIViewController class]])
+    else if ([cController isKindOfClass:[UIViewController class]])
     {
         curSuffixStr = @"VC";
     }
@@ -152,27 +137,52 @@
     
     NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
     NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
-    curController.currIdentifier = [currClassName substringWithRange:curRange];
+    cController.currIdentifier = [currClassName substringWithRange:curRange];
 }
 
-- (void)configureTableView:(UITableView *)curTableView tvc:(BOOL)tvc
+- (void)configureDataSource:(id<SUIBaseProtocol>)cController
 {
-    curTableView.separatorColor = self.separatorColor;
-    curTableView.separatorInset = UIEdgeInsetsFromString(self.separatorInset);
-    curTableView.backgroundColor = [UIColor clearColor];
-    
-    // 去掉tableView下方多余的分割线
-    UIView *curFootView = [[UIView alloc] init];
-    curFootView.frame = (CGRect){{0.0, 1.0}, {curTableView.frame.size.width, 1.0}};
-    curFootView.backgroundColor = [UIColor clearColor];
-    curTableView.tableFooterView = curFootView;
+    if ([cController isKindOfClass:[UITableViewController class]])
+    {
+        cController.currTableView = ((UITableViewController *)cController).tableView;
+        [self configureTableView:cController.currTableView tvc:YES];
+        cController.currTableView.currDataSource.dataSourceDelegate = cController;
+    }
+    else if ([cController isKindOfClass:[UIViewController class]])
+    {
+        for (UIView *subView in ((UIViewController *)cController).view.subviews)
+        {
+            if ([subView isKindOfClass:[UITableView class]])
+            {
+                UITableView *curTableView = (UITableView *)subView;
+                if (cController.currTableView == nil) {
+                    cController.currTableView = curTableView;
+                }
+                
+                [self configureTableView:curTableView tvc:NO];
+                curTableView.currDataSource.dataSourceDelegate = cController;
+                
+                curTableView.delegate = curTableView.currDataSource;
+                curTableView.dataSource = curTableView.currDataSource;
+                break;
+            }
+        }
+    }
+}
+
+- (void)configureTableView:(UITableView *)cTableView tvc:(BOOL)tvc
+{
+    cTableView.separatorColor = self.separatorColor;
+    cTableView.separatorInset = UIEdgeInsetsFromString(self.separatorInset);
+    cTableView.backgroundColor = [UIColor clearColor];
+    cTableView.tableFooterView = [UIView new];
     
     UIView *curBackgroundView = [[UIView alloc] init];
-    curTableView.backgroundView = curBackgroundView;
+    cTableView.backgroundView = curBackgroundView;
     
     if (tvc)
     {
-        curBackgroundView.frame = curTableView.bounds;
+        curBackgroundView.frame = cTableView.bounds;
         curBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         curBackgroundView.backgroundColor = self.backgroundColor;
     }

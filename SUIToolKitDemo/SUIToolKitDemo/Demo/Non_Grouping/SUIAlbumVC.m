@@ -36,44 +36,25 @@
 {
     // kw=喵&pi=1&pz=20
     
-    // 使用requestData()请求数据, 其中http请求使用的传输方法和域名在AppDelegate中设置的
+    // 使用requestData()请求数据, 其中http请求使用的传输方法和域名在AppDelegate中设置
     // 其他请求也可以用SUIHttpClient中的方法
-    [self requestData:@{
-                        @"kw": @"猫"
-                        }
-              replace:YES
-         refreshTable:^NSArray *(id responseObject) {
-             
-             NSDictionary *curDict = responseObject;
-             NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
-             
-             for (SUIAlbumMD *aMd in albumAry)
-             {
-                 uLog(@"%@", aMd);
-             }
-             
-             // 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil
-             return @[albumAry];
-             
-         } completed:^(NSError *error, id responseObject) {
-             
-         }];
+    SUIRequest *curRequest = [SUIRequest requestData:@{
+                                                       @"kw": @"猫"
+                                                       }];
+    
+    [curRequest parser:^NSArray *(id responseObject) {
+        NSDictionary *curDict = responseObject;
+        NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
+        
+        for (SUIAlbumMD *aMd in albumAry)
+        {
+            uLog(@"%@", aMd);
+        }
+        return @[albumAry];
+    } refreshTable:self.currTableView];
+    
+    [curRequest identifier:@"SUIAlbumVC"];
 }
-
-
-///**
-// *  处理搜索结果
-// *
-// *  @return 返回的数组格式为 [[model]], 会刷新tableView, 不需要刷新返回nil
-// */
-//- (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry
-//{
-//    NSPredicate *albumPredicate = [NSPredicate predicateWithFormat:@"albumId CONTAINS[c] %@", searchBar.text];
-//    NSArray *result = [cDataAry[0] filteredArrayUsingPredicate:albumPredicate];
-//    
-//    uLog(@"%@", result);
-//    return @[result];
-//}
 
 
 - (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView
@@ -92,7 +73,6 @@
                          uLog(@"%zd", idx);
                      }];
 }
-
 
 
 @end

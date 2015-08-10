@@ -22,7 +22,7 @@
 {
     if (self.clickBlock)
     {
-        uLog(@"alertView ButtonIndex ⤭ %zd ⤪", buttonIndex);
+        uLogInfo(@"alertView ButtonIndex ⤭ %zd ⤪", buttonIndex);
         self.clickBlock(buttonIndex);
         self.clickBlock = nil;
     }

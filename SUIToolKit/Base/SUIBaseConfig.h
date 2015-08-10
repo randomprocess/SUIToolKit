@@ -43,9 +43,14 @@
 
 /** default is nil */
 @property (nonatomic,copy) NSString *classNameOfLoadingView;
+/** default is nil */
+@property (nonatomic,copy) NSString *classNameOfEmptyDataSetView;
 
 
 #pragma mark -
+
+@property (nonatomic,strong,readonly) NSMutableArray *requesets;
+
 
 - (void)configureController:(id<SUIBaseProtocol>)curController;
 
