@@ -16,6 +16,29 @@ typedef NS_ENUM(NSInteger, SUITableDataSourceType) {
     SUITableDataSourceTypeFetch           = 2,
 };
 
+
+@interface UITableView (SUITableDataSource)
+
+@property (nonatomic,strong) SUITableDataSource *currDataSource;
+
+@property (nonatomic,assign) BOOL loadMoreData;
+@property (nonatomic,assign) NSInteger pageSize;
+@property (nonatomic,assign) NSInteger pageIndex;
+
+
+- (void)addRefreshHeader;
+- (void)headerRefreshSteart;
+- (void)addRefreshFooter;
+- (void)hideRefreshFooter:(BOOL)hidden;
+- (void)headerRefreshStop;
+- (void)footerRefreshStop;
+
+
+- (void)refreshTable:(NSArray *)newDataAry;
+
+@end
+
+
 @interface SUITableDataSource : NSObject <
     UITableViewDataSource,
     UITableViewDelegate,
@@ -27,7 +50,6 @@ typedef NS_ENUM(NSInteger, SUITableDataSourceType) {
 @property (nonatomic, weak) id<SUIBaseProtocol> dataSourceDelegate;
 
 @property (nonatomic, weak) UITableView *currTableView;
-
 
 
 @property (nonatomic,strong) NSFetchedResultsController *currFetchedResultsController;

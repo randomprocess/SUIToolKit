@@ -42,7 +42,7 @@
 #import "UIImage+SUIExt.h"
 #import "UIAlertView+SUIExt.h"
 #import "UIActionSheet+SUIExt.h"
-#import "UITableView+SUIExt.h"
+
 
 #import "NSArray+SUIExt.h"
 #import "NSString+SUIExt.h"

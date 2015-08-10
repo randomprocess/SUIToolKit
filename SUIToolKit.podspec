@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'SUIToolKit'
-  s.version      = '0.2.1'
+  s.version      = '0.2'
   s.platform     = :ios, '7.0'
   s.summary      = 'A collection of convenient classes for iOS.'
 
@@ -35,7 +35,6 @@ Pod::Spec.new do |s|
 
   s.subspec 'Category' do |ss|
     ss.dependency 'SUIToolKit/Tool'
-    ss.dependency 'SUIToolKit/Base'
     ss.source_files = 'SUIToolKit/Category/*.{h,m}'
   end
 
