@@ -12,7 +12,6 @@
 @implementation UIImage (SUIExt)
 
 
-
 - (UIImage *)toFitWidth:(CGFloat)maxWidth
 {
     CGFloat btWidth = 0;

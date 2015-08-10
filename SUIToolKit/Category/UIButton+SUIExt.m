@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 
-
 const CGFloat WZFlashInnerCircleInitialRaius = 20;
 
 

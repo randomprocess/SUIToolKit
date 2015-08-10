@@ -18,22 +18,19 @@ Pod::Spec.new do |s|
   s.source_files  = 'SUIToolKit/SUIToolKit.h'
 
 
-  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore'
-  s.dependency 'AFNetworking', '~> 2.5.4'
-  s.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
-  s.dependency 'MJRefresh', '~> 1.4.7'
-  s.dependency 'MJExtension', '~> 2.3.7'
-  s.dependency 'MagicalRecord', '~> 2.3.0'
-  s.dependency 'MGSwipeTableCell', '~> 1.5.1'
-  s.dependency 'DZNEmptyDataSet', '~> 1.7'
-
-
   s.subspec 'Tool' do |ss|
+    ss.dependency 'AFNetworking', '~> 2.5.4'
     ss.source_files = 'SUIToolKit/Tool/*.{h,m}'
   end
 
   s.subspec 'Base' do |ss|
     ss.dependency 'SUIToolKit/Tool'
+    ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
+    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
+    ss.dependency 'DZNEmptyDataSet', '~> 1.7'
+    ss.dependency 'MJRefresh', '~> 1.4.7'
+    ss.dependency 'MJExtension', '~> 2.3.7'
+    ss.dependency 'MagicalRecord', '~> 2.3.0'
     ss.source_files = 'SUIToolKit/Base/*.{h,m}'
   end
 
@@ -49,5 +46,8 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Category'
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
+
+
+  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore'
 
 end

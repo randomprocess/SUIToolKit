@@ -8,14 +8,11 @@
 
 #import "UIViewController+SUIExt.h"
 #import <objc/runtime.h>
-#import "MagicalRecord.h"
-#import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
+#import "SUIBaseConfig.h"
 #import "SUITableDataSource.h"
 
-
 @implementation UIViewController (SUIExt)
-
 
 #pragma mark - Property
 
