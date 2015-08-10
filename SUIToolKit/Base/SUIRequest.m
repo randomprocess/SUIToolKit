@@ -10,7 +10,6 @@
 #import "SUIHttpClient.h"
 #import "SUIBaseConfig.h"
 #import "SUITableDataSource.h"
-#import "UITableView+SUIExt.h"
 #import "SUIToolKitConst.h"
 
 

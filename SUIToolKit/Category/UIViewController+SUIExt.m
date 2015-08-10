@@ -9,7 +9,6 @@
 #import "UIViewController+SUIExt.h"
 #import <objc/runtime.h>
 #import "MagicalRecord.h"
-#import "UITableView+SUIExt.h"
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
 
