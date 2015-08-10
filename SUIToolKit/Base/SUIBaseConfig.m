@@ -9,7 +9,7 @@
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
 #import "UIScrollView+EmptyDataSet.h"
-
+#import "SUITableDataSource.h"
 
 @implementation SUIBaseConfig
 

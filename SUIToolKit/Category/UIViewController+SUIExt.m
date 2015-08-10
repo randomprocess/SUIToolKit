@@ -11,6 +11,8 @@
 #import "MagicalRecord.h"
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
+#import "SUITableDataSource.h"
+
 
 @implementation UIViewController (SUIExt)
 
