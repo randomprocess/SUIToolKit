@@ -32,16 +32,15 @@ Pod::Spec.new do |s|
     ss.source_files = 'SUIToolKit/Tool/*.{h,m}'
   end
 
+  s.subspec 'Base' do |ss|
+    ss.dependency 'SUIToolKit/Tool'
+    ss.source_files = 'SUIToolKit/Base/*.{h,m}'
+  end
 
   s.subspec 'Category' do |ss|
     ss.dependency 'SUIToolKit/Tool'
+    ss.dependency 'SUIToolKit/Base'
     ss.source_files = 'SUIToolKit/Category/*.{h,m}'
-  end
-
-  s.subspec 'Base' do |ss|
-    ss.dependency 'SUIToolKit/Tool'
-    ss.dependency 'SUIToolKit/Category'
-    ss.source_files = 'SUIToolKit/Base/*.{h,m}'
   end
 
   s.subspec 'View' do |ss|
