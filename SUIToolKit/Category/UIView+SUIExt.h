@@ -31,6 +31,7 @@
 
 - (UIViewController *)currVC;
 
+- (NSLayoutConstraint *)contantTop;
 - (NSLayoutConstraint *)contantBottom;
 
 - (NSLayoutConstraint *)contantHeight;

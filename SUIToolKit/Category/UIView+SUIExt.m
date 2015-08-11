@@ -100,6 +100,23 @@
 }
 
 
+
+- (NSLayoutConstraint *)contantTop
+{
+    UIView *next = [self superview];
+    if (next)
+    {
+        for (NSLayoutConstraint *subConstraint in next.constraints)
+        {
+            if (subConstraint.secondItem == self && subConstraint.firstAttribute == NSLayoutAttributeTop)
+            {
+                return subConstraint;
+            }
+        }
+    }
+    return nil;
+}
+
 - (NSLayoutConstraint *)contantBottom
 {
     UIView *next = [self superview];

@@ -18,6 +18,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [SUITool toolInit];
+    
     [SUIBaseConfig sharedConfig].httpMethod = @"GET";
     [SUIBaseConfig sharedConfig].httpHost = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
     [SUIBaseConfig sharedConfig].backgroundColor = [UIColor colorWithRed:0.395 green:0.500 blue:1.000 alpha:1.000];

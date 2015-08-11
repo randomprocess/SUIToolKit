@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'SUIToolKit'
-  s.version      = '0.2'
+  s.version      = '0.2.1'
   s.platform     = :ios, '7.0'
   s.summary      = 'A collection of convenient classes for iOS.'
 

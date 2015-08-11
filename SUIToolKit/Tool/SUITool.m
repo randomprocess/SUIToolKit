@@ -26,6 +26,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 @property (nonatomic,assign) double keyboardAnimationDuration;
 
 @property (nonatomic,copy) SUIAppStoreVersionCompletionBlock appStoreVersionCompletion;
+@property (nonatomic,strong) NSMutableDictionary *keyboardWillChangeBlockDict;
 
 @end
 
@@ -93,13 +94,26 @@ NSString *const SUICurr_Version = @"Curr_Version";
     self.keyboardHeight = keyboardRect.size.height;
     self.keyboardAnimationDuration = [[noti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     uLogInfo(@"keyboard will show Height > %f <", self.keyboardHeight);
+    
+    UIViewAnimationOptions curOptions = [[noti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    for (SUIKeyboardWillChangeBlock changeBlock in [self.keyboardWillChangeBlockDict allValues]) {
+        changeBlock(YES, self.keyboardHeight, curOptions, self.keyboardAnimationDuration);
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)noti
 {
-    self.keyboardShow = NO;
-    self.keyboardHeight = 0;
-    uLogInfo(@"keyboard will show hide");
+    if (self.keyboardShow)
+    {
+        self.keyboardShow = NO;
+        self.keyboardHeight = 0;
+        uLogInfo(@"keyboard will show hide");
+        
+        UIViewAnimationOptions curOptions = [[noti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        for (SUIKeyboardWillChangeBlock changeBlock in [self.keyboardWillChangeBlockDict allValues]) {
+            changeBlock(NO, self.keyboardHeight, curOptions, self.keyboardAnimationDuration);
+        }
+    }
 }
 
 @end
@@ -164,6 +178,24 @@ NSString *const SUICurr_Version = @"Curr_Version";
 + (double)keyboardAnimationDuration
 {
     return [[self sharedInstance] keyboardAnimationDuration];
+}
+
++ (void)keyboardWillChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock
+{
+    [[self sharedInstance] keyboardWillChangeBlockDict][gClassName(target)] = [changeBlock copy];
+}
+
++ (void)keyboardRemoveWillChangeBlock:(id)target
+{
+    [[[self sharedInstance] keyboardWillChangeBlockDict] removeObjectForKey:gClassName(target)];
+}
+
+- (NSMutableDictionary *)keyboardWillChangeBlockDict
+{
+    if (!_keyboardWillChangeBlockDict) {
+        _keyboardWillChangeBlockDict = [NSMutableDictionary dictionary];
+    }
+    return _keyboardWillChangeBlockDict;
 }
 
 

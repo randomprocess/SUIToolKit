@@ -34,6 +34,7 @@
 		6D67E77F1B70999C00CD691D /* SUILoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E77A1B70999C00CD691D /* SUILoadingView.m */; };
 		6D67E7801B70999C00CD691D /* SUILoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D67E77B1B70999C00CD691D /* SUILoadingView.xib */; };
 		6D67E7811B70999C00CD691D /* SUIMainTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E77E1B70999C00CD691D /* SUIMainTVC.m */; };
+		6D7E36321B79D21C00850832 /* SUIKeyboardFollowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E36311B79D21C00850832 /* SUIKeyboardFollowView.m */; };
 		6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470791B5E378900860B27 /* NSArray+SUIExt.m */; };
 		6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707B1B5E378900860B27 /* UIView+SUIExt.m */; };
 		6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94707D1B5E378900860B27 /* UIViewController+SUIExt.m */; };
@@ -116,6 +117,8 @@
 		6D67E77B1B70999C00CD691D /* SUILoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUILoadingView.xib; sourceTree = "<group>"; };
 		6D67E77D1B70999C00CD691D /* SUIMainTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMainTVC.h; sourceTree = "<group>"; };
 		6D67E77E1B70999C00CD691D /* SUIMainTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMainTVC.m; sourceTree = "<group>"; };
+		6D7E36301B79D21C00850832 /* SUIKeyboardFollowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIKeyboardFollowView.h; sourceTree = "<group>"; };
+		6D7E36311B79D21C00850832 /* SUIKeyboardFollowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIKeyboardFollowView.m; sourceTree = "<group>"; };
 		6D9470781B5E378900860B27 /* NSArray+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SUIExt.h"; sourceTree = "<group>"; };
 		6D9470791B5E378900860B27 /* NSArray+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SUIExt.m"; sourceTree = "<group>"; };
 		6D94707A1B5E378900860B27 /* UIView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIExt.h"; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 			children = (
 				6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */,
 				6D67E75F1B7062DF00CD691D /* SUIDropdownTitleMenu.m */,
+				6D7E36301B79D21C00850832 /* SUIKeyboardFollowView.h */,
+				6D7E36311B79D21C00850832 /* SUIKeyboardFollowView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				6D67E77F1B70999C00CD691D /* SUILoadingView.m in Sources */,
 				6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */,
 				6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */,
+				6D7E36321B79D21C00850832 /* SUIKeyboardFollowView.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
 				6D1241481B60C961005DC05F /* SUITool.m in Sources */,
 			);

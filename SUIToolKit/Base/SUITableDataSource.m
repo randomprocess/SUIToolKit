@@ -237,10 +237,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *currConfig = [self configureCell:indexPath tableView:tableView];
-    SUIBaseCell *currCell = [self.currTableView dequeueReusableCellWithIdentifier:currConfig[0]];
+    id curModel = currConfig[1];
+    SUIBaseCell *currCell = nil;
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:cellForRowAtIndexPath:cModel:)]) {
+        currCell = [self.dataSourceDelegate suiTableView:tableView cellForRowAtIndexPath:indexPath cModel:curModel];
+    } else {
+        currCell = [self.currTableView dequeueReusableCellWithIdentifier:currConfig[0]];
+    }
     currCell.cellActionDelegate = self.dataSourceDelegate;
     currCell.delegate = self;
-    currCell.currModle = currConfig[1];
+    currCell.currModle = curModel;
     [currCell displayWithCalculateCellHeight:currCell.currModle];
     [currCell displayWithCurrModel:currCell.currModle];
     return currCell;
