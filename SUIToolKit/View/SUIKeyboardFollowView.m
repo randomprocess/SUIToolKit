@@ -7,7 +7,9 @@
 //
 
 #import "SUIKeyboardFollowView.h"
+#import "SUIToolKitConst.h"
 #import "UIView+SUIExt.h"
+#import "SUITool.h"
 
 @interface SUIKeyboardFollowView ()
 
