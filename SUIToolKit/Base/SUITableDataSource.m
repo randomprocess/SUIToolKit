@@ -32,6 +32,15 @@
     objc_setAssociatedObject(self, @selector(currDataSource), currDataSource, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    return self.currDataSource.currFetchedResultsController;
+}
+- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+{
+    self.currDataSource.currFetchedResultsController = fetchedResultsController;
+}
+
 
 - (BOOL)loadMoreData
 {
@@ -161,7 +170,6 @@
     UISearchResultsUpdating,
     UISearchDisplayDelegate,
     UISearchBarDelegate,
-    NSFetchedResultsControllerDelegate,
     MGSwipeTableCellDelegate>
 
 @property (nonatomic,strong) NSMutableArray *currDataAry;
@@ -263,10 +271,24 @@
     
     self.scrModel = [self currentModelAtIndex:indexPath tableView:tableView];
     
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:didSelectRowAtIndexPath:cModel:)])
-    {
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:didSelectRowAtIndexPath:cModel:)]) {
         id curModel = [self currentModelAtIndex:indexPath tableView:tableView];
         [self.dataSourceDelegate suiTableView:tableView didSelectRowAtIndexPath:indexPath cModel:curModel];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:willDisplayCell:forRowAtIndexPath:cModel:)]) {
+        id curModel = [self currentModelAtIndex:indexPath tableView:tableView];
+        [self.dataSourceDelegate suiTableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath cModel:curModel];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiScrollViewDidScroll:)]) {
+        [self.dataSourceDelegate suiScrollViewDidScroll:scrollView];
     }
 }
 

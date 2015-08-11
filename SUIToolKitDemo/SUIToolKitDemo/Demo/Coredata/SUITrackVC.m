@@ -29,7 +29,7 @@
         [SUITrackMD MR_truncateAllInContext:localContext];
     }];
     
-    self.currTableView.currDataSource.currFetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
+    self.currTableView.fetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
     
     [self handlerMainRequest:NO];
 }

@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, SUITableDataSourceType) {
 @interface UITableView (SUITableDataSource)
 
 @property (nonatomic,strong) SUITableDataSource *currDataSource;
+@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic,assign) BOOL loadMoreData;
 @property (nonatomic,assign) NSInteger pageSize;
@@ -43,7 +44,8 @@ typedef NS_ENUM(NSInteger, SUITableDataSourceType) {
     UITableViewDataSource,
     UITableViewDelegate,
     DZNEmptyDataSetDelegate,
-    DZNEmptyDataSetSource
+    DZNEmptyDataSetSource,
+    NSFetchedResultsControllerDelegate
     >
 
 

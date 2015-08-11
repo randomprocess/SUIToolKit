@@ -85,6 +85,9 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 #pragma mark - TableView
 
 - (void)suiTableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
+- (void)suiTableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
+
+- (void)suiScrollViewDidScroll:(UIScrollView *)scrollView;
 
 
 #pragma mark - SearchBar

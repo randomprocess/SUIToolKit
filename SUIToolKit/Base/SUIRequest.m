@@ -22,6 +22,12 @@ static dispatch_queue_t parser_data_queue() {
     return parser_data_queue;
 }
 
+@interface SUIRequest ()
+
+@property (nonatomic,assign,getter=isCancelTask) BOOL cancelTask;
+
+@end
+
 
 @implementation SUIRequest
 
@@ -35,6 +41,10 @@ static dispatch_queue_t parser_data_queue() {
      httpMethod:[SUIBaseConfig sharedConfig].httpMethod
      parameters:parameters
      completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
+         
+         if (curRequest.cancelTask) {
+             return;
+         }
          
          if (error == nil) {
              uLogInfo("========== response ==========\n%@\n", responseObject);
@@ -71,6 +81,10 @@ static dispatch_queue_t parser_data_queue() {
                      )
                  });
              }
+             else if (curRequest.completionBlock)
+             {
+                 curRequest.completionBlock(error, responseObject);
+             }
          }
          else
          {
@@ -102,7 +116,7 @@ static dispatch_queue_t parser_data_queue() {
         {
             if ([curRequest.identifier isEqualToString:identifier])
             {
-                [curRequests removeObject:curRequest];
+                [curRequest cancel];
                 break;
             }
         }
@@ -132,5 +146,14 @@ static dispatch_queue_t parser_data_queue() {
     return self;
 }
 
+
+- (void)cancel
+{
+    self.cancelTask = YES;
+    [self.currTask cancel];
+    
+    NSMutableArray *curRequests = [[SUIBaseConfig sharedConfig] requesets];
+    [curRequests removeObject:self];
+}
 
 @end

@@ -32,5 +32,6 @@ typedef void (^SUIRequestCompletionBlock)(NSError *error, id responseObject);
 
 - (instancetype)completion:(SUIRequestCompletionBlock)completion;
 
+- (void)cancel;
 
 @end
