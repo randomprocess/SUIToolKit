@@ -42,10 +42,6 @@
     self.backgroundColor = [UIColor clearColor];
     self.mainView.frame = self.bounds;
     self.mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    if (_ibDelegate != nil) {
-        self.bsDelegate = _ibDelegate;
-    }
 }
 
 - (IBAction)doAction:(id)sender
@@ -54,6 +50,16 @@
     {
         [self.bsDelegate handlerAction:sender cModel:nil];
     }
+}
+
+- (id<SUIBaseProtocol>)bsDelegate
+{
+    if (_bsDelegate == nil) {
+        if (_ibDelegate != nil) {
+            _bsDelegate = _ibDelegate;
+        }
+    }
+    return _bsDelegate;
 }
 
 @end

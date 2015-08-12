@@ -104,6 +104,14 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 - (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
 
 
+#pragma mark - FetchedResults
+
+- (void)suiFetchedResultsControllerWillChangeContent:(NSFetchedResultsController *)controller;
+//- (void)suiFetchedResultsController:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
+//- (void)suiFetchedResultsController:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
+- (void)suiFetchedResultsControllerDidChangeContent:(NSFetchedResultsController *)controller;
+
+
 #pragma mark - DropdownTitleMenu
 
 /** @return [TitleString] */

@@ -11,15 +11,56 @@
 @implementation NSDate (SUIExt)
 
 
-- (NSInteger)currAge
+#pragma mark - Data component
+
+- (NSInteger)currYear
 {
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSUInteger unitFlags = NSCalendarUnitYear;
-    
-    NSDateComponents *components = [gregorian components:unitFlags fromDate:self toDate:[NSDate date] options:0];
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:self];
+    return [dateComponents year];
+}
+
+- (NSInteger)currMonth
+{
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:self];
+    return [dateComponents month];
+}
+
+- (NSInteger)currDay
+{
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:self];
+    return [dateComponents day];
+}
+
+- (NSInteger)currHour
+{
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit  fromDate:self];
+    return [dateComponents hour];
+}
+
+- (NSInteger)currMinute
+{
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit  fromDate:self];
+    return [dateComponents minute];
+}
+
+- (NSInteger)currSecond
+{
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit  fromDate:self];
+    return [dateComponents second];
+}
+
+- (NSInteger)currAge
+{    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:self toDate:[NSDate date] options:0];
     return [components year]+1;
 }
 
+
+
+
+
+
+#pragma mark - Date formate
 
 - (NSString *)stringFormat:(NSString *)format
 {

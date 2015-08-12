@@ -11,4 +11,6 @@
 @interface SUIKeyboardFollowView : SUIBaseView
 
 
+@property (nonatomic,assign) CGFloat originHeight;
+
 @end

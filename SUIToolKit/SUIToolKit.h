@@ -55,6 +55,7 @@
 
 #import "SUIDropdownTitleMenu.h"
 #import "SUIKeyboardFollowView.h"
+#import "SUIAdaptTextView.h"
 
 
 #endif

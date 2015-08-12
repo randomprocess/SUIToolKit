@@ -621,6 +621,9 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiFetchedResultsControllerWillChangeContent:)]) {
+        [self.dataSourceDelegate suiFetchedResultsControllerWillChangeContent:controller];
+    }
     [self.currTableView beginUpdates];
 }
 
@@ -664,6 +667,9 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.currTableView endUpdates];
+    if ([self.dataSourceDelegate respondsToSelector:@selector(suiFetchedResultsControllerDidChangeContent:)]) {
+        [self.dataSourceDelegate suiFetchedResultsControllerDidChangeContent:controller];
+    }
 }
 
 @end

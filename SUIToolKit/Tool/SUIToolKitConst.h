@@ -93,6 +93,17 @@ __stuff \
 }); \
 } \
 
+#define uBackQueue(__stuff) \
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ \
+__stuff \
+}); \
+} \
+
+#define uRepeat(__count, __stuff) \
+for (NSInteger idx=0; idx < __count; idx ++) { \
+__stuff \
+} \
+
 #define uRegisterRemoteNoti {if (kAboveIOS8) { [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound categories:nil]]; [[UIApplication sharedApplication] registerForRemoteNotifications]; } else { [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound]; }}
 
 
@@ -114,6 +125,7 @@ __stuff \
 #define uLogError(__format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 #define uRect(__rect)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__rect, NSStringFromCGRect(__rect));
+#define uSize(__size)                NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__size, NSStringFromCGSize(__size));
 #define uPoint(__point)              NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__point, NSStringFromCGPoint(__point));
 #define uIndexPath(__indexPath)      NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %ld %ld" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__indexPath, __indexPath.section, __indexPath.row);
 #define uEdgeInsets(__edgeInsets)    NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__edgeInsets, NSStringFromUIEdgeInsets(__edgeInsets));
@@ -127,6 +139,7 @@ __stuff \
 #define uLogError(__format, ...) {}
 
 #define uRect(__rect) {}
+#define uSize(__size) {}
 #define uPoint(__point) {}
 #define uIndexPath(__indexPath) {}
 #define uEdgeInsets(__edgeInsets) {}

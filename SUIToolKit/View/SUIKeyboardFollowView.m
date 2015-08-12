@@ -13,7 +13,6 @@
 
 @interface SUIKeyboardFollowView ()
 
-@property (nonatomic) CGFloat currHeight;
 @property (nonatomic,strong) NSLayoutConstraint *currContantBottom;
 
 @end
@@ -24,7 +23,7 @@
 {
     NSAssert([self contantHeight] != nil, @"should add contantHeight");
     
-    self.currHeight = [self contantHeight].constant;
+    self.originHeight = [self contantHeight].constant;
     
     uWeakSelf
     [SUITool keyboardWillChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {

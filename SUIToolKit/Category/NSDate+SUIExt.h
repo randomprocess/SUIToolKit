@@ -12,7 +12,20 @@
 
 
 
+#pragma mark - Data component
+
+- (NSInteger)currYear;
+- (NSInteger)currMonth;
+- (NSInteger)currDay;
+- (NSInteger)currHour;
+- (NSInteger)currMinute;
+- (NSInteger)currSecond;
 - (NSInteger)currAge;
+
+
+
+
+#pragma mark - Date formate
 
 - (NSString *)stringFormat:(NSString *)format;
 

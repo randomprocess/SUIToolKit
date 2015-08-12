@@ -229,20 +229,38 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="JKc-5X-ZfP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OqX-Xd-iJm">
-                                        <rect key="frame" x="42" y="143" width="237" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uz-0c-pPn" customClass="SUIKeyboardFollowView">
-                                <rect key="frame" x="0.0" y="514" width="320" height="54"/>
+                                <rect key="frame" x="0.0" y="526" width="320" height="42"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMc-0M-idC" customClass="SUIAdaptTextView">
+                                        <rect key="frame" x="20" y="6" width="137" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="QbU-43-abB"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="miaoaoao"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.15686274510000001" green="0.76862745099999996" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="f9I-A0-eUR"/>
+                                    <constraint firstAttribute="bottom" secondItem="MMc-0M-idC" secondAttribute="bottom" constant="6" id="1zf-8F-WOw"/>
+                                    <constraint firstAttribute="centerY" secondItem="MMc-0M-idC" secondAttribute="centerY" id="BCe-8J-FuY"/>
+                                    <constraint firstAttribute="trailing" secondItem="MMc-0M-idC" secondAttribute="trailing" constant="163" id="agz-bZ-D3q"/>
+                                    <constraint firstAttribute="height" priority="850" constant="44" id="f9I-A0-eUR"/>
+                                    <constraint firstItem="MMc-0M-idC" firstAttribute="top" secondItem="0uz-0c-pPn" secondAttribute="top" constant="6" id="lqp-NU-yeb"/>
+                                    <constraint firstItem="MMc-0M-idC" firstAttribute="leading" secondItem="0uz-0c-pPn" secondAttribute="leading" constant="20" id="sN0-qw-RyT"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1zf-8F-WOw"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
