@@ -177,7 +177,8 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 + (double)keyboardAnimationDuration
 {
-    return [[self sharedInstance] keyboardAnimationDuration];
+    double curAnimationDuration = [[self sharedInstance] keyboardAnimationDuration];
+    return (curAnimationDuration > 0) ? curAnimationDuration : 0.25;
 }
 
 + (void)keyboardWillChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock

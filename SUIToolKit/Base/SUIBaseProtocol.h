@@ -11,13 +11,16 @@
 #import <CoreData/CoreData.h>
 #import "MGSwipeTableCell.h"
 
-@class SUITableDataSource, SUIBaseCell, SUIDropdownTitleMenu;
+@class SUITableDataSource, SUIBaseCell, SUIDropdownTitleMenu, SUIEmojiSection, SUIEmojiItem;
 
 
 typedef NS_ENUM(NSInteger, SUISwipeDirection) {
     SUISwipeDirectionToRight = 0,
     SUISwipeDirectionToLeft = 1
 };
+
+
+// _____________________________________________________________________________
 
 @protocol SUIBaseProtocol <NSObject>
 @optional
@@ -29,36 +32,29 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 @property (nonatomic,copy) NSString *currIdentifier;
 
 
-/** 在属性检查器中设置, 或代码写在调用configureController()之前 */
+// _____________________________________________________________________________
+
 #pragma mark - Attributes inspector
 
 /** 将介个addSearch设置为On, 则会在currTableView的tableHeaderView添加搜索框 */
 @property (nonatomic) BOOL addSearch;
 
-/** 添加下拉刷新 */
 @property (nonatomic) BOOL addHeader;
-/** 添加上拉加载更多 */
 @property (nonatomic) BOOL addFooter;
-/** 添加下拉刷新,并自动下拉 */
 @property (nonatomic) BOOL addHeaderAndRefreshStart;
 
-
 @property (nonatomic) BOOL addLoading;
-
 @property (nonatomic) BOOL addEmptyDataSet;
 
 
 // _____________________________________________________________________________
 
-
-
 #pragma mark - Frequently used
 
 /**
- *  有下拉或上拉的请求写在这个方法内, 请求数据调用requestData()
+ *  有下拉或上拉的请求写在这个方法内, 请求数据使用SUIRequestData类
  */
 - (void)handlerMainRequest:(BOOL)loadMoreData;
-
 
 /**
  *  将cell上视图的Touch事件连线到cell的doAction()后在这个方法内处理
@@ -75,36 +71,32 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
  */
 - (NSArray *)arrayOfCellIdentifier;
 
-
 /**
  *  用于BasePushSegue的model传递
  */
 - (id)modelPassed;
 
 
-#pragma mark - TableView
+// _____________________________________________________________________________
+
+#pragma mark - Primary
+
+#pragma mark TableView
 
 - (SUIBaseCell *)suiTableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 - (void)suiTableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 - (void)suiTableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath cModel:(id)cModel;
 
 - (void)suiScrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)suiScrollViewWillBeginDragging:(UIScrollView *)scrollView;
 
 
-#pragma mark - SearchBar
+#pragma mark SearchBar
 
 - (NSArray *)suiSearchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText dataAry:(NSArray *)cDataAry;
 
 
-#pragma mark - SwipeTableCell
-
-- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell canSwipe:(SUISwipeDirection)direction cModel:(id)cModel;
-/** @return [UIButton] */
-- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel;
-- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
-
-
-#pragma mark - FetchedResults
+#pragma mark FetchedResults
 
 - (void)suiFetchedResultsControllerWillChangeContent:(NSFetchedResultsController *)controller;
 //- (void)suiFetchedResultsController:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
@@ -112,16 +104,42 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 - (void)suiFetchedResultsControllerDidChangeContent:(NSFetchedResultsController *)controller;
 
 
-#pragma mark - DropdownTitleMenu
+// _____________________________________________________________________________
+
+#pragma mark - SUIToolKit
+
+#pragma mark DropdownTitleMenu
 
 /** @return [TitleString] */
 - (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView;
 /** @return [View] */
 - (NSArray *)suiDropdownTitleMenuViews:(SUIDropdownTitleMenu *)cView;
-- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)curIndex;
+- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)cIndex;
 
 
-#pragma mark - EmptyDataSet
+#pragma mark SUIEmojiView
+
+/** [SUIEmojiSection] */
+- (NSArray *)suiEmojiViewSections;
+
+- (void)suiEmojiViewTapItem:(SUIEmojiItem *)cItem;
+- (void)suiEmojiViewTapDeleteItem;
+- (void)suiEmojiViewTapSendBtn;
+
+
+// _____________________________________________________________________________
+
+#pragma mark - Vendor
+
+#pragma mark SwipeTableCell
+
+- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell canSwipe:(SUISwipeDirection)direction cModel:(id)cModel;
+/** @return [UIButton] */
+- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel;
+- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
+
+
+#pragma mark EmptyDataSet
 
 - (NSAttributedString *)suiEmptyDataSetTitleForScrollView:(UIScrollView *)scrollView;
 - (NSAttributedString *)suiEmptyDataSetDescriptionForScrollView:(UIScrollView *)scrollView;
@@ -134,7 +152,9 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 - (void)suiEmptyDataSetDidTapView:(UIScrollView *)scrollView; // Default is YES;
 
 
-#pragma mark -
+// _____________________________________________________________________________
+
+#pragma mark - Others
 
 #pragma mark Dismiss
 

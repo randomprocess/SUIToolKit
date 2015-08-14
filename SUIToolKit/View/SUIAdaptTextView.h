@@ -19,8 +19,13 @@ typedef BOOL (^SUIAdaptTextViewReturnBlock)(UITextView *textView);
 @property (nonatomic) IBInspectable NSString *placeholder; // Default is nil
 
 
+@property (nonatomic, copy) NSString *text;
+
+
 
 - (void)showKeyboard;
+
+- (void)dissmissKeyboard;
 
 - (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)returnBlock;
 

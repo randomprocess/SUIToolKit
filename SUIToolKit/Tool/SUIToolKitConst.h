@@ -54,6 +54,8 @@
 #define gBFont(__fontSize) [UIFont boldSystemFontOfSize:__fontSize]
 
 #define gImageNamed(__name) [UIImage imageNamed:__name]
+#define gImageResource(__name, __type) [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:__name ofType:__type]]]
+
 #define gClassName(__obj) [NSString stringWithUTF8String:object_getClassName(__obj)]
 
 #define gWindow ((UIWindow *)[[[UIApplication sharedApplication] windows] objectAtIndex:0])

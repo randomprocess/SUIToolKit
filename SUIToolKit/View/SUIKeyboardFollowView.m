@@ -51,6 +51,25 @@
     return _currContantBottom;
 }
 
+- (void)bottomContant:(CGFloat)constant
+{
+    if (constant != [self currContantBottom].constant)
+    {
+        uWeakSelf
+        [SUITool delay:0.01 cb:^{
+            [UIView animateWithDuration:[SUITool keyboardAnimationDuration]
+                                  delay:0
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                                 [weakSelf currContantBottom].constant = constant;
+                                 [weakSelf layoutIfNeeded];
+                             } completion:^(BOOL finished) {
+                             }];
+            
+        }];
+    }
+}
+
 - (void)dealloc
 {
     [SUITool keyboardRemoveWillChangeBlock:self];

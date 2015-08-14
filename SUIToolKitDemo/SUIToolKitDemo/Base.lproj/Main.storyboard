@@ -74,7 +74,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nmD-45-7IZ" id="dMj-1u-SWW">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bbn-KF-fZ9">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="custom view" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bbn-KF-fZ9">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -207,18 +207,13 @@
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEa-tG-pbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="kUx-sT-y7l" customClass="SUIDropdownTitleMenu">
-                    <connections>
-                        <outlet property="currVC" destination="fo7-Zw-5bm" id="zS2-ad-Vmq"/>
-                    </connections>
-                </customObject>
             </objects>
             <point key="canvasLocation" x="782" y="210"/>
         </scene>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="L8c-6m-lRO">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="zhJ-Od-Cuq" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="zhJ-Od-Cuq" customClass="SUIChatVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vw2-kS-633"/>
                         <viewControllerLayoutGuide type="bottom" id="UJA-3w-4qF"/>
@@ -227,8 +222,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="JKc-5X-ZfP">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKc-5X-ZfP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zhJ-Od-Cuq" id="WVi-Oq-ewz"/>
+                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0uz-0c-pPn" customClass="SUIKeyboardFollowView">
                                 <rect key="frame" x="0.0" y="526" width="320" height="42"/>
@@ -246,11 +244,26 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJP-ay-iFh">
+                                        <rect key="frame" x="171" y="6" width="37" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EFs-fC-Zh8"/>
+                                            <constraint firstAttribute="width" constant="37" id="pc5-ri-3QF"/>
+                                        </constraints>
+                                        <state key="normal" title="😄">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doFaceBtn:" destination="zhJ-Od-Cuq" eventType="touchUpInside" id="JcH-Ge-hhg"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15686274510000001" green="0.76862745099999996" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="MMc-0M-idC" secondAttribute="bottom" constant="6" id="1zf-8F-WOw"/>
                                     <constraint firstAttribute="centerY" secondItem="MMc-0M-idC" secondAttribute="centerY" id="BCe-8J-FuY"/>
+                                    <constraint firstItem="qJP-ay-iFh" firstAttribute="centerY" secondItem="MMc-0M-idC" secondAttribute="centerY" id="S2W-QQ-9TK"/>
+                                    <constraint firstItem="qJP-ay-iFh" firstAttribute="leading" secondItem="MMc-0M-idC" secondAttribute="trailing" constant="14" id="Ucq-M7-48T"/>
                                     <constraint firstAttribute="trailing" secondItem="MMc-0M-idC" secondAttribute="trailing" constant="163" id="agz-bZ-D3q"/>
                                     <constraint firstAttribute="height" priority="850" constant="44" id="f9I-A0-eUR"/>
                                     <constraint firstItem="MMc-0M-idC" firstAttribute="top" secondItem="0uz-0c-pPn" secondAttribute="top" constant="6" id="lqp-NU-yeb"/>
@@ -274,9 +287,35 @@
                             <constraint firstAttribute="trailing" secondItem="JKc-5X-ZfP" secondAttribute="trailing" id="vuc-Sa-r81"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="7hq-W5-3vj"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="cEmojiView" destination="t91-D5-yQg" id="CEK-Dl-0YL"/>
+                        <outlet property="cTextView" destination="MMc-0M-idC" id="ypC-K4-LYW"/>
+                        <outlet property="curKeyboardFollowView" destination="0uz-0c-pPn" id="QKW-M3-gj6"/>
+                        <outlet property="faceBtn" destination="qJP-ay-iFh" id="L0y-rv-4Iq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oii-Lg-bNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="AWB-fy-7xj" customClass="SUIDropdownTitleMenu">
+                    <connections>
+                        <outlet property="currVC" destination="zhJ-Od-Cuq" id="VfI-Cf-KPx"/>
+                    </connections>
+                </customObject>
+                <customObject id="t91-D5-yQg" customClass="SUIEmojiView">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="showCustomEmoji">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="hidePrimaryEmoji">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="currVC" destination="zhJ-Od-Cuq" id="NWT-Qx-aWS"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="334" y="940"/>
         </scene>

@@ -298,6 +298,13 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if ([self.dataSourceDelegate respondsToSelector:@selector(scrollViewWillBeginDragging:)]) {
+        [self.dataSourceDelegate suiScrollViewWillBeginDragging:scrollView];
+    }
+}
+
 - (id)currentModelAtIndex:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
     switch ([self currDataSourceType])

@@ -168,4 +168,10 @@
 }
 
 
+- (void)setBorder:(UIColor *)color width:(CGFloat)width
+{
+    self.layer.borderColor = [color CGColor];
+    self.layer.borderWidth = width;
+}
+
 @end

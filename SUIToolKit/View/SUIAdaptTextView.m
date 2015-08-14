@@ -177,7 +177,13 @@
     if (![self.currTextView isFirstResponder]) {
         [self.currTextView becomeFirstResponder];
     }
-    
+}
+
+- (void)dissmissKeyboard
+{
+    if ([self.currTextView isFirstResponder]) {
+        [self.currTextView resignFirstResponder];
+    }
 }
 
 - (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)returnBlock
@@ -256,6 +262,16 @@
 - (NSString *)placeholder
 {
     return _placeholderLbl.text;
+}
+
+
+- (NSString *)text
+{
+    return self.currTextView.text;
+}
+- (void)setText:(NSString *)text
+{
+    self.currTextView.text = text;
 }
 
 

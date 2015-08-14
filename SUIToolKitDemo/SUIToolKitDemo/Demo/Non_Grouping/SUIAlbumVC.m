@@ -57,22 +57,4 @@
 }
 
 
-- (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView
-{
-    return @[@"miao", @"aoao", @"meow"];
-}
-
-- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)curIndex
-{
-    [UIAlertView alertWithTitle:[self suiDropdownTitleMenuTitles:nil][curIndex]
-                        message:nil
-              cancelButtonTitle:@"Cancel"
-               otherButtonTitle:@"Other"
-                     clickBlock:^(NSInteger idx) {
-                         
-                         uLog(@"%zd", idx);
-                     }];
-}
-
-
 @end

@@ -42,6 +42,7 @@
 #import "UIImage+SUIExt.h"
 #import "UIAlertView+SUIExt.h"
 #import "UIActionSheet+SUIExt.h"
+#import "UIScrollView+SUIExt.h"
 
 
 #import "NSArray+SUIExt.h"
@@ -56,6 +57,6 @@
 #import "SUIDropdownTitleMenu.h"
 #import "SUIKeyboardFollowView.h"
 #import "SUIAdaptTextView.h"
-
+#import "SUIEmojiView.h"
 
 #endif

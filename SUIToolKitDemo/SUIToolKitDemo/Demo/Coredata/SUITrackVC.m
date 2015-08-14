@@ -180,7 +180,7 @@
     NSDictionary *curAttributes = @{
                                     NSFontAttributeName : gFont(16),
                                     NSForegroundColorAttributeName : gRandomColo,
-                                    NSParagraphStyleAttributeName : paragraph,
+                                    NSParagraphStyleAttributeName : paragraph
                                     };
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"aowowowowowoowowowoowowowoowowowoowowoowowowowoowoowowowowowowowoowowowoowowowowwowoowuuwoowowwo" attributes:curAttributes];
     

@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger, SUIButtonFlashType) {
 @property (nonatomic,copy) NSString *selectedTitle;
 @property (nonatomic,strong) UIColor *selectedTitleColo;
 @property (nonatomic,strong) UIImage *selectedImage;
+@property (nonatomic,strong) UIImage *selectedBackgroundImage;
 
 // _____________________________________________________________________________
 

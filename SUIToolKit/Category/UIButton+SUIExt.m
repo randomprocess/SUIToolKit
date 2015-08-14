@@ -120,6 +120,15 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
     return [self imageForState:UIControlStateSelected];
 }
 
+- (void)setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage
+{
+    [self setBackgroundImage:selectedBackgroundImage forState:UIControlStateSelected];
+}
+- (UIImage *)selectedBackgroundImage
+{
+    return [self backgroundImageForState:UIControlStateSelected];
+}
+
 
 // _____________________________________________________________________________
 

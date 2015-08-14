@@ -13,4 +13,6 @@
 
 @property (nonatomic,assign) CGFloat originHeight;
 
+- (void)bottomContant:(CGFloat)constant;
+
 @end

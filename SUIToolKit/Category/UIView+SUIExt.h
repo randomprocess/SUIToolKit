@@ -43,5 +43,7 @@
 - (id)subviewWithClassName:(NSString *)className;
 
 
+- (void)setBorder:(UIColor *)color width:(CGFloat)width;
+
 
 @end
