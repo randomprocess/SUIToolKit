@@ -12,6 +12,7 @@
 typedef void (^SUIDelayTask)(BOOL cancel);
 typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appVersion);
 typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
+typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
 
 @interface SUITool : NSObject
 
@@ -37,8 +38,6 @@ typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyborad, CGFloat keyboardHe
 + (double)keyboardAnimationDuration;
 
 + (void)keyboardWillChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock;
-
-+ (void)keyboardRemoveWillChangeBlock:(id)target;
 
 
 #pragma mark - Unique identifier

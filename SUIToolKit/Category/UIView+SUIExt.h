@@ -44,6 +44,6 @@
 
 
 - (void)setBorder:(UIColor *)color width:(CGFloat)width;
-
+- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius;
 
 @end

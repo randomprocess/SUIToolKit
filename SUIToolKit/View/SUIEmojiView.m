@@ -11,6 +11,7 @@
 #import "UIView+SUIExt.h"
 #import "UIButton+SUIExt.h"
 #import "UIScrollView+SUIExt.h"
+#import "UIImage+GIF.h"
 
 typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 {
@@ -265,7 +266,7 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
     
     if (self.isInRect)
     {
-        if (!self.currItem.deleteItem)
+        if (!self.currItem.deleteItem && self.currSection.type == SUIEmojiViewTypeGif)
         {
             uWeakSelf
             self.loopDaley = [SUITool delay:0.6 cb:^{
@@ -363,13 +364,59 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 }
 
 
+#define tLoopView_Margin                  6.0f
+#define tLoopView_SpaceToTouch            46.0f
+
+#define tLoopView_MinImage_Width          24.0f
+#define tLoopView_MinImage_Height         24.0f
 
 - (void)showLoopView
 {
     self.currSupScrollView.scrollEnabled = NO;
     
+    NSData *curGifData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:self.currItem.imageName ofType:@"gif"]];
+    UIImage *gifImage = [UIImage sd_animatedGIFWithData:curGifData];
     
-    // TODO: - show loopView
+    CGFloat loopWidth = gifImage.size.width;
+    CGFloat loopHeight = gifImage.size.height;
+    
+    if (loopWidth < tLoopView_MinImage_Width)
+    {
+        loopHeight = loopHeight * tLoopView_MinImage_Width / loopWidth;
+        loopWidth = tLoopView_MinImage_Width;
+    }
+    if (loopHeight < tLoopView_MinImage_Height)
+    {
+        loopWidth = loopWidth * tLoopView_MinImage_Height / loopHeight;
+        loopHeight = tLoopView_MinImage_Height;
+    }
+    if (gifImage.size.width != loopWidth)
+    {
+        gifImage = [gifImage sd_animatedImageByScalingAndCroppingToSize:CGSizeMake(loopWidth, loopHeight)];
+    }
+    
+    self.loopView.frame = (CGRect) {
+        self.currTouch.x - loopWidth/2 - tLoopView_Margin,
+        self.currTouch.y - loopHeight - tLoopView_Margin * 2 - tLoopView_SpaceToTouch,
+        loopWidth + tLoopView_Margin * 2,
+        loopHeight + tLoopView_Margin * 2
+    };
+    
+    self.loopView.image = gifImage;
+    
+    self.loopView.transform = CGAffineTransformMakeScale(0.007, 0.007);
+    
+    __weak UIImageView *weakLoopView = self.loopView;
+    [UIView animateWithDuration:0.25 animations:^{
+        weakLoopView.alpha = 0.8;
+        weakLoopView.transform = CGAffineTransformMakeScale(1.0+0.05, 1.0+0.05);
+    }completion:^(BOOL finish){
+        [UIView animateWithDuration:0.15 animations:^{
+            weakLoopView.alpha = 1.0;
+            weakLoopView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        }completion:^(BOOL finish){
+        }];
+    }];
 }
 
 - (void)moveLoopView
@@ -399,6 +446,11 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 {
     if (!_loopView) {
         _loopView = [[UIImageView alloc] init];
+        _loopView.backgroundColor = gRGBA(255, 255, 255, 0.8);
+        [_loopView setShadow:[UIColor blackColor] opacity:0.6 offset:CGSizeMake(0, 0) blurRadius:3];
+        [_loopView setCornerRadius:2];
+        [_loopView setBorder:[UIColor colorWithRed:0.27f green:0.85f blue:0.46f alpha:1.0f] width:0.8];
+        _loopView.contentMode = UIViewContentModeCenter;
         [self addSubview:_loopView];
     }
     return _loopView;

@@ -25,6 +25,9 @@ PODS:
   - MGSwipeTableCell (1.5.1)
   - MJExtension (2.3.8)
   - MJRefresh (1.4.7)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - UITableView+FDTemplateLayoutCell (1.3)
 
 DEPENDENCIES:
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - MGSwipeTableCell (~> 1.5.1)
   - MJExtension (~> 2.3.7)
   - MJRefresh (~> 1.4.7)
+  - SDWebImage (~> 3.7.3)
   - UITableView+FDTemplateLayoutCell (~> 1.3)
 
 SPEC CHECKSUMS:
@@ -43,6 +47,7 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
   MJExtension: d83b55e6cb95c6274388539c782386b56f394a6d
   MJRefresh: 6b140993028fa30f1fcb88e82925a7c7911415cf
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   UITableView+FDTemplateLayoutCell: d5be6056b5060313f5955a2590ecd33142ad713d
 
 COCOAPODS: 0.38.2

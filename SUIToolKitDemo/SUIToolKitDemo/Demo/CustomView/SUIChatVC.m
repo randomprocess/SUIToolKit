@@ -40,12 +40,6 @@
     }];
 }
 
-- (void)dealloc
-{
-    [SUITool keyboardRemoveWillChangeBlock:self];
-}
-
-
 #pragma mark - DropdownTitleMenu
 
 - (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView

@@ -174,4 +174,14 @@
     self.layer.borderWidth = width;
 }
 
+- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius
+{
+    CALayer *l = self.layer;
+    l.shadowColor = [color CGColor];
+    l.shadowOpacity = opacity;
+    l.shadowOffset = offset;
+    l.shadowRadius = blurRadius;
+    l.shadowPath = [[UIBezierPath bezierPathWithRect:l.bounds] CGPath];
+}
+
 @end

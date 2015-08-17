@@ -10,6 +10,8 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic,strong) NSMutableArray *curAry;
+
 @end
 
 @implementation AppDelegate
@@ -31,6 +33,32 @@
     
     NSString *databaseName = [NSString stringWithFormat:@"%@.sqlite", kProjectName];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:databaseName];
+    
+
+    
+    
+    SUITool *curTool = [[SUITool alloc] init];
+    
+    SUITool *weakTool = curTool;
+    _curAry = [NSMutableArray array];
+    
+    
+    void (^SUIKKKK)() = ^() {
+        uLog(@"%@", weakTool);
+    };
+    
+    [_curAry addObject:SUIKKKK];
+
+    
+    uLog(@"%@", _curAry[0]);
+    
+    [SUITool delay:1 cb:^{
+        uLog(@"%@", _curAry[0]);
+        
+        void (^ssss)() = _curAry[0];
+        
+        ssss();
+    }];
     
     
     return YES;

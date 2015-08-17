@@ -70,10 +70,5 @@
     }
 }
 
-- (void)dealloc
-{
-    [SUITool keyboardRemoveWillChangeBlock:self];
-}
-
 
 @end
