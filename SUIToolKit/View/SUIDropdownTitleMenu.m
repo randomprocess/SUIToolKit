@@ -14,13 +14,6 @@
 #import "UIView+SUIExt.h"
 #import "UIImage+SUIExt.h"
 
-typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
-{
-    SUIDropdownTitleMenuStateWillOpen   = 0,
-    SUIDropdownTitleMenuStateDidOpen    = 1,
-    SUIDropdownTitleMenuStateWillClose  = 2,
-    SUIDropdownTitleMenuStateDidClose   = 3
-};
 
 #define tAnimationDuration 0.8
 #define tBlackMaskAlpha 0.8
@@ -120,7 +113,6 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
 @property (nonatomic,strong) UIScrollView *mainView;
 @property (nonatomic,strong) UIButton *backgroundButton;
 
-@property (nonatomic,assign) SUIDropdownTitleMenuState currState;
 @property (nonatomic,assign) CGFloat currNavBarHeight;
 
 @end
@@ -133,7 +125,7 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
     
     self.currVC.navigationItem.titleView = self.currTitleBtn;
     self.currIndex = 0;
-    self.currState = SUIDropdownTitleMenuStateDidClose;
+    self.animalDuration = tAnimationDuration;
     
     uWeakSelf
     [SUITool delay:0.1 cb:^{
@@ -154,7 +146,7 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
 
 - (void)doTitleBtn
 {
-    if ([self isShowing]) {
+    if (self.currState == SUIPopupStateDidOpen) {
         [self dismiss];
     } else {
         [self show];
@@ -166,77 +158,18 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
     [self dismiss];
 }
 
-- (BOOL)isShowing
-{
-    return self.currState == SUIDropdownTitleMenuStateDidOpen;
-}
 
-- (void)show
+- (void)addAnimation:(BOOL)willOpen
 {
-    if (self.currState == SUIDropdownTitleMenuStateDidClose)
+    if (willOpen)
     {
-        self.currState = SUIDropdownTitleMenuStateWillOpen;
-        
         [self setupMenu];
-        [self addMenuAnimation];
-        
-        uWeakSelf
-        [SUITool delay:tAnimationDuration cb:^{
-            weakSelf.currState = SUIDropdownTitleMenuStateDidOpen;
-        }];
     }
-}
-
-- (void)dismiss
-{
-    if (self.currState == SUIDropdownTitleMenuStateDidOpen)
-    {
-        self.currState = SUIDropdownTitleMenuStateWillClose;
-        
-        [self addMenuAnimation];
-        
-        uWeakSelf
-        [UIView animateWithDuration:tAnimationDuration
-                         animations:^{
-                             weakSelf.backgroundButton.alpha = 0;
-                         } completion:^(BOOL finished) {
-                             [weakSelf.menuView removeFromSuperview];
-                             [weakSelf.backgroundButton removeFromSuperview];
-                             [weakSelf.menuTableView removeFromSuperview];
-                             [weakSelf.mainView removeFromSuperview];
-                             weakSelf.currState = SUIDropdownTitleMenuStateDidClose;
-                         }];
-    }
-}
-
-
-- (void)setupMenu
-{
-    self.mainView.frame = self.currVC.view.bounds;
-    [self.currVC.view addSubview:self.mainView];
     
-    self.backgroundButton.frame = CGRectMake(0, 0, self.mainView.width, self.mainView.height);
-    self.backgroundButton.alpha = 1.0;
-    [self.mainView addSubview:self.backgroundButton];
-    
-    self.menuView.frame = CGRectMake(0, -self.mainView.height, self.mainView.width, self.mainView.height);
-    [self.mainView addSubview:self.menuView];
-    
-    CGFloat menuHeight = self.currTitles.count * tMenuHeight;
-    self.menuTableView.frame = CGRectMake(0, self.menuView.height - menuHeight, kScreenWidth, menuHeight);
-    [self.menuTableView reloadData];
-    [self.menuView addSubview:self.menuTableView];
-}
-
-
-#pragma mark - Animation
-
-- (void)addMenuAnimation
-{
     CATransform3D rotationTransform = CATransform3DMakeRotation(0, 0, 0, 0);
     
     CGFloat curMenuViewY = - self.mainView.height;
-    if (self.currState == SUIDropdownTitleMenuStateWillOpen || self.currState == SUIDropdownTitleMenuStateDidOpen)
+    if (willOpen)
     {
         curMenuViewY += (self.menuTableView.height + self.currNavBarHeight);
         
@@ -261,6 +194,39 @@ typedef NS_ENUM(NSInteger, SUIDropdownTitleMenuState)
                          } completion:^(BOOL finished) {
                          }];
     }
+    
+    if (!willOpen)
+    {
+        uWeakSelf
+        [UIView animateWithDuration:tAnimationDuration
+                         animations:^{
+                             weakSelf.backgroundButton.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             [weakSelf.menuView removeFromSuperview];
+                             [weakSelf.backgroundButton removeFromSuperview];
+                             [weakSelf.menuTableView removeFromSuperview];
+                             [weakSelf.mainView removeFromSuperview];
+                         }];
+    }    
+}
+
+
+- (void)setupMenu
+{
+    self.mainView.frame = self.currVC.view.bounds;
+    [self.currVC.view addSubview:self.mainView];
+    
+    self.backgroundButton.frame = CGRectMake(0, 0, self.mainView.width, self.mainView.height);
+    self.backgroundButton.alpha = 1.0;
+    [self.mainView addSubview:self.backgroundButton];
+    
+    self.menuView.frame = CGRectMake(0, -self.mainView.height, self.mainView.width, self.mainView.height);
+    [self.mainView addSubview:self.menuView];
+    
+    CGFloat menuHeight = self.currTitles.count * tMenuHeight;
+    self.menuTableView.frame = CGRectMake(0, self.menuView.height - menuHeight, kScreenWidth, menuHeight);
+    [self.menuTableView reloadData];
+    [self.menuView addSubview:self.menuTableView];
 }
 
 

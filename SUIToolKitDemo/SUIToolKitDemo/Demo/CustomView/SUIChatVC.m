@@ -32,7 +32,7 @@
     [SUITool keyboardWillChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
         if (showKeyborad)
         {
-            [weakSelf.cEmojiView dissmiss];
+            [weakSelf.cEmojiView dismiss];
             if (weakSelf.faceBtn.selected) {
                 weakSelf.faceBtn.selected = NO;
             }
@@ -110,7 +110,7 @@
         }
         [self.curKeyboardFollowView bottomContant:[self.cEmojiView currHeight]];
     } else {
-        [self.cEmojiView dissmiss];
+        [self.cEmojiView dismiss];
         [self.curKeyboardFollowView bottomContant:0];
     }
 }
@@ -118,7 +118,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.cTextView dissmissKeyboard];
-    [self.cEmojiView dissmiss];
+    [self.cEmojiView dismiss];
     [self.curKeyboardFollowView bottomContant:0];
     if (self.faceBtn.selected) {
         self.faceBtn.selected = NO;

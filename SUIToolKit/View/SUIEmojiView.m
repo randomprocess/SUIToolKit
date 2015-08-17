@@ -14,14 +14,6 @@
 #import "UIImage+GIF.h"
 #import "SUITool.h"
 
-typedef NS_ENUM(NSInteger, SUIEmojiViewState)
-{
-    SUIEmojiViewStateWillOpen   = 0,
-    SUIEmojiViewStateDidOpen    = 1,
-    SUIEmojiViewStateWillClose  = 2,
-    SUIEmojiViewStateDidClose   = 3
-};
-
 
 #define tEmoji_Height 216.0f
 #define tEmoji_Bottom_Height 40.0f
@@ -568,7 +560,6 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 
 @property (nonatomic,assign) NSInteger selectIndex;
 
-@property (nonatomic,assign) SUIEmojiViewState currState;
 @property (nonatomic,assign) CGFloat supHeight;
 
 @end
@@ -580,9 +571,9 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 {
     NSAssert(self.currVC, @"should link currVC");
     
-    self.currState = SUIEmojiViewStateDidClose;
     self.sectionPadding = 12.0;
     _currHeight = tEmoji_Height;
+    self.animalDuration = [SUITool keyboardAnimationDuration];
     
     [self createUI];
 }
@@ -748,40 +739,11 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 
 #pragma mark - Show, Dismiss
 
-- (void)show
-{
-    if (self.currState == SUIEmojiViewStateDidClose)
-    {
-        self.currState = SUIEmojiViewStateWillOpen;
-        
-        [self addEmojiAnimation];
-        
-        uWeakSelf
-        [SUITool delay:[SUITool keyboardAnimationDuration] cb:^{
-            weakSelf.currState = SUIEmojiViewStateDidOpen;
-        }];
-    }
-}
 
-- (void)dissmiss
-{
-    if (self.currState == SUIEmojiViewStateDidOpen)
-    {
-        self.currState = SUIEmojiViewStateWillClose;
-        
-        [self addEmojiAnimation];
-        
-        uWeakSelf
-        [SUITool delay:[SUITool keyboardAnimationDuration] cb:^{
-            weakSelf.currState = SUIEmojiViewStateDidClose;
-        }];
-    }
-}
-
-- (void)addEmojiAnimation
+- (void)addAnimation:(BOOL)willOpen
 {
     CGFloat curEmojiViewY = self.supHeight;
-    if (self.currState == SUIEmojiViewStateWillOpen || self.currState == SUIEmojiViewStateDidOpen)
+    if (willOpen)
     {
         curEmojiViewY -= self.mainView.height;
     }

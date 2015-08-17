@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SUIPopupObject.h"
 
 #import "SUIBaseProtocol.h"
 
@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewType)
     SUIEmojiViewTypeText                  = 2,
 };
 
-@interface SUIEmojiView : NSObject
+@interface SUIEmojiView : SUIPopupObject
 
 
 @property (nonatomic,weak) IBOutlet id<SUIBaseProtocol> currVC;
@@ -36,10 +36,6 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewType)
 
 @property (nonatomic,assign,readonly) CGFloat currHeight;
 
-
-- (void)show;
-
-- (void)dissmiss;
 
 
 @end

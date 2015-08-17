@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 SUIO~. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SUIPopupObject.h"
 
-@interface SUIDropdownTitleMenu : NSObject
+@interface SUIDropdownTitleMenu : SUIPopupObject
 
 
 @property (nonatomic,weak) IBOutlet UIViewController *currVC;

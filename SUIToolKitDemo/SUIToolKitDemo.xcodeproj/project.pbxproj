@@ -43,6 +43,7 @@
 		6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */; };
 		6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */; };
 		6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */; };
+		6D9AEFEB1B81885600227D62 /* SUIPopupObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */; };
 		6DA091D21B3A46AC00DA06A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091D11B3A46AC00DA06A3 /* main.m */; };
 		6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091D91B3A46AC00DA06A3 /* Main.storyboard */; };
 		6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */; };
@@ -140,6 +141,8 @@
 		6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SUIExt.m"; sourceTree = "<group>"; };
 		6D9470A61B5E4AC700860B27 /* NSDictionary+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SUIExt.h"; sourceTree = "<group>"; };
 		6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SUIExt.m"; sourceTree = "<group>"; };
+		6D9AEFE91B81885600227D62 /* SUIPopupObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIPopupObject.h; sourceTree = "<group>"; };
+		6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIPopupObject.m; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DA091D11B3A46AC00DA06A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 		6D8E2D271B6F1B9C00A95DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6D9AEFE91B81885600227D62 /* SUIPopupObject.h */,
+				6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */,
 				6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */,
 				6D67E75F1B7062DF00CD691D /* SUIDropdownTitleMenu.m */,
 				6D7E36301B79D21C00850832 /* SUIKeyboardFollowView.h */,
@@ -576,6 +581,7 @@
 				6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */,
 				6D67E7761B7098D000CD691D /* SUITrackMD.m in Sources */,
 				6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */,
+				6D9AEFEB1B81885600227D62 /* SUIPopupObject.m in Sources */,
 				6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */,
 				6D67E7771B7098D000CD691D /* SUITrackVC.m in Sources */,
 				6D1241421B60C961005DC05F /* SUIBasePushSegue.m in Sources */,

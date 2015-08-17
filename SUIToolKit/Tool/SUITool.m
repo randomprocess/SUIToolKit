@@ -206,7 +206,6 @@ NSString *const SUICurr_Version = @"Curr_Version";
             changeBlock(showKeyborad, keyboardHeight, options, duration);
             return YES;
         } else {
-            [[[self sharedInstance] keyboardDidChangeBlockArray] removeObject:keyboardDidChanged];
             return NO;
         }
     };

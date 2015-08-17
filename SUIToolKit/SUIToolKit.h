@@ -54,6 +54,7 @@
 
 // View
 
+#import "SUIPopupObject.h"
 #import "SUIDropdownTitleMenu.h"
 #import "SUIKeyboardFollowView.h"
 #import "SUIAdaptTextView.h"
