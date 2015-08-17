@@ -12,6 +12,7 @@
 #import "UIButton+SUIExt.h"
 #import "UIScrollView+SUIExt.h"
 #import "UIImage+GIF.h"
+#import "SUITool.h"
 
 typedef NS_ENUM(NSInteger, SUIEmojiViewState)
 {
