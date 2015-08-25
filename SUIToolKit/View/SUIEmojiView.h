@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewType)
 @property (nonatomic,assign) IBInspectable UIImage *deleteImage;
 
 
-@property (nonatomic,assign,readonly) CGFloat currHeight;
+@property (nonatomic,assign) CGFloat currHeight;
 
 
 

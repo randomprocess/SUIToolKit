@@ -121,15 +121,15 @@
 
 - (void)awakeFromNib
 {
-    NSAssert(self.currVC, @"should link currVC");
-    
-    self.currVC.navigationItem.titleView = self.currTitleBtn;
-    self.currIndex = 0;
-    self.animalDuration = tAnimationDuration;
-    
     uWeakSelf
     [SUITool delay:0.1 cb:^{
-        UINavigationBar *curNavigationBar = self.currVC.navigationController.navigationBar;
+        NSAssert(self.currVC, @"should link currVC");
+        
+        weakSelf.currVC.navigationItem.titleView = weakSelf.currTitleBtn;
+        weakSelf.currIndex = 0;
+        weakSelf.animalDuration = tAnimationDuration;
+        
+        UINavigationBar *curNavigationBar = weakSelf.currVC.navigationController.navigationBar;
         if (curNavigationBar.translucent)
         {
             weakSelf.currNavBarHeight = curNavigationBar.bounds.size.height;

@@ -569,13 +569,17 @@
 
 - (void)awakeFromNib
 {
+    uWeakSelf
+    [SUITool delay:0.1 cb:^{
+        
+        weakSelf.sectionPadding = 12.0;
+        weakSelf.currHeight = tEmoji_Height;
+        self.animalDuration = [SUITool keyboardAnimationDuration];
+        
+        [self createUI];
+    }];
+    
     NSAssert(self.currVC, @"should link currVC");
-    
-    self.sectionPadding = 12.0;
-    _currHeight = tEmoji_Height;
-    self.animalDuration = [SUITool keyboardAnimationDuration];
-    
-    [self createUI];
 }
 
 - (void)createUI
@@ -587,6 +591,7 @@
         SUIEmojiSection *primarySection = [SUIEmojiSection primaryEmojiSection];
         primarySection.numOfRowItems = 6;
         primarySection.numOfColItems = (self.showCustomEmoji) ? 3 : 4;
+        primarySection.currScrollView = self.middleScrollView;
         [self.currSectionAry addObject:primarySection];
     }
     

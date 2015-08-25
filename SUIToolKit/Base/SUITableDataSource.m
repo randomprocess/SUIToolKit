@@ -278,8 +278,7 @@
     self.scrModel = [self currentModelAtIndex:indexPath tableView:tableView];
     
     if ([self.dataSourceDelegate respondsToSelector:@selector(suiTableView:didSelectRowAtIndexPath:cModel:)]) {
-        id curModel = [self currentModelAtIndex:indexPath tableView:tableView];
-        [self.dataSourceDelegate suiTableView:tableView didSelectRowAtIndexPath:indexPath cModel:curModel];
+        [self.dataSourceDelegate suiTableView:tableView didSelectRowAtIndexPath:indexPath cModel:self.scrModel];
     }
 }
 
