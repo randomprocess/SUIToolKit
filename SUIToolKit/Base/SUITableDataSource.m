@@ -345,8 +345,6 @@
 - (void)setCurrTableView:(UITableView *)currTableView
 {
     _currTableView = currTableView;
-    _currTableView.emptyDataSetSource = self;
-    _currTableView.emptyDataSetDelegate = self;
 }
 
 - (void)setCurrFetchedResultsController:(NSFetchedResultsController *)currFetchedResultsController
@@ -500,80 +498,6 @@
     [curSearchBar sizeToFit];
     self.currTableView.tableHeaderView = curSearchBar;
     ((UIViewController *)self.dataSourceDelegate).definesPresentationContext = YES;
-}
-
-@end
-
-
-// _____________________________________________________________________________
-
-@implementation SUITableDataSource (DZNEmptyDataSet)
-
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetTitleForScrollView:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetTitleForScrollView:scrollView];
-    }
-    return nil;
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetDescriptionForScrollView:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetDescriptionForScrollView:scrollView];
-    }
-    return nil;
-}
-
-- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetImageForScrollView:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetImageForScrollView:scrollView];
-    }
-    return nil;
-}
-
-- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetCustomViewForScrollView:generalView:)]) {
-        if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
-            UIView *curGeneralView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
-            return [self.dataSourceDelegate suiEmptyDataSetCustomViewForScrollView:scrollView generalView:curGeneralView];
-        }
-        return [self.dataSourceDelegate suiEmptyDataSetCustomViewForScrollView:scrollView generalView:nil];
-    }
-    return nil;
-}
-
-- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetShouldDisplay:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetShouldDisplay:scrollView];
-    }
-    return [self.dataSourceDelegate addEmptyDataSet];
-}
-
-- (BOOL)emptyDataSetShouldAllowTouch:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetShouldAllowTouch:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetShouldAllowTouch:scrollView];
-    }
-    return YES;
-}
-
-- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetShouldAllowScroll:)]) {
-        return [self.dataSourceDelegate suiEmptyDataSetShouldAllowScroll:scrollView];
-    }
-    return YES;
-}
-
-- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiEmptyDataSetDidTapView:)]) {
-        [self.dataSourceDelegate suiEmptyDataSetDidTapView:scrollView];
-    }
 }
 
 @end

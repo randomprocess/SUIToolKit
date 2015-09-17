@@ -99,7 +99,6 @@ __stuff \
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ \
 __stuff \
 }); \
-} \
 
 #define uRepeat(__count, __stuff) \
 for (NSInteger idx=0; idx < __count; idx ++) { \

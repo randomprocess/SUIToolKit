@@ -8,17 +8,25 @@
 
 #import "SUIPopupObject.h"
 
+
+typedef NSArray *(^SUIDropdownTitleMenuTitlesBlock)(void);
+typedef NSArray *(^SUIDropdownTitleMenuCustomViewsBlock)(void);
+typedef void (^SUIDropdownTitleMenuDidSelectBlock)(NSInteger cIndex);
+
 @interface SUIDropdownTitleMenu : SUIPopupObject
 
+- (void)titles:(SUIDropdownTitleMenuTitlesBlock)cb;
+- (void)customViews:(SUIDropdownTitleMenuCustomViewsBlock)cb;
+- (void)didSelect:(SUIDropdownTitleMenuDidSelectBlock)cb;
 
-@property (nonatomic,weak) IBOutlet UIViewController *currVC;
+@property (nonatomic,assign) IBInspectable UIColor *backgroundColo; // default is gRGB(40, 196, 80)
+@property (nonatomic,assign) IBInspectable UIColor *titleColo; // default is Black
+
+@end
 
 
-/** default is gRGB(40, 196, 80) */
-@property (nonatomic,assign) IBInspectable UIColor *backgroundColo;
+@interface UIViewController (SUIDropdownTitleMenu)
 
-/** default is Black */
-@property (nonatomic,assign) IBInspectable UIColor *titleColo;
-
+@property (nonatomic,strong) SUIDropdownTitleMenu *dropdownTitleMenu;
 
 @end

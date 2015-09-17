@@ -298,11 +298,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oii-Lg-bNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="AWB-fy-7xj" customClass="SUIDropdownTitleMenu">
-                    <connections>
-                        <outlet property="currVC" destination="zhJ-Od-Cuq" id="VfI-Cf-KPx"/>
-                    </connections>
-                </customObject>
                 <customObject id="t91-D5-yQg" customClass="SUIEmojiView">
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="showCustomEmoji">
@@ -365,6 +360,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addEmptyDataSet" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

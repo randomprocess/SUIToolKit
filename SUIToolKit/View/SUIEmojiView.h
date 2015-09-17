@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewType)
 - (NSInteger)numOfTotalItems;
 - (NSInteger)numOfEmojiPageItems;
 - (NSInteger)numOfPages;
+- (void)adjustEmojiItemAry;
 
 @property (nonatomic,weak) UIScrollView *currScrollView;
 

@@ -149,7 +149,7 @@
 - (UIImage *)snapshot
 {
     UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [[UIScreen mainScreen] scale]);
-    [self drawViewHierarchyInRect:self.frame afterScreenUpdates:YES];
+    [self drawViewHierarchyInRect:self.frame afterScreenUpdates:NO];
     UIImage* curImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return curImage;

@@ -8,8 +8,8 @@
 
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
-#import "UIScrollView+EmptyDataSet.h"
 #import "SUITableDataSource.h"
+#import "SUIEmptyDataSet.h"
 
 @implementation SUIBaseConfig
 
@@ -106,38 +106,11 @@
     UIViewController *curVC = (UIViewController *)cController;
     curVC.view.backgroundColor = self.backgroundColor;
     
-    // currIdentifier
-    [self configureIdentifier:cController];
-    
     // data processing
     [self configureDataSource:cController];
     
     // loadingView
     [self configureLoadingView:cController];
-}
-
-- (void)configureIdentifier:(id<SUIBaseProtocol>)cController
-{
-    NSString *currClassName = gClassName(cController);
-    NSAssert([currClassName hasPrefix:@"SUI"], @"className prefix with 'SUI'");
-    
-    NSString *curSuffixStr = nil;
-    if ([cController isKindOfClass:[UITableViewController class]])
-    {
-        curSuffixStr = @"TVC";
-    }
-    else if ([cController isKindOfClass:[UIViewController class]])
-    {
-        curSuffixStr = @"VC";
-    }
-    else
-    {
-        NSAssert(NO, @"unknown Class");
-    }
-    
-    NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
-    NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
-    cController.currIdentifier = [currClassName substringWithRange:curRange];
 }
 
 - (void)configureDataSource:(id<SUIBaseProtocol>)cController

@@ -43,8 +43,6 @@ typedef NS_ENUM(NSInteger, SUITableDataSourceType) {
 @interface SUITableDataSource : NSObject <
     UITableViewDataSource,
     UITableViewDelegate,
-    DZNEmptyDataSetDelegate,
-    DZNEmptyDataSetSource,
     NSFetchedResultsControllerDelegate
     >
 

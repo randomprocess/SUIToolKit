@@ -13,3 +13,5 @@ pod 'MGSwipeTableCell', '~> 1.5.1'
 pod 'DZNEmptyDataSet', '~> 1.7'
 
 pod 'SDWebImage', '~> 3.7.3'
+
+pod 'ReactiveCocoa', '~> 2.5'

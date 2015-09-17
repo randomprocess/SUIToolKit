@@ -291,7 +291,7 @@
         {
             self.currTouch = curPoint;
             CGPoint touchpoint = [recoginzer locationInView:self.currSupScrollView.superview];
-
+            
             self.isInRect = CGRectContainsPoint(self.currItem.touchRect, touchpoint);
             if (!self.isInRect) {
                 self.isMoved = YES;
@@ -592,16 +592,18 @@
         primarySection.numOfRowItems = 6;
         primarySection.numOfColItems = (self.showCustomEmoji) ? 3 : 4;
         primarySection.currScrollView = self.middleScrollView;
+        [primarySection adjustEmojiItemAry];
         [self.currSectionAry addObject:primarySection];
     }
     
     if (self.showCustomEmoji)
     {
         NSAssert([self.currVC respondsToSelector:@selector(suiEmojiViewSections)], @"should implement suiEmojiViewSections()");
-    
+        
         [self createBottomUI];
         spareHeight -= tEmoji_Bottom_Height;
     }
+    
     
     [self createMiddleUI:spareHeight];
 }
@@ -637,24 +639,26 @@
     self.currPageControl.currentPage = 0;
     [self.middleScrollView setContentOffset:CGPointZero animated:NO];
     
-    if (curSection.hasSendBtn)
-    {
-        if (self.sendBtn.x != self.bottomView.width - self.sendBtn.width) {
-            uWeakSelf
-            [UIView animateWithDuration:0.2 animations:^{
-                weakSelf.sendBtn.x = self.bottomView.width - self.sendBtn.width;
-            }];
-            
-            self.bottomScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, self.sendBtn.width);
+    if (self.showCustomEmoji) {
+        if (curSection.hasSendBtn)
+        {
+            if (self.sendBtn.x != self.bottomView.width - self.sendBtn.width) {
+                uWeakSelf
+                [UIView animateWithDuration:0.2 animations:^{
+                    weakSelf.sendBtn.x = self.bottomView.width - self.sendBtn.width;
+                }];
+                
+                self.bottomScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, self.sendBtn.width);
+            }
         }
-    }
-    else
-    {
-        if (self.sendBtn.x != self.bottomView.width) {
-            uWeakSelf
-            [UIView animateWithDuration:0.2 animations:^{
-                weakSelf.sendBtn.x = self.bottomView.width;
-            }];
+        else
+        {
+            if (self.sendBtn.x != self.bottomView.width) {
+                uWeakSelf
+                [UIView animateWithDuration:0.2 animations:^{
+                    weakSelf.sendBtn.x = self.bottomView.width;
+                }];
+            }
         }
     }
 }
@@ -689,7 +693,7 @@
 {
     NSArray *curCoustomEmojiSections = [self.currVC suiEmojiViewSections];
     [self.currSectionAry addObjectsFromArray:curCoustomEmojiSections];
-
+    
     uWeakSelf
     CGFloat sectionTotalWidth = 0;
     for (NSInteger idx=0; idx<self.currSectionAry.count; idx++)
@@ -698,31 +702,15 @@
         
         SUIEmojiSection *curSection = self.currSectionAry[idx];
         curSection.currScrollView = self.middleScrollView;
-        [curSection numOfPages];
-        if (curSection.hasDeleteItem)
-        {
-            NSMutableArray *curItemAry = [NSMutableArray array];
-            for (NSInteger idx=0; idx<curSection.emojiItemAry.count; idx++)
-            {
-                [curItemAry addObject:curSection.emojiItemAry[idx]];
-                
-                if (((idx % ([curSection numOfSinglePageItems]-1)) == [curSection numOfSinglePageItems]-2) ||
-                    ((idx == curSection.emojiItemAry.count-1) && (curItemAry.count % [curSection numOfSinglePageItems] != 0))) {
-                    SUIEmojiItem *deleItem = [SUIEmojiItem new];
-                    deleItem.deleteItem = YES;
-                    [curItemAry addObject:deleItem];
-                }
-            }
-            curSection.emojiItemAry = curItemAry;
-        }
         
+        [curSection adjustEmojiItemAry];
         
         if (curSection.image) {
             curSectionBtn.normalImage = curSection.image;
         } else {
             curSectionBtn.normalTitle = curSection.title;
         }
-
+        
         curSectionBtn.padding = self.sectionPadding;
         curSectionBtn.frame = CGRectMake(sectionTotalWidth, 0, curSectionBtn.width, self.bottomScrollView.height);
         [self.bottomScrollView addSubview:curSectionBtn];
@@ -994,6 +982,29 @@
     curSection.emojiItemAry = curSectionAry;
     return curSection;
 }
+
+- (void)adjustEmojiItemAry
+{
+    [self numOfPages];
+    
+    if (self.hasDeleteItem)
+    {
+        NSMutableArray *curItemAry = [NSMutableArray array];
+        for (NSInteger idx=0; idx<self.emojiItemAry.count; idx++)
+        {
+            [curItemAry addObject:self.emojiItemAry[idx]];
+            
+            if (((idx % ([self numOfSinglePageItems]-1)) == [self numOfSinglePageItems]-2) ||
+                ((idx == self.emojiItemAry.count-1) && (curItemAry.count % [self numOfSinglePageItems] != 0))) {
+                SUIEmojiItem *deleItem = [SUIEmojiItem new];
+                deleItem.deleteItem = YES;
+                [curItemAry addObject:deleItem];
+            }
+        }
+        self.emojiItemAry = curItemAry;
+    }
+}
+
 
 - (NSInteger)numOfSinglePageItems
 {

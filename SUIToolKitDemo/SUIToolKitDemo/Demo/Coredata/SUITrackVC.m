@@ -32,6 +32,52 @@
     self.currTableView.fetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
     
     [self handlerMainRequest:NO];
+    
+    
+    /**
+     *  EmptyDataSet
+     */
+    
+    {
+        [self.currTableView.emptyDataSet title:^NSAttributedString *{
+            NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+            paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+            paragraph.alignment = NSTextAlignmentCenter;
+            
+            NSDictionary *curAttributes = @{
+                                            NSFontAttributeName : gBFont(20),
+                                            NSForegroundColorAttributeName : gRandomColo,
+                                            NSParagraphStyleAttributeName : paragraph,
+                                            };
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"miaowuwuwuwwu" attributes:curAttributes];
+            
+            [attributedString addAttribute:NSForegroundColorAttributeName value:gRandomColo range:[attributedString.string rangeOfString:@"wuwuwuwwu"]];
+            return attributedString;
+        }];
+        
+        [self.currTableView.emptyDataSet des:^NSAttributedString *{
+            NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+            paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+            paragraph.alignment = NSTextAlignmentCenter;
+            NSDictionary *curAttributes = @{
+                                            NSFontAttributeName : gFont(16),
+                                            NSForegroundColorAttributeName : gRandomColo,
+                                            NSParagraphStyleAttributeName : paragraph
+                                            };
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"aowowowowowoowowowoowowowoowowowoowowoowowowowoowoowowowowowowowoowowowoowowowowwowoowuuwoowowwo" attributes:curAttributes];
+            [attributedString addAttribute:NSForegroundColorAttributeName value:gRandomColo range:[attributedString.string rangeOfString:@"oowuuwoo"]];
+            return attributedString;
+        }];
+        
+        [self.currTableView.emptyDataSet image:^UIImage *{
+            return gImageNamed(@"FlyCat_Pink");
+        }];
+        
+        uWeakSelf
+        [self.currTableView.emptyDataSet didTapView:^{
+            [weakSelf.currTableView headerRefreshSteart];
+        }];
+    }
 }
 
 - (void)handlerMainRequest:(BOOL)loadMoreData
@@ -151,56 +197,5 @@
     }
     return nil;
 }
-
-
-- (NSAttributedString *)suiEmptyDataSetTitleForScrollView:(UIScrollView *)scrollView
-{
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *curAttributes = @{
-                                    NSFontAttributeName : gBFont(20),
-                                    NSForegroundColorAttributeName : gRandomColo,
-                                    NSParagraphStyleAttributeName : paragraph,
-                                    };
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"miaowuwuwuwwu" attributes:curAttributes];
-    
-    [attributedString addAttribute:NSForegroundColorAttributeName value:gRandomColo range:[attributedString.string rangeOfString:@"wuwuwuwwu"]];
-    
-    return attributedString;
-}
-
-- (NSAttributedString *)suiEmptyDataSetDescriptionForScrollView:(UIScrollView *)scrollView
-{
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *curAttributes = @{
-                                    NSFontAttributeName : gFont(16),
-                                    NSForegroundColorAttributeName : gRandomColo,
-                                    NSParagraphStyleAttributeName : paragraph
-                                    };
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"aowowowowowoowowowoowowowoowowowoowowoowowowowoowoowowowowowowowoowowowoowowowowwowoowuuwoowowwo" attributes:curAttributes];
-    
-    [attributedString addAttribute:NSForegroundColorAttributeName value:gRandomColo range:[attributedString.string rangeOfString:@"oowuuwoo"]];
-    
-    return attributedString;
-}
-
-- (UIImage *)suiEmptyDataSetImageForScrollView:(UIScrollView *)scrollView
-{
-    return gImageNamed(@"FlyCat_Pink");
-}
-
-- (void)suiEmptyDataSetDidTapView:(UIScrollView *)scrollView
-{
-    if (scrollView == self.currTableView)
-    {
-        [self.currTableView headerRefreshSteart];
-    }
-}
-
 
 @end

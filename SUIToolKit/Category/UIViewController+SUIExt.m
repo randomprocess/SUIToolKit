@@ -11,6 +11,7 @@
 #import "SUIToolKitConst.h"
 #import "SUIBaseConfig.h"
 #import "SUITableDataSource.h"
+#import "UIScrollView+EmptyDataSet.h"
 
 @implementation UIViewController (SUIExt)
 
@@ -27,11 +28,45 @@
 
 - (NSString *)currIdentifier
 {
-    return objc_getAssociatedObject(self, @selector(currIdentifier));
+    id curIdentifier = objc_getAssociatedObject(self, @selector(currIdentifier));
+    if (curIdentifier) return curIdentifier;
+    
+    NSString *currClassName = gClassName(self);
+    NSAssert([currClassName hasPrefix:@"SUI"], @"className prefix with 'SUI'");
+    
+    NSString *curSuffixStr = nil;
+    if ([self isKindOfClass:[UITableViewController class]]) {
+        curSuffixStr = @"TVC";
+    } else if ([self isKindOfClass:[UIViewController class]]) {
+        curSuffixStr = @"VC";
+    } else {
+        NSAssert(NO, @"unknown Class");
+    }
+    
+    NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
+    NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
+    curIdentifier = [currClassName substringWithRange:curRange];
+    self.currIdentifier = curIdentifier;
+    return curIdentifier;
 }
 - (void)setCurrIdentifier:(NSString *)currIdentifier
 {
     objc_setAssociatedObject(self, @selector(currIdentifier), currIdentifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (SUIBaseExten *)currExten
+{
+    id curExten = objc_getAssociatedObject(self, @selector(currExten));
+    if (curExten) return curExten;
+    
+    SUIBaseExten *currBaseExten = [SUIBaseExten new];
+    curExten = currBaseExten;
+    self.currExten = curExten;
+    return curExten;
+}
+- (void)setCurrExten:(SUIBaseExten *)currExten
+{
+    objc_setAssociatedObject(self, @selector(currExten), currExten, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (id<SUIBaseProtocol>)currDelegate

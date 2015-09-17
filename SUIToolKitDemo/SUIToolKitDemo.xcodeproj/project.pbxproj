@@ -11,7 +11,6 @@
 		6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0DD9491B5F85A100BEBEE5 /* UITextField+SUIExt.m */; };
 		6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0DD94C1B5F862F00BEBEE5 /* UITextView+SUIExt.m */; };
 		6D1241401B60C961005DC05F /* SUIBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12412C1B60C961005DC05F /* SUIBaseCell.m */; };
-		6D1241411B60C961005DC05F /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12412E1B60C961005DC05F /* SUIBaseConfig.m */; };
 		6D1241421B60C961005DC05F /* SUIBasePushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1241311B60C961005DC05F /* SUIBasePushSegue.m */; };
 		6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1241331B60C961005DC05F /* SUIBaseTVC.m */; };
 		6D1241441B60C961005DC05F /* SUIBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1241351B60C961005DC05F /* SUIBaseVC.m */; };
@@ -52,7 +51,13 @@
 		6DA5B9AC1B7D818900961BFD /* UIScrollView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */; };
 		6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */; };
 		6DAE7A5E1B7200FB001D631A /* UIAlertView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A5D1B7200FB001D631A /* UIAlertView+SUIExt.m */; };
+		6DB3491A1BA800F4003A72DF /* SUIEmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB349191BA800F4003A72DF /* SUIEmptyDataSet.m */; };
+		6DB3491C1BA81BEB003A72DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491B1BA81BEB003A72DF /* UIKit.framework */; };
+		6DB3491E1BA81BF2003A72DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491D1BA81BF2003A72DF /* Foundation.framework */; };
+		6DB349201BA81BF7003A72DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491F1BA81BF7003A72DF /* QuartzCore.framework */; };
 		6DB90E151B7B16260027805F /* SUIAdaptTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB90E131B7B16260027805F /* SUIAdaptTextView.m */; };
+		6DD3BB8F1BA7BA3F00824B8D /* SUIBaseExten.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3BB8E1BA7BA3F00824B8D /* SUIBaseExten.m */; };
+		6DD3BB921BA7E86300824B8D /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3BB901BA7E86300824B8D /* SUIBaseConfig.m */; };
 		6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -75,8 +80,6 @@
 		6D0DD94C1B5F862F00BEBEE5 /* UITextView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+SUIExt.m"; sourceTree = "<group>"; };
 		6D12412B1B60C961005DC05F /* SUIBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseCell.h; sourceTree = "<group>"; };
 		6D12412C1B60C961005DC05F /* SUIBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseCell.m; sourceTree = "<group>"; };
-		6D12412D1B60C961005DC05F /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
-		6D12412E1B60C961005DC05F /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
 		6D12412F1B60C961005DC05F /* SUIBaseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseProtocol.h; sourceTree = "<group>"; };
 		6D1241301B60C961005DC05F /* SUIBasePushSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBasePushSegue.h; sourceTree = "<group>"; };
 		6D1241311B60C961005DC05F /* SUIBasePushSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBasePushSegue.m; sourceTree = "<group>"; };
@@ -160,8 +163,17 @@
 		6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SUIExt.m"; sourceTree = "<group>"; };
 		6DAE7A5C1B7200FB001D631A /* UIAlertView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SUIExt.h"; sourceTree = "<group>"; };
 		6DAE7A5D1B7200FB001D631A /* UIAlertView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+SUIExt.m"; sourceTree = "<group>"; };
+		6DB349181BA800F4003A72DF /* SUIEmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmptyDataSet.h; sourceTree = "<group>"; };
+		6DB349191BA800F4003A72DF /* SUIEmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIEmptyDataSet.m; sourceTree = "<group>"; };
+		6DB3491B1BA81BEB003A72DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6DB3491D1BA81BF2003A72DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6DB3491F1BA81BF7003A72DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6DB90E131B7B16260027805F /* SUIAdaptTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAdaptTextView.m; sourceTree = "<group>"; };
 		6DB90E141B7B16260027805F /* SUIAdaptTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAdaptTextView.h; sourceTree = "<group>"; };
+		6DD3BB8D1BA7BA3F00824B8D /* SUIBaseExten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseExten.h; sourceTree = "<group>"; };
+		6DD3BB8E1BA7BA3F00824B8D /* SUIBaseExten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseExten.m; sourceTree = "<group>"; };
+		6DD3BB901BA7E86300824B8D /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
+		6DD3BB911BA7E86300824B8D /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
 		6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUIToolKitDemo.xcdatamodel; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +183,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DB349201BA81BF7003A72DF /* QuartzCore.framework in Frameworks */,
+				6DB3491E1BA81BF2003A72DF /* Foundation.framework in Frameworks */,
+				6DB3491C1BA81BEB003A72DF /* UIKit.framework in Frameworks */,
 				28E76DCB52269C8376DB87FD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,8 +205,6 @@
 			children = (
 				6D12412B1B60C961005DC05F /* SUIBaseCell.h */,
 				6D12412C1B60C961005DC05F /* SUIBaseCell.m */,
-				6D12412D1B60C961005DC05F /* SUIBaseConfig.h */,
-				6D12412E1B60C961005DC05F /* SUIBaseConfig.m */,
 				6D12412F1B60C961005DC05F /* SUIBaseProtocol.h */,
 				6D1241301B60C961005DC05F /* SUIBasePushSegue.h */,
 				6D1241311B60C961005DC05F /* SUIBasePushSegue.m */,
@@ -205,6 +218,8 @@
 				6D40A5091B747D9700735A4D /* SUIRequest.m */,
 				6D40A50B1B748CFF00735A4D /* SUITableDataSource.h */,
 				6D40A50C1B748CFF00735A4D /* SUITableDataSource.m */,
+				6DD3BB8D1BA7BA3F00824B8D /* SUIBaseExten.h */,
+				6DD3BB8E1BA7BA3F00824B8D /* SUIBaseExten.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -212,6 +227,8 @@
 		6D12413A1B60C961005DC05F /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				6DD3BB901BA7E86300824B8D /* SUIBaseConfig.m */,
+				6DD3BB911BA7E86300824B8D /* SUIBaseConfig.h */,
 				6D12413B1B60C961005DC05F /* SUIHttpClient.h */,
 				6D12413C1B60C961005DC05F /* SUIHttpClient.m */,
 				6D12413D1B60C961005DC05F /* SUITool.h */,
@@ -280,6 +297,8 @@
 		6D8E2D271B6F1B9C00A95DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6DB349181BA800F4003A72DF /* SUIEmptyDataSet.h */,
+				6DB349191BA800F4003A72DF /* SUIEmptyDataSet.m */,
 				6D9AEFE91B81885600227D62 /* SUIPopupObject.h */,
 				6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */,
 				6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */,
@@ -427,6 +446,9 @@
 		742B1A476092A04C3208EF19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DB3491F1BA81BF7003A72DF /* QuartzCore.framework */,
+				6DB3491D1BA81BF2003A72DF /* Foundation.framework */,
+				6DB3491B1BA81BEB003A72DF /* UIKit.framework */,
 				3FA561482F072FF6D556247C /* libPods.a */,
 			);
 			name = Frameworks;
@@ -583,12 +605,12 @@
 				6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */,
 				6D9AEFEB1B81885600227D62 /* SUIPopupObject.m in Sources */,
 				6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */,
+				6DB3491A1BA800F4003A72DF /* SUIEmptyDataSet.m in Sources */,
 				6D67E7771B7098D000CD691D /* SUITrackVC.m in Sources */,
 				6D1241421B60C961005DC05F /* SUIBasePushSegue.m in Sources */,
 				6DA5B9AC1B7D818900961BFD /* UIScrollView+SUIExt.m in Sources */,
 				6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */,
 				6D5706CF1B7B4DC800E7228F /* SUIEmojiView.m in Sources */,
-				6D1241411B60C961005DC05F /* SUIBaseConfig.m in Sources */,
 				6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */,
 				6D67E7811B70999C00CD691D /* SUIMainTVC.m in Sources */,
 				6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */,
@@ -596,6 +618,7 @@
 				6D1241401B60C961005DC05F /* SUIBaseCell.m in Sources */,
 				6D1241471B60C961005DC05F /* SUIHttpClient.m in Sources */,
 				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,
+				6DD3BB8F1BA7BA3F00824B8D /* SUIBaseExten.m in Sources */,
 				6D1241451B60C961005DC05F /* SUIBaseView.m in Sources */,
 				6D67E7691B70971200CD691D /* SUIAlbumCell.m in Sources */,
 				6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */,
@@ -603,6 +626,7 @@
 				6DAE7A5E1B7200FB001D631A /* UIAlertView+SUIExt.m in Sources */,
 				6D5952551B7313B700BB9A62 /* UIActionSheet+SUIExt.m in Sources */,
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
+				6DD3BB921BA7E86300824B8D /* SUIBaseConfig.m in Sources */,
 				6D67E7601B7062DF00CD691D /* SUIDropdownTitleMenu.m in Sources */,
 				6D40A50A1B747D9700735A4D /* SUIRequest.m in Sources */,
 				6D40A50D1B748CFF00735A4D /* SUITableDataSource.m in Sources */,
@@ -737,10 +761,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -751,10 +777,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SUIBaseProtocol.h"
+#import "SUIBaseExten.h"
 
 @interface UIViewController (SUIExt)
 
@@ -17,9 +18,9 @@
 
 @property (nonatomic,strong) UITableView *currTableView;
 @property (nonatomic,copy) NSString *currIdentifier;
+@property (nonatomic,strong) SUIBaseExten *currExten;
 @property (nonatomic,weak) id<SUIBaseProtocol> currDelegate;
 @property (nonatomic,strong) id scrModel;
-
 
 #pragma mark - IB
 
@@ -30,7 +31,6 @@
 @property (nonatomic) IBInspectable BOOL addHeaderAndRefreshStart;
 
 @property (nonatomic) IBInspectable BOOL addLoading;
-@property (nonatomic) IBInspectable BOOL addEmptyDataSet;
 
 
 #pragma mark - Dismiss

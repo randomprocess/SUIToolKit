@@ -27,7 +27,6 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
-    ss.dependency 'DZNEmptyDataSet', '~> 1.7'
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
     ss.dependency 'MagicalRecord', '~> 2.3.0'
@@ -45,6 +44,7 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Base'
     ss.dependency 'SUIToolKit/Category'
     ss.dependency 'SDWebImage', '~> 3.7.3'
+    ss.dependency 'DZNEmptyDataSet', '~> 1.7'
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
 

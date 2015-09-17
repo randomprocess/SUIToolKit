@@ -9,7 +9,6 @@
 #import "SUIDropdownTitleMenu.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SUIToolKitConst.h"
-#import "SUIBaseProtocol.h"
 #import "SUITool.h"
 #import "UIView+SUIExt.h"
 #import "UIImage+SUIExt.h"
@@ -100,7 +99,16 @@
 
 // _____________________________________________________________________________
 
-@interface SUIDropdownTitleMenu () <UITableViewDataSource, UITableViewDelegate, SUIBaseProtocol>
+@interface SUIDropdownTitleMenu () <
+    UITableViewDataSource,
+    UITableViewDelegate>
+
+@property (nonatomic,copy) SUIDropdownTitleMenuTitlesBlock titlesBlock;
+@property (nonatomic,copy) SUIDropdownTitleMenuCustomViewsBlock customViewsBlock;
+@property (nonatomic,copy) SUIDropdownTitleMenuDidSelectBlock didSelectBlock;
+
+@property (nonatomic,weak) UIViewController *currVC;
+
 
 @property (nonatomic,assign) NSInteger currIndex;
 @property (nonatomic,strong) NSArray *currTitles;
@@ -119,30 +127,54 @@
 
 @implementation SUIDropdownTitleMenu
 
-- (void)awakeFromNib
+- (void)titles:(SUIDropdownTitleMenuTitlesBlock)cb
 {
-    uWeakSelf
-    [SUITool delay:0.1 cb:^{
-        NSAssert(self.currVC, @"should link currVC");
-        
-        weakSelf.currVC.navigationItem.titleView = weakSelf.currTitleBtn;
-        weakSelf.currIndex = 0;
-        weakSelf.animalDuration = tAnimationDuration;
-        
-        UINavigationBar *curNavigationBar = weakSelf.currVC.navigationController.navigationBar;
-        if (curNavigationBar.translucent)
+    self.titlesBlock = cb;
+    self.currIndex = 0;
+}
+- (void)customViews:(SUIDropdownTitleMenuCustomViewsBlock)cb
+{
+    self.customViewsBlock = cb;
+    self.currIndex = 0;
+}
+- (void)didSelect:(SUIDropdownTitleMenuDidSelectBlock)cb
+{
+    self.didSelectBlock = cb;
+}
+
+- (void)setCurrVC:(UIViewController *)currVC
+{
+    _currVC = currVC;
+    _currVC.navigationItem.titleView = self.currTitleBtn;
+    
+    UINavigationBar *curNavigationBar = _currVC.navigationController.navigationBar;
+    if (curNavigationBar.translucent)
+    {
+        self.currNavBarHeight = curNavigationBar.bounds.size.height;
+        if (![UIApplication sharedApplication].statusBarHidden)
         {
-            weakSelf.currNavBarHeight = curNavigationBar.bounds.size.height;
-            if (![UIApplication sharedApplication].statusBarHidden)
-            {
-                weakSelf.currNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
-            }
+            self.currNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
         }
-    }];
+    }
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit
+{
+    self.animalDuration = tAnimationDuration;
 }
 
 
-#pragma mark - Show, Dismiss
+#pragma mark - Show, Dismiss 
 
 - (void)doTitleBtn
 {
@@ -269,9 +301,8 @@
         SUIDropdownMenuItemCell *currCell = (SUIDropdownMenuItemCell *)[tableView cellForRowAtIndexPath:indexPath];
         currCell.selectImgView.hidden = NO;
         
-        if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuDidSelectAtIndex:)])
-        {
-            [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuDidSelectAtIndex:indexPath.row];
+        if (self.didSelectBlock) {
+            self.didSelectBlock(indexPath.row);
         }
     }
     
@@ -284,7 +315,7 @@
 - (void)setCurrIndex:(NSInteger)currIndex
 {
     _currIndex = currIndex;
-    
+
     UIImage *curImage = self.currTitles[_currIndex];
     [self.currTitleBtn setImage:curImage forState:UIControlStateNormal];
 }
@@ -311,13 +342,10 @@
 - (NSArray *)currMenuViews
 {
     NSArray *menuViews = nil;
-    if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuViews:)])
-    {
-        menuViews = [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuViews:self];
-    }
-    else if ([self.currVC respondsToSelector:@selector(suiDropdownTitleMenuTitles:)])
-    {
-        NSArray *menuTitles = [(id<SUIBaseProtocol>)self.currVC suiDropdownTitleMenuTitles:self];
+    if (self.customViewsBlock) {
+        menuViews = self.customViewsBlock();
+    } else if (self.titlesBlock) {
+        NSArray *menuTitles = self.titlesBlock();
         NSMutableArray *titleAry = [NSMutableArray array];
         for (NSString *curTitle in menuTitles)
         {
@@ -444,5 +472,24 @@
     return _backgroundButton;
 }
 
+@end
+
+
+@implementation UIViewController (SUIDropdownTitleMenu)
+
+- (SUIDropdownTitleMenu *)dropdownTitleMenu
+{
+    id curDropdownTitleMenu = objc_getAssociatedObject(self, @selector(dropdownTitleMenu));
+    if (curDropdownTitleMenu) return curDropdownTitleMenu;
+    
+    SUIDropdownTitleMenu *currDropdownTitleMenu = [SUIDropdownTitleMenu new];
+    currDropdownTitleMenu.currVC = self;
+    self.dropdownTitleMenu = currDropdownTitleMenu;
+    return currDropdownTitleMenu;
+}
+- (void)setDropdownTitleMenu:(SUIDropdownTitleMenu *)dropdownTitleMenu
+{
+    objc_setAssociatedObject(self, @selector(dropdownTitleMenu), dropdownTitleMenu, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 @end

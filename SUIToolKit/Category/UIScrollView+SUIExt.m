@@ -23,4 +23,5 @@
     self.contentSize = curRect.size;
 }
 
+
 @end

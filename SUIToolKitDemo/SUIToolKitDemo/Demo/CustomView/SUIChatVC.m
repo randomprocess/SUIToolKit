@@ -38,25 +38,28 @@
             }
         }
     }];
-}
-
-#pragma mark - DropdownTitleMenu
-
-- (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView
-{
-    return @[@"miao", @"aoao", @"meow"];
-}
-
-- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)cIndex
-{
-    [UIAlertView alertWithTitle:[self suiDropdownTitleMenuTitles:nil][cIndex]
-                        message:nil
-              cancelButtonTitle:@"Cancel"
-               otherButtonTitle:@"Other"
-                     clickBlock:^(NSInteger idx) {
-                         
-                         uLog(@"%zd", idx);
-                     }];
+    
+    
+    
+    /**
+     *  DropdownTitleMenu
+     */
+    
+    {
+        [self.dropdownTitleMenu titles:^NSArray *{
+            return @[@"miao", @"aoao", @"meow"];
+        }];
+        
+        [self.dropdownTitleMenu didSelect:^(NSInteger cIndex) {
+            [UIAlertView alertWithTitle:@[@"miao", @"aoao", @"meow"][cIndex]
+                                message:nil
+                      cancelButtonTitle:@"Cancel"
+                       otherButtonTitle:@"Other"
+                             clickBlock:^(NSInteger idx) {
+                                 uLog(@"%zd", idx);
+                             }];
+        }];
+    }
 }
 
 

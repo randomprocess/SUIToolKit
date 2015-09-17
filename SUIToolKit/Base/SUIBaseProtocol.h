@@ -108,15 +108,6 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 
 #pragma mark - SUIToolKit
 
-#pragma mark DropdownTitleMenu
-
-/** @return [TitleString] */
-- (NSArray *)suiDropdownTitleMenuTitles:(SUIDropdownTitleMenu *)cView;
-/** @return [View] */
-- (NSArray *)suiDropdownTitleMenuViews:(SUIDropdownTitleMenu *)cView;
-- (void)suiDropdownTitleMenuDidSelectAtIndex:(NSInteger)cIndex;
-
-
 #pragma mark SUIEmojiView
 
 /** [SUIEmojiSection] */
@@ -137,19 +128,6 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 /** @return [UIButton] */
 - (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel;
 - (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
-
-
-#pragma mark EmptyDataSet
-
-- (NSAttributedString *)suiEmptyDataSetTitleForScrollView:(UIScrollView *)scrollView;
-- (NSAttributedString *)suiEmptyDataSetDescriptionForScrollView:(UIScrollView *)scrollView;
-- (UIImage *)suiEmptyDataSetImageForScrollView:(UIScrollView *)scrollView;
-- (UIView *)suiEmptyDataSetCustomViewForScrollView:(UIScrollView *)scrollView generalView:(UIView *)generalView;
-
-- (BOOL)suiEmptyDataSetShouldDisplay:(UIScrollView *)scrollView; // Default is NO;
-- (BOOL)suiEmptyDataSetShouldAllowTouch:(UIScrollView *)scrollView; // Default is YES;
-- (BOOL)suiEmptyDataSetShouldAllowScroll:(UIScrollView *)scrollView; // Default is YES;
-- (void)suiEmptyDataSetDidTapView:(UIScrollView *)scrollView; // Default is YES;
 
 
 // _____________________________________________________________________________
