@@ -60,6 +60,7 @@
 #import "SUIAdaptTextView.h"
 #import "SUIEmojiView.h"
 #import "SUIEmptyDataSet.h"
+#import "SUISwipeTableCell.h"
 
 
 #endif

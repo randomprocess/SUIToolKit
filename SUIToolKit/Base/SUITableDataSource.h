@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIScrollView+EmptyDataSet.h"
 #import "SUIBaseProtocol.h"
 
 typedef NS_ENUM(NSInteger, SUITableDataSourceType) {

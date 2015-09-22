@@ -16,7 +16,7 @@
 
 #pragma mark - Property
 
-@property (nonatomic,strong) UITableView *currTableView;
+@property (nonatomic,weak) UITableView *currTableView;
 @property (nonatomic,copy) NSString *currIdentifier;
 @property (nonatomic,strong) SUIBaseExten *currExten;
 @property (nonatomic,weak) id<SUIBaseProtocol> currDelegate;

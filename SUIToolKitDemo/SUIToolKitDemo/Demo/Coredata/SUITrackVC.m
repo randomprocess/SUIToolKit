@@ -78,6 +78,43 @@
             [weakSelf.currTableView headerRefreshSteart];
         }];
     }
+    
+    
+    /**
+     *  SwipeTableCell
+     */
+    
+    {
+        [self.currTableView.swipeTableCell buttons:^NSArray *(SUIBaseCell *cCell, SUISwipeDirection cDirection, MGSwipeSettings *cSwipeSettings, MGSwipeExpansionSettings *expansionSettings) {
+            
+            if (cDirection == SUISwipeDirectionToLeft)
+            {
+                UIButton *coneBtn = [UIButton customBtn];
+                coneBtn.normalTitle = @"点击删除";
+                coneBtn.backgroundColor = gRandomColo;
+                coneBtn.padding = 25.0f;
+                coneBtn.clickBlock = ^() {
+                    uLog(@"miao miao");
+                    
+                    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+                        [cCell.currModle MR_deleteEntity];
+                    }];
+                };
+                
+                UIButton *ctowBtn = [UIButton customBtn];
+                ctowBtn.normalTitle = @"aowu";
+                ctowBtn.backgroundColor = gRandomColo;
+                ctowBtn.padding = 25.0f;
+                ctowBtn.clickBlock = ^() {
+                    uLog(@"aoao aoao");
+                };
+                
+                return @[coneBtn, ctowBtn];
+            }
+            return nil;
+            
+        }];
+    }
 }
 
 - (void)handlerMainRequest:(BOOL)loadMoreData
@@ -168,34 +205,5 @@
 //     identifier:gFormat(@"%@", gClassName(self))];
 }
 
-
-- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel
-{
-    if (direction == SUISwipeDirectionToLeft)
-    {
-        UIButton *coneBtn = [UIButton customBtn];
-        coneBtn.normalTitle = @"点击删除";
-        coneBtn.backgroundColor = gRandomColo;
-        coneBtn.padding = 25.0f;
-        coneBtn.clickBlock = ^() {
-            uLog(@"miao miao");
-            
-            [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-                [cModel MR_deleteEntity];
-            }];
-        };
-        
-        UIButton *ctowBtn = [UIButton customBtn];
-        ctowBtn.normalTitle = @"aowu";
-        ctowBtn.backgroundColor = gRandomColo;
-        ctowBtn.padding = 25.0f;
-        ctowBtn.clickBlock = ^() {
-            uLog(@"aoao aoao");
-        };
-        
-        return @[coneBtn, ctowBtn];
-    }
-    return nil;
-}
 
 @end

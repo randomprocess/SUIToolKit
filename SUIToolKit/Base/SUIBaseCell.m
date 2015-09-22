@@ -35,6 +35,7 @@
     }
 }
 
+
 /**
  *  需要计算动态高度时, 影响cell高度的代码写在子类重写的这个方法内
  */
@@ -70,5 +71,20 @@
         [self.cellActionDelegate handlerAction:sender cModel:self.currModle];
     }
 }
+
+
+// _____________________________________________________________________________
+
+- (void)setCurrTableView:(UITableView *)currTableView
+{
+    _currTableView = currTableView;
+    [self seetSwipeTableCellDelagate];
+}
+
+- (void)seetSwipeTableCellDelagate
+{
+    //
+}
+
 
 @end

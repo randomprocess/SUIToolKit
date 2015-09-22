@@ -23,7 +23,7 @@
 }
 - (void)setCurrTableView:(UITableView *)currTableView
 {
-    objc_setAssociatedObject(self, @selector(currTableView), currTableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(currTableView), currTableView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (NSString *)currIdentifier

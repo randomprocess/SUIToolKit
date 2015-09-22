@@ -245,7 +245,7 @@
         currCell = [self.currTableView dequeueReusableCellWithIdentifier:currConfig[0]];
     }
     currCell.cellActionDelegate = self.dataSourceDelegate;
-    currCell.delegate = self;
+    currCell.currTableView = tableView;
     currCell.currModle = curModel;
     [currCell displayWithCalculateCellHeight:currCell.currModle];
     [currCell displayWithCurrModel:currCell.currModle];
@@ -502,47 +502,6 @@
 
 @end
 
-
-// _____________________________________________________________________________
-
-@implementation SUITableDataSource (MGSwipeTableCell)
-
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction fromPoint:(CGPoint)point
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:canSwipe:cModel:)]) {
-        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell canSwipe:curDirection cModel:[self modelOfSwipeTableCell:cell]];
-    }
-    return YES;
-}
-
-- (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:direction:swipeSettings:expansionSettings:cModel:)]) {
-        swipeSettings.transition = MGSwipeTransitionDrag;
-        expansionSettings.fillOnTrigger = YES;
-        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell direction:curDirection swipeSettings:swipeSettings expansionSettings:expansionSettings cModel:[self modelOfSwipeTableCell:cell]];
-    }
-    return nil;
-}
-
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
-{
-    if ([self.dataSourceDelegate respondsToSelector:@selector(suiSwipeTableCell:tappedAtIndex:direction:cModel:)]) {
-        SUISwipeDirection curDirection = direction ? SUISwipeDirectionToLeft : SUISwipeDirectionToRight;
-        return [self.dataSourceDelegate suiSwipeTableCell:(SUIBaseCell *)cell tappedAtIndex:index direction:curDirection cModel:[self modelOfSwipeTableCell:cell]];
-    }
-    return YES;
-}
-
-- (id)modelOfSwipeTableCell:(MGSwipeTableCell *)cell
-{
-    NSIndexPath* curIndexPath = [self.currTableView indexPathForCell:cell];
-    return [self currentModelAtIndex:curIndexPath tableView:self.currTableView];
-}
-
-@end
 
 
 // _____________________________________________________________________________

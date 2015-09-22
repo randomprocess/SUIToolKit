@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "UIScrollView+EmptyDataSet.h"
 
-
 typedef NSAttributedString *(^SUIEmptyDataSetTitleBlock)(void);
 typedef NSAttributedString *(^SUIEmptyDataSetDesBlock)(void);
 typedef UIImage *(^SUIEmptyDataSetImageBlock)(void);

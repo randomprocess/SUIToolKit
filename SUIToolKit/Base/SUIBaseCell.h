@@ -20,6 +20,8 @@
 
 @property (nonatomic,weak) id<SUIBaseProtocol> cellActionDelegate;
 
+@property (nonatomic,weak) UITableView *currTableView;
+
 
 /**
  *  需要计算动态高度时, 影响cell高度的代码写在子类重写的这个方法内

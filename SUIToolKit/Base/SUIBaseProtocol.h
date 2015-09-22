@@ -9,15 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "MGSwipeTableCell.h"
 
 @class SUITableDataSource, SUIBaseCell, SUIDropdownTitleMenu, SUIEmojiSection, SUIEmojiItem;
-
-
-typedef NS_ENUM(NSInteger, SUISwipeDirection) {
-    SUISwipeDirectionToRight = 0,
-    SUISwipeDirectionToLeft = 1
-};
 
 
 // _____________________________________________________________________________
@@ -28,7 +21,7 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 
 #pragma mark - Properties added
 
-@property (nonatomic,strong) UITableView *currTableView;
+@property (nonatomic,weak) UITableView *currTableView;
 @property (nonatomic,copy) NSString *currIdentifier;
 
 
@@ -44,7 +37,6 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 @property (nonatomic) BOOL addHeaderAndRefreshStart;
 
 @property (nonatomic) BOOL addLoading;
-@property (nonatomic) BOOL addEmptyDataSet;
 
 
 // _____________________________________________________________________________
@@ -116,18 +108,6 @@ typedef NS_ENUM(NSInteger, SUISwipeDirection) {
 - (void)suiEmojiViewTapItem:(SUIEmojiItem *)cItem;
 - (void)suiEmojiViewTapDeleteItem;
 - (void)suiEmojiViewTapSendBtn;
-
-
-// _____________________________________________________________________________
-
-#pragma mark - Vendor
-
-#pragma mark SwipeTableCell
-
-- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell canSwipe:(SUISwipeDirection)direction cModel:(id)cModel;
-/** @return [UIButton] */
-- (NSArray *)suiSwipeTableCell:(SUIBaseCell *)curCell direction:(SUISwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings cModel:(id)cModel;
-- (BOOL)suiSwipeTableCell:(SUIBaseCell *)curCell tappedAtIndex:(NSInteger)index direction:(SUISwipeDirection)direction cModel:(id)cModel;
 
 
 // _____________________________________________________________________________

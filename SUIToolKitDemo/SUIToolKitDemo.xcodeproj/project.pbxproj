@@ -56,6 +56,7 @@
 		6DB3491E1BA81BF2003A72DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491D1BA81BF2003A72DF /* Foundation.framework */; };
 		6DB349201BA81BF7003A72DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491F1BA81BF7003A72DF /* QuartzCore.framework */; };
 		6DB90E151B7B16260027805F /* SUIAdaptTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB90E131B7B16260027805F /* SUIAdaptTextView.m */; };
+		6DCC0B781BB1091A00E38BB7 /* SUISwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCC0B771BB1091A00E38BB7 /* SUISwipeTableCell.m */; };
 		6DD3BB8F1BA7BA3F00824B8D /* SUIBaseExten.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3BB8E1BA7BA3F00824B8D /* SUIBaseExten.m */; };
 		6DD3BB921BA7E86300824B8D /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD3BB901BA7E86300824B8D /* SUIBaseConfig.m */; };
 		6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */; };
@@ -170,6 +171,8 @@
 		6DB3491F1BA81BF7003A72DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6DB90E131B7B16260027805F /* SUIAdaptTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAdaptTextView.m; sourceTree = "<group>"; };
 		6DB90E141B7B16260027805F /* SUIAdaptTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAdaptTextView.h; sourceTree = "<group>"; };
+		6DCC0B761BB1091A00E38BB7 /* SUISwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUISwipeTableCell.h; sourceTree = "<group>"; };
+		6DCC0B771BB1091A00E38BB7 /* SUISwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUISwipeTableCell.m; sourceTree = "<group>"; };
 		6DD3BB8D1BA7BA3F00824B8D /* SUIBaseExten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseExten.h; sourceTree = "<group>"; };
 		6DD3BB8E1BA7BA3F00824B8D /* SUIBaseExten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseExten.m; sourceTree = "<group>"; };
 		6DD3BB901BA7E86300824B8D /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 			children = (
 				6DB349181BA800F4003A72DF /* SUIEmptyDataSet.h */,
 				6DB349191BA800F4003A72DF /* SUIEmptyDataSet.m */,
+				6DCC0B761BB1091A00E38BB7 /* SUISwipeTableCell.h */,
+				6DCC0B771BB1091A00E38BB7 /* SUISwipeTableCell.m */,
 				6D9AEFE91B81885600227D62 /* SUIPopupObject.h */,
 				6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */,
 				6D67E75E1B7062DF00CD691D /* SUIDropdownTitleMenu.h */,
@@ -615,6 +620,7 @@
 				6D67E7811B70999C00CD691D /* SUIMainTVC.m in Sources */,
 				6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */,
 				6D67E7741B7098D000CD691D /* SUIMediaMD.m in Sources */,
+				6DCC0B781BB1091A00E38BB7 /* SUISwipeTableCell.m in Sources */,
 				6D1241401B60C961005DC05F /* SUIBaseCell.m in Sources */,
 				6D1241471B60C961005DC05F /* SUIHttpClient.m in Sources */,
 				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,

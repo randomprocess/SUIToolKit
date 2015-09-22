@@ -19,6 +19,7 @@
 
 @implementation SUIChatVC
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,7 +39,6 @@
             }
         }
     }];
-    
     
     
     /**

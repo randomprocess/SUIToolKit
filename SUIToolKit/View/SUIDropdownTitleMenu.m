@@ -315,7 +315,7 @@
 - (void)setCurrIndex:(NSInteger)currIndex
 {
     _currIndex = currIndex;
-
+    
     UIImage *curImage = self.currTitles[_currIndex];
     [self.currTitleBtn setImage:curImage forState:UIControlStateNormal];
 }
@@ -327,7 +327,7 @@
         NSMutableArray *titleAry = [NSMutableArray array];
         for (UIView *curView in [self currMenuViews])
         {
-            UIImage *curImage = [curView snapshot];
+            UIImage *curImage = [self snapshot:curView];
             if (curImage.size.height > tMenuView_MaxHeight) {
                 [titleAry addObject:[curImage toFitHeight:tMenuView_MaxHeight]];
             } else {
@@ -337,6 +337,16 @@
         _currTitles = titleAry;
     }
     return _currTitles;
+}
+
+- (UIImage *)snapshot:(UIView *)curView
+{
+    UIGraphicsBeginImageContextWithOptions(curView.bounds.size, NO, [[UIScreen mainScreen] scale]);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [curView.layer renderInContext:context];
+    UIImage *curImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return curImage;
 }
 
 - (NSArray *)currMenuViews
@@ -482,7 +492,7 @@
     id curDropdownTitleMenu = objc_getAssociatedObject(self, @selector(dropdownTitleMenu));
     if (curDropdownTitleMenu) return curDropdownTitleMenu;
     
-    SUIDropdownTitleMenu *currDropdownTitleMenu = [SUIDropdownTitleMenu new];
+    SUIDropdownTitleMenu *currDropdownTitleMenu = [[SUIDropdownTitleMenu alloc] init];
     currDropdownTitleMenu.currVC = self;
     self.dropdownTitleMenu = currDropdownTitleMenu;
     return currDropdownTitleMenu;
