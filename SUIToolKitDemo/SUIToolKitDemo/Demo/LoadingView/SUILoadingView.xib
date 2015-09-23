@@ -15,7 +15,7 @@
                     <rect key="frame" x="290" y="290" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.98039215690000003" green="0.40000000000000002" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="U8M-ZX-KSM" secondAttribute="centerX" id="Fbd-39-sQ0"/>
                 <constraint firstAttribute="centerY" secondItem="U8M-ZX-KSM" secondAttribute="centerY" id="Q6a-SI-v00"/>

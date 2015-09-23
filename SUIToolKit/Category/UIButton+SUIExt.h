@@ -21,43 +21,64 @@ typedef NS_ENUM(NSInteger, SUIButtonFlashType) {
 
 + (instancetype)customBtn;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Normal
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,copy) NSString *normalTitle;
 @property (nonatomic,strong) UIColor *normalTitleColo;
 @property (nonatomic,strong) UIImage *normalImage;
 @property (nonatomic,strong) UIImage *normalBackgroundImage;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Highlighted
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,copy) NSString *pressedTitle;
 @property (nonatomic,strong) UIColor *pressedTitleColo;
 @property (nonatomic,strong) UIImage *pressedImage;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Selected
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,copy) NSString *selectedTitle;
 @property (nonatomic,strong) UIColor *selectedTitleColo;
 @property (nonatomic,strong) UIImage *selectedImage;
 @property (nonatomic,strong) UIImage *selectedBackgroundImage;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Disabled
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,copy) NSString *disabledTitle;
 @property (nonatomic,strong) UIColor *disabledTitleColo;
 @property (nonatomic,strong) UIImage *disabledImage;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Padding & Insets
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,assign) CGFloat padding;
 @property (nonatomic,assign) UIEdgeInsets insets;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Flash
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,assign) SUIButtonFlashType flashType;
 @property (nonatomic,strong) UIColor *flashColo;
 
-// _____________________________________________________________________________
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Click
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,copy) SUIButtonClickBlock clickBlock;
 

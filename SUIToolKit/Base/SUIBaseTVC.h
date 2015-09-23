@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SUIBaseProtocol.h"
 
-@interface SUIBaseTVC : UITableViewController <SUIBaseProtocol>
+@interface SUIBaseTVC : UITableViewController
 
 @end

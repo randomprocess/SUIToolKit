@@ -7,17 +7,15 @@
 //
 
 #import "SUIBaseVC.h"
-#import "SUIBaseConfig.h"
+#import "UIViewController+SUIExt.h"
 
 @implementation SUIBaseVC
 
-#pragma mark - viewDidLoad
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    [[SUIBaseConfig sharedConfig] configureController:self];
+    [self accordingToBaseConfig];
 }
 
 @end

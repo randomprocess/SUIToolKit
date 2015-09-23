@@ -22,7 +22,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Normal
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setNormalTitle:(NSString *)normalTitle
 {
@@ -61,7 +63,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Highlighted
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setPressedTitle:(NSString *)pressedTitle
 {
@@ -91,7 +95,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Selected
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setSelectedTitle:(NSString *)selectedTitle
 {
@@ -130,7 +136,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Disabled
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setDisabledTitle:(NSString *)disabledTitle
 {
@@ -160,7 +168,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Padding & Insets
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setPadding:(CGFloat)padding
 {
@@ -188,7 +198,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
-// _____________________________________________________________________________
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Flash
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (SUIButtonFlashType)flashType
 {
@@ -235,7 +247,6 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 {
     objc_setAssociatedObject(self, @selector(flashColo), flashColo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 
 - (void)doFlashTap:(UITapGestureRecognizer *)tapGes
 {
@@ -316,6 +327,9 @@ const CGFloat WZFlashInnerCircleInitialRaius = 20;
 }
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Click
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (SUIButtonClickBlock)clickBlock
 {

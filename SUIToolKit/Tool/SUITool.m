@@ -420,8 +420,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
 }
 
 
-
 #pragma mark - Others
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Others
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)goToAppStore:(NSString *)appId
 {

@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self modelPassed:^id{
+        SUIAlbumMD *aMd = [SUIAlbumMD new];
+        aMd.name = @"喵";
+        return aMd;
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -25,17 +31,9 @@
     if (indexPath.row == 1)
     {
         UIViewController *curVC = gViewControllerInstantiate(@"SUITrackVC");
-        curVC.currDelegate = self;
+        curVC.srcVC = self;
         [self.navigationController pushViewController:curVC animated:YES];
     }
 }
-
-- (id)modelPassed
-{
-    SUIAlbumMD *aMd = [SUIAlbumMD new];
-    aMd.name = @"喵";
-    return aMd;
-}
-
 
 @end

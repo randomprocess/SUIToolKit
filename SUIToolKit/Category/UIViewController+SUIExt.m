@@ -10,43 +10,56 @@
 #import <objc/runtime.h>
 #import "SUIToolKitConst.h"
 #import "SUIBaseConfig.h"
-#import "SUITableDataSource.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "UIView+SUIExt.h"
 
 @implementation UIViewController (SUIExt)
 
-#pragma mark - Property
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Properties Added
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (UITableView *)currTableView
 {
-    return objc_getAssociatedObject(self, @selector(currTableView));
+    UITableView *curTableView = objc_getAssociatedObject(self, @selector(currTableView));
+    if (curTableView) return curTableView;
+    
+    if ([self isKindOfClass:[UITableViewController class]]) {
+        curTableView = (UITableView *)self.view;
+    } else {
+        curTableView = [self.view subviewWithClassName:@"UITableView"];
+    }
+    
+    if (curTableView) self.currTableView = curTableView;
+    return curTableView;
 }
 - (void)setCurrTableView:(UITableView *)currTableView
 {
+    currTableView.currVC = self;
     objc_setAssociatedObject(self, @selector(currTableView), currTableView, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (NSString *)currIdentifier
 {
-    id curIdentifier = objc_getAssociatedObject(self, @selector(currIdentifier));
+    NSString *curIdentifier = objc_getAssociatedObject(self, @selector(currIdentifier));
     if (curIdentifier) return curIdentifier;
     
     NSString *currClassName = gClassName(self);
-    NSAssert([currClassName hasPrefix:@"SUI"], @"className prefix with 'SUI'");
-    
-    NSString *curSuffixStr = nil;
-    if ([self isKindOfClass:[UITableViewController class]]) {
-        curSuffixStr = @"TVC";
-    } else if ([self isKindOfClass:[UIViewController class]]) {
-        curSuffixStr = @"VC";
-    } else {
-        NSAssert(NO, @"unknown Class");
+    if ([currClassName hasPrefix:@"SUI"]) {
+        uLogInfo(@"currVC ClassName ⤭ %@ ⤪  Superclass ⤭ %@ ⤪", currClassName, self.superclass)
+        NSString *curSuffixStr = nil;
+        if ([self isKindOfClass:[UIViewController class]] && [currClassName hasSuffix:@"VC"]) {
+            curSuffixStr = @"VC";
+        } else if ([self isKindOfClass:[UITableViewController class]] && [currClassName hasSuffix:@"TVC"]) {
+            curSuffixStr = @"TVC";
+        }
+        
+        NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
+        NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
+        curIdentifier = [currClassName substringWithRange:curRange];
+        self.currIdentifier = curIdentifier;
     }
-    
-    NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
-    NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
-    curIdentifier = [currClassName substringWithRange:curRange];
-    self.currIdentifier = curIdentifier;
     return curIdentifier;
 }
 - (void)setCurrIdentifier:(NSString *)currIdentifier
@@ -54,108 +67,92 @@
     objc_setAssociatedObject(self, @selector(currIdentifier), currIdentifier, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (SUIBaseExten *)currExten
-{
-    id curExten = objc_getAssociatedObject(self, @selector(currExten));
-    if (curExten) return curExten;
-    
-    SUIBaseExten *currBaseExten = [SUIBaseExten new];
-    curExten = currBaseExten;
-    self.currExten = curExten;
-    return curExten;
-}
-- (void)setCurrExten:(SUIBaseExten *)currExten
-{
-    objc_setAssociatedObject(self, @selector(currExten), currExten, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+@end
 
-- (id<SUIBaseProtocol>)currDelegate
-{
-    return objc_getAssociatedObject(self, @selector(currDelegate));
-}
-- (void)setCurrDelegate:(id<SUIBaseProtocol>)currDelegate
-{
-    objc_setAssociatedObject(self, @selector(currDelegate), currDelegate, OBJC_ASSOCIATION_ASSIGN);
-}
 
-- (id)scrModel
+@implementation UIViewController (SUIModelPassed)
+
+- (id)srcModel
 {
-    id curScrModel = nil;
+    id curSrcModel = objc_getAssociatedObject(self, @selector(srcModel));
+    if (curSrcModel) return curSrcModel;
     
-    if ([self.currDelegate respondsToSelector:@selector(modelPassed)]) {
-        curScrModel = [self.currDelegate modelPassed];
+    id currSrcModel = nil;
+    if (self.srcVC.currModelPassedBlock) {
+        currSrcModel = self.srcVC.currModelPassedBlock();
     } else {
-        curScrModel = self.currDelegate.currTableView.currDataSource.scrModel;
+        currSrcModel = self.srcVC.destModel;
     }
-    
-    return curScrModel;
+    if (currSrcModel) self.srcModel = currSrcModel;
+    return currSrcModel;
 }
-- (void)setScrModel:(id)scrModel
+- (void)setSrcModel:(id)srcModel
 {
-    objc_setAssociatedObject(self, @selector(scrModel), scrModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(srcModel), srcModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-
-#pragma mark - IB
-
-
-- (BOOL)addSearch
+- (id)destModel
 {
-    return [objc_getAssociatedObject(self, @selector(addSearch)) boolValue];
+    return objc_getAssociatedObject(self, @selector(destModel));
 }
-- (void)setAddSearch:(BOOL)addSearch
+- (void)setDestModel:(id)destModel
 {
-    objc_setAssociatedObject(self, @selector(addSearch), @(addSearch), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(destModel), destModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-
-- (BOOL)addHeader
+- (UIViewController *)srcVC
 {
-    return [objc_getAssociatedObject(self, @selector(addHeader)) boolValue];
+    return objc_getAssociatedObject(self, @selector(srcVC));
 }
-- (void)setAddHeader:(BOOL)addHeader
+- (void)setSrcVC:(UIViewController *)srcVC
 {
-    objc_setAssociatedObject(self, @selector(addHeader), @(addHeader), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)addFooter
-{
-    return [objc_getAssociatedObject(self, @selector(addFooter)) boolValue];
-}
-- (void)setAddFooter:(BOOL)addFooter
-{
-    objc_setAssociatedObject(self, @selector(addFooter), @(addFooter), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(srcVC), srcVC, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (BOOL)addHeaderAndRefreshStart
+- (SUIModelPassedBlock)currModelPassedBlock
 {
-    return [objc_getAssociatedObject(self, @selector(addHeaderAndRefreshStart)) boolValue];
+    return objc_getAssociatedObject(self, @selector(currModelPassedBlock));
 }
-- (void)setAddHeaderAndRefreshStart:(BOOL)addHeaderAndRefreshStart
+- (void)setCurrModelPassedBlock:(SUIModelPassedBlock)currModelPassedBlock
 {
-    objc_setAssociatedObject(self, @selector(addHeaderAndRefreshStart), @(addHeaderAndRefreshStart), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)addLoading
-{
-    return [objc_getAssociatedObject(self, @selector(addLoading)) boolValue];
-}
-- (void)setAddLoading:(BOOL)addLoading
-{
-    objc_setAssociatedObject(self, @selector(addLoading), @(addLoading), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(currModelPassedBlock), currModelPassedBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BOOL)addEmptyDataSet
+- (SUIBackRefreshedBlock)destBackRefreshedBlock
 {
-    return [objc_getAssociatedObject(self, @selector(addEmptyDataSet)) boolValue];
+    return objc_getAssociatedObject(self, @selector(destBackRefreshedBlock));
 }
-- (void)setAddEmptyDataSet:(BOOL)addEmptyDataSet
+- (void)setDestBackRefreshedBlock:(SUIBackRefreshedBlock)destBackRefreshedBlock
 {
-    objc_setAssociatedObject(self, @selector(addEmptyDataSet), @(addEmptyDataSet), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(destBackRefreshedBlock), destBackRefreshedBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (SUIDoActionBlock)destDoAction
+{
+    return objc_getAssociatedObject(self, @selector(destDoAction));
+}
+- (void)setDestDoAction:(SUIDoActionBlock)destDoAction
+{
+    objc_setAssociatedObject(self, @selector(destDoAction), destDoAction, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 
-#pragma mark - Dismiss
+- (void)modelPassed:(SUIModelPassedBlock)cb
+{
+    [self setCurrModelPassedBlock:cb];
+}
+- (void)backRefreshed:(SUIBackRefreshedBlock)cb
+{
+    [self setDestBackRefreshedBlock:cb];
+}
+- (void)doAction:(SUIDoActionBlock)cb
+{
+    [self setDestDoAction:cb];
+}
+
+@end
+
+
+@implementation UIViewController (SUINavBackAction)
 
 - (IBAction)navPopToLast:(id)sender
 {
@@ -171,8 +168,25 @@
     }];
 }
 
+@end
 
-#pragma mark - LoadView
+
+@implementation UIViewController (SUILoadingView)
+
+- (BOOL)addLoading
+{
+    return [objc_getAssociatedObject(self, @selector(addLoading)) boolValue];
+}
+- (void)setAddLoading:(BOOL)addLoading
+{
+    if (addLoading) {
+        uWeakSelf
+        [SUITool delay:0.01 cb:^{
+            [weakSelf loadingViewShow];
+        }];
+    }
+    objc_setAssociatedObject(self, @selector(addLoading), @(addLoading), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 - (UIView *)loadingView
 {
@@ -190,7 +204,9 @@
             [curLoadingView addSubview:curActivityIndicatorView];
         }
         curLoadingView.frame = self.view.bounds;
+        
         curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        curLoadingView.alpha = 0;
         self.loadingView = curLoadingView;
     }
     return curLoadingView;
@@ -202,24 +218,40 @@
 
 - (void)loadingViewShow
 {
-    [self.view addSubview:self.loadingView];
+    uMainQueue(
+               [self.view addSubview:self.loadingView];
+               self.loadingView.alpha = 1.0;
+    )
 }
 - (void)loadingViewDissmiss
 {
-    if (self.loadingView.superview)
-    {
-        uWeakSelf
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                             weakSelf.loadingView.alpha = 0;
-                         } completion:^(BOOL finished) {
-                             [weakSelf.loadingView removeFromSuperview];
-                         }];
-    }
+    uMainQueue(
+               if (self.loadingView.superview)
+               {
+                   UIView *curLoadingView = self.loadingView;
+                   self.loadingView = nil;
+                   [UIView animateWithDuration:0.25
+                                    animations:^{
+                                        curLoadingView.alpha = 0;
+                                    } completion:^(BOOL finished) {
+                                        [curLoadingView removeFromSuperview];
+                                    }];
+               }
+    )
 }
 
+@end
 
 
+@implementation UITableView (SUICurrVC)
 
+- (UIViewController *)currVC
+{
+    return objc_getAssociatedObject(self, @selector(currVC));
+}
+- (void)setCurrVC:(UIViewController *)currVC
+{
+    objc_setAssociatedObject(self, @selector(currVC), currVC, OBJC_ASSOCIATION_ASSIGN);
+}
 
 @end

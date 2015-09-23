@@ -7,6 +7,7 @@
 //
 
 #import "SUIEmptyDataSet.h"
+#import <objc/runtime.h>
 #import "SUIBaseConfig.h"
 
 @interface SUIEmptyDataSet ()
@@ -19,6 +20,8 @@
 @property (nonatomic,copy) SUIEmptyDataSetShouldAllowTouchBlock shouldAllowToucBlock;
 @property (nonatomic,copy) SUIEmptyDataSetShouldAllowScrollBlock shouldAllowScrollBlock;
 @property (nonatomic,copy) SUIEmptyDataSetDidTapViewBlock didTapViewBlock;
+
+@property (nonatomic,weak) UIScrollView *currScrollView;
 
 @end
 
@@ -87,7 +90,9 @@
 - (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
 {
     if (self.shouldDisplayBlock) return self.shouldDisplayBlock();
-    return YES;
+    if (self.titleBlock || self.desBlock || self.imageBlock || self.customViewBlock) return YES;
+    if (self.currScrollView.addEmptyDataSet && [SUIBaseConfig sharedConfig].classNameOfLoadingView) return YES;
+    return NO;
 }
 - (BOOL)emptyDataSetShouldAllowTouch:(UIScrollView *)scrollView
 {
@@ -116,8 +121,7 @@
 - (void)setAddEmptyDataSet:(BOOL)addEmptyDataSet
 {
     if (addEmptyDataSet) {
-        self.emptyDataSetDelegate = self.emptyDataSet;
-        self.emptyDataSetSource = self.emptyDataSet;
+        [self emptyDataSet];
     }
     objc_setAssociatedObject(self, @selector(addEmptyDataSet), @(addEmptyDataSet), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -129,6 +133,9 @@
     
     SUIEmptyDataSet *currEmptyDataSet = [SUIEmptyDataSet new];
     self.emptyDataSet = currEmptyDataSet;
+    currEmptyDataSet.currScrollView = self;
+    self.emptyDataSetDelegate = self.emptyDataSet;
+    self.emptyDataSetSource = self.emptyDataSet;
     return currEmptyDataSet;
 }
 - (void)setEmptyDataSet:(SUIEmptyDataSet *)emptyDataSet

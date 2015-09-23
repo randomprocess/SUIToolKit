@@ -18,10 +18,10 @@
 
 @implementation SUITrackVC
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     
     self.currTableView.pageSize = 15;
     
@@ -31,13 +31,12 @@
     
     self.currTableView.fetchedResultsController = [SUITrackMD MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:@"trackId" ascending:YES];
     
-    [self handlerMainRequest:NO];
     
-    
-    /**
+    /***************************************************************************
      *  EmptyDataSet
-     */
+     **************************************************************************/
     
+#if 1
     {
         [self.currTableView.emptyDataSet title:^NSAttributedString *{
             NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
@@ -78,12 +77,14 @@
             [weakSelf.currTableView headerRefreshSteart];
         }];
     }
+#endif
     
     
-    /**
+    /***************************************************************************
      *  SwipeTableCell
-     */
+     **************************************************************************/
     
+#if 1
     {
         [self.currTableView.swipeTableCell buttons:^NSArray *(SUIBaseCell *cCell, SUISwipeDirection cDirection, MGSwipeSettings *cSwipeSettings, MGSwipeExpansionSettings *expansionSettings) {
             
@@ -115,95 +116,104 @@
             
         }];
     }
-}
-
-- (void)handlerMainRequest:(BOOL)loadMoreData
-{
-    SUIAlbumMD *aMd = self.scrModel;
-
+#endif
+    
+    
+    /***************************************************************************
+     *  Request
+     **************************************************************************/
+    
     uWeakSelf
-    SUIRequest *curRequest = [SUIRequest requestData:@{
-                                                       @"kw": aMd.name,
-                                                       @"pi": @(self.currTableView.pageIndex+1),
-                                                       @"pz": @(self.currTableView.pageSize)
-                                                       }];
-    
-    [curRequest parser:^NSArray *(id responseObject) {
+    [self.currTableView.tableExten request:^(BOOL loadMoreData) {
         
-        NSDictionary *curDic = responseObject;
-        id curTrackAry = curDic[@"tracks"];
+        SUIAlbumMD *aMd = weakSelf.srcModel;
         
-        if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
-        {
-            uLog(@"empty Tracks");
-        }
-        else
-        {
-            if (!loadMoreData)
-            {
-                [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-                    [SUITrackMD MR_truncateAllInContext:localContext];
-                }];
-            }
-            
-            __block NSArray *curNewDataAry = nil;
-            [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-                curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:localContext];
-            }];
-            return @[curNewDataAry];
-        }
-        return nil;
-        
-    } refreshTable:self.currTableView];
-    
-    [curRequest completion:^(NSError *error, id responseObject) {
-        
-        [SUITool delay:1.0 cb:^{
-            [weakSelf loadingViewDissmiss];
-        }];
-        
+        [[[[SUIRequest requestData:@{
+                                     @"kw": aMd.name,
+                                     @"pi": @(weakSelf.currTableView.pageIndex+1),
+                                     @"pz": @(weakSelf.currTableView.pageSize)
+                                     }]
+           parser:^NSArray *(id responseObject) {
+               NSDictionary *curDic = responseObject;
+               id curTrackAry = curDic[@"tracks"];
+
+               if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
+               {
+                   uLog(@"empty Tracks");
+               }
+               else
+               {
+                   if (!loadMoreData)
+                   {
+                       [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+                           [SUITrackMD MR_truncateAllInContext:localContext];
+                       }];
+                   }
+
+                   __block NSArray *curNewDataAry = nil;
+                   [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+                       curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:localContext];
+                   }];
+                   return @[curNewDataAry];
+               }
+               return nil;
+           } refreshTable:weakSelf.currTableView]
+          completion:^(NSError *error, id responseObject) {
+              [weakSelf loadingViewDissmiss];
+          }]
+         identifier:gFormat(@"%@", gClassName(weakSelf))];
     }];
-    
-    [curRequest identifier:gFormat(@"%@", gClassName(self))];
-    
-    
-    
-    // 也可以合起来写成下面这样 = =
-//    [[[[SUIRequest requestData:@{
-//                                 @"kw": aMd.name,
-//                                 @"pi": @(self.currTableView.pageIndex+1),
-//                                 @"pz": @(self.currTableView.pageSize)
-//                                 }]
-//       parser:^NSArray *(id responseObject) {
-//           NSDictionary *curDic = responseObject;
-//           id curTrackAry = curDic[@"tracks"];
-//           
-//           if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
-//           {
-//               uLog(@"empty Tracks");
-//           }
-//           else
-//           {
-//               if (!loadMoreData)
-//               {
-//                   [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//                       [SUITrackMD MR_truncateAllInContext:localContext];
-//                   }];
-//               }
-//               
-//               __block NSArray *curNewDataAry = nil;
-//               [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-//                   curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:localContext];
-//               }];
-//               return @[curNewDataAry];
-//           }
-//           return nil;
-//       } refreshTable:self.currTableView]
-//      completion:^(NSError *error, id responseObject) {
-//          [weakSelf loadingViewDissmiss];
-//      }]
-//     identifier:gFormat(@"%@", gClassName(self))];
 }
+
+//- (void)handlerMainRequest:(BOOL)loadMoreData
+//{
+//    SUIAlbumMD *aMd = self.scrModel;
+//
+//    uWeakSelf
+//    SUIRequest *curRequest = [SUIRequest requestData:@{
+//                                                       @"kw": aMd.name,
+//                                                       @"pi": @(self.currTableView.pageIndex+1),
+//                                                       @"pz": @(self.currTableView.pageSize)
+//                                                       }];
+//    
+//    [curRequest parser:^NSArray *(id responseObject) {
+//        
+//        NSDictionary *curDic = responseObject;
+//        id curTrackAry = curDic[@"tracks"];
+//        
+//        if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
+//        {
+//            uLog(@"empty Tracks");
+//        }
+//        else
+//        {
+//            if (!loadMoreData)
+//            {
+//                [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+//                    [SUITrackMD MR_truncateAllInContext:localContext];
+//                }];
+//            }
+//            
+//            __block NSArray *curNewDataAry = nil;
+//            [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+//                curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:curDic[@"tracks"] context:localContext];
+//            }];
+//            return @[curNewDataAry];
+//        }
+//        return nil;
+//        
+//    } refreshTable:self.currTableView];
+//    
+//    [curRequest completion:^(NSError *error, id responseObject) {
+//        
+//        [SUITool delay:1.0 cb:^{
+//            [weakSelf loadingViewDissmiss];
+//        }];
+//        
+//    }];
+//    
+//    [curRequest identifier:gFormat(@"%@", gClassName(self))];
+//}
 
 
 @end

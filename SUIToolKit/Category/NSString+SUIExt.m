@@ -13,7 +13,9 @@
 @implementation NSString (SUIExt)
 
 
-#pragma mark - URL
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  URL
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)URLEncoded
 {
@@ -36,7 +38,9 @@
 }
 
 
-#pragma mark - Base64
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Base64
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)base64EncodedString
 {
@@ -65,7 +69,9 @@
 }
 
 
-#pragma mark - Md5
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Md5
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)md5HexDigest
 {
@@ -91,7 +97,9 @@
 }
 
 
-#pragma mark - Rc4
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Rc4
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)rc4Key:(NSString *)aKey
 {
@@ -196,8 +204,9 @@ void swap(unsigned char *first, unsigned char *second)
 }
 
 
-
-#pragma mark - Remove Spaces & Wrap
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Remove Spaces & Wrap
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)removeTrailingSpaces
 {
@@ -276,7 +285,6 @@ void swap(unsigned char *first, unsigned char *second)
     uLogInfo(@"remove continuous wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
     return netString;
 }
-
 
 
 @end

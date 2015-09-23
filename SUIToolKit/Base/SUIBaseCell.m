@@ -8,6 +8,7 @@
 
 #import "SUIBaseCell.h"
 #import "SUIBaseConfig.h"
+#import "UIView+SUIExt.h"
 
 @implementation SUIBaseCell
 
@@ -17,21 +18,9 @@
     
     self.contentView.backgroundColor = [UIColor clearColor];
     
-    NSString *curSelectionStyle = [SUIBaseConfig sharedConfig].selectionStyle;
-    if (curSelectionStyle)
+    if (self.selectionStyle == UITableViewCellSelectionStyleDefault)
     {
-        if ([curSelectionStyle isEqualToString:@"None"])
-        {
-            self.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        else if ([curSelectionStyle isEqualToString:@"Blue"])
-        {
-            self.selectionStyle = UITableViewCellSelectionStyleBlue;
-        }
-        else if ([curSelectionStyle isEqualToString:@"Gray"])
-        {
-            self.selectionStyle = UITableViewCellSelectionStyleGray;
-        }
+        self.selectionStyle = [SUIBaseConfig sharedConfig].selectionStyle;
     }
 }
 
@@ -58,17 +47,9 @@
 
 - (IBAction)doAction:(id)sender
 {
-    if ([self.cellActionDelegate respondsToSelector:@selector(handlerAction:cModel:)])
-    {
-        [self.cellActionDelegate handlerAction:sender cModel:self.currModle];
-    }
-}
-
-- (void)handlerAction:(id)sender cModel:(id)cModel;
-{
-    if ([self.cellActionDelegate respondsToSelector:@selector(handlerAction:cModel:)])
-    {
-        [self.cellActionDelegate handlerAction:sender cModel:self.currModle];
+    UIViewController *currVC = self.theVC;
+    if (currVC.destDoAction) {
+        currVC.destDoAction(sender, self.currModle);
     }
 }
 

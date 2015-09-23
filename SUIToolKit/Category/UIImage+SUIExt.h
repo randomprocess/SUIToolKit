@@ -11,21 +11,22 @@
 @interface UIImage (SUIExt)
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Fit Size
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (UIImage *)toFitWidth:(CGFloat)maxWidth;
-
 - (UIImage *)toFitHeight:(CGFloat)maxHeight;
-
 - (UIImage *)toSize:(CGSize)targetSize;
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Blend
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (UIImage *)imageWithTintColo:(UIColor *)tintColor;
-
 - (UIImage *)imageWithGradientTintColo:(UIColor *)tintColor;
-
 - (UIImage *)imageWithTintColo:(UIColor *)tintColor blendMode:(CGBlendMode)blendMode;
-
 
 
 @end

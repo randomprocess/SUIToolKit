@@ -8,7 +8,6 @@
 
 #import "SUIPopupObject.h"
 
-
 typedef NSArray *(^SUIDropdownTitleMenuTitlesBlock)(void);
 typedef NSArray *(^SUIDropdownTitleMenuCustomViewsBlock)(void);
 typedef void (^SUIDropdownTitleMenuDidSelectBlock)(NSInteger cIndex);

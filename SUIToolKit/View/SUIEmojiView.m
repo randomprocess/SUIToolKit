@@ -7,6 +7,7 @@
 //
 
 #import "SUIEmojiView.h"
+#import <objc/runtime.h>
 #import "SUIToolKitConst.h"
 #import "UIView+SUIExt.h"
 #import "UIButton+SUIExt.h"
@@ -94,7 +95,7 @@
 @property (nonatomic,strong) SUIEmojiSection *currSection;
 - (void)refreshWithSection:(SUIEmojiSection *)cSection;
 
-@property (nonatomic,weak) id<SUIBaseProtocol> currVC;
+@property (nonatomic,weak) SUIEmojiView *currEmojiView;
 
 @end
 
@@ -345,12 +346,13 @@
 {
     if (self.currItem) {
         if (self.currItem.deleteItem) {
-            if ([self.currVC respondsToSelector:@selector(suiEmojiViewTapDeleteItem)]) {
-                [self.currVC suiEmojiViewTapDeleteItem];
+            if (self.currEmojiView.didTapDeleteItemBlock) {
+                self.currEmojiView.didTapDeleteItemBlock();
             }
+            
         } else {
-            if ([self.currVC respondsToSelector:@selector(suiEmojiViewTapItem:)]) {
-                [self.currVC suiEmojiViewTapItem:self.currItem];
+            if (self.currEmojiView.didTapItemBlock) {
+                self.currEmojiView.didTapItemBlock(self.currItem);
             }
         }
     }
@@ -544,6 +546,9 @@
 
 @interface SUIEmojiView () <UIScrollViewDelegate>
 
+@property (nonatomic,weak) UIViewController *currVC;
+
+
 @property (nonatomic,strong) NSMutableArray *currSectionAry;
 @property (nonatomic,strong) NSMutableArray *currSectionBtnAry;
 
@@ -566,20 +571,42 @@
 
 @implementation SUIEmojiView
 
-
-- (void)awakeFromNib
+- (void)sections:(SUIEmojiViewSectionsBlock)cb
 {
-    uWeakSelf
+    self.sectionsBlock = cb;
+}
+- (void)didTapItem:(SUIEmojiViewDidTapItemBlock)cb
+{
+    self.didTapItemBlock = cb;
+}
+- (void)didTapDeleteItem:(SUIEmojiViewDidTapDeleteItemBlock)cb
+{
+    self.didTapDeleteItemBlock = cb;
+}
+- (void)didTapSendBtn:(SUIEmojiViewDidTapSendBtnBlock)cb
+{
+    self.didTapSendBtnBlock = cb;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit
+{
+    self.sectionPadding = 12.0;
+    self.currHeight = tEmoji_Height;
+    self.animalDuration = [SUITool keyboardAnimationDuration];
+    
     [SUITool delay:0.1 cb:^{
-        
-        weakSelf.sectionPadding = 12.0;
-        weakSelf.currHeight = tEmoji_Height;
-        self.animalDuration = [SUITool keyboardAnimationDuration];
-        
         [self createUI];
     }];
-    
-    NSAssert(self.currVC, @"should link currVC");
 }
 
 - (void)createUI
@@ -598,12 +625,11 @@
     
     if (self.showCustomEmoji)
     {
-        NSAssert([self.currVC respondsToSelector:@selector(suiEmojiViewSections)], @"should implement suiEmojiViewSections()");
+        NSAssert(self.sectionsBlock, @"should implement sectionsBlock");
         
         [self createBottomUI];
         spareHeight -= tEmoji_Bottom_Height;
     }
-    
     
     [self createMiddleUI:spareHeight];
 }
@@ -691,7 +717,7 @@
 
 - (void)createBottomUI
 {
-    NSArray *curCoustomEmojiSections = [self.currVC suiEmojiViewSections];
+    NSArray *curCoustomEmojiSections = self.sectionsBlock();
     [self.currSectionAry addObjectsFromArray:curCoustomEmojiSections];
     
     uWeakSelf
@@ -839,8 +865,8 @@
         
         uWeakSelf
         _sendBtn.clickBlock = ^() {
-            if ([weakSelf.currVC respondsToSelector:@selector(suiEmojiViewTapSendBtn)]) {
-                [weakSelf.currVC suiEmojiViewTapSendBtn];
+            if (weakSelf.didTapSendBtnBlock) {
+                weakSelf.didTapSendBtnBlock();
             }
         };
         
@@ -887,7 +913,7 @@
         _faceView = [[SUIEmojiFaceView alloc] init];
         _faceView.backgroundColor = [UIColor clearColor];
         _faceView.currSupScrollView = self.middleScrollView;
-        _faceView.currVC = self.currVC;
+        _faceView.currEmojiView = self;
         [self.middleScrollView addSubview:_faceView];
     }
     return _faceView;
@@ -928,6 +954,27 @@
                         };
     }
     return _attributes;
+}
+
+@end
+
+
+
+@implementation UIViewController (SUIEmojiView)
+
+- (SUIEmojiView *)emojiView
+{
+    id curEmojiView = objc_getAssociatedObject(self, @selector(emojiView));
+    if (curEmojiView) return curEmojiView;
+    
+    SUIEmojiView *currEmojiView = [[SUIEmojiView alloc] init];
+    currEmojiView.currVC = self;
+    self.emojiView = currEmojiView;
+    return currEmojiView;
+}
+- (void)setEmojiView:(SUIEmojiView *)emojiView
+{
+    objc_setAssociatedObject(self, @selector(emojiView), emojiView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

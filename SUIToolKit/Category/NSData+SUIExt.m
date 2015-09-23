@@ -12,6 +12,10 @@
 @implementation NSData (SUIExt)
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Base64
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 - (NSString *)base64EncodedString
 {
     NSString *curStr = [self base64EncodedStringWithOptions:0];

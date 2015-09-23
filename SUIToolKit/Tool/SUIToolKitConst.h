@@ -45,6 +45,7 @@
 
 
 #define gFormat(__format, ...) [NSString stringWithFormat:__format, ##__VA_ARGS__]
+#define gFormatObj(__obj) [NSString stringWithFormat:@"%@", __obj]
 #define gPredicate(__format, ...) [NSPredicate predicateWithFormat:__format, ##__VA_ARGS__]
 
 #define gRGB(__r,__g,__b) [UIColor colorWithRed:(__r)/255.0f green:(__g)/255.0f blue:(__b)/255.0f alpha:1.0f]

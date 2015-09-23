@@ -7,6 +7,7 @@
 //
 
 #import "SUISwipeTableCell.h"
+#import <objc/runtime.h>
 
 @interface SUISwipeTableCell ()
 
@@ -78,10 +79,6 @@
 
 @end
 
-
-//@interface SUIBaseCell (SUISwipeTableCell)
-//
-//@end
 
 @implementation SUIBaseCell (SUISwipeTableCell)
 

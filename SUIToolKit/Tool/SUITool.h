@@ -19,10 +19,18 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 #pragma mark - Init
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Init
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 + (void)toolInit;
 
 
 #pragma mark - Launched
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Launched
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)firstLaunched;
 
@@ -30,6 +38,10 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 
 #pragma mark - Keyboard
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Keyboard
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)keyboardShow;
 
@@ -42,12 +54,20 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 #pragma mark - Unique identifier
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Unique identifier
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 + (NSString *)uuidString;
 
 + (NSString *)idfvString;
 
 
 #pragma mark - File Manager
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  File Manager
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)fileCreateDirectory:(NSString *)filePath;
 
@@ -68,6 +88,10 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 #pragma mark - Camera & PhotoLibrary
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Camera & PhotoLibrary
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 + (BOOL)cameraAvailable;
 
 + (BOOL)cameraRearAvailable;
@@ -78,6 +102,10 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 
 #pragma mark - Others
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Others
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)goToAppStore:(NSString *)appId;
 

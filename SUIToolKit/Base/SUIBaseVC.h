@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SUIBaseProtocol.h"
-#import "SUIBaseCell.h"
 
-@interface SUIBaseVC : UIViewController <SUIBaseProtocol>
+@interface SUIBaseVC : UIViewController
 
 @end

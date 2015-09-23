@@ -9,52 +9,44 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "SUIBaseProtocol.h"
-
 @interface SUIBaseConfig : NSObject
 
 
-#pragma mark - Shared
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Shared
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (instancetype)sharedConfig;
 
 
-#pragma mark - Http
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Http
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-/** default is POST (GET, POST) */
-@property (nonatomic,copy) NSString *httpMethod;
-/** set httpHost before using requestData() */
-@property (nonatomic,copy) NSString *httpHost;
+@property (nonatomic,copy) NSString *httpMethod; // default is POST (GET, POST)
+@property (nonatomic,copy) NSString *httpHost; // set httpHost before using SUIRequest
 
 
-#pragma mark - VC
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  VC
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-/** default is whiteColor */
-@property (nonatomic,strong) UIColor *backgroundColor;
-/** default is 20,20,20,1 */
-@property (nonatomic,strong) UIColor *separatorColor;
-/** default is {0,10,0,0} */
-@property (nonatomic,copy) NSString *separatorInset;
-/** default is Default ... (None, Blue, Gray) */
-@property (nonatomic,copy) NSString *selectionStyle;
+@property (nonatomic,strong) UIColor *backgroundColor; // default is whiteColor
+@property (nonatomic,strong) UIColor *separatorColor; // default is 20,20,20,1
+@property (nonatomic,copy) NSString *separatorInset; // default is {0,10,0,0}
+@property (nonatomic,assign) UITableViewCellSelectionStyle selectionStyle; // default is UITableViewCellSelectionStyleNone
 
-/** default is 20 */
-@property (nonatomic,assign) NSInteger pageSize;
+@property (nonatomic,assign) NSInteger pageSize; // default is 20
 
-/** default is nil */
 @property (nonatomic,copy) NSString *classNameOfLoadingView;
-/** default is nil */
 @property (nonatomic,copy) NSString *classNameOfEmptyDataSetView;
 
 
-#pragma mark -
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Requesets
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 @property (nonatomic,strong,readonly) NSMutableArray *requesets;
 
-
-- (void)configureController:(id<SUIBaseProtocol>)curController;
-
-- (void)configureTableView:(UITableView *)curTableView tvc:(BOOL)tvc;
-
-
 @end
+

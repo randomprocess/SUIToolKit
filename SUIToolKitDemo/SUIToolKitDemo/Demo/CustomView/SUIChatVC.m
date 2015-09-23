@@ -41,9 +41,9 @@
     }];
     
     
-    /**
+    /***************************************************************************
      *  DropdownTitleMenu
-     */
+     **************************************************************************/
     
     {
         [self.dropdownTitleMenu titles:^NSArray *{
@@ -60,47 +60,61 @@
                              }];
         }];
     }
-}
-
-
-#define mark - EmojiView
-
-- (NSArray *)suiEmojiViewSections
-{
-    SUIEmojiSection *curSection = [SUIEmojiSection new];
-    curSection.type = SUIEmojiViewTypeText;
-    curSection.numOfRowItems = 6;
-    curSection.numOfColItems = 3;
-    curSection.title = @"😄";
-    NSArray *curItemAry = @[@"😄", @"😃", @"😀", @"😊", @"☺️", @"😉", @"😍", @"😘", @"😚", @"😗", @"😙", @"😜", @"😝", @"😛", @"😳", @"😁", @"😔", @"😌", @"😒", @"😞", @"😣", @"😢", @"😂", @"😭", @"😪", @"😥", @"😰", @"😅", @"😓", @"😩", @"😫", @"😨", @"😱", @"😠", @"😡", @"😤", @"😖", @"😆", @"😋", @"😷", @"😎", @"😴", @"😵", @"😲", @"😟", @"😦", @"😧", @"😈", @"👿", @"😮", @"😬", @"😐", @"😕", @"😯", @"😶", @"😇", @"😏", @"😑", @"😺", @"😸", @"😻", @"😽", @"😼", @"🙀", @"😿", @"😹", @"😾", @"👹", @"👺", @"🙈", @"🙉", @"🙊", @"💀", @"👽", @"💩", @"👍", @"👎", @"👌"];
     
-    NSMutableArray *curSectionAry = [NSMutableArray array];
-    for (NSString *curEmoji in curItemAry) {
-        SUIEmojiItem *curItem =[SUIEmojiItem new];
-        curItem.text = curEmoji;
-        curItem.remark = curEmoji;
-        [curSectionAry addObject:curItem];
+    
+    /***************************************************************************
+     *  EmojiView
+     **************************************************************************/
+    
+    {
+        [self.emojiView sections:^NSArray *{
+            SUIEmojiSection *curSection = [SUIEmojiSection new];
+            curSection.type = SUIEmojiViewTypeText;
+            curSection.numOfRowItems = 6;
+            curSection.numOfColItems = 3;
+            curSection.title = @"😄";
+            NSArray *curItemAry = @[@"😄", @"😃", @"😀", @"😊", @"☺️", @"😉", @"😍", @"😘", @"😚", @"😗", @"😙", @"😜", @"😝", @"😛", @"😳", @"😁", @"😔", @"😌", @"😒", @"😞", @"😣", @"😢", @"😂", @"😭", @"😪", @"😥", @"😰", @"😅", @"😓", @"😩", @"😫", @"😨", @"😱", @"😠", @"😡", @"😤", @"😖", @"😆", @"😋", @"😷", @"😎", @"😴", @"😵", @"😲", @"😟", @"😦", @"😧", @"😈", @"👿", @"😮", @"😬", @"😐", @"😕", @"😯", @"😶", @"😇", @"😏", @"😑", @"😺", @"😸", @"😻", @"😽", @"😼", @"🙀", @"😿", @"😹", @"😾", @"👹", @"👺", @"🙈", @"🙉", @"🙊", @"💀", @"👽", @"💩", @"👍", @"👎", @"👌"];
+            
+            NSMutableArray *curSectionAry = [NSMutableArray array];
+            for (NSString *curEmoji in curItemAry) {
+                SUIEmojiItem *curItem =[SUIEmojiItem new];
+                curItem.text = curEmoji;
+                curItem.remark = curEmoji;
+                [curSectionAry addObject:curItem];
+            }
+            
+            curSection.emojiItemAry = curSectionAry;
+            return @[curSection];
+        }];
+        
+        [self.emojiView didTapItem:^(SUIEmojiItem *cItem) {
+            uLog(@"%@", cItem.remark);
+        }];
+        
+        [self.emojiView didTapDeleteItem:^{
+            uLog(@"%@", @"dele dele ~");
+        }];
+        
+        [self.emojiView didTapSendBtn:^{
+            uLog(@"%@", @"send send ~");
+        }];
     }
     
-    curSection.emojiItemAry = curSectionAry;
     
-    return @[curSection];
+    
+    {
+        uWeakSelf
+        [self.currTableView.tableExten willBeginDragging:^{
+            [weakSelf.cTextView dissmissKeyboard];
+            [weakSelf.cEmojiView dismiss];
+            [weakSelf.curKeyboardFollowView bottomContant:0];
+            if (weakSelf.faceBtn.selected) {
+                weakSelf.faceBtn.selected = NO;
+            }
+        }];
+    }
 }
 
-- (void)suiEmojiViewTapItem:(SUIEmojiItem *)cItem
-{
-    uLog(@"%@", cItem.remark);
-}
-
-- (void)suiEmojiViewTapDeleteItem
-{
-    uLog(@"%@", @"dele dele ~");
-}
-
-- (void)suiEmojiViewTapSendBtn
-{
-    uLog(@"%@", @"send send ~");
-}
 
 - (IBAction)doFaceBtn:(UIButton *)sender
 {
@@ -118,14 +132,5 @@
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self.cTextView dissmissKeyboard];
-    [self.cEmojiView dismiss];
-    [self.curKeyboardFollowView bottomContant:0];
-    if (self.faceBtn.selected) {
-        self.faceBtn.selected = NO;
-    }
-}
 
 @end

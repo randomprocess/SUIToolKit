@@ -8,7 +8,7 @@
 
 #import "SUIPopupObject.h"
 
-#import "SUIBaseProtocol.h"
+@class SUIEmojiItem, SUIEmojiSection;
 
 typedef NS_ENUM(NSInteger, SUIEmojiViewType)
 {
@@ -17,26 +17,35 @@ typedef NS_ENUM(NSInteger, SUIEmojiViewType)
     SUIEmojiViewTypeText                  = 2,
 };
 
+typedef NSArray *(^SUIEmojiViewSectionsBlock)(void);
+typedef void (^SUIEmojiViewDidTapItemBlock)(SUIEmojiItem *cItem);
+typedef void (^SUIEmojiViewDidTapDeleteItemBlock)(void);
+typedef void (^SUIEmojiViewDidTapSendBtnBlock)(void);
+
 @interface SUIEmojiView : SUIPopupObject
 
+@property (nonatomic,copy) SUIEmojiViewSectionsBlock sectionsBlock;
+@property (nonatomic,copy) SUIEmojiViewDidTapItemBlock didTapItemBlock;
+@property (nonatomic,copy) SUIEmojiViewDidTapDeleteItemBlock didTapDeleteItemBlock;
+@property (nonatomic,copy) SUIEmojiViewDidTapSendBtnBlock didTapSendBtnBlock;
 
-@property (nonatomic,weak) IBOutlet id<SUIBaseProtocol> currVC;
+- (void)sections:(SUIEmojiViewSectionsBlock)cb;
+- (void)didTapItem:(SUIEmojiViewDidTapItemBlock)cb;
+- (void)didTapDeleteItem:(SUIEmojiViewDidTapDeleteItemBlock)cb;
+- (void)didTapSendBtn:(SUIEmojiViewDidTapSendBtnBlock)cb;
 
-
-@property (nonatomic,assign) IBInspectable NSInteger showCustomEmoji;
-
-@property (nonatomic,assign) IBInspectable NSInteger hidePrimaryEmoji;
-
-/** default is 12.0 */
-@property (nonatomic,assign) IBInspectable CGFloat sectionPadding;
-
-
-@property (nonatomic,assign) IBInspectable UIImage *deleteImage;
-
-
+@property (nonatomic,assign) BOOL showCustomEmoji;
+@property (nonatomic,assign) BOOL hidePrimaryEmoji;
+@property (nonatomic,assign) CGFloat sectionPadding; // default is 12.0
+@property (nonatomic,assign) UIImage *deleteImage;
 @property (nonatomic,assign) CGFloat currHeight;
 
+@end
 
+
+@interface UIViewController (SUIEmojiView)
+
+@property (nonatomic,strong) SUIEmojiView *emojiView;
 
 @end
 

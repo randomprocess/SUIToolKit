@@ -8,13 +8,13 @@
 
 #import "SUIBaseConfig.h"
 #import "SUIToolKitConst.h"
-#import "SUITableDataSource.h"
-#import "SUIEmptyDataSet.h"
 
 @implementation SUIBaseConfig
 
 
-#pragma mark - Shared
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Shared
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (instancetype)sharedConfig
 {
@@ -37,7 +37,9 @@
 }
 
 
-#pragma mark - Http
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Http
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)httpMethod
 {
@@ -58,7 +60,9 @@
 }
 
 
-#pragma mark - VC
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  VC
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (UIColor *)backgroundColor
 {
@@ -94,88 +98,6 @@
         _pageSize = 20;
     }
     return _pageSize;
-}
-
-
-
-#pragma mark -
-
-- (void)configureController:(id<SUIBaseProtocol>)cController
-{
-    // backgroundColor
-    UIViewController *curVC = (UIViewController *)cController;
-    curVC.view.backgroundColor = self.backgroundColor;
-    
-    // data processing
-    [self configureDataSource:cController];
-    
-    // loadingView
-    [self configureLoadingView:cController];
-}
-
-- (void)configureDataSource:(id<SUIBaseProtocol>)cController
-{
-    if ([cController isKindOfClass:[UITableViewController class]])
-    {
-        cController.currTableView = ((UITableViewController *)cController).tableView;
-        [self configureTableView:cController.currTableView tvc:YES];
-        cController.currTableView.currDataSource.dataSourceDelegate = cController;
-    }
-    else if ([cController isKindOfClass:[UIViewController class]])
-    {
-        for (UIView *subView in ((UIViewController *)cController).view.subviews)
-        {
-            if ([subView isKindOfClass:[UITableView class]])
-            {
-                UITableView *curTableView = (UITableView *)subView;
-                if (cController.currTableView == nil) {
-                    cController.currTableView = curTableView;
-                }
-                
-                [self configureTableView:curTableView tvc:NO];
-                curTableView.currDataSource.dataSourceDelegate = cController;
-                
-                curTableView.delegate = curTableView.currDataSource;
-                curTableView.dataSource = curTableView.currDataSource;
-                break;
-            }
-        }
-    }
-}
-
-- (void)configureTableView:(UITableView *)cTableView tvc:(BOOL)tvc
-{
-    cTableView.separatorColor = self.separatorColor;
-    cTableView.separatorInset = UIEdgeInsetsFromString(self.separatorInset);
-    cTableView.backgroundColor = [UIColor clearColor];
-    cTableView.tableFooterView = [UIView new];
-    
-    UIView *curBackgroundView = [[UIView alloc] init];
-    cTableView.backgroundView = curBackgroundView;
-    
-    if (tvc)
-    {
-        curBackgroundView.frame = cTableView.bounds;
-        curBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        curBackgroundView.backgroundColor = self.backgroundColor;
-    }
-    else
-    {
-        curBackgroundView.backgroundColor = [UIColor clearColor];
-    }
-    
-    // estimatedRowHeight 默认为0
-    // ios7计算cell动态高度应为0, ios8应不为0, 不计算高度应该给个值
-    // .... 方便起见, 干脆为0好了 > <....
-    //curTableView.estimatedRowHeight = curTableView.rowHeight;
-}
-
-- (void)configureLoadingView:(id<SUIBaseProtocol>)curController
-{
-    if ([curController addLoading])
-    {
-        [curController loadingViewShow];
-    }
 }
 
 

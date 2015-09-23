@@ -8,6 +8,7 @@
 
 #import "SUIBaseView.h"
 #import "SUIToolKitConst.h"
+#import "UIView+SUIExt.h"
 
 @interface SUIBaseView ()
 
@@ -38,7 +39,7 @@
     NSAssert(curMainView != nil, @"> <");
     self.mainView = curMainView;
     [self addSubview:self.mainView];
-    
+        
     self.backgroundColor = [UIColor clearColor];
     self.mainView.frame = self.bounds;
     self.mainView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -46,20 +47,11 @@
 
 - (IBAction)doAction:(id)sender
 {
-    if ([self.bsDelegate respondsToSelector:@selector(handlerAction:cModel:)])
-    {
-        [self.bsDelegate handlerAction:sender cModel:nil];
+    UIViewController *currVC = self.theVC;
+    if (currVC.destDoAction) {
+        currVC.destDoAction(sender, nil);
     }
 }
 
-- (id<SUIBaseProtocol>)bsDelegate
-{
-    if (_bsDelegate == nil) {
-        if (_ibDelegate != nil) {
-            _bsDelegate = _ibDelegate;
-        }
-    }
-    return _bsDelegate;
-}
 
 @end

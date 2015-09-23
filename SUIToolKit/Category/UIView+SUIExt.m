@@ -11,8 +11,9 @@
 @implementation UIView (SUIExt)
 
 
-
-#pragma mark - IB
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Layer
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (CGFloat)cornerRadius
 {
@@ -24,9 +25,26 @@
     self.layer.masksToBounds = cornerRadius > 0;
 }
 
+- (void)setBorder:(UIColor *)color width:(CGFloat)width
+{
+    self.layer.borderColor = [color CGColor];
+    self.layer.borderWidth = width;
+}
+
+- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius
+{
+    CALayer *l = self.layer;
+    l.shadowColor = [color CGColor];
+    l.shadowOpacity = opacity;
+    l.shadowOffset = offset;
+    l.shadowRadius = blurRadius;
+    l.shadowPath = [[UIBezierPath bezierPathWithRect:l.bounds] CGPath];
+}
 
 
-#pragma mark - Frame
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Frame
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (void)setX:(CGFloat)x
 {
@@ -83,10 +101,11 @@
 }
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Controller
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-#pragma mark -
-
-- (UIViewController *)currVC
+- (UIViewController *)theVC
 {
     for (UIView *next = [self superview]; next; next = next.superview)
     {
@@ -99,7 +118,23 @@
     return nil;
 }
 
+- (id)subviewWithClassName:(NSString *)className
+{
+    Class aClass = NSClassFromString(className);
+    for (UIView *subView in self.subviews)
+    {
+        if ([subView isKindOfClass:aClass])
+        {
+            return subView;
+        }
+    }
+    return nil;
+}
 
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Constraint
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSLayoutConstraint *)contantTop
 {
@@ -116,7 +151,6 @@
     }
     return nil;
 }
-
 - (NSLayoutConstraint *)contantBottom
 {
     UIView *next = [self superview];
@@ -133,6 +167,17 @@
     return nil;
 }
 
+- (NSLayoutConstraint *)contantWidth
+{
+    for (NSLayoutConstraint *subConstraint in self.constraints)
+    {
+        if (subConstraint.firstAttribute == NSLayoutAttributeWidth)
+        {
+            return subConstraint;
+        }
+    }
+    return nil;
+}
 - (NSLayoutConstraint *)contantHeight
 {
     for (NSLayoutConstraint *subConstraint in self.constraints)
@@ -146,6 +191,10 @@
 }
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Snapshot
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 - (UIImage *)snapshot
 {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
@@ -153,37 +202,17 @@
     UIImage *curImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return curImage;
-    
-
 }
 
-- (id)subviewWithClassName:(NSString *)className
+- (UIImage *)snapshotWithRender
 {
-    for (UIView *subView in self.subviews)
-    {
-        if ([subView isKindOfClass:NSClassFromString(className)])
-        {
-            return subView;
-        }
-    }
-    return nil;
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.layer renderInContext:context];
+    UIImage *curImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return curImage;
 }
 
-
-- (void)setBorder:(UIColor *)color width:(CGFloat)width
-{
-    self.layer.borderColor = [color CGColor];
-    self.layer.borderWidth = width;
-}
-
-- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius
-{
-    CALayer *l = self.layer;
-    l.shadowColor = [color CGColor];
-    l.shadowOpacity = opacity;
-    l.shadowOffset = offset;
-    l.shadowRadius = blurRadius;
-    l.shadowPath = [[UIBezierPath bezierPathWithRect:l.bounds] CGPath];
-}
 
 @end

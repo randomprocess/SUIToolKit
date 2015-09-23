@@ -11,8 +11,9 @@
 @interface NSDate (SUIExt)
 
 
-
-#pragma mark - Data component
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Data Component
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSInteger)currYear;
 - (NSInteger)currMonth;
@@ -23,9 +24,9 @@
 - (NSInteger)currAge;
 
 
-
-
-#pragma mark - Date formate
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Date Formate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSString *)stringFormat:(NSString *)format;
 

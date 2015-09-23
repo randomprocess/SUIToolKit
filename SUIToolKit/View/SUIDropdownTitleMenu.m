@@ -7,6 +7,7 @@
 //
 
 #import "SUIDropdownTitleMenu.h"
+#import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "SUIToolKitConst.h"
 #import "SUITool.h"
@@ -327,7 +328,7 @@
         NSMutableArray *titleAry = [NSMutableArray array];
         for (UIView *curView in [self currMenuViews])
         {
-            UIImage *curImage = [self snapshot:curView];
+            UIImage *curImage = [curView snapshotWithRender];
             if (curImage.size.height > tMenuView_MaxHeight) {
                 [titleAry addObject:[curImage toFitHeight:tMenuView_MaxHeight]];
             } else {
@@ -339,15 +340,6 @@
     return _currTitles;
 }
 
-- (UIImage *)snapshot:(UIView *)curView
-{
-    UIGraphicsBeginImageContextWithOptions(curView.bounds.size, NO, [[UIScreen mainScreen] scale]);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [curView.layer renderInContext:context];
-    UIImage *curImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return curImage;
-}
 
 - (NSArray *)currMenuViews
 {

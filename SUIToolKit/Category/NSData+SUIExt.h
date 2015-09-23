@@ -11,6 +11,10 @@
 @interface NSData (SUIExt)
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Base64
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 - (NSString *)base64EncodedString;
 - (NSString *)base64DecodedString;
 - (NSData *)base64EncodedData;

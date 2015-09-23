@@ -114,9 +114,9 @@
         [self.currTextView scrollRangeToVisible:self.currTextView.selectedRange];
         self.curHeight = newHeight;
         
-        if ([self.bsDelegate respondsToSelector:@selector(handlerAction:cModel:)])
-        {
-            [self.bsDelegate handlerAction:self.currTextView cModel:nil];
+        UIViewController *currVC = self.theVC;
+        if (currVC.destDoAction) {
+            currVC.destDoAction(self.currTextView, nil);
         }
     }
 }

@@ -12,6 +12,10 @@
 @implementation UIImage (SUIExt)
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Fit Size
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 - (UIImage *)toFitWidth:(CGFloat)maxWidth
 {
     CGFloat btWidth = 0;
@@ -88,6 +92,9 @@
 }
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Blend
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (UIImage *)imageWithTintColo:(UIColor *)tintColor
 {
@@ -119,7 +126,6 @@
     
     return tintedImage;
 }
-
 
 
 @end
