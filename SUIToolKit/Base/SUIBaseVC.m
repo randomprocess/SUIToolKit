@@ -7,7 +7,7 @@
 //
 
 #import "SUIBaseVC.h"
-#import "UIViewController+SUIExt.h"
+#import "SUITableExten.h"
 
 @implementation SUIBaseVC
 

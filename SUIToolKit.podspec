@@ -25,17 +25,25 @@ Pod::Spec.new do |s|
 
   s.subspec 'Category' do |ss|
     ss.dependency 'SUIToolKit/Tool'
-    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
     ss.source_files = 'SUIToolKit/Category/*.{h,m}'
+  end
+
+  s.subspec 'Exten' do |ss|
+    ss.dependency 'SUIToolKit/Tool'
+    ss.dependency 'SUIToolKit/Category'
+    ss.dependency 'DZNEmptyDataSet', '~> 1.7'
+    ss.source_files = 'SUIToolKit/Exten/*.{h,m}'
   end
 
   s.subspec 'Base' do |ss|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Category'
+    ss.dependency 'SUIToolKit/Exten'
     ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
     ss.dependency 'MagicalRecord', '~> 2.3.0'
+    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
     ss.source_files = 'SUIToolKit/Base/*.{h,m}'
   end
 
@@ -44,7 +52,6 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Base'
     ss.dependency 'SUIToolKit/Category'
     ss.dependency 'SDWebImage', '~> 3.7.3'
-    ss.dependency 'DZNEmptyDataSet', '~> 1.7'
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
 

@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MGSwipeTableCell.h"
 
+@class SUIBaseCell;
+
+typedef NS_ENUM(NSInteger, SUISwipeDirection) {
+    SUISwipeDirectionToRight = 0,
+    SUISwipeDirectionToLeft = 1
+};
+
+typedef NSArray *(^SUISwipeTableCellButtonsBlock)(SUIBaseCell *cCell, SUISwipeDirection cDirection, MGSwipeSettings *cSwipeSettings, MGSwipeExpansionSettings *expansionSettings);
+typedef BOOL (^SUISwipeTableCellDidTapBtnBlock)(SUIBaseCell *cCell, NSInteger cIndex, SUISwipeDirection cDirection);
+
 
 @interface SUIBaseCell : MGSwipeTableCell
 
@@ -27,5 +37,20 @@
  *  不需要计算动态高度, 则全部写在重写的这个方法中
  */
 - (void)displayWithCurrModel:(id)cModel;
+
+@end
+
+
+@interface SUISwipeTableCell : NSObject <MGSwipeTableCellDelegate>
+
+- (void)buttons:(SUISwipeTableCellButtonsBlock)cb; // 返回@[UIButton]
+- (void)didTapBtn:(SUISwipeTableCellDidTapBtnBlock)cb;
+
+@end
+
+
+@interface UITableView (SUISwipeTableCell)
+
+@property (nonatomic,strong) SUISwipeTableCell *swipeTableCell;
 
 @end

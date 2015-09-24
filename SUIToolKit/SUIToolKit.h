@@ -72,7 +72,6 @@
 #import "SUIAdaptTextView.h"
 #import "SUIEmojiView.h"
 #import "SUIEmptyDataSet.h"
-#import "SUISwipeTableCell.h"
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
