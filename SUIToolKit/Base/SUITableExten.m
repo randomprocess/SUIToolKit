@@ -15,6 +15,7 @@
 #import "UIView+SUIExt.h"
 #import "MJRefresh.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "SUIRequest.h"
 
 
 @interface SUITableExten ()
@@ -29,6 +30,7 @@
 @property (nonatomic,strong) NSMutableArray *currSearchDataAry;
 
 @property (nonatomic,copy) SUITableExtenRequestBlock requestBlock;
+@property (nonatomic,copy) SUITableExtenRequestCompletionBlock requestCompletionBlock;
 @property (nonatomic,copy) SUITableExtenCellIdentifiersBlock cellIdentifiersBlock;
 
 @property (nonatomic,copy) SUITableExtenCellForRowBlock cellForRowBlock;
@@ -50,7 +52,12 @@
 
 - (void)request:(SUITableExtenRequestBlock)cb
 {
+    [self request:cb completion:nil];
+}
+- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion
+{
     self.requestBlock = cb;
+    self.requestCompletionBlock = completion;
 }
 - (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb
 {
@@ -599,12 +606,40 @@
 {
     self.loadMoreData = NO;
     self.pageIndex = 0;
-    self.tableExten.requestBlock(NO);
+    [self handlerLoadCurrData];
+//    self.tableExten.requestBlock(NO);
 }
 - (void)handlerLoadMoreData
 {
     self.loadMoreData = YES;
-    self.tableExten.requestBlock(YES);
+    [self handlerLoadCurrData];
+//    self.tableExten.requestBlock(YES);
+}
+
+- (void)handlerLoadCurrData
+{
+    if (self.tableExten.requestBlock)
+    {
+        NSMutableDictionary *currParameters = [NSMutableDictionary dictionary];
+        NSMutableArray *currNewDataAry = [NSMutableArray array];
+        self.tableExten.requestBlock(currParameters, nil, nil);
+        
+        uWeakSelf
+        [[[SUIRequest requestData:currParameters]
+        parser:^NSArray *(id cResponseObject) {
+            weakSelf.tableExten.requestBlock(nil, cResponseObject, currNewDataAry);
+            return currNewDataAry;
+        } refreshTable:self]
+        completion:^(NSError *cError, id cResponseObject) {
+            if (weakSelf.tableExten.requestCompletionBlock) {
+                weakSelf.tableExten.requestCompletionBlock(cError, cResponseObject);
+            }
+        }];
+    }
+    else
+    {
+        uLogError(@"load data without ^request");
+    }
 }
 
 - (void)refreshTable:(NSArray *)newDataAry

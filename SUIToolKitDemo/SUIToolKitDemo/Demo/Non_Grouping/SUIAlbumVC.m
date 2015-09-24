@@ -25,27 +25,16 @@
      **************************************************************************/
     
     uWeakSelf
-    [self.currTableView.tableExten request:^(BOOL loadMoreData) {
-        
-        SUIRequest *curRequest = [SUIRequest requestData:@{
-                                                           @"kw": @"猫"
-                                                           }];
-        
-        [curRequest parser:^NSArray *(id responseObject) {
-            NSDictionary *curDict = responseObject;
-            NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:curDict[@"albums"]];
-            
-            for (SUIAlbumMD *aMd in albumAry) {
-                uLog(@"%@", aMd);
-            }
-            return @[albumAry];
-        } refreshTable:weakSelf.currTableView];
-        
-        [[curRequest identifier:@"SUIAlbumVC"]
-        completion:^(NSError *error, id responseObject) {
-            [weakSelf loadingViewDissmiss];
-        }];
-        
+    [self.currTableView.tableExten request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
+        cParameters[@"kw"] = @"猫";
+        if (cResponseObject)
+        {
+            gCurrDict(cResponseObject);
+            NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:currDict[@"albums"]];
+            cNewDataAry[cNewDataAry.count] = albumAry;
+        }
+    } completion:^(NSError *cError, id cResponseObject) {
+        [weakSelf loadingViewDissmiss];
     }];
 }
 

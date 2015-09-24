@@ -16,7 +16,9 @@ typedef enum : NSUInteger {
     SUITableExtenTypeFetch
 } SUITableExtenType;
 
-typedef void (^SUITableExtenRequestBlock)(BOOL loadMoreData);
+typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
+typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cResponseObject);
+
 typedef NSArray *(^SUITableExtenCellIdentifiersBlock)(void);
 
 typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(NSIndexPath *cIndexPath, id cModel);
@@ -46,6 +48,7 @@ typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFet
  *  @param cb 请求数据使用SUIRequestData类
  */
 - (void)request:(SUITableExtenRequestBlock)cb;
+- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion;
 /**
  *  tableView分组时将cell的类名对应写在这个数组内, 格式为[[""]]
  *

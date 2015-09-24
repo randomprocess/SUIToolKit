@@ -77,6 +77,9 @@
 #define gAdapt(__length) round( kScreenWidth / 320.0 * __length )
 #define gDegree(__para) __para*M_PI/180.0
 
+#define gCurrDict(__obj) NSDictionary *currDict = (NSDictionary *)__obj;
+#define gCurrAry(__Obj) NSArray *currAry = (NSArray *)__obj;
+
 
 // _____________________________________________________________________________
 

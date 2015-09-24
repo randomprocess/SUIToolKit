@@ -23,7 +23,13 @@ static dispatch_queue_t parser_data_queue() {
 
 @interface SUIRequest ()
 
-@property (nonatomic,assign,getter=isCancelTask) BOOL cancelTask;
+@property (nonatomic,weak) NSURLSessionDataTask *currTask;
+@property (nonatomic,copy) NSString *identifier;
+@property (nonatomic,copy) SUIRequestParserBlock dataParserBlock;
+@property (nonatomic,copy) SUIRequestRefreshTableBlock refreshBlock;
+@property (nonatomic,weak) UITableView *refreshTableView;
+@property (nonatomic,copy) SUIRequestCompletionBlock completionBlock;
+@property (nonatomic,assign) BOOL cancelTask;
 
 @end
 
@@ -41,11 +47,10 @@ static dispatch_queue_t parser_data_queue() {
      parameters:parameters
      completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
          
-         if (curRequest.cancelTask) {
-             return;
-         }
+         if (curRequest.cancelTask) return;
          
-         if (error == nil) {
+         if (error == nil)
+         {
              uLogInfo("========== response ==========\n%@\n", responseObject);
              
              if (curRequest.dataParserBlock)
@@ -100,6 +105,8 @@ static dispatch_queue_t parser_data_queue() {
                  curRequest.completionBlock(error, responseObject);
              }
          }
+         
+         [[[SUIBaseConfig sharedConfig] requesets] removeObject:curRequest];
      }];
     
     [[[SUIBaseConfig sharedConfig] requesets] addObject:curRequest];
@@ -134,8 +141,22 @@ static dispatch_queue_t parser_data_queue() {
 
 - (instancetype)parser:(SUIRequestRefreshTableBlock)cb refreshTable:(UITableView *)cTableView;
 {
+    if (cTableView)
+    {
+        NSMutableArray *curRequests = [[SUIBaseConfig sharedConfig] requesets];
+        for (SUIRequest *curRequest in curRequests)
+        {
+            if (curRequest.refreshTableView == cTableView)
+            {
+                [curRequest cancel];
+                break;
+            }
+        }
+    }
+    
     self.refreshBlock = cb;
     self.refreshTableView = cTableView;
+    
     return self;
 }
 
@@ -145,14 +166,12 @@ static dispatch_queue_t parser_data_queue() {
     return self;
 }
 
-
 - (void)cancel
 {
     self.cancelTask = YES;
     [self.currTask cancel];
     
-    NSMutableArray *curRequests = [[SUIBaseConfig sharedConfig] requesets];
-    [curRequests removeObject:self];
+    [[[SUIBaseConfig sharedConfig] requesets] removeObject:self];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "SUIAdaptTextView.h"
 #import "SUIToolKitConst.h"
 #import "UIView+SUIExt.h"
+#import "UIViewController+SUIExt.h"
 
 
 #define tAdaptTextView_TextInset_TopBottom 1

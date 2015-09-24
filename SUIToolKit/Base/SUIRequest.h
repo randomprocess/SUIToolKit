@@ -9,19 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef void (^SUIRequestParserBlock)(id responseObject);
-typedef NSArray * (^SUIRequestRefreshTableBlock)(id responseObject);
-typedef void (^SUIRequestCompletionBlock)(NSError *error, id responseObject);
+typedef void (^SUIRequestParserBlock)(id cResponseObject);
+typedef NSArray * (^SUIRequestRefreshTableBlock)(id cResponseObject);
+typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 
 @interface SUIRequest : NSObject
-
-@property (nonatomic,weak) NSURLSessionDataTask *currTask;
-@property (nonatomic,copy) NSString *identifier;
-@property (nonatomic,copy) SUIRequestParserBlock dataParserBlock;
-@property (nonatomic,copy) SUIRequestRefreshTableBlock refreshBlock;
-@property (nonatomic,weak) UITableView *refreshTableView;
-@property (nonatomic,copy) SUIRequestCompletionBlock completionBlock;
 
 
 + (instancetype)requestData:(NSDictionary *)parameters;
