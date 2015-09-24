@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import <CoreData/CoreData.h>
 
 @class SUIBaseCell;
 
