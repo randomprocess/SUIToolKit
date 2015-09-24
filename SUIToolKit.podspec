@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
   s.subspec 'Exten' do |ss|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Category'
+    ss.dependency 'SDWebImage', '~> 3.7.3'
     ss.dependency 'DZNEmptyDataSet', '~> 1.7'
     ss.source_files = 'SUIToolKit/Exten/*.{h,m}'
   end
@@ -51,10 +52,8 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Base'
     ss.dependency 'SUIToolKit/Category'
-    ss.dependency 'SDWebImage', '~> 3.7.3'
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
-
 
   s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore'
 

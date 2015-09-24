@@ -23,8 +23,9 @@
 		6D16EF371BB3DA650034052C /* SUIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF341BB3DA650034052C /* SUIRequest.m */; };
 		6D16EF381BB3DA650034052C /* SUITableExten.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF361BB3DA650034052C /* SUITableExten.m */; };
 		6D16EF3B1BB3DDB90034052C /* SUIDropdownTitleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF391BB3DDB90034052C /* SUIDropdownTitleMenu.m */; };
+		6D16EF3E1BB3E3A80034052C /* SUIEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF3C1BB3E3A80034052C /* SUIEmojiView.m */; };
+		6D16EF411BB3E3CD0034052C /* SUIPopupObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF401BB3E3CD0034052C /* SUIPopupObject.m */; };
 		6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */; };
-		6D5706CF1B7B4DC800E7228F /* SUIEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5706CE1B7B4DC800E7228F /* SUIEmojiView.m */; };
 		6D5952551B7313B700BB9A62 /* UIActionSheet+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5952541B7313B700BB9A62 /* UIActionSheet+SUIExt.m */; };
 		6D67E7681B70971200CD691D /* SUIAlbumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7621B70971200CD691D /* SUIAlbumVC.m */; };
 		6D67E7691B70971200CD691D /* SUIAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7641B70971200CD691D /* SUIAlbumCell.m */; };
@@ -43,7 +44,6 @@
 		6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */; };
 		6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */; };
 		6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */; };
-		6D9AEFEB1B81885600227D62 /* SUIPopupObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */; };
 		6DA091D21B3A46AC00DA06A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091D11B3A46AC00DA06A3 /* main.m */; };
 		6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091D91B3A46AC00DA06A3 /* Main.storyboard */; };
 		6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */; };
@@ -104,10 +104,12 @@
 		6D16EF361BB3DA650034052C /* SUITableExten.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITableExten.m; sourceTree = "<group>"; };
 		6D16EF391BB3DDB90034052C /* SUIDropdownTitleMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDropdownTitleMenu.m; sourceTree = "<group>"; };
 		6D16EF3A1BB3DDB90034052C /* SUIDropdownTitleMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDropdownTitleMenu.h; sourceTree = "<group>"; };
+		6D16EF3C1BB3E3A80034052C /* SUIEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIEmojiView.m; sourceTree = "<group>"; };
+		6D16EF3D1BB3E3A80034052C /* SUIEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmojiView.h; sourceTree = "<group>"; };
+		6D16EF3F1BB3E3CC0034052C /* SUIPopupObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIPopupObject.h; sourceTree = "<group>"; };
+		6D16EF401BB3E3CD0034052C /* SUIPopupObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIPopupObject.m; sourceTree = "<group>"; };
 		6D5706CA1B7B3C8F00E7228F /* SUIChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIChatVC.h; sourceTree = "<group>"; };
 		6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIChatVC.m; sourceTree = "<group>"; };
-		6D5706CD1B7B4DC800E7228F /* SUIEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmojiView.h; sourceTree = "<group>"; };
-		6D5706CE1B7B4DC800E7228F /* SUIEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIEmojiView.m; sourceTree = "<group>"; };
 		6D5952531B7313B700BB9A62 /* UIActionSheet+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+SUIExt.h"; sourceTree = "<group>"; };
 		6D5952541B7313B700BB9A62 /* UIActionSheet+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+SUIExt.m"; sourceTree = "<group>"; };
 		6D67E7621B70971200CD691D /* SUIAlbumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumVC.m; sourceTree = "<group>"; };
@@ -144,8 +146,6 @@
 		6D9470A41B5E3C8200860B27 /* NSData+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SUIExt.m"; sourceTree = "<group>"; };
 		6D9470A61B5E4AC700860B27 /* NSDictionary+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SUIExt.h"; sourceTree = "<group>"; };
 		6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SUIExt.m"; sourceTree = "<group>"; };
-		6D9AEFE91B81885600227D62 /* SUIPopupObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIPopupObject.h; sourceTree = "<group>"; };
-		6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIPopupObject.m; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DA091D11B3A46AC00DA06A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -236,8 +236,12 @@
 			children = (
 				6D16EF2A1BB3D82E0034052C /* SUIEmptyDataSet.h */,
 				6D16EF2B1BB3D82E0034052C /* SUIEmptyDataSet.m */,
+				6D16EF3F1BB3E3CC0034052C /* SUIPopupObject.h */,
+				6D16EF401BB3E3CD0034052C /* SUIPopupObject.m */,
 				6D16EF3A1BB3DDB90034052C /* SUIDropdownTitleMenu.h */,
 				6D16EF391BB3DDB90034052C /* SUIDropdownTitleMenu.m */,
+				6D16EF3D1BB3E3A80034052C /* SUIEmojiView.h */,
+				6D16EF3C1BB3E3A80034052C /* SUIEmojiView.m */,
 			);
 			path = Exten;
 			sourceTree = "<group>";
@@ -301,14 +305,10 @@
 		6D8E2D271B6F1B9C00A95DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6D9AEFE91B81885600227D62 /* SUIPopupObject.h */,
-				6D9AEFEA1B81885600227D62 /* SUIPopupObject.m */,
 				6D7E36301B79D21C00850832 /* SUIKeyboardFollowView.h */,
 				6D7E36311B79D21C00850832 /* SUIKeyboardFollowView.m */,
 				6DB90E141B7B16260027805F /* SUIAdaptTextView.h */,
 				6DB90E131B7B16260027805F /* SUIAdaptTextView.m */,
-				6D5706CD1B7B4DC800E7228F /* SUIEmojiView.h */,
-				6D5706CE1B7B4DC800E7228F /* SUIEmojiView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -607,13 +607,11 @@
 				6D16EF1B1BB3D33E0034052C /* SUIBaseCell.m in Sources */,
 				6D9470961B5E378900860B27 /* UIViewController+SUIExt.m in Sources */,
 				6D16EF381BB3DA650034052C /* SUITableExten.m in Sources */,
-				6D9AEFEB1B81885600227D62 /* SUIPopupObject.m in Sources */,
 				6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */,
 				6D67E7771B7098D000CD691D /* SUITrackVC.m in Sources */,
 				6D1241421B60C961005DC05F /* SUIBasePushSegue.m in Sources */,
 				6DA5B9AC1B7D818900961BFD /* UIScrollView+SUIExt.m in Sources */,
 				6D9470A21B5E3B8A00860B27 /* NSString+SUIExt.m in Sources */,
-				6D5706CF1B7B4DC800E7228F /* SUIEmojiView.m in Sources */,
 				6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */,
 				6D67E7811B70999C00CD691D /* SUIMainTVC.m in Sources */,
 				6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */,
@@ -621,7 +619,9 @@
 				6D1241471B60C961005DC05F /* SUIHttpClient.m in Sources */,
 				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,
 				6D1241451B60C961005DC05F /* SUIBaseView.m in Sources */,
+				6D16EF411BB3E3CD0034052C /* SUIPopupObject.m in Sources */,
 				6D67E7691B70971200CD691D /* SUIAlbumCell.m in Sources */,
+				6D16EF3E1BB3E3A80034052C /* SUIEmojiView.m in Sources */,
 				6D16EF371BB3DA650034052C /* SUIRequest.m in Sources */,
 				6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */,
 				6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */,

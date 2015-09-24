@@ -11,6 +11,7 @@
 #import "SUIToolKitConst.h"
 #import "SUIBaseConfig.h"
 #import "UIView+SUIExt.h"
+#import "SUITool.h"
 
 
 @implementation UIViewController (SUIExt)

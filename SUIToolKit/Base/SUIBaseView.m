@@ -9,6 +9,7 @@
 #import "SUIBaseView.h"
 #import "SUIToolKitConst.h"
 #import "UIView+SUIExt.h"
+#import "UIViewController+SUIExt.h"
 
 @interface SUIBaseView ()
 
