@@ -23,7 +23,7 @@
 {
     NSAssert([self contantHeight] != nil, @"should add contantHeight");
     
-    self.originHeight = [self contantHeight].constant;
+    _originHeight = [self contantHeight].constant;
     
     uWeakSelf
     [SUITool keyboardDidChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
@@ -52,21 +52,18 @@
 }
 
 - (void)bottomContant:(CGFloat)constant
-{
+{    
     if (constant != [self currContantBottom].constant)
     {
         uWeakSelf
-        [SUITool delay:0.01 cb:^{
-            [UIView animateWithDuration:[SUITool keyboardAnimationDuration]
-                                  delay:0
-                                options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:^{
-                                 [weakSelf currContantBottom].constant = constant;
-                                 [weakSelf layoutIfNeeded];
-                             } completion:^(BOOL finished) {
-                             }];
-            
-        }];
+        [UIView animateWithDuration:[SUITool keyboardAnimationDuration]
+                              delay:0
+                            options:[SUITool keyboardAnimationOptions]
+                         animations:^{
+                             [weakSelf currContantBottom].constant = constant;
+                             [weakSelf layoutIfNeeded];
+                         } completion:^(BOOL finished) {
+                         }];
     }
 }
 

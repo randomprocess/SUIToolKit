@@ -69,6 +69,8 @@ typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkS
 
 + (double)keyboardAnimationDuration;
 
++ (UIViewAnimationOptions)keyboardAnimationOptions;
+
 + (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock;
 
 

@@ -11,7 +11,9 @@
 @interface SUIKeyboardFollowView : SUIBaseView
 
 
-@property (nonatomic,assign) CGFloat originHeight;
+@property (nonatomic,readonly,assign) CGFloat originHeight;
+
+- (NSLayoutConstraint *)currContantBottom;
 
 - (void)bottomContant:(CGFloat)constant;
 

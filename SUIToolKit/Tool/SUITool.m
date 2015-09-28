@@ -28,6 +28,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 @property (nonatomic,assign) BOOL keyboardShow;
 @property (nonatomic,assign) CGFloat keyboardHeight;
 @property (nonatomic,assign) double keyboardAnimationDuration;
+@property (nonatomic,assign) UIViewAnimationOptions keyboardAnimationOptions;
 
 @property (nonatomic,copy) SUIAppStoreVersionCompletionBlock appStoreVersionCompletion;
 @property (nonatomic,strong) NSMutableArray *networkStatusDidChangeBlockArray;
@@ -160,14 +161,13 @@ NSString *const SUICurr_Version = @"Curr_Version";
     CGRect keyboardRect = [[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.keyboardHeight = keyboardRect.size.height;
     self.keyboardAnimationDuration = [[noti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    self.keyboardAnimationOptions = [[noti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     uLogInfo(@"keyboard will show Height > %f <", self.keyboardHeight);
-    
-    UIViewAnimationOptions curOptions = [[noti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
     for (NSInteger idx=0; idx<self.keyboardDidChangeBlockArray.count; idx++)
     {
         SUIKeyboardDidChangeBlock changeBlock = self.keyboardDidChangeBlockArray[idx];
-        if (!changeBlock(YES, self.keyboardHeight, curOptions, self.keyboardAnimationDuration)) {
+        if (!changeBlock(YES, self.keyboardHeight, self.keyboardAnimationOptions, self.keyboardAnimationDuration)) {
             [self.keyboardDidChangeBlockArray removeObject:changeBlock];
             idx --;
         }
@@ -182,12 +182,10 @@ NSString *const SUICurr_Version = @"Curr_Version";
         self.keyboardHeight = 0;
         uLogInfo(@"keyboard will show hide");
         
-        UIViewAnimationOptions curOptions = [[noti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-        
         for (NSInteger idx=0; idx<self.keyboardDidChangeBlockArray.count; idx++)
         {
             SUIKeyboardDidChangeBlock changeBlock = self.keyboardDidChangeBlockArray[idx];
-            if (!changeBlock(NO, self.keyboardHeight, curOptions, self.keyboardAnimationDuration)) {
+            if (!changeBlock(NO, self.keyboardHeight, self.keyboardAnimationOptions, self.keyboardAnimationDuration)) {
                 [self.keyboardDidChangeBlockArray removeObject:changeBlock];
                 idx --;
             }
@@ -288,6 +286,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
 {
     double curAnimationDuration = [[self sharedInstance] keyboardAnimationDuration];
     return (curAnimationDuration > 0) ? curAnimationDuration : 0.25;
+}
+
++ (UIViewAnimationOptions)keyboardAnimationOptions
+{
+    return [[self sharedInstance] keyboardAnimationOptions];
 }
 
 + (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock

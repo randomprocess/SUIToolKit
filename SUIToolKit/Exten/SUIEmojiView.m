@@ -772,7 +772,7 @@
         uWeakSelf
         [UIView animateWithDuration:[SUITool keyboardAnimationDuration]
                               delay:0
-                            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                            options:[SUITool keyboardAnimationOptions]
                          animations:^{
                              weakSelf.mainView.y = curEmojiViewY;
                          } completion:^(BOOL finished) {

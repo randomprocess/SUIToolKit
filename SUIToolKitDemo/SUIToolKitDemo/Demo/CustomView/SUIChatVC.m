@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet SUIAdaptTextView *cTextView;
 @property (weak, nonatomic) IBOutlet SUIKeyboardFollowView *curKeyboardFollowView;
-@property (strong, nonatomic) IBOutlet SUIEmojiView *cEmojiView;
 @property (weak, nonatomic) IBOutlet UIButton *faceBtn;
 
 @end
@@ -33,7 +32,7 @@
     [SUITool keyboardDidChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
         if (showKeyborad)
         {
-            [weakSelf.cEmojiView dismiss];
+            [weakSelf.emojiView dismiss];
             if (weakSelf.faceBtn.selected) {
                 weakSelf.faceBtn.selected = NO;
             }
@@ -106,7 +105,7 @@
         uWeakSelf
         [self.currTableView.tableExten willBeginDragging:^{
             [weakSelf.cTextView dissmissKeyboard];
-            [weakSelf.cEmojiView dismiss];
+            [weakSelf.emojiView dismiss];
             [weakSelf.curKeyboardFollowView bottomContant:0];
             if (weakSelf.faceBtn.selected) {
                 weakSelf.faceBtn.selected = NO;
@@ -121,16 +120,20 @@
     sender.selected = !sender.selected;
     
     if (sender.selected) {
-        [self.cEmojiView show];
-        if (self.cTextView) {
-            [self.cTextView dissmissKeyboard];
-        }
-        [self.curKeyboardFollowView bottomContant:[self.cEmojiView currHeight]];
+        [self.emojiView show];
+        CGFloat curKeyboardBottom = self.curKeyboardFollowView.superview.height - self.curKeyboardFollowView.y - self.curKeyboardFollowView.originHeight;
+        if (self.cTextView) [self.cTextView dissmissKeyboard];
+        [self.curKeyboardFollowView currContantBottom].constant = curKeyboardBottom;
+        [self.curKeyboardFollowView.layer removeAllAnimations];
+        [self.curKeyboardFollowView layoutIfNeeded];
+        [self.curKeyboardFollowView bottomContant:[self.emojiView currHeight]];
     } else {
-        [self.cEmojiView dismiss];
+        [self.emojiView dismiss];
         [self.curKeyboardFollowView bottomContant:0];
     }
 }
+
+
 
 
 @end
