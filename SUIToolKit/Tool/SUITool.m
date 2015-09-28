@@ -9,6 +9,8 @@
 #import "SUITool.h"
 #import "SUIToolKitConst.h"
 #import "SUIHttpClient.h"
+#import "Reachability.h"
+#import "AFNetworkReachabilityManager.h"
 
 NSString *const SUIEver_Launched = @"Ever_Launched";
 NSString *const SUICurr_Version = @"Curr_Version";
@@ -18,14 +20,17 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 @interface SUITool ()
 
-@property (nonatomic,assign,getter=isFirstLaunched) BOOL firstLaunched;
+@property (nonatomic,assign) BOOL firstLaunched;
 @property (nonatomic,copy) NSString *everVersion;
 
-@property (nonatomic,assign,getter=isKeyboardShow) BOOL keyboardShow;
+@property (nonatomic,assign) SUINetworkStatus networkStatus;
+
+@property (nonatomic,assign) BOOL keyboardShow;
 @property (nonatomic,assign) CGFloat keyboardHeight;
 @property (nonatomic,assign) double keyboardAnimationDuration;
 
 @property (nonatomic,copy) SUIAppStoreVersionCompletionBlock appStoreVersionCompletion;
+@property (nonatomic,strong) NSMutableArray *networkStatusDidChangeBlockArray;
 @property (nonatomic,strong) NSMutableArray *keyboardDidChangeBlockArray;
 
 @end
@@ -72,6 +77,68 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 // _____________________________________________________________________________
 
+@implementation SUITool (SUINetworkStatus)
+
+- (void)networkReachable
+{
+    Reachability *reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    self.networkStatus = (SUINetworkStatus)reach.currentReachabilityStatus;
+    
+    uLogInfo(@"network Status ⤭ %@ ⤪", reach.currentReachabilityString);
+    
+    AFNetworkReachabilityManager *afNetworkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    [afNetworkReachabilityManager startMonitoring];
+    
+    [gNotificationCenter addObserver:self selector:@selector(afNetworkStatusChanged:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
+}
+
+- (void)afNetworkStatusChanged:(NSNotification *)notifi
+{
+    NSDictionary *curDict = notifi.userInfo;
+    
+    NSInteger curStatus = [curDict[AFNetworkingReachabilityNotificationStatusItem] integerValue];
+    SUINetworkStatus eveStatus = self.networkStatus;
+    
+    uLogInfo(@"network status changed EverStatus ⤭ %@ ⤪  CurrStatus ⤭ %@ ⤪", [self networkReachabilityStatusString:self.networkStatus], [self networkReachabilityStatusString:curStatus]);
+    
+    self.networkStatus = curStatus;
+    
+    for (NSInteger idx=0; idx<self.networkStatusDidChangeBlockArray.count; idx++)
+    {
+        SUINetworkDidChangeBlock changeBlock = self.networkStatusDidChangeBlockArray[idx];
+        if (!changeBlock(eveStatus, curStatus)) {
+            [self.networkStatusDidChangeBlockArray removeObject:changeBlock];
+            idx --;
+        }
+    }
+}
+
+- (NSString *)networkReachabilityStatusString:(NSInteger)cStatus
+{
+    switch (self.networkStatus) {
+        case AFNetworkReachabilityStatusNotReachable:
+            return @"NotReachable";
+            break;
+        case AFNetworkReachabilityStatusReachableViaWWAN:
+            return @"ViaWWAN";
+            break;
+        case AFNetworkReachabilityStatusReachableViaWiFi:
+            return @"ViaWiFi";
+            break;
+        default:
+            return @"Unknown";
+            break;
+    }
+}
+
+
+@end
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Keyboard
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
 @implementation SUITool (SUIKeyboard)
 
 - (void)listenKeyboard
@@ -101,13 +168,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
     {
         SUIKeyboardDidChangeBlock changeBlock = self.keyboardDidChangeBlockArray[idx];
         if (!changeBlock(YES, self.keyboardHeight, curOptions, self.keyboardAnimationDuration)) {
-            
-            uLog(@"%@", self.keyboardDidChangeBlockArray);
-            
             [self.keyboardDidChangeBlockArray removeObject:changeBlock];
-            
-            uLog(@"%@", self.keyboardDidChangeBlockArray);
-
             idx --;
         }
     }
@@ -127,6 +188,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
         {
             SUIKeyboardDidChangeBlock changeBlock = self.keyboardDidChangeBlockArray[idx];
             if (!changeBlock(NO, self.keyboardHeight, curOptions, self.keyboardAnimationDuration)) {
+                [self.keyboardDidChangeBlockArray removeObject:changeBlock];
                 idx --;
             }
         }
@@ -171,7 +233,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 
 + (BOOL)firstLaunched
 {
-    return [[self sharedInstance] isFirstLaunched];
+    return [[self sharedInstance] firstLaunched];
 }
 
 + (NSString *)everVersion
@@ -180,11 +242,41 @@ NSString *const SUICurr_Version = @"Curr_Version";
 }
 
 
+#pragma mark - NetworkStatus
+
++ (SUINetworkStatus)networkStatus
+{
+    return [[self sharedInstance] networkStatus];
+}
+
++ (void)networkStatusDidChange:(id)target cb:(SUINetworkWillChangeBlock)changeBlock;
+{
+    typeof(self) __weak weakTarget = target;
+    SUINetworkDidChangeBlock networkDidChanged = ^(SUINetworkStatus everStatu, SUINetworkStatus currStatu) {
+        if (weakTarget) {
+            changeBlock(everStatu, currStatu);
+            return YES;
+        } else {
+            return NO;
+        }
+    };
+    [[[self sharedInstance] networkStatusDidChangeBlockArray] addObject:networkDidChanged];
+}
+
+- (NSMutableArray *)networkStatusDidChangeBlockArray
+{
+    if (!_networkStatusDidChangeBlockArray) {
+        _networkStatusDidChangeBlockArray = [NSMutableArray array];
+    }
+    return _networkStatusDidChangeBlockArray;
+}
+
+
 #pragma mark - Keyboard
 
 + (BOOL)keyboardShow
 {
-    return [[self sharedInstance] isKeyboardShow];
+    return [[self sharedInstance] keyboardShow];
 }
 
 + (CGFloat)keyboardHeight
@@ -198,7 +290,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
     return (curAnimationDuration > 0) ? curAnimationDuration : 0.25;
 }
 
-+ (void)keyboardWillChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock
++ (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock
 {
     typeof(self) __weak weakTarget = target;
     SUIKeyboardDidChangeBlock keyboardDidChanged = ^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {

@@ -9,13 +9,22 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+typedef NS_ENUM(NSInteger, SUINetworkStatus) {
+    SUINetworkStatusUnknown             = -1,
+    SUINetworkStatusNotReachable        = 0,
+    SUINetworkStatusReachableViaWWAN    = 1,
+    SUINetworkStatusReachableViaWiFi    = 2
+};
+
 typedef void (^SUIDelayTask)(BOOL cancel);
 typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appVersion);
 typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
 typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
+typedef void (^SUINetworkWillChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
+typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
 
 @interface SUITool : NSObject
-
 
 #pragma mark - Init
 
@@ -37,6 +46,17 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 + (NSString *)everVersion;
 
 
+#pragma mark - NetworkStatus
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  NetworkStatus
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
++ (SUINetworkStatus)networkStatus;
+
++ (void)networkStatusDidChange:(id)target cb:(SUINetworkWillChangeBlock)changeBlock;
+
+
 #pragma mark - Keyboard
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -49,7 +69,7 @@ typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHei
 
 + (double)keyboardAnimationDuration;
 
-+ (void)keyboardWillChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock;
++ (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock;
 
 
 #pragma mark - Unique identifier

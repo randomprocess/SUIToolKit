@@ -15,3 +15,5 @@ pod 'DZNEmptyDataSet', '~> 1.7'
 pod 'SDWebImage', '~> 3.7.3'
 
 pod 'ReactiveCocoa', '~> 2.5'
+
+pod 'Reachability', '~> 3.2'

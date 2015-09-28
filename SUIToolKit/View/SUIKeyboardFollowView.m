@@ -26,7 +26,7 @@
     self.originHeight = [self contantHeight].constant;
     
     uWeakSelf
-    [SUITool keyboardWillChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
+    [SUITool keyboardDidChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
         [UIView animateWithDuration:duration
                               delay:0
                             options:options
