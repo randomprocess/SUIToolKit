@@ -59,7 +59,6 @@
 #import "SUIEmptyDataSet.h"
 #import "SUIPopupObject.h"
 #import "SUIDropdownTitleMenu.h"
-#import "SUIEmojiView.h"
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*

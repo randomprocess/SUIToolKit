@@ -56,6 +56,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
 
-  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore'
+  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore', 'MobileCoreServices'
 
 end

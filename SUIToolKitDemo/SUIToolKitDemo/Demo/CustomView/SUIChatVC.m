@@ -7,6 +7,7 @@
 //
 
 #import "SUIChatVC.h"
+#import "SUIEmojiView.h"
 
 @interface SUIChatVC ()
 
@@ -122,7 +123,7 @@
     if (sender.selected) {
         [self.emojiView show];
         CGFloat curKeyboardBottom = self.curKeyboardFollowView.superview.height - self.curKeyboardFollowView.y - self.curKeyboardFollowView.originHeight;
-        if (self.cTextView) [self.cTextView dissmissKeyboard];
+        [self.cTextView dissmissKeyboard];
         [self.curKeyboardFollowView currContantBottom].constant = curKeyboardBottom;
         [self.curKeyboardFollowView.layer removeAllAnimations];
         [self.curKeyboardFollowView layoutIfNeeded];

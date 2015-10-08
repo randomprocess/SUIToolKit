@@ -18,6 +18,7 @@
 		6D1241481B60C961005DC05F /* SUITool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12413E1B60C961005DC05F /* SUITool.m */; };
 		6D1241561B60E04A005DC05F /* UIButton+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1241551B60E04A005DC05F /* UIButton+SUIExt.m */; };
 		6D1241591B60E5CC005DC05F /* UIImage+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1241581B60E5CC005DC05F /* UIImage+SUIExt.m */; };
+		6D13F7B21BBA5D8800340FE0 /* SUIImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D13F7B11BBA5D8800340FE0 /* SUIImagePicker.m */; };
 		6D16EF1B1BB3D33E0034052C /* SUIBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF191BB3D33E0034052C /* SUIBaseCell.m */; };
 		6D16EF2C1BB3D82E0034052C /* SUIEmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF2B1BB3D82E0034052C /* SUIEmptyDataSet.m */; };
 		6D16EF371BB3DA650034052C /* SUIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF341BB3DA650034052C /* SUIRequest.m */; };
@@ -94,6 +95,8 @@
 		6D1241551B60E04A005DC05F /* UIButton+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SUIExt.m"; sourceTree = "<group>"; };
 		6D1241571B60E5CC005DC05F /* UIImage+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SUIExt.h"; sourceTree = "<group>"; };
 		6D1241581B60E5CC005DC05F /* UIImage+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SUIExt.m"; sourceTree = "<group>"; };
+		6D13F7B01BBA5D8800340FE0 /* SUIImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIImagePicker.h; sourceTree = "<group>"; };
+		6D13F7B11BBA5D8800340FE0 /* SUIImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIImagePicker.m; sourceTree = "<group>"; };
 		6D16EF191BB3D33E0034052C /* SUIBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseCell.m; sourceTree = "<group>"; };
 		6D16EF1A1BB3D33E0034052C /* SUIBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseCell.h; sourceTree = "<group>"; };
 		6D16EF2A1BB3D82E0034052C /* SUIEmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmptyDataSet.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				6D16EF391BB3DDB90034052C /* SUIDropdownTitleMenu.m */,
 				6D16EF3D1BB3E3A80034052C /* SUIEmojiView.h */,
 				6D16EF3C1BB3E3A80034052C /* SUIEmojiView.m */,
+				6D13F7B01BBA5D8800340FE0 /* SUIImagePicker.h */,
+				6D13F7B11BBA5D8800340FE0 /* SUIImagePicker.m */,
 			);
 			path = Exten;
 			sourceTree = "<group>";
@@ -476,6 +481,8 @@
 				6DA091C91B3A46AC00DA06A3 /* Frameworks */,
 				6DA091CA1B3A46AC00DA06A3 /* Resources */,
 				327FCE3CBC7EC8116C15EEE2 /* Copy Pods Resources */,
+				6D7A6BF91BC6376D00386524 /* Run Script */,
+				6D7A6BFA1BC66D2700386524 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -577,6 +584,33 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6D7A6BF91BC6376D00386524 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "IFS=$'\\n'\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nversionNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nPATH=${PATH}:/usr/local/bin\n\nfunction generateIcon () {\n    BASE_IMAGE_NAME=$1\n    \n    TARGET_PATH=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${BASE_IMAGE_NAME}\"\n    echo $TARGET_PATH\n    echo $SRCROOT\n    echo $(find ${SRCROOT} -name \"AppIcon60x60@2x.png\")\n    BASE_IMAGE_PATH=$(find ${SRCROOT} -name ${BASE_IMAGE_NAME})\n    WIDTH=$(identify -format %w ${BASE_IMAGE_PATH})\n    FONT_SIZE=$(echo \"$WIDTH * .25\" | bc -l)\n    echo \"font size $FONT_SIZE\"\n    \n    if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    convert debugRibbon.png -resize ${WIDTH}x${WIDTH} resizedRibbon.png\n    convert ${BASE_IMAGE_PATH} -fill red -font Times-Bold -pointsize ${FONT_SIZE} -gravity south -annotate 0 \"$buildNumber\" - | composite resizedRibbon.png - ${TARGET_PATH}\n    fi\n    \n    if [ \"${CONFIGURATION}\" == \"Beta\" ]; then\n    convert betaRibbon.png -resize ${WIDTH}x${WIDTH} resizedRibbon.png\n    convert ${BASE_IMAGE_PATH} -fill red -font Times-Bold -pointsize ${FONT_SIZE} -gravity south -annotate 0 \"$buildNumber\" - | composite resizedRibbon.png - ${TARGET_PATH}\n    fi\n}\n\ngenerateIcon \"AppIcon29x29@2x.png\"\ngenerateIcon \"AppIcon29x29@3x.png\"\ngenerateIcon \"AppIcon40x40@2x.png\"\ngenerateIcon \"AppIcon40x40@3x.png\"\ngenerateIcon \"AppIcon60x60@2x.png\"\ngenerateIcon \"AppIcon60x60@3x.png\"\n\n#http://www.cocoachina.com/ios/20150909/13354.html";
+		};
+		6D7A6BFA1BC66D2700386524 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\necho $buildNumber\nprefixBuildNumber=echo $buildNumber | cut -d . -f 0\nsuffixBuildNumber=echo $buildNumber | cut -d . -f 1\n#buildNumber=$(($buildNumber + 1))\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
 		8EF5DBB6912E554047957CC1 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -632,6 +666,7 @@
 				6D67E7751B7098D000CD691D /* SUITrackCell.m in Sources */,
 				6D1241561B60E04A005DC05F /* UIButton+SUIExt.m in Sources */,
 				6D9470A81B5E4AC700860B27 /* NSDictionary+SUIExt.m in Sources */,
+				6D13F7B21BBA5D8800340FE0 /* SUIImagePicker.m in Sources */,
 				6D67E7681B70971200CD691D /* SUIAlbumVC.m in Sources */,
 				6D67E76A1B70971200CD691D /* SUIAlbumMD.m in Sources */,
 				6D16EF3B1BB3DDB90034052C /* SUIDropdownTitleMenu.m in Sources */,

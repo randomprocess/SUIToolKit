@@ -285,12 +285,15 @@ NSString *const SUICurr_Version = @"Curr_Version";
 + (double)keyboardAnimationDuration
 {
     double curAnimationDuration = [[self sharedInstance] keyboardAnimationDuration];
-    return (curAnimationDuration > 0) ? curAnimationDuration : 0.25;
+    if (curAnimationDuration) return curAnimationDuration;
+    return 0.25;
 }
 
 + (UIViewAnimationOptions)keyboardAnimationOptions
 {
-    return [[self sharedInstance] keyboardAnimationOptions];
+    NSInteger curKeyboardAnimationOptons = [[self sharedInstance] keyboardAnimationOptions];
+    if (curKeyboardAnimationOptons) return curKeyboardAnimationOptons;
+    return 7;
 }
 
 + (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock
