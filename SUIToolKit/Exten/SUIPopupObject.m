@@ -44,7 +44,7 @@
 
 - (void)addAnimation:(BOOL)willOpen
 {
-    uLogError("addAnimation() should be overriden")
+    uLogError("addAnimation() should be overriden");
 }
 
 

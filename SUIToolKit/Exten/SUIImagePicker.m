@@ -14,48 +14,38 @@
 @interface SUIImagePicker ()
 
 @property (nonatomic,weak) UIViewController *srcVC;
+@property (nonatomic,copy) SUIImagePickerCompletionBlock completionBlock;
 
 @end
 
 @implementation SUIImagePicker
 
 
-- (void)showCameraWithAnimated:(BOOL)flag
+- (void)showOnPickerControllerSourceType:(UIImagePickerControllerSourceType)sourceType animated:(BOOL)flag completion:(SUIImagePickerCompletionBlock)cb
 {
-    if ([SUITool cameraAvailable]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-        if ([SUITool cameraRearAvailable]) {
-            controller.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        }
-        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-        [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-        controller.mediaTypes = mediaTypes;
-        controller.delegate = self;
-        [self.srcVC presentViewController:controller
-                                 animated:flag
-                               completion:^{
-                               }];
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        cb(YES, nil, nil);
+        return;
     }
+    
+    self.completionBlock = cb;
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    imagePickerController.editing = YES;
+    if (sourceType == UIImagePickerControllerSourceTypeCamera) {
+        imagePickerController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+    [self.srcVC presentViewController:imagePickerController
+                             animated:flag
+                           completion:^{
+                           }];
 }
 
-- (void)showPhotoLibraryWithAnimated:(BOOL)flag
+- (void)dismissPickerViewController:(UIImagePickerController *)picker
 {
-    if ([SUITool photoLibraryAvailable]) {
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        if ([SUITool cameraRearAvailable]) {
-            controller.cameraDevice = UIImagePickerControllerCameraDeviceRear;
-        }
-        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
-        [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
-        controller.mediaTypes = mediaTypes;
-        controller.delegate = self;
-        [self.srcVC presentViewController:controller
-                                 animated:flag
-                               completion:^{
-                               }];
-    }
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 
@@ -65,20 +55,19 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-//    UIImage *portraitImg = [editingInfo objectForKey:@"UIImagePickerControllerOriginalImage"];
-
-    
+    if (self.completionBlock) self.completionBlock(NO, image, editingInfo);
+    [self dismissPickerViewController:picker];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    [picker dismissViewControllerAnimated:YES completion:^(){
-//    }];
+    if (self.completionBlock) self.completionBlock(NO, nil, info);
+    [self dismissPickerViewController:picker];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    uFun
+    [self dismissPickerViewController:picker];
 }
 
 @end

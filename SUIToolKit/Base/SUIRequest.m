@@ -92,7 +92,7 @@ static dispatch_queue_t parser_data_queue() {
          }
          else
          {
-             uLogError("========== error ==========\n%@\n", error)
+             uLogError("========== error ==========\n%@\n", error);
              
              if (curRequest.refreshBlock && curRequest.refreshTableView)
              {

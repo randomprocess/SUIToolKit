@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void(^SUIImagePickerCompletionBlock)(BOOL cancel, UIImage *cImage, NSDictionary *cInfoDict);
+
+
 @interface SUIImagePicker : NSObject <
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate>
 
-
-- (void)showCameraWithAnimated:(BOOL)flag;
-
-- (void)showPhotoLibraryWithAnimated:(BOOL)flag;
+- (void)showOnPickerControllerSourceType:(UIImagePickerControllerSourceType)sourceType animated:(BOOL)flag completion:(SUIImagePickerCompletionBlock)cb;
 
 @end
 

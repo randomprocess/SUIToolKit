@@ -48,7 +48,7 @@
     
     NSString *currClassName = gClassName(self);
     if ([currClassName hasPrefix:@"SUI"]) {
-        uLogInfo(@"currVC ClassName ⤭ %@ ⤪  Superclass ⤭ %@ ⤪", currClassName, self.superclass)
+        uLogInfo(@"currVC ClassName ⤭ %@ ⤪  Superclass ⤭ %@ ⤪", currClassName, self.superclass);
         NSString *curSuffixStr = nil;
         if ([self isKindOfClass:[UIViewController class]] && [currClassName hasSuffix:@"VC"]) {
             curSuffixStr = @"VC";
