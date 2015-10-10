@@ -8,6 +8,7 @@
 
 #import "SUIImagePicker.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <objc/runtime.h>
 #import "SUIToolKitConst.h"
 #import "SUITool.h"
 

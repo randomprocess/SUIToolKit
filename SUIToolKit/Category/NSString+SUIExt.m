@@ -84,7 +84,7 @@
         [hash appendFormat:@"%02X", result[i]];
     }
     NSString *curStr = [hash lowercaseString];
-    uLogInfo(@"md5 String ⤭ %@ ⤪  Md5 ⤭ %@ ⤪", self, curStr);
+    //    uLogInfo(@"md5 String ⤭ %@ ⤪  Md5 ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -92,7 +92,7 @@
 {
     NSString *hash = [self md5HexDigest];
     NSString *curStr = [hash substringWithRange:NSMakeRange(CC_MD5_DIGEST_LENGTH/2, CC_MD5_DIGEST_LENGTH)];
-    uLogInfo(@"md5_16 String ⤭ %@ ⤪  Md5_16 ⤭ %@ ⤪", self, curStr);
+    //    uLogInfo(@"md5_16 String ⤭ %@ ⤪  Md5_16 ⤭ %@ ⤪", self, curStr);
     return curStr;
 }
 
@@ -154,7 +154,7 @@
         
         result = [result stringByReplacingCharactersInRange:NSMakeRange(x, 1) withString:[NSString stringWithCharacters:&ch_y length:1]];
     }
-    uLogInfo(@"rc4 String ⤭ %@ ⤪  Rc4 ⤭ %@ ⤪", self, result);
+    //    uLogInfo(@"rc4 String ⤭ %@ ⤪  Rc4 ⤭ %@ ⤪", self, result);
     return result;
 }
 
@@ -205,48 +205,20 @@ void swap(unsigned char *first, unsigned char *second)
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Remove Spaces & Wrap
+ *  Substr
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (NSString *)removeTrailingSpaces
+- (NSString *)substrBlankInHeadTail
 {
-    NSString *netString = self;
-    while (1)
-    {
-        if ([netString hasPrefix:@" "]) {
-            netString = [netString substringFromIndex:1];
-            continue;
-        } else if ([netString hasSuffix:@" "]) {
-            netString = [netString substringToIndex:netString.length-1];
-            continue;
-        } else {
-            break;
-        }
-    }
-    uLogInfo(@"remove spaces Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
-    return netString;
+    return [self substrStringInHeadTail:@" "];
 }
 
-- (NSString *)removeTrailingWrap
+- (NSString *)substrTrailingWrap
 {
-    NSString *netString = self;
-    while (1)
-    {
-        if ([netString hasPrefix:@"\n"]) {
-            netString = [netString substringFromIndex:1];
-            continue;
-        } else if ([netString hasSuffix:@"\n"]) {
-            netString = [netString substringToIndex:netString.length-1];
-            continue;
-        } else {
-            break;
-        }
-    }
-    uLogInfo(@"remove wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
-    return netString;
+    return [self substrStringInHeadTail:@"\n"];
 }
 
-- (NSString *)removeTrailingSpacesAndWrap
+- (NSString *)substrTrailingSpacesAndWrap
 {
     NSString *netString = self;
     while (1)
@@ -267,11 +239,11 @@ void swap(unsigned char *first, unsigned char *second)
             break;
         }
     }
-    uLogInfo(@"remove spaces and wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    uLogInfo(@"substr string Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
     return netString;
 }
 
-- (NSString *)removeContinuousWrap
+- (NSString *)substrContinuousWrap
 {
     NSString *netString = self;
     while (1)
@@ -282,9 +254,53 @@ void swap(unsigned char *first, unsigned char *second)
         }
         netString = [netString stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\n\n"];
     }
-    uLogInfo(@"remove continuous wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    uLogInfo(@"substr continuous wrap Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
     return netString;
 }
 
+- (NSString *)substrString:(NSString *)cString
+{
+    NSString *netString = self;
+    while (1)
+    {
+        NSRange range = [netString rangeOfString:cString];
+        if (range.location == NSNotFound) {
+            break;
+        }
+        netString = [netString stringByReplacingOccurrencesOfString:cString withString:@""];
+    }
+    uLogInfo(@"substr string Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
+}
+
+- (NSString *)substrStringInHeadTail:(NSString *)cString
+{
+    NSString *netString = self;
+    while (1)
+    {
+        if ([netString hasPrefix:cString]) {
+            netString = [netString substringFromIndex:cString.length];
+            continue;
+        } else if ([netString hasSuffix:cString]) {
+            netString = [netString substringToIndex:netString.length-cString.length];
+            continue;
+        } else {
+            break;
+        }
+    }
+    uLogInfo(@"substr string Source ⤭ %@ ⤪  Dest ⤭ %@ ⤪", self, netString);
+    return netString;
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Empty
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+- (BOOL)isEmpty
+{
+    NSInteger cLength = [[self stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""].length;
+    return (cLength == 0);
+}
 
 @end

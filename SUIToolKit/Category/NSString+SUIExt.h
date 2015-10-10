@@ -48,15 +48,26 @@
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Remove Spaces & Wrap
+ *  Substr
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-#pragma mark - Remove Spaces & Wrap
+#pragma mark - Substr
 
-- (NSString *)removeTrailingSpaces;
-- (NSString *)removeTrailingWrap;
-- (NSString *)removeTrailingSpacesAndWrap;
-- (NSString *)removeContinuousWrap;
+- (NSString *)substrBlankInHeadTail;
+- (NSString *)substrWrapInHeadTail;
+- (NSString *)substrBlankAndWrapInHeadTail;
+- (NSString *)substrContinuousWrap;
+- (NSString *)substrString:(NSString *)cString;
+- (NSString *)substrStringInHeadTail:(NSString *)cString;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Empty
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Empty
+
+- (BOOL)isEmpty;
 
 
 @end

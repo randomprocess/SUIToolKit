@@ -133,6 +133,7 @@ __stuff \
 #define NSLog(...)                  NSLog(__VA_ARGS__)
 #define uFun                        NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__,                    __LINE__)
 #define uLog(__format, ...)           NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  ##__VA_ARGS__)
+#define uLogObj(__obj)                NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> %s ⤭ %@ ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  #__obj, __obj)
 #define uLogInfo(__format, ...)       NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,    ##__VA_ARGS__)
 #define uLogError(__format, ...)      NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
@@ -147,6 +148,7 @@ __stuff \
 #define NSLog(...) {}
 #define uFun {}
 #define uLog(__format, ...) {}
+#define uLogObj(__obj) {}
 #define uLogInfo(__format, ...) {}
 #define uLogError(__format, ...) {}
 

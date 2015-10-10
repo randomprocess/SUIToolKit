@@ -19,14 +19,14 @@
 - (NSString *)base64EncodedString
 {
     NSString *curStr = [self base64EncodedStringWithOptions:0];
-    uLogInfo(@"base64 encoded Base64Str ⤭ %@ ⤪", curStr);
+//    uLogInfo(@"base64 encoded Base64Str ⤭ %@ ⤪", curStr);
     return curStr;
 }
 
 - (NSString *)base64DecodedString
 {
     NSString *curStr = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
-    uLogInfo(@"base64 decoded String ⤭ %@ ⤪", curStr);
+//    uLogInfo(@"base64 decoded String ⤭ %@ ⤪", curStr);
     return curStr;
 }
 
