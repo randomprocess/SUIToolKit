@@ -67,7 +67,7 @@
 
 #pragma mark - Empty
 
-- (BOOL)isEmpty;
+- (BOOL)stringIsEmpty;
 
 
 @end

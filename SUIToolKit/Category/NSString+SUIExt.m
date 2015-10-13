@@ -213,12 +213,12 @@ void swap(unsigned char *first, unsigned char *second)
     return [self substrStringInHeadTail:@" "];
 }
 
-- (NSString *)substrTrailingWrap
+- (NSString *)substrWrapInHeadTail
 {
     return [self substrStringInHeadTail:@"\n"];
 }
 
-- (NSString *)substrTrailingSpacesAndWrap
+- (NSString *)substrBlankAndWrapInHeadTail
 {
     NSString *netString = self;
     while (1)
@@ -297,7 +297,7 @@ void swap(unsigned char *first, unsigned char *second)
  *  Empty
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (BOOL)isEmpty
+- (BOOL)stringIsEmpty
 {
     NSInteger cLength = [[self stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""].length;
     return (cLength == 0);

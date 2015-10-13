@@ -352,8 +352,8 @@ NSString *const SUICurr_Version = @"Curr_Version";
                     withIntermediateDirectories:YES
                     attributes:nil
                     error:&anyError];
-        ret ? uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath) :
-            uLogError(@"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
+        (ret ? uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath) :
+            uLogError(@"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath));
         return ret;
     }
     return YES;
@@ -362,8 +362,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
 + (BOOL)fileExist:(NSString *)filePath
 {
     BOOL ret = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    ret ? uLogInfo(@"file exist At ⤭ %@ ⤪", filePath) :
-        uLogInfo(@"file not exist At ⤭ %@ ⤪", filePath);
+    ret ? uLogInfo(@"file exist At ⤭ %@ ⤪", filePath) : uLogInfo(@"file not exist At ⤭ %@ ⤪", filePath);
     return ret;
 }
 
@@ -373,8 +372,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
     BOOL ret = [data writeToFile:filePath
                          options:NSDataWritingAtomic
                            error:&anyError];
-    ret ? uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath) :
-        uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
+    ret ? uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath) : uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
     return ret;
 }
 
@@ -385,7 +383,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 moveItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    ret ? uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :
+    ret ? uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :\
         uLogError(@"file move Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     return ret;
 }
@@ -397,7 +395,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 copyItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    ret ? uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :
+    ret ? uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :\
         uLogError(@"file copy Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     return ret;
 }
@@ -408,7 +406,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
     NSData *readData = [NSData dataWithContentsOfFile:filePath
                                               options:NSDataReadingMappedIfSafe
                                                 error:&anyError];
-    anyError ? uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath) :
+    anyError ? uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath) :\
         uLogInfo(@"file read succeed Length ⤭ %zd ⤪  At ⤭ %@ ⤪", readData.length, filePath);
     return readData;
 }
@@ -440,7 +438,7 @@ NSString *const SUICurr_Version = @"Curr_Version";
         BOOL ret = [[NSFileManager defaultManager]
                     removeItemAtPath:filePath
                     error:&anyError];
-        ret ? uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath) :
+        ret ? uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath) :\
             uLogError(@"file delete Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
         return ret;
     }
