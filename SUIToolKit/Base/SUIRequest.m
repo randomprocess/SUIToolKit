@@ -51,7 +51,7 @@ static dispatch_queue_t parser_data_queue() {
          
          if (error == nil)
          {
-             uLogInfo("========== response ==========\n%@\n", responseObject);
+//             uLogInfo("========== response ==========\n%@\n", responseObject);
              
              if (curRequest.dataParserBlock)
              {

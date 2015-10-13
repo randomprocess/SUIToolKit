@@ -23,7 +23,7 @@
             return nil;
         }
         NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        uLogInfo(@"dict to string succeed String ⤭ %@ ⤪", json);
+//        uLogInfo(@"dict to string succeed String ⤭ %@ ⤪", json);
         return json;
     }
     else
