@@ -352,8 +352,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
                     withIntermediateDirectories:YES
                     attributes:nil
                     error:&anyError];
-        (ret ? uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath) :
-            uLogError(@"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath));
+        if (ret) {
+            uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath);
+        } else {
+            uLogError(@"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
+        }
         return ret;
     }
     return YES;
@@ -362,7 +365,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
 + (BOOL)fileExist:(NSString *)filePath
 {
     BOOL ret = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
-    ret ? uLogInfo(@"file exist At ⤭ %@ ⤪", filePath) : uLogInfo(@"file not exist At ⤭ %@ ⤪", filePath);
+    if (ret) {
+        uLogInfo(@"file exist At ⤭ %@ ⤪", filePath);
+    } else {
+        uLogInfo(@"file not exist At ⤭ %@ ⤪", filePath);
+    }
     return ret;
 }
 
@@ -372,7 +379,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
     BOOL ret = [data writeToFile:filePath
                          options:NSDataWritingAtomic
                            error:&anyError];
-    ret ? uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath) : uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
+    if (ret) {
+        uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath);
+    } else {
+        uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
+    }
     return ret;
 }
 
@@ -383,8 +394,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 moveItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    ret ? uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :\
+    if (ret) {
+        uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
+    } else {
         uLogError(@"file move Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
+    }
     return ret;
 }
 
@@ -395,8 +409,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
                 copyItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    ret ? uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath) :\
+    if (ret) {
+        uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
+    } else {
         uLogError(@"file copy Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
+    }
     return ret;
 }
 
@@ -406,8 +423,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
     NSData *readData = [NSData dataWithContentsOfFile:filePath
                                               options:NSDataReadingMappedIfSafe
                                                 error:&anyError];
-    anyError ? uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath) :\
+    if (anyError) {
+        uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
+    } else {
         uLogInfo(@"file read succeed Length ⤭ %zd ⤪  At ⤭ %@ ⤪", readData.length, filePath);
+    }
     return readData;
 }
 
@@ -438,8 +458,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
         BOOL ret = [[NSFileManager defaultManager]
                     removeItemAtPath:filePath
                     error:&anyError];
-        ret ? uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath) :\
+        if (ret) {
+            uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath);
+        } else {
             uLogError(@"file delete Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
+        }
         return ret;
     }
     return YES;
@@ -451,32 +474,44 @@ NSString *const SUICurr_Version = @"Curr_Version";
 + (BOOL)cameraAvailable
 {
     BOOL ret = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    ret ? uLogInfo(@"camera available") :
+    if (ret) {
+        uLogInfo(@"camera available");
+    } else {
         uLogInfo(@"cameta unavailable");
+    }
     return ret;
 }
 
 + (BOOL)cameraRearAvailable
 {
     BOOL ret = [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
-    ret ? uLogInfo(@"camera rear available") :
+    if (ret) {
+        uLogInfo(@"camera rear available");
+    } else {
         uLogInfo(@"cameta rear unavailable");
+    }
     return ret;
 }
 
 + (BOOL)cameraFrontAvailable
 {
     BOOL ret = [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
-    ret ? uLogInfo(@"camera front available") :
+    if (ret) {
+        uLogInfo(@"camera front available");
+    } else {
         uLogInfo(@"cameta front unavailable");
+    }
     return ret;
 }
 
 + (BOOL)photoLibraryAvailable
 {
     BOOL ret = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
-    ret ? uLogInfo(@"photo library available") :
+    if (ret) {
+        uLogInfo(@"photo library available");
+    } else {
         uLogInfo(@"photo library unavailable");
+    }
     return ret;
 }
 
@@ -491,8 +526,11 @@ NSString *const SUICurr_Version = @"Curr_Version";
 {
     NSString *curURL = gFormat(@"itms-apps://itunes.apple.com/app/id%@", appId);
     BOOL ret = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
-    ret ? uLogInfo(@"to app store succeed AppId ⤭ %@ ⤪", appId) :
+    if (ret) {
+        uLogInfo(@"to app store succeed AppId ⤭ %@ ⤪", appId);
+    } else {
         uLogError(@"to app store failed AppId ⤭ %@ ⤪", appId);
+    }
     return ret;
 }
 
