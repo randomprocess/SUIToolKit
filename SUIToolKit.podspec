@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.subspec 'Tool' do |ss|
     ss.dependency 'AFNetworking', '~> 2.5.4'
     ss.dependency 'Reachability', '~> 3.2'
-    ss.dependency 'ReactiveCocoa', '~> 3.0.0'
+    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.source_files = 'SUIToolKit/Tool/*.{h,m}'
   end
 
