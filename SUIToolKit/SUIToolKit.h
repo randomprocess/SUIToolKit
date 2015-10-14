@@ -44,6 +44,7 @@
 #import "UIButton+SUIExt.h"
 #import "UIImage+SUIExt.h"
 #import "UIScrollView+SUIExt.h"
+#import "UIColor+SUIExt.h"
 
 #import "NSString+SUIExt.h"
 #import "NSArray+SUIExt.h"

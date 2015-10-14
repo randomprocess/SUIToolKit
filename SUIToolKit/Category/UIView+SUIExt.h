@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    SUIViewAnimateTypeFade
+} SUIViewAnimateType;
+
+
 @interface UIView (SUIExt)
 
 
@@ -55,6 +60,14 @@
 
 - (UIImage *)snapshot;
 - (UIImage *)snapshotWithRender;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Animate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+- (void)showWithAnimateType:(SUIViewAnimateType)cType duration:(NSTimeInterval)cDuration;
+- (void)hideWithAnimateType:(SUIViewAnimateType)cType duration:(NSTimeInterval)cDuration remove:(BOOL)remove;
 
 
 @end

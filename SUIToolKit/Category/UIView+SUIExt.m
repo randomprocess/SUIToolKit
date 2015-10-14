@@ -215,4 +215,36 @@
 }
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Animate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+- (void)showWithAnimateType:(SUIViewAnimateType)cType duration:(NSTimeInterval)cDuration
+{
+    if (cType == SUIViewAnimateTypeFade)
+    {
+        if (self.alpha != 0) self.alpha = 0;
+        [UIView animateWithDuration:cDuration
+                         animations:^{
+                             self.alpha = 1.0;
+                         } completion:^(BOOL finished) {
+                         }];
+    }
+}
+- (void)hideWithAnimateType:(SUIViewAnimateType)cType duration:(NSTimeInterval)cDuration remove:(BOOL)remove
+{
+    if (cType == SUIViewAnimateTypeFade)
+    {
+        [UIView animateWithDuration:cDuration
+                         animations:^{
+                             self.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             if (remove) {
+                                 [self removeFromSuperview];
+                             }
+                         }];
+    }
+}
+
+
 @end

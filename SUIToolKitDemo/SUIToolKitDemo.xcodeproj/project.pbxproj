@@ -59,6 +59,7 @@
 		6DB90E151B7B16260027805F /* SUIAdaptTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB90E131B7B16260027805F /* SUIAdaptTextView.m */; };
 		6DCC0B7E1BB1599000E38BB7 /* SUIBaseConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCC0B7D1BB1599000E38BB7 /* SUIBaseConfig.m */; };
 		6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DEF082E1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld */; };
+		6DF43B0B1BCE424E0061C9C5 /* UIColor+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF43B0A1BCE424E0061C9C5 /* UIColor+SUIExt.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,8 @@
 		6DCC0B7C1BB1599000E38BB7 /* SUIBaseConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIBaseConfig.h; sourceTree = "<group>"; };
 		6DCC0B7D1BB1599000E38BB7 /* SUIBaseConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIBaseConfig.m; sourceTree = "<group>"; };
 		6DEF082F1B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SUIToolKitDemo.xcdatamodel; sourceTree = "<group>"; };
+		6DF43B091BCE424E0061C9C5 /* UIColor+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SUIExt.h"; sourceTree = "<group>"; };
+		6DF43B0A1BCE424E0061C9C5 /* UIColor+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SUIExt.m"; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,6 +356,8 @@
 				6D1241581B60E5CC005DC05F /* UIImage+SUIExt.m */,
 				6DA5B9AA1B7D818900961BFD /* UIScrollView+SUIExt.h */,
 				6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */,
+				6DF43B091BCE424E0061C9C5 /* UIColor+SUIExt.h */,
+				6DF43B0A1BCE424E0061C9C5 /* UIColor+SUIExt.m */,
 				6D9470A01B5E3B8A00860B27 /* NSString+SUIExt.h */,
 				6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */,
 				6D9470781B5E378900860B27 /* NSArray+SUIExt.h */,
@@ -635,6 +640,7 @@
 				6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */,
 				6D67E7811B70999C00CD691D /* SUIMainTVC.m in Sources */,
 				6D1241431B60C961005DC05F /* SUIBaseTVC.m in Sources */,
+				6DF43B0B1BCE424E0061C9C5 /* UIColor+SUIExt.m in Sources */,
 				6D67E7741B7098D000CD691D /* SUIMediaMD.m in Sources */,
 				6D1241471B60C961005DC05F /* SUIHttpClient.m in Sources */,
 				6D9470951B5E378900860B27 /* UIView+SUIExt.m in Sources */,
