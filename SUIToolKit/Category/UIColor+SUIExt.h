@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-#define gHex(__string) [UIColor colorFromHexString:__string];
+#define gHex(__string) [UIColor colorFromHexString:__string]
 
 @interface UIColor (SUIExt)
 

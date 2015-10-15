@@ -26,6 +26,7 @@
 		6D16EF3B1BB3DDB90034052C /* SUIDropdownTitleMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF391BB3DDB90034052C /* SUIDropdownTitleMenu.m */; };
 		6D16EF3E1BB3E3A80034052C /* SUIEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF3C1BB3E3A80034052C /* SUIEmojiView.m */; };
 		6D16EF411BB3E3CD0034052C /* SUIPopupObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D16EF401BB3E3CD0034052C /* SUIPopupObject.m */; };
+		6D31E2FD1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D31E2FC1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m */; settings = {ASSET_TAGS = (); }; };
 		6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */; };
 		6D5952551B7313B700BB9A62 /* UIActionSheet+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5952541B7313B700BB9A62 /* UIActionSheet+SUIExt.m */; };
 		6D67E7681B70971200CD691D /* SUIAlbumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7621B70971200CD691D /* SUIAlbumVC.m */; };
@@ -112,6 +113,8 @@
 		6D16EF3D1BB3E3A80034052C /* SUIEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmojiView.h; sourceTree = "<group>"; };
 		6D16EF3F1BB3E3CC0034052C /* SUIPopupObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIPopupObject.h; sourceTree = "<group>"; };
 		6D16EF401BB3E3CD0034052C /* SUIPopupObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIPopupObject.m; sourceTree = "<group>"; };
+		6D31E2FB1BCF5C7A00873F4F /* UITabBarItem+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+SUIExt.h"; sourceTree = "<group>"; };
+		6D31E2FC1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+SUIExt.m"; sourceTree = "<group>"; };
 		6D5706CA1B7B3C8F00E7228F /* SUIChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIChatVC.h; sourceTree = "<group>"; };
 		6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIChatVC.m; sourceTree = "<group>"; };
 		6D5952531B7313B700BB9A62 /* UIActionSheet+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+SUIExt.h"; sourceTree = "<group>"; };
@@ -368,6 +371,8 @@
 				6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */,
 				6DAE7A201B71B0CB001D631A /* NSDate+SUIExt.h */,
 				6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */,
+				6D31E2FB1BCF5C7A00873F4F /* UITabBarItem+SUIExt.h */,
+				6D31E2FC1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -521,7 +526,7 @@
 		6DA091C41B3A46AC00DA06A3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "SUIO~";
 				TargetAttributes = {
 					6DA091CB1B3A46AC00DA06A3 = {
@@ -648,6 +653,7 @@
 				6D16EF411BB3E3CD0034052C /* SUIPopupObject.m in Sources */,
 				6D67E7691B70971200CD691D /* SUIAlbumCell.m in Sources */,
 				6D16EF3E1BB3E3A80034052C /* SUIEmojiView.m in Sources */,
+				6D31E2FD1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m in Sources */,
 				6D16EF371BB3DA650034052C /* SUIRequest.m in Sources */,
 				6D0DD94A1B5F85A100BEBEE5 /* UITextField+SUIExt.m in Sources */,
 				6D0DD94D1B5F862F00BEBEE5 /* UITextView+SUIExt.m in Sources */,
@@ -723,6 +729,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -738,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -775,7 +782,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -791,9 +798,10 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "oo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -807,9 +815,10 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "oo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -828,6 +837,7 @@
 				);
 				INFOPLIST_FILE = SUIToolKitDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "oo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SUIToolKitDemo.app/SUIToolKitDemo";
 			};
@@ -843,6 +853,7 @@
 				);
 				INFOPLIST_FILE = SUIToolKitDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "oo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SUIToolKitDemo.app/SUIToolKitDemo";
 			};
