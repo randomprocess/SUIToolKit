@@ -105,7 +105,7 @@
     {
         uWeakSelf
         [self.currTableView.tableExten willBeginDragging:^{
-            [weakSelf.cTextView dissmissKeyboard];
+            [weakSelf.cTextView dismissKeyboard];
             [weakSelf.emojiView dismiss];
             [weakSelf.curKeyboardFollowView bottomContant:0];
             if (weakSelf.faceBtn.selected) {
@@ -123,7 +123,7 @@
     if (sender.selected) {
         [self.emojiView show];
         CGFloat curKeyboardBottom = self.curKeyboardFollowView.superview.height - self.curKeyboardFollowView.y - self.curKeyboardFollowView.originHeight;
-        [self.cTextView dissmissKeyboard];
+        [self.cTextView dismissKeyboard];
         [self.curKeyboardFollowView currContantBottom].constant = curKeyboardBottom;
         [self.curKeyboardFollowView.layer removeAllAnimations];
         [self.curKeyboardFollowView layoutIfNeeded];

@@ -20,9 +20,8 @@ typedef enum : NSUInteger {
 typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
 typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
-typedef NSArray *(^SUITableExtenCellIdentifiersBlock)(void);
-
 typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(NSIndexPath *cIndexPath, id cModel);
+typedef NSString *(^SUITableExtenCellIdentifiersBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^SUITableExtenDidSelectRowBlock)(NSIndexPath *cIndexPath, id cModel);
 typedef void (^SUITableExtenWillDisplayCellBlock)(SUIBaseCell *cCell, NSIndexPath *cIndexPath, id cModel);
 typedef void (^SUITableExtenDidScrollBlock)(void);
@@ -50,14 +49,9 @@ typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFet
  */
 - (void)request:(SUITableExtenRequestBlock)cb;
 - (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion;
-/**
- *  tableView分组时将cell的类名对应写在这个数组内, 格式为[[""]]
- *
- *  @param cb 默认返回的数组为[["SUI"+currIdentifier+"Cell"]]
- */
-- (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb;
 
 - (void)cellForRow:(SUITableExtenCellForRowBlock)cb;
+- (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb;
 - (void)didSelectRow:(SUITableExtenDidSelectRowBlock)cb;
 - (void)willDisplayCell:(SUITableExtenWillDisplayCellBlock)cb;
 - (void)didScroll:(SUITableExtenDidScrollBlock)cb;

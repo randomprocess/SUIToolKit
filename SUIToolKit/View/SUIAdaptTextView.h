@@ -25,7 +25,7 @@ typedef BOOL (^SUIAdaptTextViewReturnBlock)(UITextView *textView);
 
 - (void)showKeyboard;
 
-- (void)dissmissKeyboard;
+- (void)dismissKeyboard;
 
 - (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)returnBlock;
 

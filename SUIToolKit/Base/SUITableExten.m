@@ -25,15 +25,14 @@
 @property (nonatomic,strong) UISearchDisplayController *searchDisplayController;
 
 @property (nonatomic,weak) UITableView *currTableView;
-@property (nonatomic,strong) NSArray *currCellIdentifier;
 @property (nonatomic,strong) NSMutableArray *currDataAry;
 @property (nonatomic,strong) NSMutableArray *currSearchDataAry;
 
 @property (nonatomic,copy) SUITableExtenRequestBlock requestBlock;
 @property (nonatomic,copy) SUITableExtenRequestCompletionBlock requestCompletionBlock;
-@property (nonatomic,copy) SUITableExtenCellIdentifiersBlock cellIdentifiersBlock;
 
 @property (nonatomic,copy) SUITableExtenCellForRowBlock cellForRowBlock;
+@property (nonatomic,copy) SUITableExtenCellIdentifiersBlock cellIdentifiersBlock;
 @property (nonatomic,copy) SUITableExtenDidSelectRowBlock didSelectRowBlock;
 @property (nonatomic,copy) SUITableExtenWillDisplayCellBlock willDisplayCellBlock;
 @property (nonatomic,copy) SUITableExtenDidScrollBlock didScrollBlock;
@@ -59,13 +58,13 @@
     self.requestBlock = cb;
     self.requestCompletionBlock = completion;
 }
-- (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb
-{
-    self.cellIdentifiersBlock = cb;
-}
 - (void)cellForRow:(SUITableExtenCellForRowBlock)cb
 {
     self.cellForRowBlock = cb;
+}
+- (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb
+{
+    self.cellIdentifiersBlock = cb;
 }
 - (void)didSelectRow:(SUITableExtenDidSelectRowBlock)cb
 {
@@ -212,10 +211,18 @@
 
 - (NSArray *)configureCell:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
-    NSArray *curCellIdentifierSection = self.currCellIdentifier[indexPath.section];
-    NSString *curCellIdentifier = (curCellIdentifierSection.count == 1) ?
-    curCellIdentifierSection[0] : curCellIdentifierSection[indexPath.row];
     id currSourceData = [self currentModelAtIndex:indexPath tableView:tableView];
+    NSString *curCellIdentifier = nil;
+    if (self.cellIdentifiersBlock) {
+        curCellIdentifier = self.cellIdentifiersBlock(indexPath, currSourceData);
+    } else {
+        UIViewController *currVC = [self.currTableView currVC];
+        if (currVC.currIdentifier) {
+            curCellIdentifier = gFormat(@"SUI%@Cell", currVC.currIdentifier);
+        } else {
+            uLogError(@"currVC className should prefix with 'SUI' and suffix with 'VC' or 'TVC'");
+        }
+    }
     return @[curCellIdentifier, currSourceData];
 }
 
@@ -302,22 +309,6 @@
         _currSearchDataAry = [NSMutableArray array];
     }
     return _currSearchDataAry;
-}
-
-- (NSArray *)currCellIdentifier
-{
-    if (_currCellIdentifier == nil) {
-        if (self.cellIdentifiersBlock) {
-            _currCellIdentifier = self.cellIdentifiersBlock();
-        } else {
-            UIViewController *currVC = [self.currTableView theVC];
-            if (currVC.currIdentifier) {
-                NSString *curCellIdentifier = gFormat(@"SUI%@Cell", currVC.currIdentifier);
-                _currCellIdentifier = @[@[curCellIdentifier]];
-            }
-        }
-    }
-    return _currCellIdentifier;
 }
 
 - (UISearchController *)searchController

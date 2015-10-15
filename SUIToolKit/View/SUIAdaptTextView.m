@@ -103,7 +103,7 @@
             
             if (newHeight > self.maxHeight)
             {
-                [self.currTextView flashScrollIndicators];
+//                [self.currTextView flashScrollIndicators];
                 newHeight = self.maxHeight;
             }
             
@@ -180,7 +180,7 @@
     }
 }
 
-- (void)dissmissKeyboard
+- (void)dismissKeyboard
 {
     if ([self.currTextView isFirstResponder]) {
         [self.currTextView resignFirstResponder];
@@ -201,6 +201,7 @@
     {
         _currTextView = [UITextView new];
         _currTextView.frame = self.bounds;
+        _currTextView.backgroundColor = [UIColor clearColor];
         _currTextView.contentInset = UIEdgeInsetsZero;
         _currTextView.font = gFont(14);
         _currTextView.textContainer.lineFragmentPadding = 0;
