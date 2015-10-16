@@ -42,6 +42,12 @@
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerWillChangeContentBlock fetchedResultsControllerWillChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
 
+@property (nonatomic, strong) NSMutableIndexSet *deletedSectionIndexes;
+@property (nonatomic, strong) NSMutableIndexSet *insertedSectionIndexes;
+@property (nonatomic, strong) NSMutableArray *deletedRowIndexPaths;
+@property (nonatomic, strong) NSMutableArray *insertedRowIndexPaths;
+@property (nonatomic, strong) NSMutableArray *updatedRowIndexPaths;
+
 @end
 
 
@@ -192,6 +198,8 @@
     } else {
         currCell = [self.currTableView dequeueReusableCellWithIdentifier:currConfig[0]];
     }
+    if (!currCell) uLogError(@"currCell is nil");
+    
     currCell.currTableView = tableView;
     currCell.currModle = curModel;
     [currCell displayWithCalculateCellHeight:currCell.currModle];
@@ -215,6 +223,7 @@
     NSString *curCellIdentifier = nil;
     if (self.cellIdentifiersBlock) {
         curCellIdentifier = self.cellIdentifiersBlock(indexPath, currSourceData);
+        if (!curCellIdentifier) uLogError(@"curCellIdentifier is nil");
     } else {
         UIViewController *currVC = [self.currTableView currVC];
         if (currVC.currIdentifier) {
@@ -292,7 +301,7 @@
 }
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Lazy
+ *  Lazily instantiate
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 - (NSMutableArray *)currDataAry
@@ -404,7 +413,6 @@
     if (self.fetchedResultsControllerWillChangeContentBlock) {
         self.fetchedResultsControllerWillChangeContentBlock(controller);
     }
-    [self.currTableView beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -412,17 +420,31 @@
     switch (type)
     {
         case NSFetchedResultsChangeInsert:
-            [self.currTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        {
+            if ([self.insertedSectionIndexes containsIndex:newIndexPath.section]) return;
+            [self.insertedRowIndexPaths addObject:newIndexPath];
+        }
             break;
         case NSFetchedResultsChangeDelete:
-            [self.currTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        {
+            if ([self.deletedSectionIndexes containsIndex:newIndexPath.section]) return;
+            [self.deletedRowIndexPaths addObject:newIndexPath];
+        }
             break;
         case NSFetchedResultsChangeMove:
-            [self.currTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.currTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        {
+            if ([self.insertedSectionIndexes containsIndex:newIndexPath.section] == NO) {
+                [self.insertedRowIndexPaths addObject:newIndexPath];
+            }
+            if ([self.deletedSectionIndexes containsIndex:indexPath.section] == NO) {
+                [self.deletedRowIndexPaths addObject:indexPath];
+            }
+        }
             break;
         case NSFetchedResultsChangeUpdate:
-            [self.currTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        {
+            [self.updatedRowIndexPaths addObject:indexPath];
+        }
             break;
         default:
             break;
@@ -434,22 +456,89 @@
     switch (type)
     {
         case NSFetchedResultsChangeInsert:
-            [self.currTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.insertedSectionIndexes addIndex:sectionIndex];
             break;
         case NSFetchedResultsChangeDelete:
-            [self.currTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.deletedSectionIndexes addIndex:sectionIndex];
             break;
         default:
+            // Shouldn't have a default
             break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.currTableView endUpdates];
+    NSInteger totalChanges = [self.deletedSectionIndexes count] +
+    [self.insertedSectionIndexes count] +
+    [self.deletedRowIndexPaths count] +
+    [self.insertedRowIndexPaths count] +
+    [self.updatedRowIndexPaths count];
+    
+    if (totalChanges > 50)
+    {
+        [self.currTableView reloadData];
+    }
+    else
+    {
+        [self.currTableView beginUpdates];
+        [self.currTableView deleteSections:self.deletedSectionIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.currTableView insertSections:self.insertedSectionIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.currTableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.currTableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.currTableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.currTableView endUpdates];
+    }
+    
+    self.insertedSectionIndexes = nil;
+    self.deletedSectionIndexes = nil;
+    self.deletedRowIndexPaths = nil;
+    self.insertedRowIndexPaths = nil;
+    self.updatedRowIndexPaths = nil;
+    
     if (self.fetchedResultsControllerDidChangeContentBlock) {
         self.fetchedResultsControllerDidChangeContentBlock(controller);
     }
+}
+
+- (NSMutableIndexSet *)deletedSectionIndexes
+{
+    if (_deletedSectionIndexes == nil) {
+        _deletedSectionIndexes = [[NSMutableIndexSet alloc] init];
+    }
+    return _deletedSectionIndexes;
+}
+
+- (NSMutableIndexSet *)insertedSectionIndexes
+{
+    if (_insertedSectionIndexes == nil) {
+        _insertedSectionIndexes = [[NSMutableIndexSet alloc] init];
+    }
+    return _insertedSectionIndexes;
+}
+
+- (NSMutableArray *)deletedRowIndexPaths
+{
+    if (_deletedRowIndexPaths == nil) {
+        _deletedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _deletedRowIndexPaths;
+}
+
+- (NSMutableArray *)insertedRowIndexPaths
+{
+    if (_insertedRowIndexPaths == nil) {
+        _insertedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _insertedRowIndexPaths;
+}
+
+- (NSMutableArray *)updatedRowIndexPaths
+{
+    if (_updatedRowIndexPaths == nil) {
+        _updatedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _updatedRowIndexPaths;
 }
 
 @end
@@ -598,13 +687,11 @@
     self.loadMoreData = NO;
     self.pageIndex = 0;
     [self handlerLoadCurrData];
-//    self.tableExten.requestBlock(NO);
 }
 - (void)handlerLoadMoreData
 {
     self.loadMoreData = YES;
     [self handlerLoadCurrData];
-//    self.tableExten.requestBlock(YES);
 }
 
 - (void)handlerLoadCurrData
@@ -617,15 +704,15 @@
         
         uWeakSelf
         [[[SUIRequest requestData:currParameters]
-        parser:^NSArray *(id cResponseObject) {
-            weakSelf.tableExten.requestBlock(nil, cResponseObject, currNewDataAry);
-            return currNewDataAry;
-        } refreshTable:self]
-        completion:^(NSError *cError, id cResponseObject) {
-            if (weakSelf.tableExten.requestCompletionBlock) {
-                weakSelf.tableExten.requestCompletionBlock(cError, cResponseObject);
-            }
-        }];
+          parser:^NSArray *(id cResponseObject) {
+              weakSelf.tableExten.requestBlock(nil, cResponseObject, currNewDataAry);
+              return currNewDataAry;
+          } refreshTable:self]
+         completion:^(NSError *cError, id cResponseObject) {
+             if (weakSelf.tableExten.requestCompletionBlock) {
+                 weakSelf.tableExten.requestCompletionBlock(cError, cResponseObject);
+             }
+         }];
     }
     else
     {
