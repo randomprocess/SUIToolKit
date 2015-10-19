@@ -11,6 +11,7 @@
 #import "SUIToolKitConst.h"
 #import "SUIHttpClient.h"
 #import "SUITableExten.h"
+#import "SUIBaseConfig.h"
 #import "ReactiveCocoa.h"
 
 static dispatch_queue_t parser_data_queue() {
