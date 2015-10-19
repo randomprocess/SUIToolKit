@@ -42,6 +42,7 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Category'
     ss.dependency 'SUIToolKit/Exten'
+    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
