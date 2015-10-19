@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
 typedef NS_ENUM(NSInteger, SUINetworkStatus) {
     SUINetworkStatusUnknown             = -1,
     SUINetworkStatusNotReachable        = 0,
@@ -17,12 +16,11 @@ typedef NS_ENUM(NSInteger, SUINetworkStatus) {
     SUINetworkStatusReachableViaWiFi    = 2
 };
 
+#define SUINetworkingReachabilityDidChangeNotification @"com.suio.network.reachability.change"
+
 typedef void (^SUIDelayTask)(BOOL cancel);
 typedef void (^SUIAppStoreVersionCompletionBlock)(NSError *error, NSString *appVersion);
-typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
-typedef BOOL (^SUIKeyboardDidChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
-typedef void (^SUINetworkWillChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
-typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
+
 
 @interface SUITool : NSObject
 
@@ -46,21 +44,19 @@ typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkS
 + (NSString *)everVersion;
 
 
-#pragma mark - NetworkStatus
+#pragma mark - Network reachable
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  NetworkStatus
+ *  Network reachable
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (SUINetworkStatus)networkStatus;
 
-+ (void)networkStatusDidChange:(id)target cb:(SUINetworkWillChangeBlock)changeBlock;
 
-
-#pragma mark - Keyboard
+#pragma mark - Keyboard property
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Keyboard
+ *  Keyboard property
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)keyboardShow;
@@ -70,8 +66,6 @@ typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkS
 + (double)keyboardAnimationDuration;
 
 + (UIViewAnimationOptions)keyboardAnimationOptions;
-
-+ (void)keyboardDidChange:(id)target cb:(SUIKeyboardWillChangeBlock)changeBlock;
 
 
 #pragma mark - Unique identifier
@@ -85,10 +79,10 @@ typedef BOOL (^SUINetworkDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkS
 + (NSString *)idfvString;
 
 
-#pragma mark - File Manager
+#pragma mark - File manager
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  File Manager
+ *  File manager
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 + (BOOL)fileCreateDirectory:(NSString *)filePath;

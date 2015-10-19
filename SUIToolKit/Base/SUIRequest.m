@@ -11,6 +11,7 @@
 #import "SUIHttpClient.h"
 #import "SUIBaseConfig.h"
 #import "SUITableExten.h"
+#import "ReactiveCocoa.h"
 
 static dispatch_queue_t parser_data_queue() {
     static dispatch_queue_t parser_data_queue;
@@ -24,6 +25,7 @@ static dispatch_queue_t parser_data_queue() {
 @interface SUIRequest ()
 
 @property (nonatomic,weak) NSURLSessionDataTask *currTask;
+@property (nonatomic,weak) NSObject *currObj;
 @property (nonatomic,copy) NSString *identifier;
 @property (nonatomic,copy) SUIRequestParserBlock dataParserBlock;
 @property (nonatomic,copy) SUIRequestRefreshTableBlock refreshBlock;
@@ -36,89 +38,11 @@ static dispatch_queue_t parser_data_queue() {
 
 @implementation SUIRequest
 
-+ (instancetype)requestData:(NSDictionary *)parameters
-{
-    SUIRequest *curRequest = [SUIRequest new];
-    
-    curRequest.currTask =
-    [[SUIHttpClient sharedClient]
-     requestWithHost:[SUIBaseConfig sharedConfig].httpHost
-     httpMethod:[SUIBaseConfig sharedConfig].httpMethod
-     parameters:parameters
-     completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
-         
-         if (curRequest.cancelTask) return;
-         
-         if (error == nil)
-         {
-//             uLogInfo("========== response ==========\n%@\n", responseObject);
-             
-             if (curRequest.dataParserBlock)
-             {
-                 dispatch_async(parser_data_queue(), ^{
-                     curRequest.dataParserBlock(responseObject);
-                     uMainQueue(
-                                if (curRequest.completionBlock)
-                                {
-                                    curRequest.completionBlock(error, responseObject);
-                                }
-                     )
-                 });
-             }
-             else if (curRequest.refreshBlock && curRequest.refreshTableView)
-             {
-                 dispatch_async(parser_data_queue(), ^{
-                     NSArray *newDataAry = curRequest.refreshBlock(responseObject);
-                     uMainQueue(
-                                if (curRequest.refreshTableView)
-                                {
-                                    [curRequest.refreshTableView headerRefreshStop];
-                                    [curRequest.refreshTableView footerRefreshStop];
-                                    
-                                    [curRequest.refreshTableView refreshTable:newDataAry];
-                                }
-                                
-                                if (curRequest.completionBlock)
-                                {
-                                    curRequest.completionBlock(error, responseObject);
-                                }
-                     )
-                 });
-             }
-             else if (curRequest.completionBlock)
-             {
-                 curRequest.completionBlock(error, responseObject);
-             }
-         }
-         else
-         {
-             uLogError("========== error ==========\n%@\n", error);
-             
-             if (curRequest.refreshBlock && curRequest.refreshTableView)
-             {
-                 [curRequest.refreshTableView headerRefreshStop];
-                 [curRequest.refreshTableView footerRefreshStop];
-             }
-             
-             if (curRequest.completionBlock)
-             {
-                 curRequest.completionBlock(error, responseObject);
-             }
-         }
-         
-         [[[SUIBaseConfig sharedConfig] requesets] removeObject:curRequest];
-     }];
-    
-    [[[SUIBaseConfig sharedConfig] requesets] addObject:curRequest];
-    return curRequest;
-}
-
 - (instancetype)identifier:(NSString *)identifier
 {
     if (identifier.length > 0)
     {
-        NSMutableArray *curRequests = [[SUIBaseConfig sharedConfig] requesets];
-        for (SUIRequest *curRequest in curRequests)
+        for (SUIRequest *curRequest in self.currObj.requesets)
         {
             if ([curRequest.identifier isEqualToString:identifier])
             {
@@ -129,7 +53,6 @@ static dispatch_queue_t parser_data_queue() {
     }
     
     self.identifier = identifier;
-    
     return self;
 }
 
@@ -143,8 +66,7 @@ static dispatch_queue_t parser_data_queue() {
 {
     if (cTableView)
     {
-        NSMutableArray *curRequests = [[SUIBaseConfig sharedConfig] requesets];
-        for (SUIRequest *curRequest in curRequests)
+        for (SUIRequest *curRequest in self.currObj.requesets)
         {
             if (curRequest.refreshTableView == cTableView)
             {
@@ -171,7 +93,113 @@ static dispatch_queue_t parser_data_queue() {
     self.cancelTask = YES;
     [self.currTask cancel];
     
-    [[[SUIBaseConfig sharedConfig] requesets] removeObject:self];
+    [self.currObj.requesets removeObject:self];
+}
+
+@end
+
+
+@implementation NSObject (SUIRequest)
+
+- (SUIRequest *)requestData:(NSDictionary *)parameters
+{
+    SUIRequest *curRequest = [SUIRequest new];
+    curRequest.currObj = self;
+    
+    uWeakSelf
+    curRequest.currTask =
+    [[SUIHttpClient sharedClient]
+     requestWithHost:[SUIBaseConfig sharedConfig].httpHost
+     httpMethod:[SUIBaseConfig sharedConfig].httpMethod
+     parameters:parameters
+     completion:^(NSURLSessionDataTask *task, NSError *error, id responseObject) {
+         
+         if (curRequest.cancelTask) return;
+         
+         if (error == nil)
+         {
+             if (curRequest.dataParserBlock)
+             {
+                 dispatch_async(parser_data_queue(), ^{
+                     curRequest.dataParserBlock(responseObject);
+                     uMainQueue(
+                                if (curRequest.completionBlock)
+                                {
+                                    curRequest.completionBlock(error, responseObject);
+                                }
+                                )
+                 });
+             }
+             else if (curRequest.refreshBlock && curRequest.refreshTableView)
+             {
+                 dispatch_async(parser_data_queue(), ^{
+                     NSArray *newDataAry = curRequest.refreshBlock(responseObject);
+                     uMainQueue(
+                                if (curRequest.refreshTableView)
+                                {
+                                    [curRequest.refreshTableView headerRefreshStop];
+                                    [curRequest.refreshTableView footerRefreshStop];
+                                    
+                                    [curRequest.refreshTableView refreshTable:newDataAry];
+                                }
+                                
+                                if (curRequest.completionBlock)
+                                {
+                                    curRequest.completionBlock(error, responseObject);
+                                }
+                                )
+                 });
+             }
+             else if (curRequest.completionBlock)
+             {
+                 curRequest.completionBlock(error, responseObject);
+             }
+         }
+         else
+         {
+             uLogError("========== error ==========\n%@\n", error);
+             
+             if (curRequest.refreshBlock && curRequest.refreshTableView)
+             {
+                 [curRequest.refreshTableView headerRefreshStop];
+                 [curRequest.refreshTableView footerRefreshStop];
+             }
+             
+             if (curRequest.completionBlock)
+             {
+                 curRequest.completionBlock(error, responseObject);
+             }
+         }
+         
+         [[weakSelf requesets] removeObject:curRequest];
+     }];
+    
+    [[self requesets] addObject:curRequest];
+    return curRequest;
+}
+
+
+- (void)setRequesets:(NSMutableArray *)requesets
+{
+    objc_setAssociatedObject(self, @selector(requesets), requesets, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableArray *)requesets
+{
+    NSMutableArray *curRequesets = objc_getAssociatedObject(self, @selector(requesets));
+    if (curRequesets) return curRequesets;
+
+    curRequesets = [NSMutableArray array];
+    self.requesets = curRequesets;
+    
+    uWeakSelf
+    [[self rac_willDeallocSignal] subscribeCompleted:^{
+        for (SUIRequest *curRequest in weakSelf.requesets)
+        {
+            [curRequest cancel];
+        }
+    }];
+    return curRequesets;
 }
 
 @end

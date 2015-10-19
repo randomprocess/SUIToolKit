@@ -42,11 +42,4 @@
 @property (nonatomic,copy) NSString *classNameOfEmptyDataSetView;
 
 
-/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Requesets
- *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
-
-@property (nonatomic,strong,readonly) NSMutableArray *requesets;
-
 @end
-

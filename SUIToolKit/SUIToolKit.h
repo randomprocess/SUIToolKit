@@ -52,6 +52,7 @@
 #import "NSData+SUIExt.h"
 #import "NSDictionary+SUIExt.h"
 #import "NSDate+SUIExt.h"
+#import "NSObject+SUIExt.h"
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*

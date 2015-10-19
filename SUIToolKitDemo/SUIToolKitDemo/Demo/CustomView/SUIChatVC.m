@@ -30,7 +30,8 @@
         return NO;
     }];
     
-    [SUITool keyboardDidChange:self cb:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
+    
+    [self suiKeyboardWillChange:^(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration) {
         if (showKeyborad)
         {
             [weakSelf.emojiView dismiss];
@@ -133,8 +134,6 @@
         [self.curKeyboardFollowView bottomContant:0];
     }
 }
-
-
 
 
 @end

@@ -17,6 +17,15 @@ typedef enum : NSUInteger {
     SUITableExtenTypeFetch
 } SUITableExtenType;
 
+typedef enum : NSUInteger {
+    SUIFetchedResultsChangeTypeSectionInsert,
+    SUIFetchedResultsChangeTypeRowInsert,
+    SUIFetchedResultsChangeTypeSectionDelete,
+    SUIFetchedResultsChangeTypeRowDelete,
+    SUIFetchedResultsChangeTypeMove,
+    SUIFetchedResultsChangeTypeUpdate,
+} SUIFetchedResultsChangeType;
+
 typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
 typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
@@ -29,7 +38,7 @@ typedef void (^SUITableExtenWillBeginDraggingBlock)(void);
 
 typedef NSArray *(^SUITableExtenSearchTextDidChangeBlock)(UISearchBar *cSearchBar, NSString *cSearchText, NSArray *cDataAry);
 typedef void (^SUITableExtenFetchedResultsControllerWillChangeContentBlock)(NSFetchedResultsController *cController);
-typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController);
+typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController, SUIFetchedResultsChangeType cType);
 
 
 @interface SUITableExten : NSObject <
@@ -108,4 +117,3 @@ typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFet
 - (void)accordingToBaseConfig;
 
 @end
-

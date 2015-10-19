@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'SUIToolKit'
-  s.version      = '0.3.2'
+  s.version      = '0.3.3'
   s.platform     = :ios, '7.0'
   s.summary      = 'A collection of convenient classes for iOS.'
 
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
   s.subspec 'Tool' do |ss|
     ss.dependency 'AFNetworking', '~> 2.5.4'
     ss.dependency 'Reachability', '~> 3.2'
-    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.source_files = 'SUIToolKit/Tool/*.{h,m}'
   end
 
   s.subspec 'Category' do |ss|
+    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.dependency 'SUIToolKit/Tool'
     ss.source_files = 'SUIToolKit/Category/*.{h,m}'
   end

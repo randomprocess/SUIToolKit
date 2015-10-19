@@ -16,8 +16,6 @@ typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 @interface SUIRequest : NSObject
 
-
-+ (instancetype)requestData:(NSDictionary *)parameters;
 - (instancetype)identifier:(NSString *)identifier;
 
 - (instancetype)parser:(SUIRequestParserBlock)cb;
@@ -27,5 +25,13 @@ typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 - (void)cancel;
 
+@end
+
+
+@interface NSObject (SUIRequest)
+
+- (SUIRequest *)requestData:(NSDictionary *)parameters;
+
+@property (nonatomic,strong) NSMutableArray *requesets;
 
 @end

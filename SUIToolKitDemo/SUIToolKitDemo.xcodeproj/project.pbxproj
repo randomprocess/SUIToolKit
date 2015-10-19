@@ -53,6 +53,7 @@
 		6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091F71B3A48C800DA06A3 /* AppDelegate.m */; };
 		6DA5B9AC1B7D818900961BFD /* UIScrollView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */; };
 		6DA7233D1BD4868400B8FA58 /* UITableView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA7233C1BD4868400B8FA58 /* UITableView+SUIExt.m */; settings = {ASSET_TAGS = (); }; };
+		6DA723401BD496EC00B8FA58 /* NSObject+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA7233F1BD496EC00B8FA58 /* NSObject+SUIExt.m */; settings = {ASSET_TAGS = (); }; };
 		6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */; };
 		6DAE7A5E1B7200FB001D631A /* UIAlertView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A5D1B7200FB001D631A /* UIAlertView+SUIExt.m */; };
 		6DB3491C1BA81BEB003A72DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491B1BA81BEB003A72DF /* UIKit.framework */; };
@@ -169,6 +170,8 @@
 		6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SUIExt.m"; sourceTree = "<group>"; };
 		6DA7233B1BD4868400B8FA58 /* UITableView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SUIExt.h"; sourceTree = "<group>"; };
 		6DA7233C1BD4868400B8FA58 /* UITableView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SUIExt.m"; sourceTree = "<group>"; };
+		6DA7233E1BD496EC00B8FA58 /* NSObject+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SUIExt.h"; sourceTree = "<group>"; };
+		6DA7233F1BD496EC00B8FA58 /* NSObject+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SUIExt.m"; sourceTree = "<group>"; };
 		6DAE7A201B71B0CB001D631A /* NSDate+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+SUIExt.h"; sourceTree = "<group>"; };
 		6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SUIExt.m"; sourceTree = "<group>"; };
 		6DAE7A5C1B7200FB001D631A /* UIAlertView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SUIExt.h"; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				6D9470A71B5E4AC700860B27 /* NSDictionary+SUIExt.m */,
 				6DAE7A201B71B0CB001D631A /* NSDate+SUIExt.h */,
 				6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */,
+				6DA7233E1BD496EC00B8FA58 /* NSObject+SUIExt.h */,
+				6DA7233F1BD496EC00B8FA58 /* NSObject+SUIExt.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -635,6 +640,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D1241591B60E5CC005DC05F /* UIImage+SUIExt.m in Sources */,
+				6DA723401BD496EC00B8FA58 /* NSObject+SUIExt.m in Sources */,
 				6D1241441B60C961005DC05F /* SUIBaseVC.m in Sources */,
 				6D16EF2C1BB3D82E0034052C /* SUIEmptyDataSet.m in Sources */,
 				6D9470A51B5E3C8200860B27 /* NSData+SUIExt.m in Sources */,
@@ -801,6 +807,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;
@@ -818,6 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = SUIToolKitDemo/Info.plist;

@@ -490,15 +490,27 @@
         [self.currTableView endUpdates];
     }
     
+    if (self.fetchedResultsControllerDidChangeContentBlock) {
+        if (self.insertedRowIndexPaths && self.deletedSectionIndexes) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeMove);
+        } else if (self.insertedSectionIndexes) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeSectionInsert);
+        } else if (self.insertedRowIndexPaths) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeRowInsert);
+        } else if (self.deletedSectionIndexes) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeSectionDelete);
+        } else if (self.deletedRowIndexPaths) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeRowDelete);
+        } else if (self.updatedRowIndexPaths) {
+            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeUpdate);
+        }
+    }
+    
     self.insertedSectionIndexes = nil;
     self.deletedSectionIndexes = nil;
     self.deletedRowIndexPaths = nil;
     self.insertedRowIndexPaths = nil;
     self.updatedRowIndexPaths = nil;
-    
-    if (self.fetchedResultsControllerDidChangeContentBlock) {
-        self.fetchedResultsControllerDidChangeContentBlock(controller);
-    }
 }
 
 - (NSMutableIndexSet *)deletedSectionIndexes
@@ -703,7 +715,7 @@
         self.tableExten.requestBlock(currParameters, nil, nil);
         
         uWeakSelf
-        [[[SUIRequest requestData:currParameters]
+        [[[self requestData:currParameters]
           parser:^NSArray *(id cResponseObject) {
               weakSelf.tableExten.requestBlock(nil, cResponseObject, currNewDataAry);
               return currNewDataAry;

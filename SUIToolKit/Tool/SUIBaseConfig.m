@@ -26,16 +26,6 @@
     return sharedSingleton;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        _requesets = [NSMutableArray array];
-    }
-    return self;
-}
-
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Http
