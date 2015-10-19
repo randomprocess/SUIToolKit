@@ -42,11 +42,11 @@
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerWillChangeContentBlock fetchedResultsControllerWillChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
 
-@property (nonatomic, strong) NSMutableIndexSet *deletedSectionIndexes;
-@property (nonatomic, strong) NSMutableIndexSet *insertedSectionIndexes;
-@property (nonatomic, strong) NSMutableArray *deletedRowIndexPaths;
-@property (nonatomic, strong) NSMutableArray *insertedRowIndexPaths;
-@property (nonatomic, strong) NSMutableArray *updatedRowIndexPaths;
+@property (nonatomic,strong) NSMutableIndexSet *deletedSectionIndexes;
+@property (nonatomic,strong) NSMutableIndexSet *insertedSectionIndexes;
+@property (nonatomic,strong) NSMutableArray *deletedRowIndexPaths;
+@property (nonatomic,strong) NSMutableArray *insertedRowIndexPaths;
+@property (nonatomic,strong) NSMutableArray *updatedRowIndexPaths;
 
 @end
 
@@ -359,6 +359,47 @@
     [self.currTableView currVC].definesPresentationContext = YES;
 }
 
+
+- (NSMutableIndexSet *)deletedSectionIndexes
+{
+    if (_deletedSectionIndexes == nil) {
+        _deletedSectionIndexes = [[NSMutableIndexSet alloc] init];
+    }
+    return _deletedSectionIndexes;
+}
+
+- (NSMutableIndexSet *)insertedSectionIndexes
+{
+    if (_insertedSectionIndexes == nil) {
+        _insertedSectionIndexes = [[NSMutableIndexSet alloc] init];
+    }
+    return _insertedSectionIndexes;
+}
+
+- (NSMutableArray *)deletedRowIndexPaths
+{
+    if (_deletedRowIndexPaths == nil) {
+        _deletedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _deletedRowIndexPaths;
+}
+
+- (NSMutableArray *)insertedRowIndexPaths
+{
+    if (_insertedRowIndexPaths == nil) {
+        _insertedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _insertedRowIndexPaths;
+}
+
+- (NSMutableArray *)updatedRowIndexPaths
+{
+    if (_updatedRowIndexPaths == nil) {
+        _updatedRowIndexPaths = [[NSMutableArray alloc] init];
+    }
+    return _updatedRowIndexPaths;
+}
+
 @end
 
 
@@ -511,46 +552,6 @@
     self.deletedRowIndexPaths = nil;
     self.insertedRowIndexPaths = nil;
     self.updatedRowIndexPaths = nil;
-}
-
-- (NSMutableIndexSet *)deletedSectionIndexes
-{
-    if (_deletedSectionIndexes == nil) {
-        _deletedSectionIndexes = [[NSMutableIndexSet alloc] init];
-    }
-    return _deletedSectionIndexes;
-}
-
-- (NSMutableIndexSet *)insertedSectionIndexes
-{
-    if (_insertedSectionIndexes == nil) {
-        _insertedSectionIndexes = [[NSMutableIndexSet alloc] init];
-    }
-    return _insertedSectionIndexes;
-}
-
-- (NSMutableArray *)deletedRowIndexPaths
-{
-    if (_deletedRowIndexPaths == nil) {
-        _deletedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _deletedRowIndexPaths;
-}
-
-- (NSMutableArray *)insertedRowIndexPaths
-{
-    if (_insertedRowIndexPaths == nil) {
-        _insertedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _insertedRowIndexPaths;
-}
-
-- (NSMutableArray *)updatedRowIndexPaths
-{
-    if (_updatedRowIndexPaths == nil) {
-        _updatedRowIndexPaths = [[NSMutableArray alloc] init];
-    }
-    return _updatedRowIndexPaths;
 }
 
 @end

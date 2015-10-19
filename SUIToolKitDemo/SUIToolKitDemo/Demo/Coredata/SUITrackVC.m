@@ -10,7 +10,6 @@
 #import "SUIAlbumMD.h"
 #import "SUIMediaMD.h"
 #import "SUITrackMD.h"
-#import "MagicalRecord.h"
 
 @interface SUITrackVC ()
 
