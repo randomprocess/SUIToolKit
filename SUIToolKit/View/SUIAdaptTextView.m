@@ -193,7 +193,7 @@
 }
 
 
-#pragma mark - Lazy
+#pragma mark - Lazily instantiate
 
 - (UITextView *)currTextView
 {
@@ -205,6 +205,7 @@
         _currTextView.contentInset = UIEdgeInsetsZero;
         _currTextView.font = gFont(14);
         _currTextView.textContainer.lineFragmentPadding = 0;
+        _currTextView.returnKeyType = UIReturnKeySend;
         _currTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self fitTextContainerInsetWithSingleLine:YES];
         [self addSubview:_currTextView];
@@ -274,6 +275,7 @@
 - (void)setText:(NSString *)text
 {
     self.currTextView.text = text;
+    [self textViewDidChange:self.currTextView];
 }
 
 

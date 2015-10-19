@@ -52,6 +52,7 @@
 		6DA091EC1B3A46AD00DA06A3 /* SUIToolKitDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091EB1B3A46AD00DA06A3 /* SUIToolKitDemoTests.m */; };
 		6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091F71B3A48C800DA06A3 /* AppDelegate.m */; };
 		6DA5B9AC1B7D818900961BFD /* UIScrollView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */; };
+		6DA7233D1BD4868400B8FA58 /* UITableView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA7233C1BD4868400B8FA58 /* UITableView+SUIExt.m */; settings = {ASSET_TAGS = (); }; };
 		6DAE7A221B71B0CB001D631A /* NSDate+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */; };
 		6DAE7A5E1B7200FB001D631A /* UIAlertView+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAE7A5D1B7200FB001D631A /* UIAlertView+SUIExt.m */; };
 		6DB3491C1BA81BEB003A72DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB3491B1BA81BEB003A72DF /* UIKit.framework */; };
@@ -166,6 +167,8 @@
 		6DA091F91B3A48F100DA06A3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6DA5B9AA1B7D818900961BFD /* UIScrollView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SUIExt.h"; sourceTree = "<group>"; };
 		6DA5B9AB1B7D818900961BFD /* UIScrollView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SUIExt.m"; sourceTree = "<group>"; };
+		6DA7233B1BD4868400B8FA58 /* UITableView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SUIExt.h"; sourceTree = "<group>"; };
+		6DA7233C1BD4868400B8FA58 /* UITableView+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SUIExt.m"; sourceTree = "<group>"; };
 		6DAE7A201B71B0CB001D631A /* NSDate+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+SUIExt.h"; sourceTree = "<group>"; };
 		6DAE7A211B71B0CB001D631A /* NSDate+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SUIExt.m"; sourceTree = "<group>"; };
 		6DAE7A5C1B7200FB001D631A /* UIAlertView+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SUIExt.h"; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				6DF43B0A1BCE424E0061C9C5 /* UIColor+SUIExt.m */,
 				6D31E2FB1BCF5C7A00873F4F /* UITabBarItem+SUIExt.h */,
 				6D31E2FC1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m */,
+				6DA7233B1BD4868400B8FA58 /* UITableView+SUIExt.h */,
+				6DA7233C1BD4868400B8FA58 /* UITableView+SUIExt.m */,
 				6D9470A01B5E3B8A00860B27 /* NSString+SUIExt.h */,
 				6D9470A11B5E3B8A00860B27 /* NSString+SUIExt.m */,
 				6D9470781B5E378900860B27 /* NSArray+SUIExt.h */,
@@ -670,6 +675,7 @@
 				6D16EF3B1BB3DDB90034052C /* SUIDropdownTitleMenu.m in Sources */,
 				6D67E77F1B70999C00CD691D /* SUILoadingView.m in Sources */,
 				6D9470941B5E378900860B27 /* NSArray+SUIExt.m in Sources */,
+				6DA7233D1BD4868400B8FA58 /* UITableView+SUIExt.m in Sources */,
 				6DEF08301B4FAAD700F4FBF6 /* SUIToolKitDemo.xcdatamodeld in Sources */,
 				6DB90E151B7B16260027805F /* SUIAdaptTextView.m in Sources */,
 				6D7E36321B79D21C00850832 /* SUIKeyboardFollowView.m in Sources */,

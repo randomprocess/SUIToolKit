@@ -427,8 +427,8 @@
             break;
         case NSFetchedResultsChangeDelete:
         {
-            if ([self.deletedSectionIndexes containsIndex:newIndexPath.section]) return;
-            [self.deletedRowIndexPaths addObject:newIndexPath];
+            if ([self.deletedSectionIndexes containsIndex:indexPath.section]) return;
+            [self.deletedRowIndexPaths addObject:indexPath];
         }
             break;
         case NSFetchedResultsChangeMove:
