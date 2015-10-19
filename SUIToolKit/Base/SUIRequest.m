@@ -7,9 +7,9 @@
 //
 
 #import "SUIRequest.h"
+#import <objc/runtime.h>
 #import "SUIToolKitConst.h"
 #import "SUIHttpClient.h"
-#import "SUIBaseConfig.h"
 #import "SUITableExten.h"
 #import "ReactiveCocoa.h"
 
