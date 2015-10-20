@@ -9,7 +9,6 @@
 #import "SUIAdaptTextView.h"
 #import "SUIToolKitConst.h"
 #import "UIView+SUIExt.h"
-#import "UIViewController+SUIExt.h"
 
 
 #define tAdaptTextView_TextInset_TopBottom 1
@@ -28,6 +27,7 @@
 @property (nonatomic,strong) NSLayoutConstraint *currContantHeight;
 
 @property (nonatomic,copy) SUIAdaptTextViewReturnBlock returnBlock;
+@property (nonatomic,copy) SUIAdaptTextViewHeightDidChangeBlock heightDidChangeBlock;
 
 @end
 
@@ -69,7 +69,7 @@
     {
         if (self.returnBlock)
         {
-            if (self.returnBlock(textView))
+            if (self.returnBlock())
             {
                 [textView resignFirstResponder];
             }
@@ -84,40 +84,29 @@
 {
     CGFloat newHeight = [self fitHeightWithNumOfLines:0];
     
-    if (newHeight < self.minHeight)
-    {
+    if (newHeight < self.minHeight) {
         newHeight = self.minHeight;
+    } else if (newHeight > self.maxHeight) {
+        newHeight = self.maxHeight;
     }
-    
+
     if (newHeight != self.curHeight)
     {
-        if (newHeight == self.minHeight)
-        {
+        if (newHeight == self.minHeight) {
             [self fitTextContainerInsetWithSingleLine:YES];
-            
             self.currContantHeight.constant = newHeight;
-        }
-        else
-        {
+        } else {
             [self fitTextContainerInsetWithSingleLine:NO];
-            
-            if (newHeight > self.maxHeight)
-            {
-//                [self.currTextView flashScrollIndicators];
-                newHeight = self.maxHeight;
-            }
-            
             self.currContantHeight.constant = newHeight + tAdaptTextView_TextInset_TopBottom * 2;
         }
         
-        [self layoutIfNeeded];
+        [self.superview layoutIfNeeded];
         
         [self.currTextView scrollRangeToVisible:self.currTextView.selectedRange];
         self.curHeight = newHeight;
         
-        UIViewController *currVC = self.theVC;
-        if (currVC.destDoAction) {
-            currVC.destDoAction(self.currTextView, nil);
+        if (self.heightDidChangeBlock) {
+            self.heightDidChangeBlock (newHeight);
         }
     }
 }
@@ -187,9 +176,14 @@
     }
 }
 
-- (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)returnBlock
+- (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)cb
 {
-    self.returnBlock = returnBlock;
+    self.returnBlock = cb;
+}
+
+- (void)heightDidChange:(SUIAdaptTextViewHeightDidChangeBlock)cb
+{
+    self.heightDidChangeBlock = cb;
 }
 
 

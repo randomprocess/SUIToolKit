@@ -18,6 +18,10 @@ Pod::Spec.new do |s|
   s.source_files  = 'SUIToolKit/SUIToolKit.h'
 
 
+  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore', 'MobileCoreServices'
+  s.dependency 'ReactiveCocoa', '~> 2.5'
+
+
   s.subspec 'Tool' do |ss|
     ss.dependency 'AFNetworking', '~> 2.6.1'
     ss.dependency 'Reachability', '~> 3.2'
@@ -25,7 +29,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Category' do |ss|
-    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.dependency 'SUIToolKit/Tool'
     ss.source_files = 'SUIToolKit/Category/*.{h,m}'
   end
@@ -42,7 +45,6 @@ Pod::Spec.new do |s|
     ss.dependency 'SUIToolKit/Tool'
     ss.dependency 'SUIToolKit/Category'
     ss.dependency 'SUIToolKit/Exten'
-    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
@@ -57,6 +59,5 @@ Pod::Spec.new do |s|
     ss.source_files = 'SUIToolKit/View/*.{h,m}'
   end
 
-  s.frameworks = 'UIKit', 'Foundation', 'CoreData', 'QuartzCore', 'MobileCoreServices'
 
 end

@@ -41,6 +41,7 @@
 @property (nonatomic,copy) SUITableExtenSearchTextDidChangeBlock searchTextDidChangeBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerWillChangeContentBlock fetchedResultsControllerWillChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
+@property (nonatomic,copy) SUITableExtenFetchedResultsControllerAnimationBlock fetchedResultsControllerAnimationBlock;
 
 @property (nonatomic,strong) NSMutableIndexSet *deletedSectionIndexes;
 @property (nonatomic,strong) NSMutableIndexSet *insertedSectionIndexes;
@@ -100,6 +101,10 @@
 - (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb
 {
     self.fetchedResultsControllerDidChangeContentBlock = cb;
+}
+- (void)fetchResultControllerAnimation:(SUITableExtenFetchedResultsControllerAnimationBlock)cb
+{
+    self.fetchedResultsControllerAnimationBlock = cb;
 }
 
 
@@ -510,41 +515,62 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    NSInteger totalChanges = [self.deletedSectionIndexes count] +
-    [self.insertedSectionIndexes count] +
-    [self.deletedRowIndexPaths count] +
-    [self.insertedRowIndexPaths count] +
-    [self.updatedRowIndexPaths count];
-    
-    if (totalChanges > 50)
-    {
-        [self.currTableView reloadData];
-    }
-    else
-    {
-        [self.currTableView beginUpdates];
-        [self.currTableView deleteSections:self.deletedSectionIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView insertSections:self.insertedSectionIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView deleteRowsAtIndexPaths:self.deletedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView insertRowsAtIndexPaths:self.insertedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView reloadRowsAtIndexPaths:self.updatedRowIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView endUpdates];
-    }
-    
-    if (self.fetchedResultsControllerDidChangeContentBlock) {
-        if (self.insertedRowIndexPaths && self.deletedSectionIndexes) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeMove);
-        } else if (self.insertedSectionIndexes) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeSectionInsert);
-        } else if (self.insertedRowIndexPaths) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeRowInsert);
-        } else if (self.deletedSectionIndexes) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeSectionDelete);
-        } else if (self.deletedRowIndexPaths) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeRowDelete);
-        } else if (self.updatedRowIndexPaths) {
-            self.fetchedResultsControllerDidChangeContentBlock(controller, SUIFetchedResultsChangeTypeUpdate);
+    uWeakSelf
+    [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {
+        
+        if (cType == SUIFetchedResultsChangeTypeReloadData)
+        {
+            [weakSelf.currTableView reloadData];
         }
+        else
+        {
+            UITableViewRowAnimation curAnimation = UITableViewRowAnimationAutomatic;
+            if (weakSelf.fetchedResultsControllerAnimationBlock) {
+                curAnimation = weakSelf.fetchedResultsControllerAnimationBlock(controller, cType);
+            }
+            
+            switch (cType) {
+                case SUIFetchedResultsChangeTypeMove:
+                {
+                    [weakSelf.currTableView deleteRowsAtIndexPaths:weakSelf.deletedRowIndexPaths withRowAnimation:curAnimation];
+                    [weakSelf.currTableView insertRowsAtIndexPaths:weakSelf.insertedRowIndexPaths withRowAnimation:curAnimation];
+                }
+                    break;
+                case SUIFetchedResultsChangeTypeRowInsert:
+                {
+                    [weakSelf.currTableView insertRowsAtIndexPaths:weakSelf.insertedRowIndexPaths withRowAnimation:curAnimation];
+                }
+                    break;
+                case SUIFetchedResultsChangeTypeRowDelete:
+                {
+                    [weakSelf.currTableView deleteRowsAtIndexPaths:weakSelf.deletedRowIndexPaths withRowAnimation:curAnimation];
+                }
+                    break;
+                case SUIFetchedResultsChangeTypeSectionInsert:
+                {
+                    [weakSelf.currTableView insertSections:weakSelf.insertedSectionIndexes withRowAnimation:curAnimation];
+                }
+                    break;
+                case SUIFetchedResultsChangeTypeSectionDelete:
+                {
+                    [weakSelf.currTableView deleteSections:weakSelf.insertedSectionIndexes withRowAnimation:curAnimation];
+                }
+                    break;
+                case SUIFetchedResultsChangeTypeUpdate:
+                {
+                    [weakSelf.currTableView reloadRowsAtIndexPaths:weakSelf.updatedRowIndexPaths withRowAnimation:curAnimation];
+                }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }];
+    
+    if (weakSelf.fetchedResultsControllerDidChangeContentBlock) {
+        [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {
+            weakSelf.fetchedResultsControllerDidChangeContentBlock(controller, cType);
+        }];
     }
     
     self.insertedSectionIndexes = nil;
@@ -552,6 +578,40 @@
     self.deletedRowIndexPaths = nil;
     self.insertedRowIndexPaths = nil;
     self.updatedRowIndexPaths = nil;
+}
+
+- (void)fetchedResultsControllerChangeType:(void (^)(SUIFetchedResultsChangeType cType))cb
+{
+    NSInteger totalChanges = self.deletedSectionIndexes.count +
+    self.insertedSectionIndexes.count +
+    self.deletedRowIndexPaths.count +
+    self.insertedRowIndexPaths.count +
+    self.updatedRowIndexPaths.count;
+    
+    if (totalChanges > 50)
+    {
+        cb(SUIFetchedResultsChangeTypeReloadData);
+        return;
+    }
+    
+    if (self.insertedRowIndexPaths.count && self.deletedRowIndexPaths.count) {
+        cb(SUIFetchedResultsChangeTypeMove);
+    } else if (self.insertedRowIndexPaths.count) {
+        cb(SUIFetchedResultsChangeTypeRowInsert);
+    } else if (self.deletedRowIndexPaths.count) {
+        cb(SUIFetchedResultsChangeTypeRowDelete);
+    }
+    
+    if (self.insertedSectionIndexes.count) {
+        cb(SUIFetchedResultsChangeTypeSectionInsert);
+    }
+    if (self.deletedSectionIndexes.count) {
+        cb(SUIFetchedResultsChangeTypeSectionDelete);
+    }
+    
+    if (self.updatedRowIndexPaths.count) {
+        cb(SUIFetchedResultsChangeTypeUpdate);
+    }
 }
 
 @end

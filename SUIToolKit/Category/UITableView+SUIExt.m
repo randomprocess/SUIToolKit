@@ -7,6 +7,7 @@
 //
 
 #import "UITableView+SUIExt.h"
+#import "UIView+SUIExt.h"
 
 @implementation UITableView (SUIExt)
 
@@ -21,6 +22,19 @@
                     atScrollPosition:UITableViewScrollPositionBottom
                             animated:animated];
     }
+}
+
+- (void)contentInsertsWithBottomValue:(CGFloat)cBottom
+{
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    
+    if ([[self theVC] respondsToSelector:@selector(topLayoutGuide)]) {
+        insets.top = [self theVC].topLayoutGuide.length;
+    }
+    
+    insets.bottom = cBottom;
+    self.contentInset = insets;
+    self.scrollIndicatorInsets = insets;
 }
 
 

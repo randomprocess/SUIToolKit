@@ -107,10 +107,11 @@
 
 - (UIViewController *)theVC
 {
+    Class aClass = NSClassFromString(@"UIViewController");
     for (UIView *next = [self superview]; next; next = next.superview)
     {
         UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[NSClassFromString(@"UIViewController") class]])
+        if ([nextResponder isKindOfClass:aClass])
         {
             return (UIViewController *)nextResponder;
         }
@@ -126,6 +127,20 @@
         if ([subView isKindOfClass:aClass])
         {
             return subView;
+        }
+    }
+    return nil;
+}
+
+- (id)supviewWithClassName:(NSString *)className
+{
+    Class aClass = NSClassFromString(className);
+    for (UIView *next = [self superview]; next; next = next.superview)
+    {
+        UIView *curView = [next superview];
+        if ([curView isKindOfClass:aClass])
+        {
+            return curView;
         }
     }
     return nil;

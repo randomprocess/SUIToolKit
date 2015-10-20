@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "SUITool.h"
 
-typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyborad, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
-typedef BOOL (^SUINetworkStatusDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
+typedef void (^SUIKeyboardWillChangeBlock)(BOOL showKeyboard, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration);
+typedef void (^SUINetworkStatusDidChangeBlock)(SUINetworkStatus everStatu, SUINetworkStatus currStatu);
 
 
 @interface NSObject (SUIExt)

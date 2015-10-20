@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
     SUIFetchedResultsChangeTypeRowDelete,
     SUIFetchedResultsChangeTypeMove,
     SUIFetchedResultsChangeTypeUpdate,
+    SUIFetchedResultsChangeTypeReloadData
 } SUIFetchedResultsChangeType;
 
 typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
@@ -39,7 +40,7 @@ typedef void (^SUITableExtenWillBeginDraggingBlock)(void);
 typedef NSArray *(^SUITableExtenSearchTextDidChangeBlock)(UISearchBar *cSearchBar, NSString *cSearchText, NSArray *cDataAry);
 typedef void (^SUITableExtenFetchedResultsControllerWillChangeContentBlock)(NSFetchedResultsController *cController);
 typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController, SUIFetchedResultsChangeType cType);
-
+typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimationBlock)(NSFetchedResultsController *cController, SUIFetchedResultsChangeType cType);
 
 @interface SUITableExten : NSObject <
     UITableViewDataSource,
@@ -69,7 +70,7 @@ typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFet
 - (void)searchTextDidChange:(SUITableExtenSearchTextDidChangeBlock)cb;
 - (void)fetchResultControllerWillChangeContent:(SUITableExtenFetchedResultsControllerWillChangeContentBlock)cb;
 - (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb;
-
+- (void)fetchResultControllerAnimation:(SUITableExtenFetchedResultsControllerAnimationBlock)cb;
 
 - (SUITableExtenType)extenType;
 

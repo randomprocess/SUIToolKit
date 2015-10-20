@@ -54,15 +54,15 @@
     [self suiKeyboardWillShowHide:NO noti:cNoti];
 }
 
-- (void)suiKeyboardWillShowHide:(BOOL)showKeyborad noti:(NSNotification *)cNoti
+- (void)suiKeyboardWillShowHide:(BOOL)showKeyboard noti:(NSNotification *)cNoti
 {
     CGRect keyboardRect = [[cNoti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = keyboardRect.size.height;
-    UIViewAnimationOptions options = [[cNoti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    double duration = [[cNoti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    double duration = [[cNoti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationOptions options = [[cNoti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
     if (self.suiKeyboardWillChangeBlock) {
-        self.suiKeyboardWillChangeBlock(showKeyborad, keyboardHeight, options, duration);
+        self.suiKeyboardWillChangeBlock(showKeyboard, keyboardHeight, options, duration);
     }
 }
 

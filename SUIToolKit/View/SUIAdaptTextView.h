@@ -8,8 +8,10 @@
 
 #import "SUIBaseView.h"
 
+@class SUIAdaptTextView;
 
-typedef BOOL (^SUIAdaptTextViewReturnBlock)(UITextView *textView);
+typedef BOOL (^SUIAdaptTextViewReturnBlock)(void);
+typedef void (^SUIAdaptTextViewHeightDidChangeBlock)(CGFloat newHeight);
 
 @interface SUIAdaptTextView : SUIBaseView
 
@@ -27,8 +29,9 @@ typedef BOOL (^SUIAdaptTextViewReturnBlock)(UITextView *textView);
 
 - (void)dismissKeyboard;
 
-- (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)returnBlock;
+- (void)returnKeyboard:(SUIAdaptTextViewReturnBlock)cb;
 
+- (void)heightDidChange:(SUIAdaptTextViewHeightDidChangeBlock)cb;
 
 
 @end

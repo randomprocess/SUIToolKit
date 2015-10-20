@@ -25,7 +25,7 @@
     [super viewDidLoad];
     
     uWeakSelf
-    [self.cTextView returnKeyboard:^BOOL(UITextView *textView) {
+    [self.cTextView returnKeyboard:^BOOL{
         uLog(@"currTextView Text ⤭ %@ ⤪", weakSelf.cTextView.text);
         return NO;
     }];

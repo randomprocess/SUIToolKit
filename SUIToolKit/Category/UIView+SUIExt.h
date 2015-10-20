@@ -42,6 +42,7 @@ typedef enum : NSUInteger {
 
 - (UIViewController *)theVC;
 - (id)subviewWithClassName:(NSString *)className;
+- (id)supviewWithClassName:(NSString *)className;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
