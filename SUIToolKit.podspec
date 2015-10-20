@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
 
   s.subspec 'Tool' do |ss|
-    ss.dependency 'AFNetworking', '~> 2.5.4'
+    ss.dependency 'AFNetworking', '~> 2.6.1'
     ss.dependency 'Reachability', '~> 3.2'
     ss.source_files = 'SUIToolKit/Tool/*.{h,m}'
   end
@@ -46,7 +46,6 @@ Pod::Spec.new do |s|
     ss.dependency 'MGSwipeTableCell', '~> 1.5.1'
     ss.dependency 'MJRefresh', '~> 1.4.7'
     ss.dependency 'MJExtension', '~> 2.3.7'
-    ss.dependency 'MagicalRecord', '~> 2.3.0'
     ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
     ss.source_files = 'SUIToolKit/Base/*.{h,m}'
   end
