@@ -223,6 +223,14 @@
                 }
                     break;
                     
+                case SUIEmojiViewTypeGif:
+                {
+                    UIImage *curImg = gImageResource(curItem.imageName, @"gif");
+                    [self fitPngItem:curItem image:curImg];
+                    [curImg drawInRect:curItem.realRect];
+                }
+                    break;
+                    
                 case SUIEmojiViewTypeText:
                 {
                     [self fitTextItem:curItem attributes:curItem.attributes];
@@ -684,6 +692,8 @@
                 [UIView animateWithDuration:0.2 animations:^{
                     weakSelf.sendBtn.x = self.bottomView.width;
                 }];
+                
+                self.bottomScrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }
         }
     }
@@ -734,6 +744,8 @@
         if (curSection.image) {
             curSectionBtn.normalImage = curSection.image;
         } else {
+            curSectionBtn.normalTitleColo = [UIColor lightGrayColor];
+            curSectionBtn.selectedTitleColo = [UIColor whiteColor];
             curSectionBtn.normalTitle = curSection.title;
         }
         
@@ -752,7 +764,7 @@
         [self.currSectionBtnAry addObject:curSectionBtn];
     }
     
-    [self.bottomScrollView fitContentSize];
+    self.bottomScrollView.contentSize = CGSizeMake(sectionTotalWidth, self.bottomScrollView.height);
 }
 
 
@@ -841,6 +853,7 @@
         _bottomScrollView = [UIScrollView new];
         _bottomScrollView.frame = CGRectMake(0, 0, self.bottomView.width, self.bottomView.height);
         _bottomScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _bottomScrollView.showsHorizontalScrollIndicator = NO;
         [self.bottomView addSubview:_bottomScrollView];
     }
     return _bottomScrollView;
@@ -851,9 +864,9 @@
     if (!_sendBtn) {
         _sendBtn = [UIButton customBtn];
         NSString *curLanguage = kLanguage;
-        if ([curLanguage isEqualToString:@"zh-Hans"]) {
+        if ([curLanguage hasPrefix:@"zh-Hans"]) {
             _sendBtn.normalTitle = @"发送";
-        } else if ([curLanguage isEqualToString:@"zh-Hant"]) {
+        } else if ([curLanguage hasPrefix:@"zh-Hant"]) {
             _sendBtn.normalTitle = @"發送";
         } else {
             _sendBtn.normalTitle = @"Send";
@@ -1039,16 +1052,25 @@
         NSMutableArray *curItemAry = [NSMutableArray array];
         for (NSInteger idx=0; idx<self.emojiItemAry.count; idx++)
         {
-            [curItemAry addObject:self.emojiItemAry[idx]];
+            SUIEmojiItem *curItem = self.emojiItemAry[idx];
+            curItem.currSection = self;
+            [curItemAry addObject:curItem];
             
             if (((idx % ([self numOfSinglePageItems]-1)) == [self numOfSinglePageItems]-2) ||
                 ((idx == self.emojiItemAry.count-1) && (curItemAry.count % [self numOfSinglePageItems] != 0))) {
                 SUIEmojiItem *deleItem = [SUIEmojiItem new];
                 deleItem.deleteItem = YES;
+                deleItem.currSection = self;
                 [curItemAry addObject:deleItem];
             }
         }
         self.emojiItemAry = curItemAry;
+    }
+    else
+    {
+        for (SUIEmojiItem *curItem in self.emojiItemAry) {
+            curItem.currSection = self;
+        }
     }
 }
 

@@ -516,6 +516,8 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     uWeakSelf
+    
+    [self.currTableView beginUpdates];
     [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {
         
         if (cType == SUIFetchedResultsChangeTypeReloadData)
@@ -566,6 +568,7 @@
             }
         }
     }];
+    [self.currTableView endUpdates];
     
     if (weakSelf.fetchedResultsControllerDidChangeContentBlock) {
         [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {

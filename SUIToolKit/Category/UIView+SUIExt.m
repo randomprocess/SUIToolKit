@@ -231,6 +231,28 @@
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Ges
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+- (void)addTapGesWithTarget:(id)cTarget sel:(SEL)cSel
+{
+    self.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:cTarget action:cSel];
+    [tapGes setNumberOfTapsRequired:1];
+    [self addGestureRecognizer:tapGes];
+}
+
+- (void)addLongPressGesWithTarget:(id)cTarget sel:(SEL)cSel
+{
+    self.userInteractionEnabled = YES;
+    
+    UILongPressGestureRecognizer *longPressGes = [[UILongPressGestureRecognizer alloc] initWithTarget:cTarget action:cSel];
+    [self addGestureRecognizer:longPressGes];
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Animate
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 

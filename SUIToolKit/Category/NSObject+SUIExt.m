@@ -23,35 +23,16 @@
 {
     if (self.hasRegisterForKeyboardNotifications) return;
     
-    [gNotificationCenter addObserver:self
-                            selector:@selector(suiKeyboardWillShow:)
-                                name:UIKeyboardWillShowNotification
-                              object:nil];
-    
-    [gNotificationCenter addObserver:self
-                            selector:@selector(suiKeyboardWillHide:)
-                                name:UIKeyboardWillHideNotification
-                              object:nil];
-    
     uWeakSelf
-    [[self rac_willDeallocSignal] subscribeCompleted:^{
-        [gNotificationCenter removeObserver:weakSelf
-                                       name:UIKeyboardWillShowNotification
-                                     object:nil];
-        
-        [gNotificationCenter removeObserver:weakSelf
-                                       name:UIKeyboardWillHideNotification
-                                     object:nil];
+    [[gNotificationCenter rac_addObserverForName:UIKeyboardWillShowNotification object:nil]
+    subscribeNext:^(NSNotification *cNoti) {
+        [weakSelf suiKeyboardWillShowHide:YES noti:cNoti];
     }];
-}
-
-- (void)suiKeyboardWillShow:(NSNotification *)cNoti
-{
-    [self suiKeyboardWillShowHide:YES noti:cNoti];
-}
-- (void)suiKeyboardWillHide:(NSNotification *)cNoti
-{
-    [self suiKeyboardWillShowHide:NO noti:cNoti];
+    
+    [[gNotificationCenter rac_addObserverForName:UIKeyboardWillHideNotification object:nil]
+     subscribeNext:^(NSNotification *cNoti) {
+         [weakSelf suiKeyboardWillShowHide:NO noti:cNoti];
+     }];
 }
 
 - (void)suiKeyboardWillShowHide:(BOOL)showKeyboard noti:(NSNotification *)cNoti

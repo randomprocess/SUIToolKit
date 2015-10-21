@@ -15,6 +15,8 @@ typedef void (^SUIAdaptTextViewHeightDidChangeBlock)(CGFloat newHeight);
 
 @interface SUIAdaptTextView : SUIBaseView
 
+@property (nonatomic,strong) UITextView *currTextView;
+
 
 @property (nonatomic) IBInspectable NSInteger maxLines; // Default is 4
 

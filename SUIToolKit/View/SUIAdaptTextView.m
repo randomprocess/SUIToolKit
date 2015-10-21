@@ -16,7 +16,6 @@
 
 @interface SUIAdaptTextView () <UITextViewDelegate>
 
-@property (nonatomic,strong) UITextView *currTextView;
 @property (nonatomic,strong) UILabel *placeholderLbl;
 
 @property (nonatomic,assign) CGFloat minHeight;
