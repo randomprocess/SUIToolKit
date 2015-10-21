@@ -54,20 +54,24 @@
  *  UIImagePickerControllerDelegate
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-{
-    if (self.completionBlock) self.completionBlock(NO, image, editingInfo);
-    [self dismissPickerViewController:picker];
-}
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+//{
+//    if (self.completionBlock) self.completionBlock(NO, image, editingInfo);
+//    [self dismissPickerViewController:picker];
+//}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (self.completionBlock) self.completionBlock(NO, nil, info);
+    if (self.completionBlock) {
+        UIImage *portraitImg = [info objectForKey:UIImagePickerControllerOriginalImage];
+        self.completionBlock(NO, portraitImg, info);
+    }
     [self dismissPickerViewController:picker];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+    if (self.completionBlock) self.completionBlock(YES, nil, nil);
     [self dismissPickerViewController:picker];
 }
 
