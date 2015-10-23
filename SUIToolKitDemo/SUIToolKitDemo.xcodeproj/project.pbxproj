@@ -29,6 +29,7 @@
 		6D31E2FD1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D31E2FC1BCF5C7A00873F4F /* UITabBarItem+SUIExt.m */; settings = {ASSET_TAGS = (); }; };
 		6D5706CC1B7B3C8F00E7228F /* SUIChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */; };
 		6D5952551B7313B700BB9A62 /* UIActionSheet+SUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5952541B7313B700BB9A62 /* UIActionSheet+SUIExt.m */; };
+		6D625DCE1BD9C8C700A9D46B /* SUITimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D625DCD1BD9C8C700A9D46B /* SUITimer.m */; settings = {ASSET_TAGS = (); }; };
 		6D67E7681B70971200CD691D /* SUIAlbumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7621B70971200CD691D /* SUIAlbumVC.m */; };
 		6D67E7691B70971200CD691D /* SUIAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7641B70971200CD691D /* SUIAlbumCell.m */; };
 		6D67E76A1B70971200CD691D /* SUIAlbumMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D67E7661B70971200CD691D /* SUIAlbumMD.m */; };
@@ -121,6 +122,8 @@
 		6D5706CB1B7B3C8F00E7228F /* SUIChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIChatVC.m; sourceTree = "<group>"; };
 		6D5952531B7313B700BB9A62 /* UIActionSheet+SUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+SUIExt.h"; sourceTree = "<group>"; };
 		6D5952541B7313B700BB9A62 /* UIActionSheet+SUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+SUIExt.m"; sourceTree = "<group>"; };
+		6D625DCC1BD9C8C700A9D46B /* SUITimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITimer.h; sourceTree = "<group>"; };
+		6D625DCD1BD9C8C700A9D46B /* SUITimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITimer.m; sourceTree = "<group>"; };
 		6D67E7621B70971200CD691D /* SUIAlbumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumVC.m; sourceTree = "<group>"; };
 		6D67E7631B70971200CD691D /* SUIAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAlbumCell.h; sourceTree = "<group>"; };
 		6D67E7641B70971200CD691D /* SUIAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAlbumCell.m; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				6D12413D1B60C961005DC05F /* SUITool.h */,
 				6D12413E1B60C961005DC05F /* SUITool.m */,
 				6D12413F1B60C961005DC05F /* SUIToolKitConst.h */,
+				6D625DCC1BD9C8C700A9D46B /* SUITimer.h */,
+				6D625DCD1BD9C8C700A9D46B /* SUITimer.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -703,6 +708,7 @@
 				6D7E36321B79D21C00850832 /* SUIKeyboardFollowView.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
 				6D1241481B60C961005DC05F /* SUITool.m in Sources */,
+				6D625DCE1BD9C8C700A9D46B /* SUITimer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

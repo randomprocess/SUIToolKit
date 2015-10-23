@@ -32,7 +32,23 @@
     NSString *databaseName = [NSString stringWithFormat:@"%@.sqlite", kProjectName];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:databaseName];
 
+    [self O_O];
+    
     return YES;
+}
+
+- (void)O_O
+{
+    SUITimer *curTimer =
+    [SUITimer timeWithTimeInterval:3 leeway:0 event:^{
+        uFun;
+    } cancel:^{
+        uFun;
+    }];
+    
+    [SUITool delay:10 cb:^{
+        [curTimer stopTimer];
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
