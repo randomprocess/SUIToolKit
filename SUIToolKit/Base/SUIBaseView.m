@@ -37,7 +37,7 @@
 - (void)commonInit
 {
     UIView *curMainView = [[NSBundle mainBundle] loadNibNamed:gClassName(self) owner:self options:nil][0];
-    NSAssert(curMainView != nil, @"> <");
+    uAssert(curMainView != nil, @"> <");
     self.mainView = curMainView;
     [self addSubview:self.mainView];
         

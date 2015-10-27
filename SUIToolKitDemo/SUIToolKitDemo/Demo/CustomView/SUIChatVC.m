@@ -102,10 +102,9 @@
     }
     
     
-    
     {
         uWeakSelf
-        [self.currTableView.tableExten willBeginDragging:^{
+        [self.currTableView.tableExten willBeginDragging:^(UITableView *cTableView) {
             [weakSelf.cTextView dismissKeyboard];
             [weakSelf.emojiView dismiss];
             [weakSelf.curKeyboardFollowView bottomContant:0];

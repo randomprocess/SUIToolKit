@@ -56,7 +56,7 @@
             curSuffixStr = @"TVC";
         }
         
-        NSAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
+        uAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
         NSRange curRange = NSMakeRange(3, currClassName.length-(3+curSuffixStr.length));
         curIdentifier = [currClassName substringWithRange:curRange];
         self.currIdentifier = curIdentifier;

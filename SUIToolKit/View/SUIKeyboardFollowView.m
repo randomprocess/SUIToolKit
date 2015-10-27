@@ -22,7 +22,7 @@
 
 - (void)awakeFromNib
 {
-    NSAssert([self contantHeight] != nil, @"should add contantHeight");
+    uAssert([self contantHeight] != nil, @"should add contantHeight");
     
     _originHeight = [self contantHeight].constant;
     
@@ -47,7 +47,7 @@
         if (!_currContantBottom) {
             _currContantBottom = [self contantTop];
         }
-        NSAssert(_currContantBottom != nil, @"should add contantBottom");
+        uAssert(_currContantBottom != nil, @"should add contantBottom");
     }
     return _currContantBottom;
 }

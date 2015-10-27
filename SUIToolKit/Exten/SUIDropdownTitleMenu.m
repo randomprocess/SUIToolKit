@@ -361,7 +361,7 @@
         }
         menuViews = titleAry;
     }
-    NSAssert(menuViews.count > 0, @"menuViews.count MUST > 0");
+    uAssert(menuViews.count > 0, @"menuViews.count MUST > 0");
     return menuViews;
 }
 

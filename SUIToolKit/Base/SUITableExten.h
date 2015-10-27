@@ -18,29 +18,34 @@ typedef enum : NSUInteger {
 } SUITableExtenType;
 
 typedef enum : NSUInteger {
-    SUIFetchedResultsChangeTypeSectionInsert,
-    SUIFetchedResultsChangeTypeRowInsert,
-    SUIFetchedResultsChangeTypeSectionDelete,
-    SUIFetchedResultsChangeTypeRowDelete,
-    SUIFetchedResultsChangeTypeMove,
-    SUIFetchedResultsChangeTypeUpdate,
-    SUIFetchedResultsChangeTypeReloadData
-} SUIFetchedResultsChangeType;
+    SUIDataSourceChangeTypeSectionInsert,
+    SUIDataSourceChangeTypeRowInsert,
+    SUIDataSourceChangeTypeSectionDelete,
+    SUIDataSourceChangeTypeRowDelete,
+    SUIDataSourceChangeTypeMove,
+    SUIDataSourceChangeTypeUpdate,
+    SUIDataSourceChangeTypeReloadData
+} SUIDataSourceChangeType;
 
 typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
 typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
-typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(NSIndexPath *cIndexPath, id cModel);
-typedef NSString *(^SUITableExtenCellIdentifiersBlock)(NSIndexPath *cIndexPath, id cModel);
-typedef void (^SUITableExtenDidSelectRowBlock)(NSIndexPath *cIndexPath, id cModel);
-typedef void (^SUITableExtenWillDisplayCellBlock)(SUIBaseCell *cCell, NSIndexPath *cIndexPath, id cModel);
-typedef void (^SUITableExtenDidScrollBlock)(void);
-typedef void (^SUITableExtenWillBeginDraggingBlock)(void);
+typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
+typedef NSString *(^SUITableExtenCellIdentifiersBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
+typedef void (^SUITableExtenDidSelectRowBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
+typedef void (^SUITableExtenWillDisplayCellBlock)(UITableView *cTableView, SUIBaseCell *cCell, NSIndexPath *cIndexPath, id cModel);
+typedef void (^SUITableExtenDidScrollBlock)(UITableView *cTableView);
+typedef void (^SUITableExtenWillBeginDraggingBlock)(UITableView *cTableView);
+
+typedef NSInteger (^SUITableExtenNumberOfSectionsBlock)(UITableView *cTableView);
+typedef NSInteger (^SUITableExtenNumberOfRowsBlock)(UITableView *cTableView, NSInteger cSection);
+typedef id (^SUITableExtenCurrentModelBlock)(UITableView *cTableView, NSIndexPath *cIndexPath);
 
 typedef NSArray *(^SUITableExtenSearchTextDidChangeBlock)(UISearchBar *cSearchBar, NSString *cSearchText, NSArray *cDataAry);
 typedef void (^SUITableExtenFetchedResultsControllerWillChangeContentBlock)(NSFetchedResultsController *cController);
-typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController, SUIFetchedResultsChangeType cType);
-typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimationBlock)(NSFetchedResultsController *cController, SUIFetchedResultsChangeType cType);
+typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController, SUIDataSourceChangeType cType);
+typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimationBlock)(NSFetchedResultsController *cController, SUIDataSourceChangeType cType);
+typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUIDataSourceChangeType cType);
 
 @interface SUITableExten : NSObject <
     UITableViewDataSource,
@@ -67,15 +72,24 @@ typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimation
 - (void)didScroll:(SUITableExtenDidScrollBlock)cb;
 - (void)willBeginDragging:(SUITableExtenWillBeginDraggingBlock)cb;
 
+- (void)numberOfSections:(SUITableExtenNumberOfSectionsBlock)cb;
+- (void)numberOfRows:(SUITableExtenNumberOfRowsBlock)cb;
+- (void)currentModel:(SUITableExtenCurrentModelBlock)cb;
+
 - (void)searchTextDidChange:(SUITableExtenSearchTextDidChangeBlock)cb;
 - (void)fetchResultControllerWillChangeContent:(SUITableExtenFetchedResultsControllerWillChangeContentBlock)cb;
 - (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb;
 - (void)fetchResultControllerAnimation:(SUITableExtenFetchedResultsControllerAnimationBlock)cb;
 
 - (SUITableExtenType)extenType;
+- (NSInteger)countOfSections:(SUITableExtenType)cType;
+- (NSInteger)countOfRowsInSection:(NSInteger)cSection type:(SUITableExtenType)cType;
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath type:(SUITableExtenType)cType;
 
-- (void)resetDataAry:(NSArray *)newDataAry;
-- (void)addDataAry:(NSArray *)newDataAry;
+- (void)resetDataAry:(NSArray *)newDataAry; // [[Model]]
+- (void)addDataAry:(NSArray *)newDataAry; // [[Model]]
+- (void)insertDataAry:(NSArray *)newDataAry atIndexPath:(NSIndexPath *)cIndexPath; // [Model]
+- (void)dataAryChangeAnimation:(SUITableExtenDataAryChangeAnimationBlock)cb;
 
 @end
 

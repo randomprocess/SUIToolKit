@@ -13,12 +13,6 @@
 
 + (instancetype)timeWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t)eCb cancel:(dispatch_block_t)cCb;
 
-
-- (void)resumeTimer;
-
-- (void)suspendTimer;
-
 - (void)stopTimer;
-
 
 @end

@@ -115,7 +115,7 @@
     if (!_currContantHeight)
     {
         _currContantHeight = [self contantHeight];
-        NSAssert(_currContantHeight != nil, @"should add contantHeight");
+        uAssert(_currContantHeight != nil, @"should add contantHeight");
     }
     return _currContantHeight;
 }

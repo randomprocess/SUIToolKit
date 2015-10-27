@@ -44,7 +44,7 @@
 {
     if (_httpHost == nil)
     {
-        NSAssert(NO, @"should set httpHost");
+        uAssert(NO, @"should set httpHost");
     }
     return _httpHost;
 }

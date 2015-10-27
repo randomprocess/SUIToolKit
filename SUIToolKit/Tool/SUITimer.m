@@ -62,9 +62,4 @@
     self.reservoir = nil;
 }
 
-- (void)dealloc
-{
-    uFun;
-}
-
 @end

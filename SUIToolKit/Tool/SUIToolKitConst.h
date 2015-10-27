@@ -146,6 +146,14 @@ __stuff \
 #define uLog(__format, ...)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,  ##__VA_ARGS__)
 #define uLogInfo(__format, ...)     NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__,    ##__VA_ARGS__)
 #define uLogError(__format, ...)    NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"#### %s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define uAssert(__condition, __desc, ...) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wformat-extra-args\"") \
+if (!(__condition)) \
+uLogError(__desc, ##__VA_ARGS__); \
+_Pragma("clang diagnostic pop") \
+} while (0);
 
 #define uInteger(__integer)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> ⤭ %zd ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, __integer)
 #define uObj(__obj)                 NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> %s ⤭ %@ ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__obj, __obj)
@@ -163,6 +171,7 @@ __stuff \
 #define uLogObj(__obj) {}
 #define uLogInfo(__format, ...) {}
 #define uLogError(__format, ...) {}
+#define uAssert(__condition, __format, ...) {}
 
 #define uRect(__rect) {}
 #define uSize(__size) {}

@@ -633,7 +633,7 @@
     
     if (self.showCustomEmoji)
     {
-        NSAssert(self.sectionsBlock, @"should implement sectionsBlock");
+        uAssert(self.sectionsBlock, @"should implement sectionsBlock");
         
         [self createBottomUI];
         spareHeight -= tEmoji_Bottom_Height;

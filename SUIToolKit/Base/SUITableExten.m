@@ -38,10 +38,15 @@
 @property (nonatomic,copy) SUITableExtenDidScrollBlock didScrollBlock;
 @property (nonatomic,copy) SUITableExtenWillBeginDraggingBlock willBeginDraggingBlock;
 
+@property (nonatomic,copy) SUITableExtenNumberOfSectionsBlock numberOfSectionsBlock;
+@property (nonatomic,copy) SUITableExtenNumberOfRowsBlock numberOfRowsBlock;
+@property (nonatomic,copy) SUITableExtenCurrentModelBlock currentModelBlock;
+
 @property (nonatomic,copy) SUITableExtenSearchTextDidChangeBlock searchTextDidChangeBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerWillChangeContentBlock fetchedResultsControllerWillChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerAnimationBlock fetchedResultsControllerAnimationBlock;
+@property (nonatomic,copy) SUITableExtenDataAryChangeAnimationBlock dataAryChangeAnimationBlock;
 
 @property (nonatomic,strong) NSMutableIndexSet *deletedSectionIndexes;
 @property (nonatomic,strong) NSMutableIndexSet *insertedSectionIndexes;
@@ -90,6 +95,19 @@
     self.willBeginDraggingBlock = cb;
 }
 
+- (void)numberOfSections:(SUITableExtenNumberOfSectionsBlock)cb
+{
+    self.numberOfSectionsBlock = cb;
+}
+- (void)numberOfRows:(SUITableExtenNumberOfRowsBlock)cb
+{
+    self.numberOfRowsBlock = cb;
+}
+- (void)currentModel:(SUITableExtenCurrentModelBlock)cb
+{
+    self.currentModelBlock = cb;
+}
+
 - (void)searchTextDidChange:(SUITableExtenSearchTextDidChangeBlock)cb
 {
     self.searchTextDidChangeBlock = cb;
@@ -119,14 +137,85 @@
     }
 }
 
+- (NSInteger)countOfSections:(SUITableExtenType)cType
+{
+    switch (cType)
+    {
+        case SUITableExtenTypeSearch:
+            return self.currSearchDataAry.count;
+            break;
+        case SUITableExtenTypeFetch:
+            return self.fetchedResultsController.sections.count;
+            break;
+        default:
+            return self.currDataAry.count;
+            break;
+    }
+}
+
+- (NSInteger)countOfRowsInSection:(NSInteger)cSection type:(SUITableExtenType)cType
+{
+    NSInteger numOfRows = 0;
+    if ([self countOfSections:cType] > 0)
+    {
+        switch (cType)
+        {
+            case SUITableExtenTypeSearch:
+                numOfRows = [self.currSearchDataAry[cSection] count];
+                break;
+            case SUITableExtenTypeFetch: {
+                id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[cSection];
+                numOfRows = [sectionInfo numberOfObjects];
+            }
+                break;
+            default:
+                numOfRows = [self.currDataAry[cSection] count];
+                break;
+        }
+    }
+    return numOfRows;
+}
+
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath type:(SUITableExtenType)cType
+{
+    switch (cType)
+    {
+        case SUITableExtenTypeSearch:
+            return self.currSearchDataAry[cIndexPath.section][cIndexPath.row];
+            break;
+        case SUITableExtenTypeFetch: {
+            id currSourceData = nil;
+            id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[cIndexPath.section];
+            if ([sectionInfo numberOfObjects] == 1) {
+                currSourceData = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:cIndexPath.section]];
+            } else {
+                currSourceData = [self.fetchedResultsController objectAtIndexPath:cIndexPath];
+            }
+            return currSourceData;
+        }
+            break;
+        default: {
+            NSArray *curCellSourceDataSection = self.currDataAry[cIndexPath.section];
+            id currSourceData = (curCellSourceDataSection.count == 1) ?
+            curCellSourceDataSection[0] : curCellSourceDataSection[cIndexPath.row];
+            return currSourceData;
+        }
+            break;
+    }
+}
+
 - (void)resetDataAry:(NSArray *)newDataAry
 {
-    [self.currDataAry removeAllObjects];
-    [self.currDataAry addObjectsFromArray:newDataAry];
-    [self.currTableView reloadData];
+    uMainQueue(
+               [self.currDataAry removeAllObjects];
+               [self.currDataAry addObjectsFromArray:newDataAry];
+               [self.currTableView reloadData];
+    )
 }
 - (void)addDataAry:(NSArray *)newDataAry
 {
+    if (!newDataAry.count) return;
+    
     NSMutableArray *curIndexPathAry = [NSMutableArray array];
     for (NSInteger i=0; i<newDataAry.count; i++)
     {
@@ -146,10 +235,59 @@
     
     if (curIndexPathAry.count > 0)
     {
-        [self.currTableView  beginUpdates];
-        [self.currTableView  insertRowsAtIndexPaths:curIndexPathAry withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.currTableView  endUpdates];
+        UITableViewRowAnimation defaultRowAnimation = UITableViewRowAnimationAutomatic;
+        if (self.dataAryChangeAnimationBlock) {
+            defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowInsert);
+        }
+        uMainQueue(
+                   [self.currTableView  beginUpdates];
+                   [self.currTableView  insertRowsAtIndexPaths:curIndexPathAry withRowAnimation:defaultRowAnimation];
+                   [self.currTableView  endUpdates];
+                   )
     }
+}
+- (void)insertDataAry:(NSArray *)newDataAry atIndexPath:(NSIndexPath *)cIndexPath
+{
+    if (!newDataAry.count) return;
+
+    NSMutableArray *curDataSectionAry = nil;
+    if (self.currDataAry.count <= cIndexPath.section)
+    {
+        curDataSectionAry = [NSMutableArray array];
+        [self.currDataAry addObject:curDataSectionAry];
+        uAssert(cIndexPath.section == 0, @"this may not be what you want");
+    }
+    else
+    {
+        curDataSectionAry = self.currDataAry[cIndexPath.section];
+    }
+    
+    NSInteger curFlag = cIndexPath.row;
+    if (curDataSectionAry.count < cIndexPath.row) curFlag = curDataSectionAry.count;
+    
+    NSMutableArray *curIndexPaths = [NSMutableArray arrayWithCapacity:newDataAry.count];
+    NSMutableIndexSet *curIndexSet = [NSMutableIndexSet indexSet];
+    [newDataAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curFlag+idx inSection:cIndexPath.section];
+        [curIndexPaths addObject:curIndexPath];
+        [curIndexSet addIndex:curFlag+idx];
+    }];
+    [curDataSectionAry insertObjects:newDataAry atIndexes:curIndexSet];
+    
+    UITableViewRowAnimation defaultRowAnimation = UITableViewRowAnimationAutomatic;
+    if (self.dataAryChangeAnimationBlock) {
+        defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowInsert);
+    }
+    uMainQueue(
+               [self.currTableView  beginUpdates];
+               [self.currTableView  insertRowsAtIndexPaths:curIndexPaths withRowAnimation:defaultRowAnimation];
+               [self.currTableView  endUpdates];
+               )
+}
+
+- (void)dataAryChangeAnimation:(SUITableExtenDataAryChangeAnimationBlock)cb
+{
+    self.dataAryChangeAnimationBlock = cb;
 }
 
 
@@ -159,38 +297,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    switch ([self extenType])
-    {
-        case SUITableExtenTypeSearch:
-            return self.currSearchDataAry.count;
-            break;
-        case SUITableExtenTypeFetch:
-            return self.fetchedResultsController.sections.count;
-            break;
-        default:
-            return self.currDataAry.count;
-            break;
+    if (self.numberOfSectionsBlock) {
+        return self.numberOfSectionsBlock(tableView);
     }
+    return [self countOfSections:[self extenType]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numOfRows = 0;
-    switch ([self extenType])
-    {
-        case SUITableExtenTypeSearch:
-            numOfRows = [self.currSearchDataAry[section] count];
-            break;
-        case SUITableExtenTypeFetch: {
-            id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-            numOfRows = [sectionInfo numberOfObjects];
-        }
-            break;
-        default:
-            numOfRows = [self.currDataAry[section] count];
-            break;
+    if (self.numberOfRowsBlock) {
+        return self.numberOfRowsBlock(tableView, section);
     }
-    return numOfRows;
+    return [self countOfRowsInSection:section type:[self extenType]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,7 +317,7 @@
     id curModel = currConfig[1];
     SUIBaseCell *currCell = nil;
     if (self.cellForRowBlock) {
-        currCell = self.cellForRowBlock(indexPath, curModel);
+        currCell = self.cellForRowBlock(tableView, indexPath, curModel);
     } else {
         currCell = [self.currTableView dequeueReusableCellWithIdentifier:currConfig[0]];
     }
@@ -227,7 +345,7 @@
     id currSourceData = [self currentModelAtIndex:indexPath tableView:tableView];
     NSString *curCellIdentifier = nil;
     if (self.cellIdentifiersBlock) {
-        curCellIdentifier = self.cellIdentifiersBlock(indexPath, currSourceData);
+        curCellIdentifier = self.cellIdentifiersBlock(tableView, indexPath, currSourceData);
         if (!curCellIdentifier) uLogError(@"curCellIdentifier is nil");
     } else {
         UIViewController *currVC = [self.currTableView currVC];
@@ -242,30 +360,10 @@
 
 - (id)currentModelAtIndex:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
-    switch ([self extenType])
-    {
-        case SUITableExtenTypeSearch:
-            return self.currSearchDataAry[indexPath.section][indexPath.row];
-            break;
-        case SUITableExtenTypeFetch: {
-            id currSourceData = nil;
-            id<NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[indexPath.section];
-            if ([sectionInfo numberOfObjects] == 1) {
-                currSourceData = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
-            } else {
-                currSourceData = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            }
-            return currSourceData;
-        }
-            break;
-        default: {
-            NSArray *curCellSourceDataSection = self.currDataAry[indexPath.section];
-            id currSourceData = (curCellSourceDataSection.count == 1) ?
-            curCellSourceDataSection[0] : curCellSourceDataSection[indexPath.row];
-            return currSourceData;
-        }
-            break;
+    if (self.currentModelBlock) {
+        return self.currentModelBlock(tableView, indexPath);
     }
+    return [self currentModelAtIndexPath:indexPath type:[self extenType]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -274,7 +372,7 @@
     UIViewController *currVC = tableView.theVC;
     currVC.destModel = [self currentModelAtIndex:indexPath tableView:tableView];
     if (self.didSelectRowBlock) {
-        self.didSelectRowBlock(indexPath, currVC.destModel);
+        self.didSelectRowBlock(tableView, indexPath, currVC.destModel);
     }
 }
 
@@ -282,21 +380,21 @@
 {
     id curModel = [self currentModelAtIndex:indexPath tableView:tableView];
     if (self.willDisplayCellBlock) {
-        self.willDisplayCellBlock((SUIBaseCell *)cell, indexPath, curModel);
+        self.willDisplayCellBlock(tableView, (SUIBaseCell *)cell, indexPath, curModel);
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.didScrollBlock) {
-        self.didScrollBlock();
+        self.didScrollBlock((UITableView *)scrollView);
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if (self.willBeginDraggingBlock) {
-        self.willBeginDraggingBlock();
+        self.willBeginDraggingBlock((UITableView *)scrollView);
     }
 }
 
@@ -518,9 +616,9 @@
     uWeakSelf
     
     [self.currTableView beginUpdates];
-    [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {
+    [self fetchedResultsControllerChangeType:^(SUIDataSourceChangeType cType) {
         
-        if (cType == SUIFetchedResultsChangeTypeReloadData)
+        if (cType == SUIDataSourceChangeTypeReloadData)
         {
             [weakSelf.currTableView reloadData];
         }
@@ -532,33 +630,33 @@
             }
             
             switch (cType) {
-                case SUIFetchedResultsChangeTypeMove:
+                case SUIDataSourceChangeTypeMove:
                 {
                     [weakSelf.currTableView deleteRowsAtIndexPaths:weakSelf.deletedRowIndexPaths withRowAnimation:curAnimation];
                     [weakSelf.currTableView insertRowsAtIndexPaths:weakSelf.insertedRowIndexPaths withRowAnimation:curAnimation];
                 }
                     break;
-                case SUIFetchedResultsChangeTypeRowInsert:
+                case SUIDataSourceChangeTypeRowInsert:
                 {
                     [weakSelf.currTableView insertRowsAtIndexPaths:weakSelf.insertedRowIndexPaths withRowAnimation:curAnimation];
                 }
                     break;
-                case SUIFetchedResultsChangeTypeRowDelete:
+                case SUIDataSourceChangeTypeRowDelete:
                 {
                     [weakSelf.currTableView deleteRowsAtIndexPaths:weakSelf.deletedRowIndexPaths withRowAnimation:curAnimation];
                 }
                     break;
-                case SUIFetchedResultsChangeTypeSectionInsert:
+                case SUIDataSourceChangeTypeSectionInsert:
                 {
                     [weakSelf.currTableView insertSections:weakSelf.insertedSectionIndexes withRowAnimation:curAnimation];
                 }
                     break;
-                case SUIFetchedResultsChangeTypeSectionDelete:
+                case SUIDataSourceChangeTypeSectionDelete:
                 {
                     [weakSelf.currTableView deleteSections:weakSelf.insertedSectionIndexes withRowAnimation:curAnimation];
                 }
                     break;
-                case SUIFetchedResultsChangeTypeUpdate:
+                case SUIDataSourceChangeTypeUpdate:
                 {
                     [weakSelf.currTableView reloadRowsAtIndexPaths:weakSelf.updatedRowIndexPaths withRowAnimation:curAnimation];
                 }
@@ -571,7 +669,7 @@
     [self.currTableView endUpdates];
     
     if (weakSelf.fetchedResultsControllerDidChangeContentBlock) {
-        [self fetchedResultsControllerChangeType:^(SUIFetchedResultsChangeType cType) {
+        [self fetchedResultsControllerChangeType:^(SUIDataSourceChangeType cType) {
             weakSelf.fetchedResultsControllerDidChangeContentBlock(controller, cType);
         }];
     }
@@ -583,7 +681,7 @@
     self.updatedRowIndexPaths = nil;
 }
 
-- (void)fetchedResultsControllerChangeType:(void (^)(SUIFetchedResultsChangeType cType))cb
+- (void)fetchedResultsControllerChangeType:(void (^)(SUIDataSourceChangeType cType))cb
 {
     NSInteger totalChanges = self.deletedSectionIndexes.count +
     self.insertedSectionIndexes.count +
@@ -593,27 +691,27 @@
     
     if (totalChanges > 50)
     {
-        cb(SUIFetchedResultsChangeTypeReloadData);
+        cb(SUIDataSourceChangeTypeReloadData);
         return;
     }
     
     if (self.insertedRowIndexPaths.count && self.deletedRowIndexPaths.count) {
-        cb(SUIFetchedResultsChangeTypeMove);
+        cb(SUIDataSourceChangeTypeMove);
     } else if (self.insertedRowIndexPaths.count) {
-        cb(SUIFetchedResultsChangeTypeRowInsert);
+        cb(SUIDataSourceChangeTypeRowInsert);
     } else if (self.deletedRowIndexPaths.count) {
-        cb(SUIFetchedResultsChangeTypeRowDelete);
+        cb(SUIDataSourceChangeTypeRowDelete);
     }
     
     if (self.insertedSectionIndexes.count) {
-        cb(SUIFetchedResultsChangeTypeSectionInsert);
+        cb(SUIDataSourceChangeTypeSectionInsert);
     }
     if (self.deletedSectionIndexes.count) {
-        cb(SUIFetchedResultsChangeTypeSectionDelete);
+        cb(SUIDataSourceChangeTypeSectionDelete);
     }
     
     if (self.updatedRowIndexPaths.count) {
-        cb(SUIFetchedResultsChangeTypeUpdate);
+        cb(SUIDataSourceChangeTypeUpdate);
     }
 }
 
