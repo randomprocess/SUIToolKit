@@ -58,6 +58,22 @@
 }
 
 
+- (NSDate *)convertToLocalTime
+{
+    NSTimeZone *curTimeZone = [NSTimeZone localTimeZone];
+    NSInteger timeOffset = [curTimeZone secondsFromGMTForDate:self];
+    NSDate *curDate = [self dateByAddingTimeInterval:timeOffset];
+    return curDate;
+}
+- (NSDate *)convertToTimeZoneWithAbbreviation:(NSString *)cAbbreviation
+{
+    NSTimeZone *curTimeZone = [NSTimeZone timeZoneWithAbbreviation:cAbbreviation];
+    NSInteger timeOffset = [curTimeZone secondsFromGMTForDate:self];
+    NSDate *curDate = [self dateByAddingTimeInterval:timeOffset];
+    return curDate;
+}
+
+
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Date Formate
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/

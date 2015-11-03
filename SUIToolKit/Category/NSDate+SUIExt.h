@@ -23,6 +23,9 @@
 - (NSInteger)currSecond;
 - (NSInteger)currAge;
 
+- (NSDate *)convertToLocalTime;
+- (NSDate *)convertToTimeZoneWithAbbreviation:(NSString *)cAbbreviation; // @"GMT+0800"
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Date Formate

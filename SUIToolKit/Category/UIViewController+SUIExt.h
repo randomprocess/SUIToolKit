@@ -21,6 +21,17 @@ typedef void (^SUIDoActionBlock)(id cSender, id cModel);
 @end
 
 
+@interface UIViewController (SUIGeometry)
+
+- (CGFloat)opaqueNavBarHeight;
+- (CGFloat)opaqueTabBarHeight;
+- (CGFloat)translucentNavBarHeight;
+- (CGFloat)translucentTabBarHeight;
+- (CGRect)viewRect;
+
+@end
+
+
 @interface UIViewController (SUIModelPassed)
 
 @property (nonatomic,strong) id srcModel;

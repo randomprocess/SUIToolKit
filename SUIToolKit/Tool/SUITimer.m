@@ -14,20 +14,37 @@
 @property (nonatomic,strong) dispatch_source_t currTimer;
 @property (nonatomic,copy) void(^reservoir)(void);
 
+@property (nonatomic,copy) dispatch_block_t eventBlock;
+@property (nonatomic,copy) dispatch_block_t cancelBlock;
+
 @end
 
 
 @implementation SUITimer
 
-- (instancetype)initWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t)eCb cancel:(dispatch_block_t)cCb
+- (instancetype)initWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t _Nonnull)eCb cancel:(dispatch_block_t _Nullable)cCb
 {
     self = [super init];
     if (self)
     {
         dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         self.currTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, globalQueue);
-        if (eCb) dispatch_source_set_event_handler(self.currTimer, eCb);
-        if (cCb) dispatch_source_set_cancel_handler(self.currTimer, cCb);
+        if (eCb) {
+            self.eventBlock = eCb;
+            dispatch_source_set_event_handler(self.currTimer, ^{
+                uMainQueue(
+                           eCb();
+                           )
+            });
+        }
+        if (cCb) {
+            self.cancelBlock = cCb;
+            dispatch_source_set_cancel_handler(self.currTimer, ^{
+                uMainQueue(
+                           cCb();
+                           )
+            });
+        }
         
         __block SUITimer *bSelf = self;
         self.reservoir = ^{
@@ -40,7 +57,7 @@
     return self;
 }
 
-+ (instancetype)timeWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t)eCb cancel:(dispatch_block_t)cCb
++ (instancetype _Nonnull)timeWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t _Nonnull)eCb cancel:(dispatch_block_t _Nullable)cCb
 {
     SUITimer *curTimer = [[SUITimer alloc] initWithTimeInterval:cTi leeway:cLeeway event:eCb cancel:cCb];
     return curTimer;
@@ -60,6 +77,8 @@
 {
     self.reservoir();
     self.reservoir = nil;
+    self.eventBlock = nil;
+    self.cancelBlock = nil;
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "SUITool.h"
 #import "UIView+SUIExt.h"
 #import "UIImage+SUIExt.h"
+#import "UIViewController+SUIExt.h"
 
 
 #define tAnimationDuration 0.8
@@ -54,7 +55,6 @@
     }
     return _menuView;
 }
-
 
 - (UIImageView *)selectImgView
 {
@@ -147,16 +147,7 @@
 {
     _currVC = currVC;
     _currVC.navigationItem.titleView = self.currTitleBtn;
-    
-    UINavigationBar *curNavigationBar = _currVC.navigationController.navigationBar;
-    if (curNavigationBar.translucent)
-    {
-        self.currNavBarHeight = curNavigationBar.bounds.size.height;
-        if (![UIApplication sharedApplication].statusBarHidden)
-        {
-            self.currNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
-        }
-    }
+    self.currNavBarHeight = [_currVC translucentNavBarHeight];
 }
 
 - (instancetype)init

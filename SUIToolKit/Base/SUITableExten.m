@@ -44,8 +44,9 @@
 
 @property (nonatomic,copy) SUITableExtenSearchTextDidChangeBlock searchTextDidChangeBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerWillChangeContentBlock fetchedResultsControllerWillChangeContentBlock;
-@property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
+@property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeObjectBlock fetchedResultsControllerDidChangeObjectBlock;
 @property (nonatomic,copy) SUITableExtenFetchedResultsControllerAnimationBlock fetchedResultsControllerAnimationBlock;
+@property (nonatomic,copy) SUITableExtenFetchedResultsControllerDidChangeContentBlock fetchedResultsControllerDidChangeContentBlock;
 @property (nonatomic,copy) SUITableExtenDataAryChangeAnimationBlock dataAryChangeAnimationBlock;
 
 @property (nonatomic,strong) NSMutableIndexSet *deletedSectionIndexes;
@@ -116,13 +117,17 @@
 {
     self.fetchedResultsControllerWillChangeContentBlock = cb;
 }
-- (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb
+- (void)fetchResultControllerDidChangeObject:(SUITableExtenFetchedResultsControllerDidChangeObjectBlock)cb
 {
-    self.fetchedResultsControllerDidChangeContentBlock = cb;
+    self.fetchedResultsControllerDidChangeObjectBlock = cb;
 }
 - (void)fetchResultControllerAnimation:(SUITableExtenFetchedResultsControllerAnimationBlock)cb
 {
     self.fetchedResultsControllerAnimationBlock = cb;
+}
+- (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb
+{
+    self.fetchedResultsControllerDidChangeContentBlock = cb;
 }
 
 
@@ -333,11 +338,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *currConfig = [self configureCell:indexPath tableView:tableView];
-    return [self.currTableView fd_heightForCellWithIdentifier:currConfig[0] configuration:^(id cell) {
+    return [self.currTableView fd_heightForCellWithIdentifier:currConfig[0] cacheByIndexPath:indexPath configuration:^(id cell) {
         SUIBaseCell *curCell = (SUIBaseCell *)cell;
         curCell.currModle = currConfig[1];
         [curCell displayWithCalculateCellHeight:curCell.currModle];
     }];
+    
+//    return [self.currTableView fd_heightForCellWithIdentifier:currConfig[0] configuration:^(id cell) {
+//        SUIBaseCell *curCell = (SUIBaseCell *)cell;
+//        curCell.currModle = currConfig[1];
+//        [curCell displayWithCalculateCellHeight:curCell.currModle];
+//    }];
 }
 
 - (NSArray *)configureCell:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
@@ -561,6 +572,18 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
+    if (self.fetchedResultsControllerDidChangeObjectBlock) {
+        __block NSIndexPath *pIndexPath = indexPath;
+        __block NSIndexPath *pNewIndexPath = newIndexPath;
+        SUIReplaceIndexPath curReplaceIndexPath = ^(NSIndexPath *cIndexPath, NSIndexPath *cNewIndexPath) {
+            pIndexPath = cIndexPath;
+            pNewIndexPath = cNewIndexPath;
+        };
+        self.fetchedResultsControllerDidChangeObjectBlock(type, anObject, indexPath, newIndexPath, curReplaceIndexPath);
+        indexPath = pIndexPath;
+        newIndexPath = pNewIndexPath;
+    }
+    
     switch (type)
     {
         case NSFetchedResultsChangeInsert:
@@ -626,7 +649,7 @@
         {
             UITableViewRowAnimation curAnimation = UITableViewRowAnimationAutomatic;
             if (weakSelf.fetchedResultsControllerAnimationBlock) {
-                curAnimation = weakSelf.fetchedResultsControllerAnimationBlock(controller, cType);
+                curAnimation = weakSelf.fetchedResultsControllerAnimationBlock(cType);
             }
             
             switch (cType) {
@@ -670,7 +693,7 @@
     
     if (weakSelf.fetchedResultsControllerDidChangeContentBlock) {
         [self fetchedResultsControllerChangeType:^(SUIDataSourceChangeType cType) {
-            weakSelf.fetchedResultsControllerDidChangeContentBlock(controller, cType);
+            weakSelf.fetchedResultsControllerDidChangeContentBlock(cType);
         }];
     }
     

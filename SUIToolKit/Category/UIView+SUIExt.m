@@ -25,13 +25,13 @@
     self.layer.masksToBounds = cornerRadius > 0;
 }
 
-- (void)setBorder:(UIColor *)color width:(CGFloat)width
+- (void)setBorder:(UIColor * _Nonnull)color width:(CGFloat)width
 {
     self.layer.borderColor = [color CGColor];
     self.layer.borderWidth = width;
 }
 
-- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius
+- (void)setShadow:(UIColor * _Nonnull)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius
 {
     CALayer *l = self.layer;
     l.shadowColor = [color CGColor];
@@ -105,7 +105,7 @@
  *  Controller
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (UIViewController *)theVC
+- (__kindof UIViewController * _Nullable)theVC
 {
     Class aClass = NSClassFromString(@"UIViewController");
     for (UIView *next = [self superview]; next; next = next.superview)
@@ -119,7 +119,7 @@
     return nil;
 }
 
-- (id)subviewWithClassName:(NSString *)className
+- (__kindof UIView * _Nullable)subviewWithClassName:(NSString * _Nonnull)className
 {
     Class aClass = NSClassFromString(className);
     for (UIView *subView in self.subviews)
@@ -132,7 +132,7 @@
     return nil;
 }
 
-- (id)supviewWithClassName:(NSString *)className
+- (__kindof UIView * _Nullable)supviewWithClassName:(NSString * _Nonnull)className
 {
     Class aClass = NSClassFromString(className);
     for (UIView *next = [self superview]; next; next = next.superview)
@@ -151,7 +151,7 @@
  *  Constraint
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (NSLayoutConstraint *)contantTop
+- (NSLayoutConstraint * _Nullable)contantTop
 {
     UIView *next = [self superview];
     if (next)
@@ -166,7 +166,7 @@
     }
     return nil;
 }
-- (NSLayoutConstraint *)contantBottom
+- (NSLayoutConstraint * _Nullable)contantBottom
 {
     UIView *next = [self superview];
     if (next)
@@ -182,7 +182,7 @@
     return nil;
 }
 
-- (NSLayoutConstraint *)contantWidth
+- (NSLayoutConstraint * _Nullable)contantWidth
 {
     for (NSLayoutConstraint *subConstraint in self.constraints)
     {
@@ -193,7 +193,7 @@
     }
     return nil;
 }
-- (NSLayoutConstraint *)contantHeight
+- (NSLayoutConstraint * _Nullable)contantHeight
 {
     for (NSLayoutConstraint *subConstraint in self.constraints)
     {
@@ -210,7 +210,7 @@
  *  Snapshot
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (UIImage *)snapshot
+- (UIImage * _Null_unspecified)snapshot
 {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
@@ -219,7 +219,7 @@
     return curImage;
 }
 
-- (UIImage *)snapshotWithRender
+- (UIImage * _Null_unspecified)snapshotWithRender
 {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -234,7 +234,7 @@
  *  Ges
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (void)addTapGesWithTarget:(id)cTarget sel:(SEL)cSel
+- (void)addTapGesWithTarget:(id _Nonnull)cTarget sel:(SEL _Nonnull)cSel
 {
     self.userInteractionEnabled = YES;
     
@@ -243,7 +243,7 @@
     [self addGestureRecognizer:tapGes];
 }
 
-- (void)addLongPressGesWithTarget:(id)cTarget sel:(SEL)cSel
+- (void)addLongPressGesWithTarget:(id _Nonnull)cTarget sel:(SEL _Nonnull)cSel
 {
     self.userInteractionEnabled = YES;
     

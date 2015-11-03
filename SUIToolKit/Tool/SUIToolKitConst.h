@@ -105,17 +105,18 @@ __stuff \
 dispatch_async(dispatch_get_main_queue(), ^{ \
 __stuff \
 }); \
-} \
+}
 
-#define uBackQueue(__stuff) \
+#define uGlobalQueue(__stuff) { \
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ \
 __stuff \
 }); \
+}
 
 #define uRepeat(__count, __stuff) \
 for (NSInteger idx=0; idx < __count; idx ++) { \
 __stuff \
-} \
+}
 
 #define uRegisterRemoteNoti {if (kAboveIOS8) { [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound categories:nil]]; [[UIApplication sharedApplication] registerForRemoteNotifications]; } else { [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound]; }}
 
@@ -125,7 +126,7 @@ static dispatch_once_t onceToken;\
 dispatch_once(&onceToken, ^{\
 __stuff \
 });\
-} \
+}
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -155,7 +156,8 @@ uLogError(__desc, ##__VA_ARGS__); \
 _Pragma("clang diagnostic pop") \
 } while (0);
 
-#define uInteger(__integer)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> ⤭ %zd ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, __integer)
+#define uInteger(__integer)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> %s ⤭ %zd ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__integer, __integer)
+#define uFloat(__float)             NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> %s ⤭ %lf ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__float, __float)
 #define uObj(__obj)                 NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> %s ⤭ %@ ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__obj, __obj)
 #define uRect(__rect)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__rect, NSStringFromCGRect(__rect))
 #define uSize(__size)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__size, NSStringFromCGSize(__size))
@@ -168,11 +170,13 @@ _Pragma("clang diagnostic pop") \
 #define NSLog(...) {}
 #define uFun {}
 #define uLog(__format, ...) {}
-#define uLogObj(__obj) {}
 #define uLogInfo(__format, ...) {}
 #define uLogError(__format, ...) {}
 #define uAssert(__condition, __format, ...) {}
 
+#define uInteger(__integer) {}
+#define uFloat(__float) {}
+#define uObj(__obj) {}
 #define uRect(__rect) {}
 #define uSize(__size) {}
 #define uPoint(__point) {}
@@ -190,31 +194,39 @@ _Pragma("clang diagnostic pop") \
 
 #define uWarc
 
-#define uWarcPerformSelector(__stuff) \
+#if __clang__
+#define __PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH(__warc) \
 do { \
 _Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
-__stuff \
+_Pragma(__warc)
+#define __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP \
 _Pragma("clang diagnostic pop") \
 } while (0);
+#else
+#define __PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH
+#define __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
+#endif
 
+
+#define uWarcPerformSelector(__stuff) \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+__stuff \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
 #define uWarcWunreachable(__stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wunreachable-code\"") \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunreachable-code\"") \
 __stuff \
-_Pragma("clang diagnostic pop") \
-} while (0);
-
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
 #define uWarcWunusedGetter(__stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wunused-getter-return-value\"") \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunused-getter-return-value\"") \
 __stuff \
-_Pragma("clang diagnostic pop") \
-} while (0);
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
+
+#define uWarcWunusedVariable(__stuff) \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunused-variable\"") \
+__stuff \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
 
 #endif

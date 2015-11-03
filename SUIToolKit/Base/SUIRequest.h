@@ -32,6 +32,6 @@ typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 - (SUIRequest *)requestData:(NSDictionary *)parameters;
 
-@property (nonatomic,strong) NSMutableArray *requesets;
+@property (nonatomic,strong) NSMutableArray<SUIRequest *> *requesets;
 
 @end

@@ -22,8 +22,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,assign) IBInspectable CGFloat cornerRadius;
 
-- (void)setBorder:(UIColor *)color width:(CGFloat)width;
-- (void)setShadow:(UIColor *)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius;
+- (void)setBorder:(UIColor * _Nonnull)color width:(CGFloat)width;
+- (void)setShadow:(UIColor * _Nonnull)color opacity:(CGFloat)opacity offset:(CGSize)offset blurRadius:(CGFloat)blurRadius;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -40,35 +40,35 @@ typedef enum : NSUInteger {
  *  Relationship
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (UIViewController *)theVC;
-- (id)subviewWithClassName:(NSString *)className;
-- (id)supviewWithClassName:(NSString *)className;
+- (__kindof UIViewController * _Nullable)theVC;
+- (__kindof UIView * _Nullable)subviewWithClassName:(NSString * _Nonnull)className;
+- (__kindof UIView * _Nullable)supviewWithClassName:(NSString * _Nonnull)className;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Constraint
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (NSLayoutConstraint *)contantTop;
-- (NSLayoutConstraint *)contantBottom;
-- (NSLayoutConstraint *)contantWidth;
-- (NSLayoutConstraint *)contantHeight;
+- (NSLayoutConstraint * _Nullable)contantTop;
+- (NSLayoutConstraint * _Nullable)contantBottom;
+- (NSLayoutConstraint * _Nullable)contantWidth;
+- (NSLayoutConstraint * _Nullable)contantHeight;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Snapshot
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (UIImage *)snapshot;
-- (UIImage *)snapshotWithRender;
+- (UIImage * _Null_unspecified)snapshot;
+- (UIImage * _Null_unspecified)snapshotWithRender;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Ges
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-- (void)addTapGesWithTarget:(id)cTarget sel:(SEL)cSel;
-- (void)addLongPressGesWithTarget:(id)cTarget sel:(SEL)cSel;
+- (void)addTapGesWithTarget:(id _Nonnull)cTarget sel:(SEL _Nonnull)cSel;
+- (void)addLongPressGesWithTarget:(id _Nonnull)cTarget sel:(SEL _Nonnull)cSel;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*

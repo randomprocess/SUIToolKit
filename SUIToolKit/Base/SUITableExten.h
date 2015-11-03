@@ -33,7 +33,7 @@ typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cRespons
 typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
 typedef NSString *(^SUITableExtenCellIdentifiersBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
 typedef void (^SUITableExtenDidSelectRowBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
-typedef void (^SUITableExtenWillDisplayCellBlock)(UITableView *cTableView, SUIBaseCell *cCell, NSIndexPath *cIndexPath, id cModel);
+typedef void (^SUITableExtenWillDisplayCellBlock)(UITableView *cTableView, __kindof SUIBaseCell *cCell, NSIndexPath *cIndexPath, id cModel);
 typedef void (^SUITableExtenDidScrollBlock)(UITableView *cTableView);
 typedef void (^SUITableExtenWillBeginDraggingBlock)(UITableView *cTableView);
 
@@ -42,9 +42,11 @@ typedef NSInteger (^SUITableExtenNumberOfRowsBlock)(UITableView *cTableView, NSI
 typedef id (^SUITableExtenCurrentModelBlock)(UITableView *cTableView, NSIndexPath *cIndexPath);
 
 typedef NSArray *(^SUITableExtenSearchTextDidChangeBlock)(UISearchBar *cSearchBar, NSString *cSearchText, NSArray *cDataAry);
-typedef void (^SUITableExtenFetchedResultsControllerWillChangeContentBlock)(NSFetchedResultsController *cController);
-typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(NSFetchedResultsController *cController, SUIDataSourceChangeType cType);
-typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimationBlock)(NSFetchedResultsController *cController, SUIDataSourceChangeType cType);
+typedef void (^SUITableExtenFetchedResultsControllerWillChangeContentBlock)();
+typedef void (^SUIReplaceIndexPath)(NSIndexPath *cIndexPath, NSIndexPath *cNewIndexPath);
+typedef void (^SUITableExtenFetchedResultsControllerDidChangeObjectBlock)(NSFetchedResultsChangeType cType, id cObject, NSIndexPath *indexPath, NSIndexPath *newIndexPath, SUIReplaceIndexPath replaceIndexPath);
+typedef void (^SUITableExtenFetchedResultsControllerDidChangeContentBlock)(SUIDataSourceChangeType cType);
+typedef UITableViewRowAnimation (^SUITableExtenFetchedResultsControllerAnimationBlock)(SUIDataSourceChangeType cType);
 typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUIDataSourceChangeType cType);
 
 @interface SUITableExten : NSObject <
@@ -78,8 +80,9 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
 
 - (void)searchTextDidChange:(SUITableExtenSearchTextDidChangeBlock)cb;
 - (void)fetchResultControllerWillChangeContent:(SUITableExtenFetchedResultsControllerWillChangeContentBlock)cb;
-- (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb;
+- (void)fetchResultControllerDidChangeObject:(SUITableExtenFetchedResultsControllerDidChangeObjectBlock)cb;
 - (void)fetchResultControllerAnimation:(SUITableExtenFetchedResultsControllerAnimationBlock)cb;
+- (void)fetchResultControllerDidChangeContent:(SUITableExtenFetchedResultsControllerDidChangeContentBlock)cb;
 
 - (SUITableExtenType)extenType;
 - (NSInteger)countOfSections:(SUITableExtenType)cType;

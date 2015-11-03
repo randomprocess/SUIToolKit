@@ -11,7 +11,7 @@
 @interface SUITimer : NSObject
 
 
-+ (instancetype)timeWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t)eCb cancel:(dispatch_block_t)cCb;
++ (instancetype _Nonnull)timeWithTimeInterval:(NSTimeInterval)cTi leeway:(NSUInteger)cLeeway event:(dispatch_block_t _Nonnull)eCb cancel:(dispatch_block_t _Nullable)cCb;
 
 - (void)stopTimer;
 

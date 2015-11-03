@@ -71,6 +71,68 @@
 @end
 
 
+@implementation UIViewController (SUIGeometry)
+
+- (CGFloat)opaqueNavBarHeight
+{
+    CGFloat curNavBarHeight = 0;
+    UINavigationBar *curNavigationBar = self.navigationController.navigationBar;
+    if (!curNavigationBar.translucent)
+    {
+        curNavBarHeight += curNavigationBar.bounds.size.height;
+        
+        if (![self prefersStatusBarHidden]) {
+            curNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
+        }
+    }
+    return curNavBarHeight;
+}
+
+- (CGFloat)opaqueTabBarHeight
+{
+    CGFloat curTabBarHeight = 0;
+    UITabBar *curTabBar = self.navigationController.tabBarController.tabBar;
+    if (!curTabBar.translucent && ![self hidesBottomBarWhenPushed])
+    {
+        return curTabBar.bounds.size.height;
+    }
+    return curTabBarHeight;
+}
+
+- (CGFloat)translucentNavBarHeight
+{
+    CGFloat curNavBarHeight = 0;
+    UINavigationBar *curNavigationBar = self.navigationController.navigationBar;
+    if (curNavigationBar.translucent)
+    {
+        curNavBarHeight += curNavigationBar.bounds.size.height;
+        
+        if (![self prefersStatusBarHidden]) {
+            curNavBarHeight += [UIApplication sharedApplication].statusBarFrame.size.height;
+        }
+    }
+    return curNavBarHeight;
+}
+
+- (CGFloat)translucentTabBarHeight
+{
+    CGFloat curTabBarHeight = 0;
+    UITabBar *curTabBar = self.navigationController.tabBarController.tabBar;
+    if (curTabBar.translucent && ![self hidesBottomBarWhenPushed])
+    {
+        return curTabBar.bounds.size.height;
+    }
+    return curTabBarHeight;
+}
+
+- (CGRect)viewRect
+{
+    return CGRectMake(0, 0, self.view.width, kScreenHeight-[self opaqueNavBarHeight]-[self opaqueTabBarHeight]);
+}
+
+@end
+
+
 @implementation UIViewController (SUIModelPassed)
 
 - (id)srcModel
@@ -198,14 +260,17 @@
             curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
         } else {
             curLoadingView = [[UIView alloc] init];
-            curLoadingView.contentMode = UIViewContentModeCenter;
-            UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            curLoadingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+            UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
             [curActivityIndicatorView sizeToFit];
+            curActivityIndicatorView.autoresizingMask =
+            UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin |
+            UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
             [curActivityIndicatorView startAnimating];
             [curLoadingView addSubview:curActivityIndicatorView];
         }
-        curLoadingView.frame = self.view.bounds;
-        
+        curLoadingView.frame = [self viewRect];
+        curLoadingView.userInteractionEnabled = YES;
         curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         curLoadingView.alpha = 0;
         self.loadingView = curLoadingView;
@@ -220,6 +285,9 @@
 - (void)loadingViewShow
 {
     uMainQueue(
+               if ([self.view isKindOfClass:[UITableView class]]) {
+                   ((UITableView *)self.view).scrollEnabled = NO;
+               }
                [self.view addSubview:self.loadingView];
                self.loadingView.alpha = 1.0;
     )
@@ -227,6 +295,9 @@
 - (void)loadingViewDissmiss
 {
     uMainQueue(
+               if ([self.view isKindOfClass:[UITableView class]]) {
+                   ((UITableView *)self.view).scrollEnabled = YES;
+               }
                if (self.loadingView.superview)
                {
                    UIView *curLoadingView = self.loadingView;
