@@ -142,7 +142,7 @@
     
     id currSrcModel = nil;
     if (self.srcVC.currModelPassedBlock) {
-        currSrcModel = self.srcVC.currModelPassedBlock();
+        currSrcModel = self.srcVC.currModelPassedBlock(self.currIdentifier);
     } else {
         currSrcModel = self.srcVC.destModel;
     }
@@ -210,6 +210,11 @@
 - (void)doAction:(SUIDoActionBlock)cb
 {
     [self setDestDoAction:cb];
+}
+
+- (void)refreshSrc:(id)cModel
+{
+    self.srcVC.destBackRefreshedBlock(cModel, self.currIdentifier);
 }
 
 @end

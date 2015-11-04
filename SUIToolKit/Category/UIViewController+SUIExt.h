@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef id (^SUIModelPassedBlock)(void);
-typedef void (^SUIBackRefreshedBlock)(id cModel);
+typedef id (^SUIModelPassedBlock)(NSString *destIdentifier);
+typedef void (^SUIBackRefreshedBlock)(id cModel, NSString *destIdentifier);
 typedef void (^SUIDoActionBlock)(id cSender, id cModel);
 
 
@@ -40,14 +40,11 @@ typedef void (^SUIDoActionBlock)(id cSender, id cModel);
 @property (nonatomic,copy) SUIBackRefreshedBlock destBackRefreshedBlock;
 @property (nonatomic,copy) SUIDoActionBlock destDoAction;
 
-/**
- *  使用BasePushSegue获取srcVC
- *
- *  @param cb 如果不设置会默认传递destModel
- */
 - (void)modelPassed:(SUIModelPassedBlock)cb;
 - (void)backRefreshed:(SUIBackRefreshedBlock)cb;
 - (void)doAction:(SUIDoActionBlock)cb;
+
+- (void)refreshSrc:(id)cModel;
 
 @end
 

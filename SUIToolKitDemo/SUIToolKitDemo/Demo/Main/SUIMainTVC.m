@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self modelPassed:^id{
+    [self modelPassed:^id(NSString *destIdentifier) {
         SUIAlbumMD *aMd = [SUIAlbumMD new];
         aMd.name = @"喵";
         return aMd;

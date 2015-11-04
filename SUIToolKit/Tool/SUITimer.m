@@ -75,8 +75,10 @@
 
 - (void)stopTimer
 {
-    self.reservoir();
-    self.reservoir = nil;
+    if (self.reservoir) {
+        self.reservoir();
+        self.reservoir = nil;
+    }
     self.eventBlock = nil;
     self.cancelBlock = nil;
 }
