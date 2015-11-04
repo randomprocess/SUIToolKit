@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef id (^SUIModelPassedBlock)(NSString *destIdentifier);
-typedef void (^SUIBackRefreshedBlock)(id cModel, NSString *destIdentifier);
+typedef id (^SUIModelPassedBlock)(__kindof UIViewController *destVC);
+typedef void (^SUIBackRefreshedBlock)(id cModel, __kindof UIViewController *destVC);
 typedef void (^SUIDoActionBlock)(id cSender, id cModel);
 
 
@@ -60,7 +60,6 @@ typedef void (^SUIDoActionBlock)(id cSender, id cModel);
 
 @interface UIViewController (SUILoadingView)
 
-@property (nonatomic) IBInspectable BOOL addLoading;
 @property (nonatomic,strong) UIView *loadingView;
 
 - (void)loadingViewShow;

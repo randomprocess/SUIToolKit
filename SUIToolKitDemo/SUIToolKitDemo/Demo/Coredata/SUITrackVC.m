@@ -127,6 +127,8 @@
 
 #if 1
     {
+        [self loadingViewShow];
+        
         uWeakSelf
         [self.currTableView.tableExten request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
             SUIAlbumMD *aMd = weakSelf.srcModel;

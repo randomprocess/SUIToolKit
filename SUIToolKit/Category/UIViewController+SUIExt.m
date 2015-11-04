@@ -50,10 +50,10 @@
     if ([currClassName hasPrefix:@"SUI"]) {
         uLogInfo(@"currVC ClassName ⤭ %@ ⤪  Superclass ⤭ %@ ⤪", currClassName, self.superclass);
         NSString *curSuffixStr = nil;
-        if ([self isKindOfClass:[UIViewController class]] && [currClassName hasSuffix:@"VC"]) {
-            curSuffixStr = @"VC";
-        } else if ([self isKindOfClass:[UITableViewController class]] && [currClassName hasSuffix:@"TVC"]) {
+        if ([self isKindOfClass:[UITableViewController class]] && [currClassName hasSuffix:@"TVC"]) {
             curSuffixStr = @"TVC";
+        } else if ([self isKindOfClass:[UIViewController class]] && [currClassName hasSuffix:@"VC"]) {
+            curSuffixStr = @"VC";
         }
         
         uAssert([currClassName hasSuffix:curSuffixStr], @"className suffix with '%@'", curSuffixStr);
@@ -142,7 +142,7 @@
     
     id currSrcModel = nil;
     if (self.srcVC.currModelPassedBlock) {
-        currSrcModel = self.srcVC.currModelPassedBlock(self.currIdentifier);
+        currSrcModel = self.srcVC.currModelPassedBlock(self);
     } else {
         currSrcModel = self.srcVC.destModel;
     }
@@ -214,7 +214,7 @@
 
 - (void)refreshSrc:(id)cModel
 {
-    self.srcVC.destBackRefreshedBlock(cModel, self.currIdentifier);
+    self.srcVC.destBackRefreshedBlock(cModel, self);
 }
 
 @end
@@ -241,46 +241,9 @@
 
 @implementation UIViewController (SUILoadingView)
 
-- (BOOL)addLoading
-{
-    return [objc_getAssociatedObject(self, @selector(addLoading)) boolValue];
-}
-- (void)setAddLoading:(BOOL)addLoading
-{
-    if (addLoading) {
-        uWeakSelf
-        [SUITool delay:0.01 cb:^{
-            [weakSelf loadingViewShow];
-        }];
-    }
-    objc_setAssociatedObject(self, @selector(addLoading), @(addLoading), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (UIView *)loadingView
 {
-    UIView *curLoadingView = objc_getAssociatedObject(self, @selector(loadingView));
-    if (curLoadingView == nil)
-    {
-        if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
-            curLoadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
-        } else {
-            curLoadingView = [[UIView alloc] init];
-            curLoadingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
-            UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            [curActivityIndicatorView sizeToFit];
-            curActivityIndicatorView.autoresizingMask =
-            UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin |
-            UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-            [curActivityIndicatorView startAnimating];
-            [curLoadingView addSubview:curActivityIndicatorView];
-        }
-        curLoadingView.frame = [self viewRect];
-        curLoadingView.userInteractionEnabled = YES;
-        curLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        curLoadingView.alpha = 0;
-        self.loadingView = curLoadingView;
-    }
-    return curLoadingView;
+    return objc_getAssociatedObject(self, @selector(loadingView));
 }
 - (void)setLoadingView:(UIView *)loadingView
 {
@@ -289,32 +252,48 @@
 
 - (void)loadingViewShow
 {
-    uMainQueue(
-               if ([self.view isKindOfClass:[UITableView class]]) {
-                   ((UITableView *)self.view).scrollEnabled = NO;
-               }
-               [self.view addSubview:self.loadingView];
-               self.loadingView.alpha = 1.0;
-    )
+    uMainQueue
+    (
+     if (self.loadingView == nil)
+     {
+         if ([SUIBaseConfig sharedConfig].classNameOfLoadingView) {
+             self.loadingView = [[NSClassFromString([SUIBaseConfig sharedConfig].classNameOfLoadingView) alloc] init];
+         } else {
+             self.loadingView = [[UIView alloc] init];
+             self.loadingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+             UIActivityIndicatorView *curActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+             [curActivityIndicatorView sizeToFit];
+             curActivityIndicatorView.autoresizingMask =
+             UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin |
+             UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+             [curActivityIndicatorView startAnimating];
+             [self.loadingView addSubview:curActivityIndicatorView];
+         }
+         self.loadingView.frame = [self viewRect];
+         self.loadingView.userInteractionEnabled = YES;
+         self.loadingView.alpha = 1.0;
+         [self.view addSubview:self.loadingView];
+         
+         if ([self.view isKindOfClass:[UITableView class]]) {
+             ((UITableView *)self.view).scrollEnabled = NO;
+         }
+     }
+     )
 }
 - (void)loadingViewDissmiss
 {
-    uMainQueue(
-               if ([self.view isKindOfClass:[UITableView class]]) {
-                   ((UITableView *)self.view).scrollEnabled = YES;
-               }
-               if (self.loadingView.superview)
-               {
-                   UIView *curLoadingView = self.loadingView;
-                   self.loadingView = nil;
-                   [UIView animateWithDuration:0.25
-                                    animations:^{
-                                        curLoadingView.alpha = 0;
-                                    } completion:^(BOOL finished) {
-                                        [curLoadingView removeFromSuperview];
-                                    }];
-               }
-    )
+    uMainQueue
+    (
+     if (self.loadingView)
+     {
+         [self.loadingView hideWithAnimateType:SUIViewAnimateTypeFade duration:0.25 remove:YES];
+         self.loadingView = nil;
+         
+         if ([self.view isKindOfClass:[UITableView class]]) {
+             ((UITableView *)self.view).scrollEnabled = YES;
+         }
+     }
+     )
 }
 
 @end
