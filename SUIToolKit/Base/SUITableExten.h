@@ -27,8 +27,9 @@ typedef enum : NSUInteger {
     SUIDataSourceChangeTypeReloadData
 } SUIDataSourceChangeType;
 
-typedef void (^SUITableExtenRequestBlock)(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry);
-typedef void (^SUITableExtenRequestCompletionBlock)(NSError *cError, id cResponseObject);
+typedef NSDictionary *(^SUITableViewRequestBlock)(void);
+typedef NSArray *(^SUITableViewParserBlock)(id cResponseObject);
+typedef void (^SUITableViewRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 typedef SUIBaseCell *(^SUITableExtenCellForRowBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
 typedef NSString *(^SUITableExtenCellIdentifiersBlock)(UITableView *cTableView, NSIndexPath *cIndexPath, id cModel);
@@ -112,8 +113,8 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
 
 - (void)refreshTable:(NSArray *)newDataAry;
 
-- (void)request:(SUITableExtenRequestBlock)cb;
-- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion;
+- (void)request:(SUITableViewRequestBlock)rCb completion:(SUITableViewRequestCompletionBlock)completion;
+- (void)request:(SUITableViewRequestBlock)rCb parser:(SUITableViewParserBlock)pCb completion:(SUITableViewRequestCompletionBlock)completion;
 
 @end
 

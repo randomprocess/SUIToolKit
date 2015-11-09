@@ -26,14 +26,12 @@
      **************************************************************************/
     
     uWeakSelf
-    [self.currTableView request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
-        cParameters[@"kw"] = @"猫";
-        if (cResponseObject)
-        {
-            gCurrDict(cResponseObject);
-            NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:currDict[@"albums"]];
-            cNewDataAry[cNewDataAry.count] = albumAry;
-        }
+    [self.currTableView request:^NSDictionary *{
+        return @{@"kw" : @"猫"};
+    } parser:^NSArray *(id cResponseObject) {
+        gCurrDict(cResponseObject);
+        NSArray *albumAry = [SUIAlbumMD objectArrayWithKeyValuesArray:currDict[@"albums"]];
+        return @[albumAry];
     } completion:^(NSError *cError, id cResponseObject) {
         [weakSelf loadingViewDissmiss];
     }];

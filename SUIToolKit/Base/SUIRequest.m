@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 #import "SUIToolKitConst.h"
 #import "SUIHttpClient.h"
-#import "SUITableExten.h"
 #import "SUIBaseConfig.h"
 #import "ReactiveCocoa.h"
 
@@ -29,7 +28,6 @@ static dispatch_queue_t parser_data_queue() {
 @property (nonatomic,weak) NSObject *currObj;
 @property (nonatomic,copy) NSString *identifier;
 @property (nonatomic,copy) SUIRequestParserBlock dataParserBlock;
-@property (nonatomic,weak) UITableView *refreshTableView;
 @property (nonatomic,copy) SUIRequestCompletionBlock completionBlock;
 @property (nonatomic,assign) BOOL cancelTask;
 

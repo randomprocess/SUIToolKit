@@ -887,31 +887,35 @@
             [self.requesets makeObjectsPerformSelector:@selector(cancel)];
         }
         
-        NSMutableDictionary *currParameters = [NSMutableDictionary dictionary];
-        NSMutableArray *currNewDataAry = [NSMutableArray array];
-        [self requestBlock](currParameters, nil, nil);
-        
         uWeakSelf
-        [[[self requestData:currParameters]
-        parser:^(id cResponseObject) {
-            [weakSelf requestBlock](nil, cResponseObject, currNewDataAry);
-            uMainQueue
-            (
-             [weakSelf headerRefreshStop];
-             [weakSelf footerRefreshStop];
-             [weakSelf refreshTable:currNewDataAry];
-            )
-        }]
-        completion:^(NSError *cError, id cResponseObject) {
-            if (cError) {
-                [weakSelf headerRefreshStop];
-                [weakSelf footerRefreshStop];
-            }
-            
-            if ([weakSelf requestCompletionBlock]) {
-                [weakSelf requestCompletionBlock](cError, cResponseObject);
-            }
-        }];
+        
+        NSDictionary *curParameters  = [self requestBlock]();
+        SUIRequest *curRequest = [self requestData:curParameters];
+        
+        if ([self parserBlock]) {
+            [curRequest parser:^(id cResponseObject) {
+                NSArray *curNewDataAry = [weakSelf parserBlock](cResponseObject);
+                uMainQueue
+                (
+                 [weakSelf headerRefreshStop];
+                 [weakSelf footerRefreshStop];
+                 [weakSelf refreshTable:curNewDataAry];
+                )
+            }];
+        }
+        
+        if ([self requestCompletionBlock]) {
+            [curRequest completion:^(NSError *cError, id cResponseObject) {
+                if (cError) {
+                    [weakSelf headerRefreshStop];
+                    [weakSelf footerRefreshStop];
+                }
+                
+                if ([weakSelf requestCompletionBlock]) {
+                    [weakSelf requestCompletionBlock](cError, cResponseObject);
+                }
+            }];
+        }
     }
     else
     {
@@ -948,32 +952,43 @@
     }
 }
 
-- (SUITableExtenRequestBlock)requestBlock
+- (SUITableViewRequestBlock)requestBlock
 {
     return objc_getAssociatedObject(self, @selector(requestBlock));
 }
-- (void)setRequestBlock:(SUITableExtenRequestBlock)requestBlock
+- (void)setRequestBlock:(SUITableViewRequestBlock)requestBlock
 {
     objc_setAssociatedObject(self, @selector(requestBlock), requestBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (SUITableExtenRequestCompletionBlock)requestCompletionBlock
+- (SUITableViewParserBlock)parserBlock
+{
+    return objc_getAssociatedObject(self, @selector(parserBlock));
+}
+- (void)setParserBlock:(SUITableViewParserBlock)parserBlock
+{
+    objc_setAssociatedObject(self, @selector(parserBlock), parserBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (SUITableViewRequestCompletionBlock)requestCompletionBlock
 {
     return objc_getAssociatedObject(self, @selector(requestCompletionBlock));
 }
-- (void)setRequestCompletionBlock:(SUITableExtenRequestCompletionBlock)requestCompletionBlock
+- (void)setRequestCompletionBlock:(SUITableViewRequestCompletionBlock)requestCompletionBlock
 {
     objc_setAssociatedObject(self, @selector(requestCompletionBlock), requestCompletionBlock, OBJC_ASSOCIATION_COPY);
 }
 
-- (void)request:(SUITableExtenRequestBlock)cb
+- (void)request:(SUITableViewRequestBlock)rCb completion:(SUITableViewRequestCompletionBlock)completion
 {
-    [self request:cb completion:nil];
+    [self request:rCb parser:nil completion:completion];
 }
-- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion
+
+- (void)request:(SUITableViewRequestBlock)rCb parser:(SUITableViewParserBlock)pCb completion:(SUITableViewRequestCompletionBlock)completion
 {
-    [self setRequestBlock:cb];
-    if (completion) [self setRequestCompletionBlock:completion];
+    [self setRequestBlock:rCb];
+    [self setParserBlock:pCb];
+    [self setRequestCompletionBlock:completion];
 }
 
 @end

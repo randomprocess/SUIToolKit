@@ -129,35 +129,37 @@
     {
         [self loadingViewShow];
         
+        SUIAlbumMD *aMd = self.srcModel;
+        
         uWeakSelf
-        [self.currTableView request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
-            SUIAlbumMD *aMd = weakSelf.srcModel;
-            cParameters[@"kw"] = aMd.name;
-            cParameters[@"pi"] = @(weakSelf.currTableView.pageIndex+1);
-            cParameters[@"pz"] = @(weakSelf.currTableView.pageSize);
-            if (cResponseObject)
+        [self.currTableView request:^NSDictionary *{
+            return @{
+                     @"kw" : aMd.name,
+                     @"pi" : @(weakSelf.currTableView.pageIndex+1),
+                     @"pz" : @(weakSelf.currTableView.pageSize)
+                     };
+        } parser:^NSArray *(id cResponseObject) {
+            gCurrDict(cResponseObject);
+            id curTrackAry = currDict[@"tracks"];
+            if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
             {
-                gCurrDict(cResponseObject);
-                id curTrackAry = currDict[@"tracks"];
-                if (curTrackAry == nil || [curTrackAry isEqual:[NSNull null]])
+                uLog(@"empty Tracks");
+                return nil;
+            }
+            else
+            {
+                if (!weakSelf.currTableView.loadMoreData)
                 {
-                    uLog(@"empty Tracks");
-                }
-                else
-                {
-                    if (!weakSelf.currTableView.loadMoreData)
-                    {
-                        [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-                            [SUITrackMD MR_truncateAllInContext:localContext];
-                        }];
-                    }
-                    
-                    __block NSArray *curNewDataAry = nil;
                     [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-                        curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:currDict[@"tracks"] context:localContext];
+                        [SUITrackMD MR_truncateAllInContext:localContext];
                     }];
-                    cNewDataAry[cNewDataAry.count] = curNewDataAry;
                 }
+                
+                __block NSArray *curNewDataAry = nil;
+                [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+                    curNewDataAry = [SUITrackMD objectArrayWithKeyValuesArray:currDict[@"tracks"] context:localContext];
+                }];
+                return @[curNewDataAry];
             }
         } completion:^(NSError *cError, id cResponseObject) {
             [weakSelf loadingViewDissmiss];
