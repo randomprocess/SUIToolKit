@@ -130,7 +130,7 @@
         [self loadingViewShow];
         
         uWeakSelf
-        [self.currTableView.tableExten request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
+        [self.currTableView request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
             SUIAlbumMD *aMd = weakSelf.srcModel;
             cParameters[@"kw"] = aMd.name;
             cParameters[@"pi"] = @(weakSelf.currTableView.pageIndex+1);

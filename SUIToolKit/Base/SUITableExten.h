@@ -59,14 +59,6 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
     UISearchBarDelegate
     >
 
-/**
- *  上拉或下拉的请求写在这个blocks中
- *
- *  @param cb 请求数据使用SUIRequestData类
- */
-- (void)request:(SUITableExtenRequestBlock)cb;
-- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion;
-
 - (void)cellForRow:(SUITableExtenCellForRowBlock)cb;
 - (void)cellIdentifiers:(SUITableExtenCellIdentifiersBlock)cb;
 - (void)didSelectRow:(SUITableExtenDidSelectRowBlock)cb;
@@ -119,6 +111,9 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
 - (void)footerRefreshStop;
 
 - (void)refreshTable:(NSArray *)newDataAry;
+
+- (void)request:(SUITableExtenRequestBlock)cb;
+- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion;
 
 @end
 

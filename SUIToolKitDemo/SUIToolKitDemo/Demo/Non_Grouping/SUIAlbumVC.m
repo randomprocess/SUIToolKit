@@ -26,7 +26,7 @@
      **************************************************************************/
     
     uWeakSelf
-    [self.currTableView.tableExten request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
+    [self.currTableView request:^(NSMutableDictionary *cParameters, id cResponseObject, NSMutableArray *cNewDataAry) {
         cParameters[@"kw"] = @"猫";
         if (cResponseObject)
         {

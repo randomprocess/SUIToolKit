@@ -62,17 +62,17 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [self dismissPickerViewController:picker];
     if (self.completionBlock) {
         UIImage *portraitImg = [info objectForKey:UIImagePickerControllerOriginalImage];
         self.completionBlock(NO, portraitImg, info);
     }
-    [self dismissPickerViewController:picker];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    if (self.completionBlock) self.completionBlock(YES, nil, nil);
     [self dismissPickerViewController:picker];
+    if (self.completionBlock) self.completionBlock(YES, nil, nil);
 }
 
 @end

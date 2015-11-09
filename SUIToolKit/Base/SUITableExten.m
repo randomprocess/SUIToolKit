@@ -28,9 +28,6 @@
 @property (nonatomic,strong) NSMutableArray *currDataAry;
 @property (nonatomic,strong) NSMutableArray *currSearchDataAry;
 
-@property (nonatomic,copy) SUITableExtenRequestBlock requestBlock;
-@property (nonatomic,copy) SUITableExtenRequestCompletionBlock requestCompletionBlock;
-
 @property (nonatomic,copy) SUITableExtenCellForRowBlock cellForRowBlock;
 @property (nonatomic,copy) SUITableExtenCellIdentifiersBlock cellIdentifiersBlock;
 @property (nonatomic,copy) SUITableExtenDidSelectRowBlock didSelectRowBlock;
@@ -62,15 +59,6 @@
 
 @implementation SUITableExten
 
-- (void)request:(SUITableExtenRequestBlock)cb
-{
-    [self request:cb completion:nil];
-}
-- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion
-{
-    self.requestBlock = cb;
-    self.requestCompletionBlock = completion;
-}
 - (void)cellForRow:(SUITableExtenCellForRowBlock)cb
 {
     self.cellForRowBlock = cb;
@@ -893,23 +881,37 @@
 
 - (void)handlerLoadCurrData
 {
-    if (self.tableExten.requestBlock)
+    if ([self requestBlock])
     {
+        if (self.requesets.count) {
+            [self.requesets makeObjectsPerformSelector:@selector(cancel)];
+        }
+        
         NSMutableDictionary *currParameters = [NSMutableDictionary dictionary];
         NSMutableArray *currNewDataAry = [NSMutableArray array];
-        self.tableExten.requestBlock(currParameters, nil, nil);
+        [self requestBlock](currParameters, nil, nil);
         
         uWeakSelf
         [[[self requestData:currParameters]
-          parser:^NSArray *(id cResponseObject) {
-              weakSelf.tableExten.requestBlock(nil, cResponseObject, currNewDataAry);
-              return currNewDataAry;
-          } refreshTable:self]
-         completion:^(NSError *cError, id cResponseObject) {
-             if (weakSelf.tableExten.requestCompletionBlock) {
-                 weakSelf.tableExten.requestCompletionBlock(cError, cResponseObject);
-             }
-         }];
+        parser:^(id cResponseObject) {
+            [weakSelf requestBlock](nil, cResponseObject, currNewDataAry);
+            uMainQueue
+            (
+             [weakSelf headerRefreshStop];
+             [weakSelf footerRefreshStop];
+             [weakSelf refreshTable:currNewDataAry];
+            )
+        }]
+        completion:^(NSError *cError, id cResponseObject) {
+            if (cError) {
+                [weakSelf headerRefreshStop];
+                [weakSelf footerRefreshStop];
+            }
+            
+            if ([weakSelf requestCompletionBlock]) {
+                [weakSelf requestCompletionBlock](cError, cResponseObject);
+            }
+        }];
     }
     else
     {
@@ -944,6 +946,34 @@
             (self.loadMoreData) ? [self.tableExten addDataAry:newDataAry] : [self.tableExten resetDataAry:newDataAry];
         }
     }
+}
+
+- (SUITableExtenRequestBlock)requestBlock
+{
+    return objc_getAssociatedObject(self, @selector(requestBlock));
+}
+- (void)setRequestBlock:(SUITableExtenRequestBlock)requestBlock
+{
+    objc_setAssociatedObject(self, @selector(requestBlock), requestBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (SUITableExtenRequestCompletionBlock)requestCompletionBlock
+{
+    return objc_getAssociatedObject(self, @selector(requestCompletionBlock));
+}
+- (void)setRequestCompletionBlock:(SUITableExtenRequestCompletionBlock)requestCompletionBlock
+{
+    objc_setAssociatedObject(self, @selector(requestCompletionBlock), requestCompletionBlock, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)request:(SUITableExtenRequestBlock)cb
+{
+    [self request:cb completion:nil];
+}
+- (void)request:(SUITableExtenRequestBlock)cb completion:(SUITableExtenRequestCompletionBlock)completion
+{
+    [self setRequestBlock:cb];
+    if (completion) [self setRequestCompletionBlock:completion];
 }
 
 @end

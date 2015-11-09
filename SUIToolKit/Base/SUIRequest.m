@@ -29,7 +29,6 @@ static dispatch_queue_t parser_data_queue() {
 @property (nonatomic,weak) NSObject *currObj;
 @property (nonatomic,copy) NSString *identifier;
 @property (nonatomic,copy) SUIRequestParserBlock dataParserBlock;
-@property (nonatomic,copy) SUIRequestRefreshTableBlock refreshBlock;
 @property (nonatomic,weak) UITableView *refreshTableView;
 @property (nonatomic,copy) SUIRequestCompletionBlock completionBlock;
 @property (nonatomic,assign) BOOL cancelTask;
@@ -60,26 +59,6 @@ static dispatch_queue_t parser_data_queue() {
 - (instancetype)parser:(SUIRequestParserBlock)cb
 {
     self.dataParserBlock = cb;
-    return self;
-}
-
-- (instancetype)parser:(SUIRequestRefreshTableBlock)cb refreshTable:(UITableView *)cTableView;
-{
-    if (cTableView)
-    {
-        for (SUIRequest *curRequest in self.currObj.requesets)
-        {
-            if (curRequest.refreshTableView == cTableView)
-            {
-                [curRequest cancel];
-                break;
-            }
-        }
-    }
-    
-    self.refreshBlock = cb;
-    self.refreshTableView = cTableView;
-    
     return self;
 }
 
@@ -124,28 +103,7 @@ static dispatch_queue_t parser_data_queue() {
                  dispatch_async(parser_data_queue(), ^{
                      curRequest.dataParserBlock(responseObject);
                      uMainQueue(
-                                if (curRequest.completionBlock)
-                                {
-                                    curRequest.completionBlock(error, responseObject);
-                                }
-                                )
-                 });
-             }
-             else if (curRequest.refreshBlock && curRequest.refreshTableView)
-             {
-                 dispatch_async(parser_data_queue(), ^{
-                     NSArray *newDataAry = curRequest.refreshBlock(responseObject);
-                     uMainQueue(
-                                if (curRequest.refreshTableView)
-                                {
-                                    [curRequest.refreshTableView headerRefreshStop];
-                                    [curRequest.refreshTableView footerRefreshStop];
-                                    
-                                    [curRequest.refreshTableView refreshTable:newDataAry];
-                                }
-                                
-                                if (curRequest.completionBlock)
-                                {
+                                if (curRequest.completionBlock) {
                                     curRequest.completionBlock(error, responseObject);
                                 }
                                 )
@@ -160,14 +118,7 @@ static dispatch_queue_t parser_data_queue() {
          {
              uLogError("========== error ==========\n%@\n", error);
              
-             if (curRequest.refreshBlock && curRequest.refreshTableView)
-             {
-                 [curRequest.refreshTableView headerRefreshStop];
-                 [curRequest.refreshTableView footerRefreshStop];
-             }
-             
-             if (curRequest.completionBlock)
-             {
+             if (curRequest.completionBlock) {
                  curRequest.completionBlock(error, responseObject);
              }
          }

@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^SUIRequestParserBlock)(id cResponseObject);
-typedef NSArray * (^SUIRequestRefreshTableBlock)(id cResponseObject);
 typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 
 
@@ -19,7 +18,6 @@ typedef void (^SUIRequestCompletionBlock)(NSError *cError, id cResponseObject);
 - (instancetype)identifier:(NSString *)identifier;
 
 - (instancetype)parser:(SUIRequestParserBlock)cb;
-- (instancetype)parser:(SUIRequestRefreshTableBlock)cb refreshTable:(UITableView *)cTableView;
 
 - (instancetype)completion:(SUIRequestCompletionBlock)completion;
 
