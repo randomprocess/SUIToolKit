@@ -103,6 +103,7 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
 @property (nonatomic) BOOL loadMoreData;
 @property (nonatomic) NSInteger pageSize;
 @property (nonatomic) NSInteger pageIndex;
+@property (nonatomic) NSInteger pageTime;
 
 - (void)addRefreshHeader;
 - (void)headerRefreshSteart;

@@ -790,6 +790,15 @@
     objc_setAssociatedObject(self, @selector(pageIndex), @(pageIndex), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSInteger)pageTime
+{
+    return [objc_getAssociatedObject(self, @selector(pageTime)) integerValue];
+}
+- (void)setPageTime:(NSInteger)pageTime
+{
+    objc_setAssociatedObject(self, @selector(pageTime), @(pageTime), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (BOOL)addHeader
 {
     return [objc_getAssociatedObject(self, @selector(addHeader)) boolValue];
