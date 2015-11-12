@@ -118,6 +118,12 @@ for (NSInteger idx=0; idx < __count; idx ++) { \
 __stuff \
 }
 
+#define uForIn(__ary, __declare, __stuff) \
+for (NSInteger idx=0; idx<__ary.count; idx++) { \
+__declare = __ary[idx]; \
+__stuff \
+}
+
 #define uRegisterRemoteNoti {if (kAboveIOS8) { [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound categories:nil]]; [[UIApplication sharedApplication] registerForRemoteNotifications]; } else { [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound]; }}
 
 #define uOnceToken(__stuff) \

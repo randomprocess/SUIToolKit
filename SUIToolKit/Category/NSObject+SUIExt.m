@@ -43,7 +43,11 @@
     UIViewAnimationOptions options = [[cNoti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
     if (self.suiKeyboardWillChangeBlock) {
-        self.suiKeyboardWillChangeBlock(showKeyboard, keyboardHeight, options, duration);
+        if (showKeyboard) {
+            self.suiKeyboardWillChangeBlock(showKeyboard, keyboardHeight, options, duration);
+        } else {
+            self.suiKeyboardWillChangeBlock(showKeyboard, 0, options, duration);
+        }
     }
 }
 
