@@ -85,6 +85,7 @@ typedef UITableViewRowAnimation (^SUITableExtenDataAryChangeAnimationBlock)(SUID
 - (void)resetDataAry:(NSArray *)newDataAry; // [[Model]]
 - (void)addDataAry:(NSArray *)newDataAry; // [[Model]]
 - (void)insertDataAry:(NSArray *)newDataAry atIndexPath:(NSIndexPath *)cIndexPath; // [Model]
+- (void)deleteDataAtIndexPath:(NSIndexPath *)cIndexPath;
 - (void)dataAryChangeAnimation:(SUITableExtenDataAryChangeAnimationBlock)cb;
 
 @end

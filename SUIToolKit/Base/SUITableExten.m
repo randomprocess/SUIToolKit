@@ -199,11 +199,12 @@
 
 - (void)resetDataAry:(NSArray *)newDataAry
 {
-    uMainQueue(
-               [self.currDataAry removeAllObjects];
-               [self.currDataAry addObjectsFromArray:newDataAry];
-               [self.currTableView reloadData];
-    )
+    uMainQueue
+    (
+     [self.currDataAry removeAllObjects];
+     [self.currDataAry addObjectsFromArray:newDataAry];
+     [self.currTableView reloadData];
+     )
 }
 - (void)addDataAry:(NSArray *)newDataAry
 {
@@ -232,11 +233,12 @@
         if (self.dataAryChangeAnimationBlock) {
             defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowInsert);
         }
-        uMainQueue(
-                   [self.currTableView  beginUpdates];
-                   [self.currTableView  insertRowsAtIndexPaths:curIndexPathAry withRowAnimation:defaultRowAnimation];
-                   [self.currTableView  endUpdates];
-                   )
+        uMainQueue
+        (
+         [self.currTableView  beginUpdates];
+         [self.currTableView  insertRowsAtIndexPaths:curIndexPathAry withRowAnimation:defaultRowAnimation];
+         [self.currTableView  endUpdates];
+         )
     }
 }
 - (void)insertDataAry:(NSArray *)newDataAry atIndexPath:(NSIndexPath *)cIndexPath
@@ -271,11 +273,29 @@
     if (self.dataAryChangeAnimationBlock) {
         defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowInsert);
     }
-    uMainQueue(
-               [self.currTableView  beginUpdates];
-               [self.currTableView  insertRowsAtIndexPaths:curIndexPaths withRowAnimation:defaultRowAnimation];
-               [self.currTableView  endUpdates];
-               )
+    uMainQueue
+    (
+     [self.currTableView beginUpdates];
+     [self.currTableView insertRowsAtIndexPaths:curIndexPaths withRowAnimation:defaultRowAnimation];
+     [self.currTableView endUpdates];
+     )
+}
+- (void)deleteDataAtIndexPath:(NSIndexPath *)cIndexPath
+{
+    NSMutableArray *curDataSectionAry = self.currDataAry[cIndexPath.section];
+    if (curDataSectionAry.count > cIndexPath.row) {
+        [curDataSectionAry removeObjectAtIndex:cIndexPath.row];
+        UITableViewRowAnimation defaultRowAnimation = UITableViewRowAnimationAutomatic;
+        if (self.dataAryChangeAnimationBlock) {
+            defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowDelete);
+        }
+        uMainQueue
+        (
+         [self.currTableView beginUpdates];
+         [self.currTableView deleteRowsAtIndexPaths:@[cIndexPath] withRowAnimation:defaultRowAnimation];
+         [self.currTableView endUpdates];
+         )
+    }
 }
 
 - (void)dataAryChangeAnimation:(SUITableExtenDataAryChangeAnimationBlock)cb
