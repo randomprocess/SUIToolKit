@@ -13,6 +13,8 @@
 
 - (void)scrollToBottomWithAnimated:(BOOL)animated;
 
+- (void)scrollToTopWithAnimated:(BOOL)animated;
+
 - (void)contentInsertsWithBottomValue:(CGFloat)cBottom;
 
 

@@ -246,11 +246,13 @@
     if (!newDataAry.count) return;
 
     NSMutableArray *curDataSectionAry = nil;
+    BOOL isInsertSection = NO;
     if (self.currDataAry.count <= cIndexPath.section)
     {
         curDataSectionAry = [NSMutableArray array];
         [self.currDataAry addObject:curDataSectionAry];
         uAssert(cIndexPath.section == 0, @"this may not be what you want");
+        isInsertSection = YES;
     }
     else
     {
@@ -273,10 +275,16 @@
     if (self.dataAryChangeAnimationBlock) {
         defaultRowAnimation = self.dataAryChangeAnimationBlock(SUIDataSourceChangeTypeRowInsert);
     }
+    
     uMainQueue
     (
      [self.currTableView beginUpdates];
-     [self.currTableView insertRowsAtIndexPaths:curIndexPaths withRowAnimation:defaultRowAnimation];
+     if (isInsertSection) {
+         [self.currTableView insertSections:[NSIndexSet indexSetWithIndex:cIndexPath.section] withRowAnimation:defaultRowAnimation];
+     } else {
+         [self.currTableView insertRowsAtIndexPaths:curIndexPaths withRowAnimation:defaultRowAnimation];
+         
+     }
      [self.currTableView endUpdates];
      )
 }

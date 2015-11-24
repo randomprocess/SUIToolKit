@@ -46,7 +46,7 @@
     NSString *curIdentifier = objc_getAssociatedObject(self, @selector(currIdentifier));
     if (curIdentifier) return curIdentifier;
     
-    NSString *currClassName = gClassName(self);
+    NSString *currClassName = NSStringFromClass([self class]);
     if ([currClassName hasPrefix:@"SUI"]) {
         uLogInfo(@"currVC ClassName ⤭ %@ ⤪  Superclass ⤭ %@ ⤪", currClassName, self.superclass);
         NSString *curSuffixStr = nil;
