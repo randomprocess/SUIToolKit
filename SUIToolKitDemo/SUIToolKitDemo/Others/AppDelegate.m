@@ -18,22 +18,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [SUITool toolInit];
-    
-    [SUIBaseConfig sharedConfig].httpMethod = @"GET";
-    [SUIBaseConfig sharedConfig].httpHost = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
-    [SUIBaseConfig sharedConfig].backgroundColor = [UIColor colorWithRed:0.395 green:0.500 blue:1.000 alpha:1.000];
-    [SUIBaseConfig sharedConfig].separatorColor = [UIColor colorWithRed:1.000 green:0.577 blue:1.000 alpha:1.000];
-    [SUIBaseConfig sharedConfig].selectionStyle = UITableViewCellSelectionStyleGray;
-    [SUIBaseConfig sharedConfig].separatorInset = @"{0,15,0,0}";
-    [SUIBaseConfig sharedConfig].classNameOfLoadingView = @"SUILoadingView";
-    
-    
-    NSString *databaseName = [NSString stringWithFormat:@"%@.sqlite", kProjectName];
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:databaseName];
-
-    
-    
     return YES;
 }
 
@@ -58,9 +42,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-#ifdef DEBUG
-    [MagicalRecord cleanUp];
-#endif
+//#ifdef DEBUG
+//    [MagicalRecord cleanUp];
+//#endif
 }
 
 @end

@@ -1,19 +1,6 @@
+
+pod 'SUIUtilities', '~> 1.0.0'
+
+pod 'SUICategories', '~> 1.0.0'
+
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.3'
-
-pod 'AFNetworking', '~> 2.6.1'
-
-pod 'MJRefresh', '~> 1.4.7'
-
-pod 'MJExtension', '~> 2.3.7'
-
-pod 'MagicalRecord', '~> 2.3.0', :inhibit_warnings => true
-
-pod 'MGSwipeTableCell', '~> 1.5.1'
-
-pod 'DZNEmptyDataSet', '~> 1.7'
-
-pod 'SDWebImage', '~> 3.7.3'
-
-pod 'ReactiveCocoa', '~> 2.5'
-
-pod 'Reachability', '~> 3.2'
