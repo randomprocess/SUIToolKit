@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "SUIUtilities.h"
+#import "SUICategories.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [SUINetworkConfig sharedInstance].baseURL = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
     
     return YES;
 }

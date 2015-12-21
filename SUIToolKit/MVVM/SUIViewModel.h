@@ -10,27 +10,29 @@
 #import <UIKit/UIKit.h>
 
 @class SUIViewModel;
-@protocol SUIViewModelCellProtocal;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol SUIViewModelProtocol <NSObject>
+@protocol SUIViewModelDelagate <NSObject>
 @optional
 
+- (void)commonInit;
 - (SUIViewModel *)viewModelPassed:(__kindof UIViewController *)cDestVC;
 
 @end
 
 
-@interface SUIViewModel : NSObject <SUIViewModelProtocol, UITableViewDataSource, UITableViewDelegate>
+@interface SUIViewModel : NSObject <SUIViewModelDelagate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic,weak) UIViewController<SUIViewModelCellProtocal> *sui_vc;
+@property (nonatomic,weak) UIViewController *sui_vc;
 
-@property (nonatomic,readonly,strong) id model;
+@property (nullable,nonatomic,readonly,strong) id currModel;
 
-- (instancetype)initWithModel:(id)model;
+@property (nullable,nonatomic,readonly,strong) NSIndexPath *currIndexPath;
 
-- (nullable id)currentModelAtIndex:(NSIndexPath *)cIndexPath;
+- (instancetype)initWithModel:(nullable id)model;
+
+- (nullable id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath;
 
 @end
 

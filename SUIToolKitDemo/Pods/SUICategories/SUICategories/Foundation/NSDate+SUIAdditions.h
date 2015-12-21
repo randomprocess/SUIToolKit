@@ -14,6 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Prehash
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Prehash
+
+@property (readonly) NSTimeInterval sui_toTime;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Component
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
@@ -38,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)sui_ISO8601String;
 
 - (NSString *)sui_stringFormat:(NSString *)cFormat;
+
++ (NSTimeInterval)sui_time;
 
 
 @end

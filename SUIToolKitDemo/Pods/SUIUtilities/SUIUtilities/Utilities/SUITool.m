@@ -109,11 +109,8 @@ uSharedInstanceWithCommonInit
                     withIntermediateDirectories:YES
                     attributes:nil
                     error:&anyError];
-        if (ret) {
-            uLogInfo(@"file create director succeed At ⤭ %@ ⤪", filePath);
-        } else {
-            uLogError(@"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
-        }
+        
+        uAssert(ret, @"file create director Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
         return ret;
     }
     return YES;
@@ -131,11 +128,8 @@ uSharedInstanceWithCommonInit
     BOOL ret = [data writeToFile:filePath
                          options:NSDataWritingAtomic
                            error:&anyError];
-    if (ret) {
-        uLogInfo(@"file write succeed To ⤭ %@ ⤪", filePath);
-    } else {
-        uLogError(@"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
-    }
+
+    uAssert(ret, @"file write Error ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, filePath);
     return ret;
 }
 
@@ -146,11 +140,8 @@ uSharedInstanceWithCommonInit
                 moveItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    if (ret) {
-        uLogInfo(@"file move succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
-    } else {
-        uLogError(@"file move Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
-    }
+
+    uAssert(ret, @"file move Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     return ret;
 }
 
@@ -161,11 +152,8 @@ uSharedInstanceWithCommonInit
                 copyItemAtPath:sourcePath
                 toPath:filePath
                 error:&anyError];
-    if (ret) {
-        uLogInfo(@"file copy succeed Source ⤭ %@ ⤪  To ⤭ %@ ⤪", sourcePath, filePath);
-    } else {
-        uLogError(@"file copy Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
-    }
+
+    uAssert(ret, @"file copy Error ⤭ %@ ⤪  Source ⤭ %@ ⤪  To ⤭ %@ ⤪", anyError, sourcePath, filePath);
     return ret;
 }
 
@@ -175,11 +163,8 @@ uSharedInstanceWithCommonInit
     NSData *readData = [NSData dataWithContentsOfFile:filePath
                                               options:NSDataReadingMappedIfSafe
                                                 error:&anyError];
-    if (anyError) {
-        uLogError(@"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
-    } else {
-        uLogInfo(@"file read succeed Length ⤭ %zd ⤪  At ⤭ %@ ⤪", readData.length, filePath);
-    }
+
+    uAssert(!anyError, @"file read Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
     return readData;
 }
 
@@ -193,7 +178,6 @@ uSharedInstanceWithCommonInit
                                     error:&anyError];
         if (!anyError) {
             NSInteger fSize = [[attributes objectForKey:NSFileSize] integerValue];
-            uLogInfo(@"file size succeed Size ⤭ %zd ⤪  At ⤭ %@ ⤪", fSize, filePath);
             return fSize;
         } else {
             uLogError(@"file size Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
@@ -210,11 +194,8 @@ uSharedInstanceWithCommonInit
         BOOL ret = [[NSFileManager defaultManager]
                     removeItemAtPath:filePath
                     error:&anyError];
-        if (ret) {
-            uLogInfo(@"file delete succeed At ⤭ %@ ⤪", filePath);
-        } else {
-            uLogError(@"file delete Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
-        }
+
+        uAssert(ret, @"file delete Error ⤭ %@ ⤪  At ⤭ %@ ⤪", anyError, filePath);
         return ret;
     }
     return YES;
@@ -248,44 +229,32 @@ uSharedInstanceWithCommonInit
 + (BOOL)cameraAvailable
 {
     BOOL ret = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    if (ret) {
-        uLogInfo(@"camera available");
-    } else {
-        uLogInfo(@"cameta unavailable");
-    }
+
+    uAssert(ret, @"cameta unavailable");
     return ret;
 }
 
 + (BOOL)cameraRearAvailable
 {
     BOOL ret = [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
-    if (ret) {
-        uLogInfo(@"camera rear available");
-    } else {
-        uLogInfo(@"cameta rear unavailable");
-    }
+
+    uAssert(ret, @"ameta rear unavailable");
     return ret;
 }
 
 + (BOOL)cameraFrontAvailable
 {
     BOOL ret = [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
-    if (ret) {
-        uLogInfo(@"camera front available");
-    } else {
-        uLogInfo(@"cameta front unavailable");
-    }
+
+    uAssert(ret, @"cameta front unavailable");
     return ret;
 }
 
 + (BOOL)photoLibraryAvailable
 {
     BOOL ret = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
-    if (ret) {
-        uLogInfo(@"photo library available");
-    } else {
-        uLogInfo(@"photo library unavailable");
-    }
+
+    uAssert(ret, @"photo library unavailable");
     return ret;
 }
 
@@ -296,11 +265,8 @@ uSharedInstanceWithCommonInit
 {
     NSString *curURL = gFormat(@"itms-apps://itunes.apple.com/app/id%@", appId);
     BOOL ret = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
-    if (ret) {
-        uLogInfo(@"go to app store succeed AppId ⤭ %@ ⤪", appId);
-    } else {
-        uLogError(@"go to app store failed AppId ⤭ %@ ⤪", appId);
-    }
+
+    uAssert(ret, @"go to app store failed AppId ⤭ %@ ⤪", appId);
     return ret;
 }
 

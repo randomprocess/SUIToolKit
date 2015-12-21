@@ -56,7 +56,7 @@
 - (void)setSui_tableView:(UITableView *)sui_tableView
 {
     sui_tableView.sui_vc = self;
-    [self sui_setAssociatedObject:sui_tableView key:@selector(sui_tableView) policy:OBJC_ASSOCIATION_ASSIGN];
+    [self sui_setAssociatedObject:sui_tableView key:@selector(sui_tableView) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
 

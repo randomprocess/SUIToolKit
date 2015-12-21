@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SUIViewModel.h"
-#import "UITableViewCell+SUIMVVM.h"
+
+@class SUIViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (SUIMVVM) <SUIViewModelCellProtocal>
+@interface UIViewController (SUIMVVM)
 
-@property (readonly,copy) __kindof SUIViewModel *sui_vm;
+@property (null_resettable,copy) __kindof SUIViewModel *sui_vm;
 
 @end
 

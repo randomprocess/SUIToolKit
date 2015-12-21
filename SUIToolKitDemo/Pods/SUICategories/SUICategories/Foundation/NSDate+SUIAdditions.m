@@ -16,6 +16,18 @@
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Prehash
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Prehash
+
+- (NSTimeInterval)sui_toTime
+{
+    return [self timeIntervalSince1970];
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Component
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
@@ -172,6 +184,12 @@
     [formatter setTimeZone:timeZone];
     [formatter setDateFormat : cFormat];
     return [formatter stringFromDate:self];
+}
+
++ (NSTimeInterval)sui_time
+{
+    NSTimeInterval curTime = [[NSDate date] timeIntervalSince1970];
+    return curTime;
 }
 
 

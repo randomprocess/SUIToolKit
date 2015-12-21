@@ -9,6 +9,7 @@
 #import "UIViewController+SUIMVVM.h"
 #import "UIViewController+SUIAdditions.h"
 #import "NSObject+SUIAdditions.h"
+#import "SUIViewModel.h"
 #import "SUIMacros.h"
 
 @implementation UIViewController (SUIMVVM)
@@ -35,6 +36,7 @@
     
     if (self.sui_tableView) {
         self.sui_tableView.delegate = curVM;
+        self.sui_tableView.dataSource = curVM;
     }
     return curVM;
 }

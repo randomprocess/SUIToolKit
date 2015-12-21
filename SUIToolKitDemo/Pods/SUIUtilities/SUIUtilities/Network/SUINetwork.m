@@ -70,7 +70,9 @@ static AFHTTPSessionManager *sui_request_manager() {
         
         [curTask resume];
         return [RACDisposable disposableWithBlock:^{
-            [curTask cancel];
+            if (curTask.state == NSURLSessionTaskStateRunning || curTask.state == NSURLSessionTaskStateSuspended) {
+                [curTask cancel];
+            }
         }];
     }];
 }
@@ -112,9 +114,10 @@ static AFHTTPSessionManager *sui_request_manager() {
         
         [self.sui_Task resume];
         return [RACDisposable disposableWithBlock:^{
-            [self.sui_Task cancel];
+            if (self.sui_Task.state == NSURLSessionTaskStateRunning || self.sui_Task.state == NSURLSessionTaskStateSuspended) {
+                [self.sui_Task cancel];
+            }
         }];
-        
     }] replayLazily];
 }
 

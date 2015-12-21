@@ -38,8 +38,8 @@ typedef NS_ENUM(NSInteger, SUISegueType) {
 
 #pragma mark - Common
 
-@property (readonly,copy) NSString *sui_identifier;
-@property (nullable,nonatomic,weak) UITableView *sui_tableView;
+@property (null_resettable,copy) NSString *sui_identifier;
+@property (nullable,nonatomic,strong) UITableView *sui_tableView;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*

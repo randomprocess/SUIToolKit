@@ -19,10 +19,16 @@ Pod::Spec.new do |s|
 
 
   s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore'
+  s.dependency 'ReactiveCocoa', '~> 2.5'
   s.dependency 'SUIUtilities', '~> 1.0.0'
   s.dependency 'SUICategories', '~> 1.0.0'
 
+
+  s.subspec 'Common' do |ss|
+  end
+
   s.subspec 'MVVM' do |ss|
+    ss.dependency 'SUIToolKit/Common'
     ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.3'
   end
 

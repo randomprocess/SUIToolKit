@@ -8,16 +8,16 @@
 
 #import "SUIViewModel.h"
 #import "UIViewController+SUIAdditions.h"
+#import "UITableView+SUIToolKit.h"
+#import "UITableViewCell+SUIToolKit.h"
 #import "UIViewController+SUIMVVM.h"
-#import "UITableView+FDTemplateLayoutCell.h"
 #import "UITableViewCell+SUIMVVM.h"
+#import "UITableView+FDTemplateLayoutCell.h"
 #import "SUIMacros.h"
 
 @interface SUIViewModel ()
 
-@property (nonatomic,strong) NSMutableArray *currDataAry;
-@property (nonatomic,strong) NSString *currCellIdentifier;
-
+@property (nullable,nonatomic,strong) id currModel;
 
 @end
 
@@ -27,9 +27,24 @@
 {
     self = [super init];
     if (self) {
-        _model = model;
+        self.currModel = model;
+        [self commonInit];
     }
     return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit
+{
+    //
 }
 
 
@@ -41,66 +56,78 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.currDataAry.count;
+    NSInteger curNumOfSections = tableView.sui_dataAry.count;
+    return curNumOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.currDataAry.count > section) {
-        NSMutableArray *subDataAry = self.currDataAry[section];
-        return subDataAry.count;
+    NSInteger curNumOfRows = 0;
+    if (tableView.sui_dataAry.count > section) {
+        NSMutableArray *subDataAry = tableView.sui_dataAry[section];
+        curNumOfRows = subDataAry.count;
     }
-    return 0;
+    return curNumOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *curCell = nil;
-    curCell = [tableView dequeueReusableCellWithIdentifier:self.currCellIdentifier];
-    uAssert(curCell, @"cell if nil Identifier ⤭ %@ ⤪", self.currCellIdentifier);
+    NSString *curCellIdentifier = [self sui_cellIdentifierForRowAtIndexPath:indexPath tableView:tableView];
+    curCell = [tableView dequeueReusableCellWithIdentifier:curCellIdentifier];
+    uAssert(curCell, @"cell if nil Identifier ⤭ %@ ⤪", curCellIdentifier);
     
     [self sui_configureCell:curCell tableView:tableView atIndexPath:indexPath];
-    if ([self.sui_vc respondsToSelector:@selector(sui_tableView:willDisplayCell:forRowAtIndexPath:)]) {
-        [self.sui_vc sui_tableView:tableView willDisplayCell:curCell forRowAtIndexPath:indexPath];
+    
+    if (tableView.sui_blockForDisplayCell) {
+        tableView.sui_blockForDisplayCell(curCell, indexPath);
     }
     return curCell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    uWeakSelf
-    return [tableView fd_heightForCellWithIdentifier:self.currCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
-        [weakSelf sui_configureCell:cell tableView:tableView atIndexPath:indexPath];
-    }];
+    CGFloat curHeight = 0;
+    if (tableView.sui_blockForCalculateCellHeight) {
+        uWeakSelf
+        NSString *curCellIdentifier = [weakSelf sui_cellIdentifierForRowAtIndexPath:indexPath tableView:tableView];
+        curHeight = [tableView fd_heightForCellWithIdentifier:curCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+            [weakSelf sui_configureCell:cell tableView:tableView atIndexPath:indexPath];
+        }];
+    } else {
+        curHeight = tableView.rowHeight;
+    }
+    return curHeight;
 }
 
 - (void)sui_configureCell:(UITableViewCell *)cCell tableView:(UITableView *)cTableView atIndexPath:(NSIndexPath *)cIndexPath
 {
-    id curModel = [self currentModelAtIndex:cIndexPath tableView:cTableView];
+    id curModel = [self currentModelAtIndexPath:cIndexPath tableView:cTableView];
     cCell.sui_md = curModel;
     cCell.sui_tableView = cTableView;
     cCell.sui_vm = self;
     
-    if ([self.sui_vc respondsToSelector:@selector(sui_tableView:willCalculateHeightForCell:forRowAtIndexPath:)]) {
-        [self.sui_vc sui_tableView:cTableView willCalculateHeightForCell:cCell forRowAtIndexPath:cIndexPath];
+    if (cTableView.sui_blockForCalculateCellHeight) {
+        cTableView.sui_blockForCalculateCellHeight(cCell, cIndexPath);
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+    _currIndexPath = indexPath;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (id)currentModelAtIndex:(NSIndexPath *)cIndexPath
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath
 {
-    return [self currentModelAtIndex:cIndexPath tableView:self.sui_vc.sui_tableView];
+    return [self currentModelAtIndexPath:cIndexPath tableView:self.sui_vc.sui_tableView];
 }
 
-- (id)currentModelAtIndex:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView
 {
     if (cTableView) {
-        if (self.currDataAry.count > cIndexPath.section) {
-            NSMutableArray *subDataAry = self.currDataAry[cIndexPath.section];
+        if (cTableView.sui_dataAry.count > cIndexPath.section) {
+            NSMutableArray *subDataAry = cTableView.sui_dataAry[cIndexPath.section];
             if (subDataAry.count > cIndexPath.row) {
                 id curModel = subDataAry[cIndexPath.row];
                 return curModel;
@@ -110,23 +137,17 @@
     return nil;
 }
 
-
-#pragma mark Lazily instantiate
-
-- (NSMutableArray *)currDataAry
+- (NSString *)sui_cellIdentifierForRowAtIndexPath:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView
 {
-    if (!_currDataAry) {
-        _currDataAry = [NSMutableArray array];
+    NSString *curCellIdentifier = nil;
+    if (cTableView.sui_blockForCellIdentifier) {
+        curCellIdentifier = cTableView.sui_blockForCellIdentifier(cIndexPath, [self currentModelAtIndexPath:cIndexPath tableView:cTableView]);
     }
-    return _currDataAry;
-}
-
-- (NSString *)currCellIdentifier
-{
-    if (!_currCellIdentifier) {
-        _currCellIdentifier = gFormat(@"SUI%@Cell", self.sui_vc.sui_identifier);
+    else
+    {
+        curCellIdentifier = gFormat(@"SUI%@Cell", self.sui_vc.sui_identifier);
     }
-    return _currCellIdentifier;
+    return curCellIdentifier;
 }
 
 @end
