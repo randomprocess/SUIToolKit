@@ -28,13 +28,24 @@
 {
     [super viewDidLoad];
     
+    
+    [[SUIAlbumMD getUsingLKDBHelper] dropAllTable];
+    
     self.currViewModel = self.sui_vm;
+    
+    [self.sui_tableView sui_DBHelperWithClass:[SUIAlbumMD class] where:@"aId > 0" orderBy:@"aId" ascending:YES];
+    
     
     [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {
         return value;
     }] subscribeNext:^(NSDictionary *cDict) {
         NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
-        [self.sui_tableView sui_resetDataAry:albumAry];
+        for (SUIAlbumMD *curAlbumMD in albumAry) {
+            [curAlbumMD updateToDB];
+        }
+        
+//        NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
+//        [self.sui_tableView sui_resetDataAry:albumAry];
     }];
     
     

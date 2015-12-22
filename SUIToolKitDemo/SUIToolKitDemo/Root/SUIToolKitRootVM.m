@@ -10,6 +10,8 @@
 #import "XXXSecondViewModel.h"
 #import "SUICategories.h"
 #import "SUIUtilities.h"
+#import "SUIAlbumMD.h"
+#import "SUIToolKit.h"
 
 @implementation SUIToolKitRootVM
 
@@ -29,6 +31,24 @@
     XXXSecondViewModel *curVM = [[XXXSecondViewModel alloc] initWithModel:[self currentModelAtIndexPath:self.currIndexPath]];
     return curVM;
 }
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (UITableViewCellEditingStyleDelete == editingStyle) {
+        SUIAlbumMD *curMD = [self currentModelAtIndexPath:indexPath];
+        [SUIAlbumMD deleteToDB:curMD];
+    }
+}
+
+
+
+
 
 
 @end

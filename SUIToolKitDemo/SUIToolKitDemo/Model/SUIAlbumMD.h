@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "SUIDBEntity.h"
 
 @class SUIArtistMD;
-@interface SUIAlbumMD : NSObject
+@interface SUIAlbumMD : SUIDBEntity
 
 @property (nonatomic, copy) NSString *release_date;
 
@@ -38,7 +39,7 @@
 @end
 
 
-@interface SUIArtistMD : NSObject
+@interface SUIArtistMD : SUIDBEntity
 
 @property (nonatomic, assign) NSInteger tId;
 

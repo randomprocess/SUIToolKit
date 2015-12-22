@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		28E76DCB52269C8376DB87FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA561482F072FF6D556247C /* libPods.a */; };
+		6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F8451C290A1300BA648B /* SUIDBHelper.m */; settings = {ASSET_TAGS = (); }; };
+		6D43F8601C29162900BA648B /* SUIDBEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F85F1C29162900BA648B /* SUIDBEntity.m */; settings = {ASSET_TAGS = (); }; };
+		6D43F8661C293AA300BA648B /* UITableView+SUIVMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F8651C293AA300BA648B /* UITableView+SUIVMDBHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6D7559781C2408E700085A53 /* SUIViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7559731C2408E700085A53 /* SUIViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		6D7559791C2408E700085A53 /* UITableViewCell+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7559751C2408E700085A53 /* UITableViewCell+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
 		6D75597A1C2408E700085A53 /* UIViewController+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7559771C2408E700085A53 /* UIViewController+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
@@ -31,6 +34,12 @@
 /* Begin PBXFileReference section */
 		0020EA114C7BFEDDB6D76CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3FA561482F072FF6D556247C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D43F8441C290A1300BA648B /* SUIDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDBHelper.h; sourceTree = "<group>"; };
+		6D43F8451C290A1300BA648B /* SUIDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDBHelper.m; sourceTree = "<group>"; };
+		6D43F85E1C29162900BA648B /* SUIDBEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDBEntity.h; sourceTree = "<group>"; };
+		6D43F85F1C29162900BA648B /* SUIDBEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDBEntity.m; sourceTree = "<group>"; };
+		6D43F8641C293AA300BA648B /* UITableView+SUIVMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SUIVMDBHelper.h"; sourceTree = "<group>"; };
+		6D43F8651C293AA300BA648B /* UITableView+SUIVMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SUIVMDBHelper.m"; sourceTree = "<group>"; };
 		6D75593C1C239D4800085A53 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6D7559721C2408E700085A53 /* SUIViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIViewModel.h; sourceTree = "<group>"; };
 		6D7559731C2408E700085A53 /* SUIViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIViewModel.m; sourceTree = "<group>"; };
@@ -85,9 +94,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D43F8431C29098E00BA648B /* DBHelper */ = {
+			isa = PBXGroup;
+			children = (
+				6D43F8441C290A1300BA648B /* SUIDBHelper.h */,
+				6D43F8451C290A1300BA648B /* SUIDBHelper.m */,
+				6D43F85E1C29162900BA648B /* SUIDBEntity.h */,
+				6D43F85F1C29162900BA648B /* SUIDBEntity.m */,
+			);
+			path = DBHelper;
+			sourceTree = "<group>";
+		};
 		6D7559371C239D4800085A53 /* SUIToolKit */ = {
 			isa = PBXGroup;
 			children = (
+				6D43F8431C29098E00BA648B /* DBHelper */,
 				6D9DF8E61C278D7200E7D7BA /* Common */,
 				6D7559711C2408E700085A53 /* MVVM */,
 				6D75593C1C239D4800085A53 /* SUIToolKit.h */,
@@ -105,6 +126,8 @@
 				6D7559751C2408E700085A53 /* UITableViewCell+SUIMVVM.m */,
 				6D7559761C2408E700085A53 /* UIViewController+SUIMVVM.h */,
 				6D7559771C2408E700085A53 /* UIViewController+SUIMVVM.m */,
+				6D43F8641C293AA300BA648B /* UITableView+SUIVMDBHelper.h */,
+				6D43F8651C293AA300BA648B /* UITableView+SUIVMDBHelper.m */,
 			);
 			path = MVVM;
 			sourceTree = "<group>";
@@ -389,8 +412,11 @@
 				6D9DF8E91C278DB800E7D7BA /* UITableViewCell+SUIToolKit.m in Sources */,
 				6D9DF9041C27A12900E7D7BA /* SUIToolKitRootVM.m in Sources */,
 				6D9DF9011C27A0D500E7D7BA /* SUIAlbumMD.m in Sources */,
+				6D43F8601C29162900BA648B /* SUIDBEntity.m in Sources */,
 				6D75597A1C2408E700085A53 /* UIViewController+SUIMVVM.m in Sources */,
 				6DA7DFD51C27ED940055E5A7 /* XXXSecondViewModel.m in Sources */,
+				6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */,
+				6D43F8661C293AA300BA648B /* UITableView+SUIVMDBHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

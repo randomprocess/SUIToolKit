@@ -14,6 +14,7 @@
 #import "UITableViewCell+SUIMVVM.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "SUIMacros.h"
+#import "SUIDBHelper.h"
 
 @interface SUIViewModel ()
 
@@ -42,10 +43,7 @@
     return self;
 }
 
-- (void)commonInit
-{
-    //
-}
+- (void)commonInit {}
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -56,16 +54,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger curNumOfSections = tableView.sui_dataAry.count;
-    return curNumOfSections;
+    if (tableView.sui_DBHelper) {
+        return 1;
+    } else {
+        NSInteger curNumOfSections = tableView.sui_dataAry.count;
+        return curNumOfSections;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger curNumOfRows = 0;
-    if (tableView.sui_dataAry.count > section) {
-        NSMutableArray *subDataAry = tableView.sui_dataAry[section];
-        curNumOfRows = subDataAry.count;
+    if (tableView.sui_DBHelper) {
+        curNumOfRows = tableView.sui_DBHelper.sui_objects.count;
+    } else {
+        if (tableView.sui_dataAry.count > section) {
+            NSMutableArray *subDataAry = tableView.sui_dataAry[section];
+            curNumOfRows = subDataAry.count;
+        }
     }
     return curNumOfRows;
 }
@@ -125,7 +131,16 @@
 
 - (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView
 {
-    if (cTableView) {
+    if (!cTableView) return nil;
+    
+    if (cTableView.sui_DBHelper) {
+        if (cIndexPath.section == 0) {
+            if (cTableView.sui_DBHelper.sui_objects.count > cIndexPath.row) {
+                id curModel = cTableView.sui_DBHelper.sui_objects[cIndexPath.row];
+                return curModel;
+            }
+        }
+    } else {
         if (cTableView.sui_dataAry.count > cIndexPath.section) {
             NSMutableArray *subDataAry = cTableView.sui_dataAry[cIndexPath.section];
             if (subDataAry.count > cIndexPath.row) {
@@ -149,5 +164,46 @@
     }
     return curCellIdentifier;
 }
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  SUIVMDBHelperDelegate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - SUIVMDBHelperDelegate
+
+- (void)sui_DBHelperWillChangeContent:(SUIDBHelper *)cHelper tableView:(UITableView *)cTableView
+{
+    [cTableView beginUpdates];
+}
+
+- (void)sui_DBHelper:(SUIDBHelper *)cHelper didChangeObject:(__kindof SUIDBEntity *)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(SUIDBHelperChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath tableView:(UITableView *)cTableView
+{
+    switch (type)
+    {
+        case SUIDBHelperChangeInsert:
+            [cTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case SUIDBHelperChangeDelete:
+            [cTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case SUIDBHelperChangeMove:
+        {
+            [cTableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+        }
+            break;
+        case SUIDBHelperChangeUpdate:
+            [cTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)sui_DBHelperDidChangeContent:(SUIDBHelper *)cHelper tableView:(UITableView *)cTableView
+{
+    [cTableView endUpdates];
+}
+
 
 @end

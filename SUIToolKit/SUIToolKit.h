@@ -26,9 +26,13 @@
  *  MVVM
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
+#import "SUIDBHelper.h"
+#import "SUIDBEntity.h"
+
 #import "SUIViewModel.h"
 #import "UITableViewCell+SUIMVVM.h"
 #import "UIViewController+SUIMVVM.h"
+#import "UITableView+SUIVMDBHelper.h"
 
 
 

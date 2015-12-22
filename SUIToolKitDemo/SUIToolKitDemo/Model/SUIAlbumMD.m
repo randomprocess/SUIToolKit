@@ -30,12 +30,15 @@
     return @[@"coverImage"];
 }
 
++ (NSString*)getPrimaryKey
+{
+    return @"aId";
+}
 
 @end
 
 
 @implementation SUIArtistMD
-
 
 
 + (NSString *)mj_replacedKeyFromPropertyName121:(NSString *)propertyName
@@ -45,6 +48,12 @@
     }
     return propertyName;
 }
+
++ (NSString*)getPrimaryKey
+{
+    return @"tId";
+}
+
 
 @end
 
