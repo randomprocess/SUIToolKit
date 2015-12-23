@@ -8,6 +8,7 @@
 
 #import "SUIAlbumMD.h"
 #import "MJExtension.h"
+#import "SUIToolKit.h"
 
 @implementation SUIAlbumMD
 

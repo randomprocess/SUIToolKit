@@ -29,20 +29,20 @@
     if (!curVM) {
         NSString *classNameOfVM = gFormat(@"SUI%@VM", self.sui_identifier);
         curVM = [[NSClassFromString(classNameOfVM) alloc] init];
-        curVM.sui_vc = self;
     }
     uAssert(curVM, @"className should prefix with 'SUI' and suffix with 'VM'");
     self.sui_vm = curVM;
     
-    if (self.sui_tableView) {
-        self.sui_tableView.delegate = curVM;
-        self.sui_tableView.dataSource = curVM;
-    }
     return curVM;
 }
 
 - (void)setSui_vm:(SUIViewModel *)sui_vm
 {
+    sui_vm.sui_vc = self;
+    if (self.sui_tableView) {
+        self.sui_tableView.delegate = sui_vm;
+        self.sui_tableView.dataSource = sui_vm;
+    }
     [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 

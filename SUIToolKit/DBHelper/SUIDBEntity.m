@@ -12,13 +12,10 @@
 
 @interface SUIDBEntity ()
 
-@property (nonatomic) BOOL sui_inserted;
-@property (nonatomic) BOOL sui_updated;
-@property (nonatomic) BOOL sui_deleted;
-
 @end
 
 @implementation SUIDBEntity
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  LKDBHelper_Delegate

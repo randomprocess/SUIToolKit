@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^SUITableViewCalculateCellHeightBlock)(__kindof UITableViewCell *cCell, NSIndexPath *cIndexPath);
 typedef void (^SUITableViewDisplayCellBlock)(__kindof UITableViewCell *cCell, NSIndexPath *cIndexPath);
-typedef NSString * _Nonnull (^SUITableViewCellIdentifierBlock)(NSIndexPath *cIndexPath, id _Nullable model);
+typedef NSString * __nonnull (^SUITableViewCellIdentifierBlock)(NSIndexPath *cIndexPath, id __nullable model);
 
 @interface UITableView (SUIToolKit)
 

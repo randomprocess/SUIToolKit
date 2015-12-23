@@ -120,7 +120,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    _currIndexPath = indexPath;
+    if (tableView == self.sui_vc.sui_tableView) {
+        _currIndexPath = indexPath;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

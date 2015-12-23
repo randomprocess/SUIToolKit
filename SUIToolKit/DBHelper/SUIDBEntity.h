@@ -9,15 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "LKDBHelper.h"
 
-@class SUIDBHelper;
-@protocol SUIDBHelperDelegate;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const kSUIDBHelperObjectChangeNotifications = @"SUIDBHelperObjectChangeNotifications";
 static NSString *const kSUIDBHelperChangeType = @"SUIDBHelperChangeType";
 
 @interface SUIDBEntity : NSObject
+
+
 
 
 @end
