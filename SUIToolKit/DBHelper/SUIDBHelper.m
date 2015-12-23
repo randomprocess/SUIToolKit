@@ -44,6 +44,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 @property (nonatomic,weak) id<SUIDBHelperDelegate> delegate;
 
 @property (nonatomic,strong) NSMutableArray *sui_objects;
+@property (nonatomic,strong) NSMutableArray *sui_objectCbs;
 
 @end
 
@@ -76,17 +77,16 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
     if (curRusultAry.count > 0) {
         [self.sui_objects addObjectsFromArray:curRusultAry];
         
-        if ([self.delegate respondsToSelector:@selector(sui_DBHelperWillChangeContent:)]) {
-            [self.delegate sui_DBHelperWillChangeContent:self];
-        }
-        if ([self.delegate respondsToSelector:@selector(sui_DBHelper:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
-            [self.sui_objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [self.delegate sui_DBHelper:self didChangeObject:obj atIndexPath:nil forChangeType:SUIDBHelperChangeInsert newIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
-            }];
-        }
-        if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)]) {
-            [self.delegate sui_DBHelperDidChangeContent:self];
-        }
+        uSUIDBHelperWillChangeContent
+        
+        uSUIDBHelperDidChangerObject
+        (
+         [self.sui_objects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.delegate sui_DBHelper:self didChangeObject:obj atIndexPath:nil forChangeType:SUIDBHelperChangeInsert newIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
+        }];
+         )
+        
+        uSUIDBHelperDidChangeContent
     }
 }
 
@@ -167,18 +167,15 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)deleteEntity:(SUIDBEntity *)cEntity
 {
-    uSUIDBHelperWillChangeContent
-    
-    NSInteger curIdx = [self.sui_objects indexOfObject:cEntity];
-    [self.sui_objects removeObjectAtIndex:curIdx];
-    
-    uSUIDBHelperDidChangerObject
-    (
-     NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
-     [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:curIndexPath forChangeType:SUIDBHelperChangeDelete newIndexPath:nil];
-     )
-    
-    uSUIDBHelperDidChangeContent
+    [self sui_performChangeObjects:^(NSMutableArray *curRusultAry) {
+        NSInteger curIdx = [self.sui_objects indexOfObject:cEntity];
+        NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
+        uSUIDBHelperDidChangerObject
+        (
+         [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:curIndexPath forChangeType:SUIDBHelperChangeDelete newIndexPath:nil];
+         )
+        
+    } entity:cEntity];
 }
 
 - (BOOL)needInsertEntity:(SUIDBEntity *)cEntity
@@ -193,20 +190,14 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)insertEntity:(SUIDBEntity *)cEntity
 {
-    uSUIDBHelperWillChangeContent
-    
-    NSMutableArray *curRusultAry = [cEntity.class searchWithWhere:self.searchTerm orderBy:self.orderTerm offset:0 count:0];
-    [self.sui_objects removeAllObjects];
-    [self.sui_objects addObjectsFromArray:curRusultAry];
-    NSInteger curIdx = [self replaceEntity:cEntity inArray:self.sui_objects];
-    
-    uSUIDBHelperDidChangerObject
-    (
-     NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
-     [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:nil forChangeType:SUIDBHelperChangeInsert newIndexPath:curIndexPath];
-     )
-    
-    uSUIDBHelperDidChangeContent
+    [self sui_performChangeObjects:^(NSMutableArray *curRusultAry) {
+        NSInteger curIdx = [self replaceEntity:cEntity inArray:curRusultAry];
+        uSUIDBHelperDidChangerObject
+        (
+         NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
+         [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:nil forChangeType:SUIDBHelperChangeInsert newIndexPath:curIndexPath];
+         )
+    } entity:cEntity];
 }
 
 - (BOOL)needUpdateEntity:(SUIDBEntity *)cEntity
@@ -233,32 +224,50 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)updateEntity:(SUIDBEntity *)cEntity
 {
-    uSUIDBHelperWillChangeContent
-    
-    NSMutableArray *curRusultAry = [cEntity.class searchWithWhere:self.searchTerm orderBy:self.orderTerm offset:0 count:0];
-    NSInteger eveIdx = [self replaceEntity:cEntity inArray:self.sui_objects];
-    NSInteger curIdx = [self replaceEntity:cEntity inArray:curRusultAry];
-    
-    if (![curRusultAry isEqualToArray:self.sui_objects]) {
-        [self.sui_objects removeAllObjects];
-        [self.sui_objects addObjectsFromArray:curRusultAry];
+    [self sui_performChangeObjects:^(NSMutableArray *curRusultAry) {
+        NSInteger eveIdx = [self replaceEntity:cEntity inArray:self.sui_objects];
+        NSInteger curIdx = [self replaceEntity:cEntity inArray:curRusultAry];
         
         uSUIDBHelperDidChangerObject
         (
-         NSIndexPath *eveIndexPath = [NSIndexPath indexPathForRow:eveIdx inSection:0];
-         NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
-         [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:eveIndexPath forChangeType:SUIDBHelperChangeMove newIndexPath:curIndexPath];
-         [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:curIndexPath forChangeType:SUIDBHelperChangeUpdate newIndexPath:nil];
+         if (eveIdx != curIdx)
+         {
+             NSIndexPath *eveIndexPath = [NSIndexPath indexPathForRow:eveIdx inSection:0];
+             NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
+             [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:eveIndexPath forChangeType:SUIDBHelperChangeMove newIndexPath:curIndexPath];
+             [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:eveIndexPath forChangeType:SUIDBHelperChangeUpdate newIndexPath:nil];
+         }
+         else
+         {
+             NSIndexPath *eveIndexPath = [NSIndexPath indexPathForRow:eveIdx inSection:0];
+             [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:eveIndexPath forChangeType:SUIDBHelperChangeUpdate newIndexPath:nil];
+         }
          )
+    } entity:cEntity];
+}
+
+- (void)sui_performChangeObjects:(void (^)(NSMutableArray *curRusultAry))cb entity:(SUIDBEntity *)cEntity
+{
+    if (self.sui_objectCbs.count == 0) {
+        [self performSelectorOnMainThread:@selector(sui_changeObjects:) withObject:cEntity waitUntilDone:NO];
     }
-    else
-    {
-        uSUIDBHelperDidChangerObject
-        (
-         NSIndexPath *curIndexPath = [NSIndexPath indexPathForRow:curIdx inSection:0];
-         [self.delegate sui_DBHelper:self didChangeObject:cEntity atIndexPath:curIndexPath forChangeType:SUIDBHelperChangeUpdate newIndexPath:nil];
-         )
-    }
+    [self.sui_objectCbs addObject:[cb copy]];
+}
+
+- (void)sui_changeObjects:(SUIDBEntity *)cEntity
+{
+    uSUIDBHelperWillChangeContent
+    
+    NSMutableArray *curRusultAry = [cEntity.class searchWithWhere:self.searchTerm orderBy:self.orderTerm offset:0 count:0];
+    
+    [self.sui_objectCbs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        void (^objectCb)(NSMutableArray *curRusultAry) = obj;
+        objectCb(curRusultAry);
+    }];
+    
+    [self.sui_objects removeAllObjects];
+    [self.sui_objects addObjectsFromArray:curRusultAry];
+    [self.sui_objectCbs removeAllObjects];
     
     uSUIDBHelperDidChangeContent
 }
@@ -272,6 +281,14 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
         _sui_objects = [NSMutableArray array];
     }
     return _sui_objects;
+}
+
+- (NSMutableArray *)sui_objectCbs
+{
+    if (!_sui_objectCbs) {
+        _sui_objectCbs = [NSMutableArray array];
+    }
+    return _sui_objectCbs;
 }
 
 

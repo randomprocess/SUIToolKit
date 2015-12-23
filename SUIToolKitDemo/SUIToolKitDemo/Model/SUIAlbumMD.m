@@ -30,11 +30,12 @@
     return @[@"coverImage"];
 }
 
-+ (NSString*)getPrimaryKey
-{
-    return @"aId";
-}
 
+
++ (void)initialize
+{
+    [self removePropertyWithColumnName:@"coverImage"];
+}
 
 @end
 

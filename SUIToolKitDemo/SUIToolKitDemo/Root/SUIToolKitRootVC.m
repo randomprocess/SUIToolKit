@@ -23,29 +23,36 @@
 
 @implementation SUIToolKitRootVC
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
-    [[SUIAlbumMD getUsingLKDBHelper] dropAllTable];
+//    [[SUIAlbumMD getUsingLKDBHelper] dropAllTable];
     
     self.currViewModel = self.sui_vm;
     
     [self.sui_tableView sui_DBHelperWithClass:[SUIAlbumMD class] where:@"aId > 0" orderBy:@"aId desc"];
     
-    
     [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {
         return value;
     }] subscribeNext:^(NSDictionary *cDict) {
         NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
+        [self.sui_tableView.sui_DBHelper.sui_objects makeObjectsPerformSelector:@selector(deleteToDB)];
+        
+        SUIAlbumMD *sAlbumMD = nil;
         for (SUIAlbumMD *curAlbumMD in albumAry) {
             [curAlbumMD updateToDB];
+            
+            if (curAlbumMD.aId == 2275420) {
+                sAlbumMD = curAlbumMD;
+            }
         }
         
-//        NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
-//        [self.sui_tableView sui_resetDataAry:albumAry];
+        sAlbumMD.aId = 30;
+        [sAlbumMD updateToDB];
+        
+        //        NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
+        //        [self.sui_tableView sui_resetDataAry:albumAry];
     }];
     
     
