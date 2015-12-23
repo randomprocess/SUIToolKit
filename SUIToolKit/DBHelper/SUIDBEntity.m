@@ -32,28 +32,25 @@
 + (void)dbDidInserted:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        SUIDBEntity *curEntity = (SUIDBEntity *)entity;
-        curEntity.sui_inserted = YES;
-        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
-        curEntity.sui_inserted = NO;
+        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
+                                   object:entity
+                                 userInfo:@{kSUIDBHelperChangeType : @(SUIDBHelperChangeInsert)}];
     }
 }
 + (void)dbDidDeleted:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        SUIDBEntity *curEntity = (SUIDBEntity *)entity;
-        curEntity.sui_deleted = YES;
-        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
-        curEntity.sui_deleted = NO;
+        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
+                                   object:entity
+                                 userInfo:@{kSUIDBHelperChangeType: @(SUIDBHelperChangeDelete)}];
     }
 }
 + (void)dbDidUpdated:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        SUIDBEntity *curEntity = (SUIDBEntity *)entity;
-        curEntity.sui_updated = YES;
-        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
-        curEntity.sui_updated = NO;
+        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
+                                   object:entity
+                                 userInfo:@{kSUIDBHelperChangeType : @(SUIDBHelperChangeUpdate)}];
     }
 }
 

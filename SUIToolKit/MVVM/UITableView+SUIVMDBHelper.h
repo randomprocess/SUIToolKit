@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sui_DBHelperWithClass:(Class)modelClass;
 - (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm;
-- (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm ascending:(BOOL)ascending;
+- (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm; // asc desc
 
 
 @end

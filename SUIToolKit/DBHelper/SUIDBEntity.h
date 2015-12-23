@@ -15,13 +15,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const kSUIDBHelperObjectChangeNotifications = @"SUIDBHelperObjectChangeNotifications";
+static NSString *const kSUIDBHelperChangeType = @"SUIDBHelperChangeType";
 
 @interface SUIDBEntity : NSObject
-
-
-@property (nonatomic,readonly) BOOL sui_inserted;
-@property (nonatomic,readonly) BOOL sui_updated;
-@property (nonatomic,readonly) BOOL sui_deleted;
 
 
 @end

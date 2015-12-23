@@ -33,7 +33,7 @@
     
     self.currViewModel = self.sui_vm;
     
-    [self.sui_tableView sui_DBHelperWithClass:[SUIAlbumMD class] where:@"aId > 0" orderBy:@"aId" ascending:YES];
+    [self.sui_tableView sui_DBHelperWithClass:[SUIAlbumMD class] where:@"aId > 0" orderBy:@"aId desc"];
     
     
     [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {

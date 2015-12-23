@@ -21,15 +21,15 @@
 
 - (void)sui_DBHelperWithClass:(Class)modelClass
 {
-    [self sui_DBHelperWithClass:modelClass where:nil orderBy:nil ascending:YES];
+    [self sui_DBHelperWithClass:modelClass where:nil orderBy:nil];
 }
 - (void)sui_DBHelperWithClass:(Class)modelClass where:(id)searchTerm
 {
-    [self sui_DBHelperWithClass:modelClass where:searchTerm orderBy:nil ascending:YES];
+    [self sui_DBHelperWithClass:modelClass where:searchTerm orderBy:nil];
 }
-- (void)sui_DBHelperWithClass:(Class)modelClass where:(id)searchTerm orderBy:(NSString *)orderTerm ascending:(BOOL)ascending
+- (void)sui_DBHelperWithClass:(Class)modelClass where:(id)searchTerm orderBy:(NSString *)orderTerm
 {
-    SUIDBHelper *curHelper = [[SUIDBHelper alloc] initWithClass:modelClass where:searchTerm orderBy:orderTerm ascending:ascending delegate:self];
+    SUIDBHelper *curHelper = [[SUIDBHelper alloc] initWithClass:modelClass where:searchTerm orderBy:orderTerm delegate:self];
     [self sui_setAssociatedObject:curHelper key:@selector(sui_DBHelper) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 

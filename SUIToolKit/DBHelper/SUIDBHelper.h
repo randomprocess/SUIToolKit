@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,readonly,strong) NSMutableArray <__kindof SUIDBEntity *>*sui_objects; // 当前不支持分组.
 
-- (instancetype)initWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm ascending:(BOOL)ascending delegate:(id<SUIDBHelperDelegate>)delegate;
+- (instancetype)initWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm delegate:(id<SUIDBHelperDelegate>)delegate;
 
 
 @end
