@@ -36,21 +36,21 @@ Please Refer to the SUIToolKitDemo.
 
 # Change-log
 **Version 0.1.0**
-- 加入BaseProtocol, 分离TableView的代理到DataSource中, 同时自动处理Coredata相关操作
+- 加入BaseProtocol, 将TableView的代理分离到DataSource类中, 同时处理了Coredata相关操作
 - 界面传值使用了BaseSegue
 - 添加UITableView+FDTemplateLayoutCell计算Cell高度
 
 **Version 0.2.0**
-- DataSource不再和VC绑定, 而是作为TableView的属性, 解决多个TableView的情况
+- 出现多个TableView的情况, DataSource不再和VC绑定, 而是作为TableView的属性
 - 从VC下分离出Request类
 
 **Version 0.3.0**
-- 移除BaseProtocol, 用组合的方式代替协议
+- 移除BaseProtocol, 全部用组合的方式代替协议
 
 **Version 1.0.0**
+- 为了便于维护, 分离出SUIUtilities和SUICategories
 - 全新的基于MVVM编程模式架构
-- 拆出SUIUtilities和SUICategories
-- 基于storyboard新的界面传值和跳转方式
+- 基于storyboard新的界面传值方式
 - 添加LKDBHelper使用FMDB代替Coredata
 
 # License
