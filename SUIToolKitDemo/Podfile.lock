@@ -29,15 +29,19 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SUICategories (1.0.3):
+  - SUICategories (1.0.4):
     - ReactiveCocoa (~> 2.5)
-    - SUICategories/Foundation (= 1.0.3)
-    - SUICategories/UIKit (= 1.0.3)
+    - SUICategories/BlurEffect (= 1.0.4)
+    - SUICategories/Foundation (= 1.0.4)
+    - SUICategories/UIKit (= 1.0.4)
     - SUIUtilities (~> 1.0.0)
-  - SUICategories/Foundation (1.0.3):
+  - SUICategories/BlurEffect (1.0.4):
     - ReactiveCocoa (~> 2.5)
     - SUIUtilities (~> 1.0.0)
-  - SUICategories/UIKit (1.0.3):
+  - SUICategories/Foundation (1.0.4):
+    - ReactiveCocoa (~> 2.5)
+    - SUIUtilities (~> 1.0.0)
+  - SUICategories/UIKit (1.0.4):
     - ReactiveCocoa (~> 2.5)
     - SUICategories/Foundation
     - SUIUtilities (~> 1.0.0)
@@ -68,7 +72,7 @@ SPEC CHECKSUMS:
   LKDBHelper: 9f2227e47b3c9b7f177ed2f6312367f937204c14
   MJExtension: 290cc966f0f849b12b6391a38e296e0004ae8e5e
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SUICategories: 165ed6b9926b2d10be1d441e805991cf7b1b72b7
+  SUICategories: 89b862f40ab3b614035d75147b60121d524fe5b9
   SUIUtilities: c4b7c3e084aa3f5851aa3ab7ff41d283cde434e9
   UITableView+FDTemplateLayoutCell: d5be6056b5060313f5955a2590ecd33142ad713d
 

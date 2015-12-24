@@ -500,7 +500,14 @@
 
 - (UIViewController *)sui_vc
 {
-    return [self sui_getAssociatedObjectWithKey:@selector(sui_vc)];
+    UIViewController *curVC = [self sui_getAssociatedObjectWithKey:@selector(sui_vc)];
+    if (curVC) return curVC;
+    
+    curVC = [self sui_currentVC];
+    if (curVC) {
+        self.sui_vc = curVC;
+    }
+    return curVC;
 }
 
 - (void)setSui_vc:(UIViewController *)sui_vc

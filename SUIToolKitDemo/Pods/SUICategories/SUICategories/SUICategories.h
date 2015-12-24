@@ -34,6 +34,14 @@
 #import "UIScrollView+SUIAdditions.h"
 #import "UIView+SUIAdditions.h"
 #import "UIViewController+SUIAdditions.h"
+#import "UIImage+SUIAdditions.h"
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  BlurEffect
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#import "UIImage+SUIBlurEffect.h"
 
 
 #endif
