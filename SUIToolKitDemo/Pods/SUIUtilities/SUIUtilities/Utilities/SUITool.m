@@ -259,16 +259,37 @@ uSharedInstanceWithCommonInit
 }
 
 
-#pragma mark - Others
+#pragma mark - OpenURL
 
-+ (BOOL)toAppStore:(NSString *)appId
++ (BOOL)openMail:(NSString *)mail
+{
+    NSString *curURL = gFormat(@"mailto://%@", mail);
+    BOOL ret =  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
+    
+    uAssert(ret, @"open mail failed Mail ⤭ %@ ⤪", mail);
+    return ret;
+}
+
++ (BOOL)openPhone:(NSString *)phone
+{
+    NSString *curURL = gFormat(@"telprompt://%@", phone);
+    BOOL ret =  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
+    
+    uAssert(ret, @"open phone failed Phone ⤭ %@ ⤪", phone);
+    return ret;
+}
+
++ (BOOL)openAppStore:(NSString *)appId
 {
     NSString *curURL = gFormat(@"itms-apps://itunes.apple.com/app/id%@", appId);
     BOOL ret = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:curURL]];
-
-    uAssert(ret, @"go to app store failed AppId ⤭ %@ ⤪", appId);
+    
+    uAssert(ret, @"open app store failed AppId ⤭ %@ ⤪", appId);
     return ret;
 }
+
+
+#pragma mark - Delay
 
 + (SUIToolDelayTask)delay:(NSTimeInterval)delay cb:(void (^)(void))completion;
 {
@@ -301,5 +322,6 @@ uSharedInstanceWithCommonInit
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), completionBlock);
 }
+
 
 @end

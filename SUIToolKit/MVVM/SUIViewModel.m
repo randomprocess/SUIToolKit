@@ -29,16 +29,6 @@
     self = [super init];
     if (self) {
         self.currModel = model;
-        [self commonInit];
-    }
-    return self;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self commonInit];
     }
     return self;
 }
@@ -180,7 +170,7 @@
 }
 
 - (void)sui_DBHelper:(SUIDBHelper *)cHelper didChangeObject:(__kindof SUIDBEntity *)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(SUIDBHelperChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath tableView:(UITableView *)cTableView
-{    
+{
     switch (type)
     {
         case SUIDBHelperChangeInsert:
@@ -190,12 +180,13 @@
             [cTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
         case SUIDBHelperChangeMove:
-        {
             [cTableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-        }
             break;
         case SUIDBHelperChangeUpdate:
             [cTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        case SUIDBHelperChangeReload:
+            [cTableView reloadData];
             break;
         default:
             break;

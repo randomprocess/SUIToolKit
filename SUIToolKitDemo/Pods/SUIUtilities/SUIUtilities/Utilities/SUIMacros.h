@@ -116,6 +116,8 @@ NSString *hexString = [__hex stringByReplacingOccurrencesOfString:@"#" withStrin
 #define gCurrDict(__obj) NSDictionary *currDict = (NSDictionary *)__obj;
 #define gCurrAry(__Obj) NSArray *currAry = (NSArray *)__obj;
 
+#define gIndexPath(__row, __section) [NSIndexPath indexPathForRow:__row inSection:__section]
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  u

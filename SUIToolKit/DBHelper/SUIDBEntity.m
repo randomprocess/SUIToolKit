@@ -12,9 +12,25 @@
 
 @interface SUIDBEntity ()
 
+@property (nonatomic) BOOL sui_inserted;
+@property (nonatomic) BOOL sui_updated;
+@property (nonatomic) BOOL sui_deleted;
+
 @end
 
 @implementation SUIDBEntity
+
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {}
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -29,25 +45,25 @@
 + (void)dbDidInserted:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
-                                   object:entity
-                                 userInfo:@{kSUIDBHelperChangeType : @(SUIDBHelperChangeInsert)}];
+        ((SUIDBEntity *)entity).sui_inserted = YES;
+        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
+        [entity performSelectorOnMainThread:@selector(resetChangeType) withObject:nil waitUntilDone:NO];
     }
 }
 + (void)dbDidDeleted:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
-                                   object:entity
-                                 userInfo:@{kSUIDBHelperChangeType: @(SUIDBHelperChangeDelete)}];
+        ((SUIDBEntity *)entity).sui_deleted = YES;
+        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
+        [entity performSelectorOnMainThread:@selector(resetChangeType) withObject:nil waitUntilDone:NO];
     }
 }
 + (void)dbDidUpdated:(NSObject*)entity result:(BOOL)result
 {
     if (result) {
-        [gNotiCenter postNotificationName:kSUIDBHelperObjectChangeNotifications
-                                   object:entity
-                                 userInfo:@{kSUIDBHelperChangeType : @(SUIDBHelperChangeUpdate)}];
+        ((SUIDBEntity *)entity).sui_updated = YES;
+        gNotiCenterPost(kSUIDBHelperObjectChangeNotifications, entity);
+        [entity performSelectorOnMainThread:@selector(resetChangeType) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -64,6 +80,18 @@
 + (BOOL)dbWillUpdate:(NSObject*)entity
 {
     return YES;
+}
+
+
+- (void)resetChangeType
+{
+    if (self.sui_inserted) {
+        self.sui_inserted = !self.sui_inserted;
+    } else if (self.sui_updated) {
+        self.sui_updated = !self.sui_updated;
+    } else if (self.sui_deleted) {
+        self.sui_deleted = !self.sui_deleted;
+    }
 }
 
 

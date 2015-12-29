@@ -31,46 +31,62 @@
     self.sui_vm = self.currViewModel;
     
     
+    [[SUIAlbumMD getUsingLKDBHelper] dropAllTable];
+    
     // 设置 SUIDBHelper, 实现有点类似NSFetchedResultsController
     [self.sui_tableView sui_DBHelperWithClass:[SUIAlbumMD class] where:nil orderBy:@"aId desc"];
     
     // 请求数据
-    [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {
-        return value;
-    }] subscribeNext:^(NSDictionary *cDict) {
-        
-        [SUITool delay:3 cb:^{
-            // 请求数据成功后删除原数据
-            [self.sui_tableView.sui_DBHelper.sui_objects makeObjectsPerformSelector:@selector(deleteToDB)];
-            uLogInfo(@"清空原数据");
-            
-            [SUITool delay:3 cb:^{
-                NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
-                for (SUIAlbumMD *curAlbumMD in albumAry) {
-                    [curAlbumMD updateToDB];
-                }
-                uLogInfo(@"加入新数据");
-                
-                [SUITool delay:3 cb:^{
-                    SUIAlbumMD *curAlbumMD = albumAry[2];
-                    curAlbumMD.aId = 5000000000;
-                    curAlbumMD.name = @"嗷呜";
-                    [curAlbumMD updateToDB];
-                    uLogInfo(@"更新 id : %zd", curAlbumMD.aId);
-                    
-                    curAlbumMD = albumAry[3];
-                    uLogInfo(@"删除 id : %zd", curAlbumMD.aId);
-                    [curAlbumMD deleteToDB];
-                    
-                    SUIAlbumMD *newAlbumMD = [SUIAlbumMD new];
-                    newAlbumMD.aId = 2250000;
-                    [newAlbumMD updateToDB];
-                    uLogInfo(@"插入 id : %zd", newAlbumMD.aId);
-                }];
-            }];
-        }];
-    }];
-    
+    [[RACObserve(self.currViewModel, responseDict) ignore:nil]
+     subscribeNext:^(NSDictionary *cDict) {
+         [SUITool delay:1 cb:^{
+             NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
+             [SUIAlbumMD insertToDBWithArray:albumAry filter:nil];
+             uLogInfo(@"加入新数据");
+             
+             //  2460504
+             //  2352873
+             //  2275420
+             //  2258459
+             //  1157330
+             
+             [SUITool delay:1 cb:^{
+                 
+                 SUIAlbumMD *newAlbumMD = [SUIAlbumMD new];
+                 newAlbumMD.aId = 1;
+                 [newAlbumMD updateToDB];
+                 uLogInfo(@"插入 id : %zd", newAlbumMD.aId);
+                 
+                 for (SUIAlbumMD *cAlbumMD in albumAry) {
+                     
+                     if (cAlbumMD.aId == 2258459) {
+                         cAlbumMD.aId = 50000000;
+                         cAlbumMD.name = @"嗷呜";
+                         [cAlbumMD updateToDB];
+                         uLogInfo(@"更新 id : %zd", cAlbumMD.aId);
+                     }
+                     
+                     if (cAlbumMD.aId == 2460504) {
+                         [cAlbumMD deleteToDB];
+                         uLogInfo(@"删除 id : %zd", cAlbumMD.aId);
+                     }
+                     if (cAlbumMD.aId == 2275420) {
+                         [cAlbumMD deleteToDB];
+                         uLogInfo(@"删除 id : %zd", cAlbumMD.aId);
+                     }
+                 }
+
+                 SUIAlbumMD *newAlbumMD2 = [SUIAlbumMD new];
+                 newAlbumMD2.aId = 50000001;
+                 [newAlbumMD2 updateToDB];
+                 uLogInfo(@"插入 id : %zd", newAlbumMD2.aId);
+                 
+                 newAlbumMD.aId = 40000001;
+                 [newAlbumMD updateToDB];
+                 uLogInfo(@"更新 id : %zd", newAlbumMD.aId);
+             }];
+         }];
+     }];
     
     // *****
     

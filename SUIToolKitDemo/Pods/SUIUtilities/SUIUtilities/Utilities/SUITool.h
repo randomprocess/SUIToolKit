@@ -83,16 +83,28 @@ typedef void (^SUIToolDelayTask)(BOOL cancel);
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Others
+ *  OpenURL
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
-#pragma mark - Others
+#pragma mark - OpenURL
 
-+ (BOOL)toAppStore:(NSString *)appId;
++ (BOOL)openMail:(NSString *)mail;
+
++ (BOOL)openPhone:(NSString *)phone;
+
++ (BOOL)openAppStore:(NSString *)appId;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Delay
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Delay
 
 + (SUIToolDelayTask)delay:(NSTimeInterval)delay cb:(void (^)(void))completion;
 
 + (void)cancelDelayTask:(SUIToolDelayTask)cTask;
+
 
 @end
 

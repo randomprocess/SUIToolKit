@@ -37,6 +37,19 @@
         // 更新数据
         NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
         [self.sui_tableView sui_resetDataAry:albumAry];
+        
+        
+        [SUITool delay:1 cb:^{
+            [self.sui_tableView beginUpdates];
+            
+            [self.sui_tableView deleteRowsAtIndexPaths:@[gIndexPath(1, 0)] withRowAnimation:UITableViewRowAnimationNone];
+            [self.sui_tableView insertRowsAtIndexPaths:@[gIndexPath(2, 0)] withRowAnimation:UITableViewRowAnimationNone];
+
+            
+            
+            [self.sui_tableView endUpdates];
+        }];
+        
     }];
     
     

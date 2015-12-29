@@ -43,6 +43,7 @@
         self.sui_tableView.delegate = sui_vm;
         self.sui_tableView.dataSource = sui_vm;
     }
+    [sui_vm commonInit];
     [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
