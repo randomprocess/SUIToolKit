@@ -35,6 +35,8 @@
 #import "UIView+SUIAdditions.h"
 #import "UIViewController+SUIAdditions.h"
 #import "UIImage+SUIAdditions.h"
+#import "UITextField+SUIAdditions.h"
+#import "UITextView+SUIAdditions.h"
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*

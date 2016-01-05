@@ -120,12 +120,9 @@
 
 #pragma mark - NavBack
 
-- (IBAction)sui_popToLastVC:(UIStoryboardSegue *)unwindSegue
-{
-    //
-}
+- (IBAction)sui_popToLastVC:(UIStoryboardSegue *)unwindSegue {}
 
-- (IBAction)sui_backToLast:(id)sender
+- (IBAction)sui_backToLast
 {
     if (self.navigationController) {
         if (self.navigationController.viewControllers.count == 1) {
@@ -140,7 +137,7 @@
     }
 }
 
-- (IBAction)sui_backToRoot:(id)sender
+- (IBAction)sui_backToRoot
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -313,6 +310,15 @@
     [self.sui_actions addObject:cAction];
 }
 
+- (SUIAlertAction *)addTitle:(nullable NSString *)cTitle
+           style:(SUIAlertActionStyle)cStyle
+         handler:(void (^)(SUIAlertAction *cAction))cHandler
+{
+    SUIAlertAction *curAlertAction = [SUIAlertAction actionWithTitle:cTitle style:cStyle handler:cHandler];
+    [self addAction:curAlertAction];
+    return curAlertAction;
+}
+
 - (void)show
 {
     [self sui_showAlertController];
@@ -347,7 +353,7 @@
             __block SUIAlertAction *cancelAlertAction = nil;
             __block NSInteger curIndex = 0;
             [self.sui_actions enumerateObjectsUsingBlock:^(SUIAlertAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.style == SUIAlertActionStyleCancel) {
+                if (obj.style == SUIAlertActionCancel) {
                     cancelAlertAction = obj;
                     curIndex = idx;
                     *stop = YES;
@@ -377,7 +383,7 @@
                 [self.sui_actions enumerateObjectsUsingBlock:^(SUIAlertAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (cancelAlertAction != obj) {
                         [curActionSheet addButtonWithTitle:obj.title];
-                        if (obj.style == SUIAlertActionStyleDestructive) {
+                        if (obj.style == SUIAlertActionDestructive) {
                             curActionSheet.destructiveButtonIndex = idx;
                         }
                     }

@@ -123,7 +123,7 @@ static char LKModelBase_Key_Inserting;
         returnValue = value;
     }
     else if ([value isKindOfClass:[NSNumber class]]) {
-        returnValue = [value stringValue];
+        returnValue = [[LKDBUtils numberFormatter] stringFromNumber:value];
     }
     else if ([value isKindOfClass:[NSDate class]]) {
         NSDateFormatter* formatter = [self.class getModelDateFormatter];
@@ -227,18 +227,10 @@ static char LKModelBase_Key_Inserting;
 
         NSString* columnType = property.propertyType;
         if ([LKSQL_Convert_FloatType rangeOfString:columnType].location != NSNotFound) {
-            double number = [value doubleValue];
-            modelValue = [NSNumber numberWithDouble:number];
+            modelValue = [[LKDBUtils numberFormatter] numberFromString:value];
         }
         else if ([LKSQL_Convert_IntType rangeOfString:columnType].location != NSNotFound) {
-            if ([columnType isEqualToString:@"long"]) {
-                long long number = [value longLongValue];
-                modelValue = [NSNumber numberWithLongLong:number];
-            }
-            else {
-                NSInteger number = [value integerValue];
-                modelValue = [NSNumber numberWithInteger:number];
-            }
+            modelValue = [[LKDBUtils numberFormatter] numberFromString:value];
         }
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
         else if ([columnType isEqualToString:@"CGRect"]) {
@@ -287,7 +279,7 @@ static char LKModelBase_Key_Inserting;
         modelValue = value;
     }
     else if ([columnClass isSubclassOfClass:[NSNumber class]]) {
-        modelValue = [NSNumber numberWithDouble:[value doubleValue]];
+        modelValue = [[LKDBUtils numberFormatter] numberFromString:value];
     }
     else if ([columnClass isSubclassOfClass:[NSDate class]]) {
         NSString* datestr = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -442,6 +434,9 @@ static char LKModelBase_Key_Inserting;
             if (success) {
                 jsonObject = [self db_readInfoWithModel:model class:clazz];
             }
+        }
+        else {
+            NSAssert(NO, @"目前LKDB 还不支持 循环引用。  比如 A 持有 B，   B 持有 A，这种的存储");
         }
     }
     return jsonObject;

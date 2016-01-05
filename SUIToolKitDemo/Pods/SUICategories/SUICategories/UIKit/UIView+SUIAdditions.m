@@ -370,35 +370,31 @@
 
 #pragma mark - GestureRecognizer
 
-- (void)sui_handleTapGes:(UITapGestureRecognizer *)tapGes
-{
-    //
-}
-- (void)sui_addTapGes:(void (^)(void))completion
+- (void)sui_handleTapGes:(UITapGestureRecognizer *)tapGes {}
+
+- (void)sui_addTapGes:(void (^)(UITapGestureRecognizer *cTapGes))completion
 {
     if (!self.userInteractionEnabled) self.userInteractionEnabled = !self.userInteractionEnabled;
     
     SEL curSel = @selector(sui_handleTapGes:);
     UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:curSel];
     [self addGestureRecognizer:tapGes];
-    [[self rac_signalForSelector:curSel] subscribeNext:^(id x) {
-        completion();
+    [[self rac_signalForSelector:curSel] subscribeNext:^(RACTuple *cTuple) {
+        completion(cTuple.first);
     }];
 }
 
-- (void)sui_handleLongPressGes:(UILongPressGestureRecognizer *)longPressGes
-{
-    //
-}
-- (void)sui_addLongPressGes:(void (^)(void))completion
+- (void)sui_handleLongPressGes:(UILongPressGestureRecognizer *)longPressGes {}
+
+- (void)sui_addLongPressGes:(void (^)(UILongPressGestureRecognizer *cLongPressGes))completion
 {
     if (!self.userInteractionEnabled) self.userInteractionEnabled = !self.userInteractionEnabled;
     
     SEL curSel = @selector(sui_handleLongPressGes:);
-    UILongPressGestureRecognizer *tapGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:curSel];
-    [self addGestureRecognizer:tapGes];
-    [[self rac_signalForSelector:curSel] subscribeNext:^(id x) {
-        completion();
+    UILongPressGestureRecognizer *longPressGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:curSel];
+    [self addGestureRecognizer:longPressGes];
+    [[self rac_signalForSelector:curSel] subscribeNext:^(RACTuple *cTuple) {
+        completion(cTuple.first);
     }];
 }
 

@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)sui_containsObject:(id)cObject;
 - (BOOL)sui_containsString:(NSString *)cString;
-- (BOOL)sui_isEmpty;
+- (BOOL)sui_isNotEmpty;
 
 #pragma mark Regex
 
@@ -89,6 +89,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Rc4
 
 - (nullable NSData *)sui_rc4WithKey:(NSString *)cKey;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Validate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Validate
+
+- (BOOL)sui_validateNickname;
 
 
 @end

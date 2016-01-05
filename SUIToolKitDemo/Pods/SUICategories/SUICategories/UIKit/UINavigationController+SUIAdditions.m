@@ -129,15 +129,6 @@
 
 #pragma mark - StoryboardLink
 
-- (SUIToolDelayTask)sui_loadRootViewControllerDelayTask
-{
-    return [self sui_getAssociatedObjectWithKey:@selector(sui_loadRootViewControllerDelayTask)];
-}
-- (void)setSui_loadRootViewControllerDelayTask:(SUIToolDelayTask)sui_loadRootViewControllerDelayTask
-{
-    [self sui_setAssociatedObject:sui_loadRootViewControllerDelayTask key:@selector(sui_loadRootViewControllerDelayTask) policy:OBJC_ASSOCIATION_COPY];
-}
-
 - (NSString *)sui_storyboardName
 {
     return [self sui_getAssociatedObjectWithKey:@selector(sui_storyboardName)];
@@ -145,13 +136,7 @@
 - (void)setSui_storyboardName:(NSString *)sui_storyboardName
 {
     [self sui_setAssociatedObject:sui_storyboardName key:@selector(sui_storyboardName) policy:OBJC_ASSOCIATION_COPY];
-    
-    [self setSui_loadRootViewControllerDelayTask:
-    [SUITool delay:0.001 cb:^{
-        UIStoryboard *curStoryboard = gStoryboardNamed(sui_storyboardName);
-        uAssert(curStoryboard.instantiateInitialViewController, @"should set Initial View Controller OR set storyboardID")
-        [self setViewControllers:@[curStoryboard.instantiateInitialViewController] animated:NO];
-    }]];
+    [self performSelectorOnMainThread:@selector(sui_setRootViewController) withObject:nil waitUntilDone:NO];
 }
 
 - (NSString *)sui_storyboardID
@@ -161,17 +146,23 @@
 - (void)setSui_storyboardID:(NSString *)sui_storyboardID
 {
     [self sui_setAssociatedObject:sui_storyboardID key:@selector(sui_storyboardID) policy:OBJC_ASSOCIATION_COPY];
+    [self performSelectorOnMainThread:@selector(sui_setRootViewController) withObject:nil waitUntilDone:NO];
+}
 
-    SUIToolDelayTask curDelayTask = [self sui_loadRootViewControllerDelayTask];
-    
-    if (curDelayTask) {
-        [self setSui_loadRootViewControllerDelayTask:nil];
-        [SUITool cancelDelayTask:curDelayTask];
-        curDelayTask = nil;
-    }
-    
-    UIViewController *curRootVC = gStoryboardInstantiate(self.sui_storyboardName, sui_storyboardID);
-    [self setViewControllers:@[curRootVC] animated:NO];
+- (void)sui_setRootViewController
+{
+    [self sui_performOnce:^{
+        UIViewController *curRootVC = nil;
+        if (self.sui_storyboardID) {
+            curRootVC = gStoryboardInstantiate(self.sui_storyboardName, self.sui_storyboardID);
+        } else {
+            curRootVC = gStoryboardInitialViewController(self.sui_storyboardName);
+        }
+        
+        uAssert(curRootVC, @"should set Initial View Controller OR set storyboardID")
+        [self setViewControllers:@[curRootVC] animated:NO];
+        
+    } key:NSStringFromSelector(_cmd)];
 }
 
 

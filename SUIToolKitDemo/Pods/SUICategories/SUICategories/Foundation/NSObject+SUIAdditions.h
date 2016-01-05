@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import "ReactiveCocoa.h"
+
+@class SUIKeyboardInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,9 +35,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Keyboard
 
-- (void)sui_keyboardWillChange:(void (^)(BOOL showKeyboard, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration))cb;
+@property (readonly,copy) RACSignal *sui_keyboardWillChangeSignal; // SUIKeyboardInfo
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  PerformedOnce
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - PerformedOnce
+
+- (void)sui_performOnce:(void (^)(void))cb key:(NSString *)cKey;
 
 
 @end
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  SUIKeyboardInfo
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+@interface SUIKeyboardInfo : NSObject
+
+@property (nonatomic) BOOL show;
+@property (nonatomic) UIViewAnimationOptions options;
+@property (nonatomic) double duration;
+@property (nonatomic) CGRect frameBegin;
+@property (nonatomic) CGRect frameEnd;
+@property (nonatomic) BOOL isLocal;
+
+@property (nonatomic,readonly) CGFloat keyboardHeight;
+
+@end
+
 
 NS_ASSUME_NONNULL_END

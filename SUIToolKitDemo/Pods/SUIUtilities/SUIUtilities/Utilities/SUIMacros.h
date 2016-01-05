@@ -128,6 +128,9 @@ NSString *hexString = [__hex stringByReplacingOccurrencesOfString:@"#" withStrin
 #define uWeakSelf typeof(self) __weak weakSelf = self;
 #define uStrongSelf typeof(weakSelf) __strong strongSelf = weakSelf;
 
+#define uWeak(__obj) typeof(__obj) __weak weak_##__obj = __obj;
+#define uBlock(__obj) typeof(__obj) __block block_##__obj = __obj;
+
 #define uBorder(__view) __view.layer.borderColor=[gRandomColo CGColor];__view.layer.borderWidth=1;
 
 #define uMainQueue(__stuff) \
@@ -202,10 +205,10 @@ return sharedSingleton; \
 #ifndef __OPTIMIZE__
 
 #define NSLog(...)                  NSLog(__VA_ARGS__);
-#define uFun                        NSLog((uXCODE_COLORS_ESCAPE @"fg217,56,41;" @"%s <%d>" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__);
-#define uLog(__format, ...)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"%s <%d>\n-> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#define uLogInfo(__format, ...)     NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"- " __format uXCODE_COLORS_RESET), ##__VA_ARGS__);
-#define uLogError(__format, ...)    NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"# " __format uXCODE_COLORS_RESET), ##__VA_ARGS__);
+#define uFun                        NSLog((uXCODE_COLORS_ESCAPE @"fg217,56,41;" @"\n%s <%d>" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__);
+#define uLog(__format, ...)         NSLog((uXCODE_COLORS_ESCAPE @"fg0,178,238;" @"\n%s\n<%d> " __format uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define uLogInfo(__format, ...)     NSLog((uXCODE_COLORS_ESCAPE @"fg0,168,0;" @"\n-> " __format uXCODE_COLORS_RESET), ##__VA_ARGS__);
+#define uLogError(__format, ...)    NSLog((uXCODE_COLORS_ESCAPE @"fg255,41,105;" @"\n## " __format uXCODE_COLORS_RESET), ##__VA_ARGS__);
 #define uAssert(__condition, __desc, ...) \
 do { \
 _Pragma("clang diagnostic push") \
@@ -215,14 +218,14 @@ uLogError(__desc, ##__VA_ARGS__); \
 _Pragma("clang diagnostic pop") \
 } while (0);
 
-#define uInteger(__integer)         NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>\n-> %s ⤭ %zd ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__integer, __integer)
-#define uFloat(__float)             NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>\n-> %s ⤭ %lf ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__float, __float)
-#define uObj(__obj)                 NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d>\n-> %s ⤭ %@ ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__obj, __obj)
-#define uRect(__rect)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__rect, NSStringFromCGRect(__rect))
-#define uSize(__size)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__size, NSStringFromCGSize(__size))
-#define uPoint(__point)             NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__point, NSStringFromCGPoint(__point))
-#define uIndexPath(__indexPath)     NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %zd %zd" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__indexPath, __indexPath.section, __indexPath.row)
-#define uEdgeInsets(__edgeInsets)   NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"%s <%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__edgeInsets, NSStringFromUIEdgeInsets(__edgeInsets))
+#define uInteger(__integer)         NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s ⤭ %zd ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__integer, __integer)
+#define uFloat(__float)             NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s ⤭ %lf ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__float, __float)
+#define uObj(__obj)                 NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s ⤭ %@ ⤪[;" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__obj, __obj)
+#define uRect(__rect)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__rect, NSStringFromCGRect(__rect))
+#define uSize(__size)               NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__size, NSStringFromCGSize(__size))
+#define uPoint(__point)             NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__point, NSStringFromCGPoint(__point))
+#define uIndexPath(__indexPath)     NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s %zd %zd" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__indexPath, __indexPath.section, __indexPath.row)
+#define uEdgeInsets(__edgeInsets)   NSLog((uXCODE_COLORS_ESCAPE @"fg89,89,207;" @"\n%s\n<%d> %s %@" uXCODE_COLORS_RESET), __PRETTY_FUNCTION__, __LINE__, #__edgeInsets, NSStringFromUIEdgeInsets(__edgeInsets))
 
 #else
 

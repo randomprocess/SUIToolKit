@@ -122,14 +122,15 @@
     BOOL isContains = ([self rangeOfString:cString].location != NSNotFound);
     return isContains;
 }
-- (BOOL)sui_isEmpty
+- (BOOL)sui_isNotEmpty
 {
-    if (self == nil || [self isEqual:[NSNull null]]) return NO;
+    if ([self isEqual:[NSNull null]]) return NO;
     
     if (self.length == 0) return NO;
     
     NSString *curStr = [self sui_regex:@"\\S"];
-    return (curStr.length == 0);
+    if (curStr.length == 0) return NO;
+    return YES;
 }
 
 #pragma mark Regex
@@ -378,6 +379,21 @@ void swap(unsigned char *first, unsigned char *second)
     tempVar = *first;
     *first = *second;
     *second=tempVar;
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Validate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Validate
+
+- (BOOL)sui_validateNickname
+{
+    NSString *curRegex = @"^[0-9a-zA-Z\u4e00-\u9fa5]+$";
+    NSPredicate *curPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",curRegex];
+    BOOL ret = [curPredicate evaluateWithObject:self];
+    return ret;
 }
 
 

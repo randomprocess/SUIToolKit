@@ -14,9 +14,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, SUIAlertActionStyle) {
-    SUIAlertActionStyleDefault = 0,
-    SUIAlertActionStyleCancel,
-    SUIAlertActionStyleDestructive
+    SUIAlertActionDefault = 0,
+    SUIAlertActionCancel,
+    SUIAlertActionDestructive
 };
 
 typedef NS_ENUM(NSInteger, SUIAlertStyle) {
@@ -61,8 +61,8 @@ typedef NS_ENUM(NSInteger, SUISegueType) {
 
 #pragma mark - NavBack
 
-- (IBAction)sui_backToLast:(id)sender;
-- (IBAction)sui_backToRoot:(id)sender;
+- (IBAction)sui_backToLast;
+- (IBAction)sui_backToRoot;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -116,12 +116,18 @@ typedef NS_ENUM(NSInteger, SUISegueType) {
 @interface SUIAlertController : NSObject
 
 - (void)addAction:(SUIAlertAction *)cAction;
+- (SUIAlertAction *)addTitle:(nullable NSString *)cTitle
+                       style:(SUIAlertActionStyle)cStyle
+                     handler:(void (^ __nullable)(SUIAlertAction *cAction))cHandler;
+
 @property (nonatomic,readonly) NSArray<SUIAlertAction *> *actions;
 
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nullable, nonatomic, copy) NSString *message;
 
 @property (nonatomic, readonly) SUIAlertStyle style;
+
+
 
 - (void)show;
 

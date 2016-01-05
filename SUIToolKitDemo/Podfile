@@ -1,7 +1,7 @@
 
 pod 'SUIUtilities', '~> 1.0.0'
 
-pod 'SUICategories', '~> 1.0.0'
+pod 'SUICategories', '~> 1.1.0'
 
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.3'
 

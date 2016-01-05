@@ -7,7 +7,8 @@
 //
 
 #import "NSObject+SUIAdditions.h"
-#import "ReactiveCocoa.h"
+#import "SUIMacros.h"
+#import "NSArray+SUIAdditions.h"
 
 @implementation NSObject (SUIAdditions)
 
@@ -35,23 +36,32 @@
 
 #pragma mark - Keyboard
 
-- (void)sui_keyboardWillChange:(void (^)(BOOL showKeyboard, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration))cb
+- (RACSignal *)sui_keyboardWillChangeSignal
 {
-    // registerForKeyboardNotifications
-    @weakify(self);
-    [[[NSNotificationCenter defaultCenter]
-      rac_addObserverForName:UIKeyboardWillShowNotification object:nil]
-     subscribeNext:^(id x) {
-         @strongify(self);
-         [self sui_keyboardWillShowOrHide:YES noti:x keyboardChangeBlock:cb];
-     }];
+    RACSignal *curSignal = [self sui_getAssociatedObjectWithKey:_cmd];
+    if (curSignal) return curSignal;
     
-    [[[NSNotificationCenter defaultCenter]
-      rac_addObserverForName:UIKeyboardWillHideNotification object:nil]
-     subscribeNext:^(id x) {
-         @strongify(self);
-         [self sui_keyboardWillShowOrHide:NO noti:x keyboardChangeBlock:cb];
-     }];
+    curSignal = [[[[RACSignal merge:@[
+                                     [gNotiCenter rac_addObserverForName:UIKeyboardWillShowNotification object:nil],
+                                     [gNotiCenter rac_addObserverForName:UIKeyboardWillHideNotification object:nil]
+                                     ]]
+                  map:^id(NSNotification * cNoti) {
+                      SUIKeyboardInfo *curInfo = [SUIKeyboardInfo new];
+                      if ([cNoti.name isEqualToString:UIKeyboardWillShowNotification]) {
+                          curInfo.show = YES;
+                      }
+                      curInfo.options = [[cNoti.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+                      curInfo.duration = [[cNoti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+                      curInfo.frameBegin = [[cNoti.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+                      curInfo.frameEnd = [[cNoti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+                      curInfo.isLocal = [[cNoti.userInfo objectForKey:UIKeyboardIsLocalUserInfoKey] boolValue];
+                      return curInfo;
+                  }]
+                 replayLazily]
+                 takeUntil:self.rac_willDeallocSignal];
+    
+    [self sui_setAssociatedObject:curSignal key:_cmd policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    return curSignal;
 }
 
 - (void)sui_keyboardWillShowOrHide:(BOOL)showKeyboard noti:(NSNotification *)cNoti keyboardChangeBlock:(void (^)(BOOL showKeyboard, CGFloat keyboardHeight, UIViewAnimationOptions options, double duration))cb
@@ -68,6 +78,49 @@
             cb(showKeyboard, 0, options, duration);
         }
     }
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  PerformedOnce
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - PerformedOnce
+
+- (void)sui_performOnce:(void (^)(void))cb key:(NSString *)cKey
+{
+    NSMutableArray *performedArray = [self sui_performedArray];
+    if (![performedArray containsObject:cKey])
+    {
+        [performedArray addObject:cKey];
+        cb();
+    }
+}
+
+- (NSMutableArray *)sui_performedArray
+{
+    NSMutableArray *curArray = [self sui_getAssociatedObjectWithKey:_cmd];
+    if (curArray) return curArray;
+    
+    curArray = [NSMutableArray array];
+    [self sui_setAssociatedObject:curArray key:_cmd policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    return curArray;
+}
+
+
+@end
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  SUIKeyboardInfo
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+@implementation SUIKeyboardInfo : NSObject
+
+
+- (CGFloat)keyboardHeight
+{
+    return self.frameEnd.size.height;
 }
 
 

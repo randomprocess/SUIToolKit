@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'SUIToolKit'
-  s.version      = '1.0.1'
+  s.version      = '1.0.2'
   s.platform     = :ios, '7.0'
   s.summary      = 'A collection of convenient classes for iOS.'
 
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
 
   s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore'
-  s.dependency 'SUIUtilities', '~> 1.0.0'
+  s.dependency 'SUIUtilities', '~> 1.1.0'
   s.dependency 'SUICategories', '~> 1.0.0'
 
 

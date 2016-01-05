@@ -112,8 +112,8 @@ typedef enum : NSUInteger {
 
 #pragma mark - GestureRecognizer
 
-- (void)sui_addTapGes:(void (^)(void))completion;
-- (void)sui_addLongPressGes:(void (^)(void))completion;
+- (void)sui_addTapGes:(void (^)(UITapGestureRecognizer *cTapGes))completion;
+- (void)sui_addLongPressGes:(void (^)(UILongPressGestureRecognizer *cLongPressGes))completion;
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
