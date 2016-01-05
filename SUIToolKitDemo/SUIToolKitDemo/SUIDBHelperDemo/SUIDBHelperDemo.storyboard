@@ -105,7 +105,7 @@
                     <navigationItem key="navigationItem" title="Root" id="hZy-tw-y4r">
                         <barButtonItem key="leftBarButtonItem" title="&lt; 返回" id="9FN-DM-7B4">
                             <connections>
-                                <action selector="sui_backToLast:" destination="Oma-5i-8LW" id="kzX-5u-Gvv"/>
+                                <action selector="sui_backToLast" destination="Oma-5i-8LW" id="r9Y-ab-0MG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -109,7 +109,7 @@
                     <navigationItem key="navigationItem" title="Root" id="qAD-KW-4Qb">
                         <barButtonItem key="leftBarButtonItem" title="&lt; 返回" id="bUv-x1-btI">
                             <connections>
-                                <action selector="sui_backToLast:" destination="8hX-mU-BFq" id="wqC-MM-0d3"/>
+                                <action selector="sui_backToLast" destination="8hX-mU-BFq" id="bmb-45-Ovp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -152,7 +152,7 @@
                                 </constraints>
                                 <state key="normal" title="&lt; 返回"/>
                                 <connections>
-                                    <action selector="sui_backToLast:" destination="6II-th-06J" eventType="touchUpInside" id="rqh-Dm-DkR"/>
+                                    <action selector="sui_backToLast" destination="6II-th-06J" eventType="touchUpInside" id="bRl-Ff-COl"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
 
 
   s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore'
-  s.dependency 'SUIUtilities', '~> 1.1.0'
-  s.dependency 'SUICategories', '~> 1.0.0'
+  s.dependency 'SUIUtilities', '~> 1.0.0'
+  s.dependency 'SUICategories', '~> 1.1.0'
 
 
   s.subspec 'DBHelper' do |ss|
