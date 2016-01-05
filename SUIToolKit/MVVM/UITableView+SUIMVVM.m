@@ -1,32 +1,33 @@
 //
-//  UITableView+SUIToolKit.m
+//  UITableView+SUIMVVM.m
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/12/21.
-//  Copyright © 2015年 SUIO~. All rights reserved.
+//  Created by zzZ on 16/1/5.
+//  Copyright © 2016年 SUIO~. All rights reserved.
 //
 
-#import "UITableView+SUIToolKit.h"
+#import "UITableView+SUIMVVM.h"
 #import "NSObject+SUIAdditions.h"
+#import "UIViewController+SUIAdditions.h"
+#import "UIViewController+SUIMVVM.h"
+#import "SUIViewModel.h"
 #import "SUIMacros.h"
 
-@implementation UITableView (SUIToolKit)
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  SUIMVVM
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
+@implementation UITableView (SUIMVVM)
 
 - (NSMutableArray *)sui_dataAry
 {
-    NSMutableArray *curDataAry = [self sui_getAssociatedObjectWithKey:@selector(sui_dataAry)];
+    NSMutableArray *curDataAry = [self sui_getAssociatedObjectWithKey:_cmd];
     if (curDataAry) return curDataAry;
     
     curDataAry = [NSMutableArray array];
-    self.sui_dataAry = curDataAry;
+    [self sui_setAssociatedObject:curDataAry key:_cmd policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
     return curDataAry;
 }
-- (void)setSui_dataAry:(NSMutableArray *)sui_dataAry
-{
-    [self sui_setAssociatedObject:sui_dataAry key:@selector(sui_dataAry) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-}
-
 
 - (void)sui_willCalculateCellHeight:(SUITableViewCalculateCellHeightBlock)cb
 {
@@ -41,10 +42,9 @@
     self.sui_blockForCellIdentifier = cb;
 }
 
-
 - (void)sui_resetDataAry:(NSArray *)newDataAry
 {
-     [self sui_resetDataAry:newDataAry forSection:0];
+    [self sui_resetDataAry:newDataAry forSection:0];
 }
 - (void)sui_resetDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
@@ -159,7 +159,6 @@
     return curIndexSet;
 }
 
-
 - (SUITableViewCalculateCellHeightBlock)sui_blockForCalculateCellHeight
 {
     return [self sui_getAssociatedObjectWithKey:@selector(sui_blockForCalculateCellHeight)];
@@ -187,5 +186,63 @@
     [self sui_setAssociatedObject:sui_blockForCellIdentifier key:@selector(sui_blockForCellIdentifier) policy:OBJC_ASSOCIATION_COPY];
 }
 
+@end
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  SUIMVVM
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+@implementation UITableView (SUIDBHelper)
+
+- (SUIDBHelper *)sui_DBHelper
+{
+    return [self sui_getAssociatedObjectWithKey:@selector(sui_DBHelper)];
+}
+
+- (void)sui_DBHelperWithClass:(Class)modelClass
+{
+    [self sui_DBHelperWithClass:modelClass where:nil orderBy:nil];
+}
+- (void)sui_DBHelperWithClass:(Class)modelClass where:(id)searchTerm
+{
+    [self sui_DBHelperWithClass:modelClass where:searchTerm orderBy:nil];
+}
+- (void)sui_DBHelperWithClass:(Class)modelClass where:(id)searchTerm orderBy:(NSString *)orderTerm
+{
+    [self sui_DBHelperWithClass:modelClass where:searchTerm orderBy:orderTerm offset:0 count:0];
+}
+- (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm offset:(NSInteger)offset count:(NSInteger)count
+{
+    SUIDBHelper *curHelper = [[SUIDBHelper alloc] initWithClass:modelClass where:searchTerm orderBy:orderTerm offset:offset count:count delegate:self];
+    [self sui_setAssociatedObject:curHelper key:@selector(sui_DBHelper) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  TableView DataSource Delegate
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+- (void)sui_DBHelperWillChangeContent:(SUIDBHelper *)cHelper
+{
+    if ([self.sui_vc.sui_vm respondsToSelector:@selector(sui_DBHelperWillChangeContent:tableView:)]) {
+        [self.sui_vc.sui_vm sui_DBHelperWillChangeContent:cHelper tableView:self];
+    }
+}
+
+- (void)sui_DBHelper:(SUIDBHelper *)cHelper didChangeObject:(__kindof SUIDBEntity *)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(SUIDBHelperChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    if ([self.sui_vc.sui_vm respondsToSelector:@selector(sui_DBHelper:didChangeObject:atIndexPath:forChangeType:newIndexPath:tableView:)]) {
+        [self.sui_vc.sui_vm sui_DBHelper:cHelper didChangeObject:anObject atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath tableView:self];
+    }
+}
+
+- (void)sui_DBHelperDidChangeContent:(SUIDBHelper *)cHelper
+{
+    if ([self.sui_vc.sui_vm respondsToSelector:@selector(sui_DBHelperDidChangeContent:tableView:)]) {
+        [self.sui_vc.sui_vm sui_DBHelperDidChangeContent:cHelper tableView:self];
+    }
+}
 
 @end
+

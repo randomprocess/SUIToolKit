@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "UITableView+SUIVMDBHelper.h"
+#import "UITableView+SUIMVVM.h"
 
 @class SUIViewModel;
 
@@ -38,9 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithModel:(nullable id)model;
 
 - (nullable id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath;
-
 - (nullable id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView;
-
 
 @end
 

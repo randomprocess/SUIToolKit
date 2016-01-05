@@ -8,8 +8,6 @@
 
 #import "SUIViewModel.h"
 #import "UIViewController+SUIAdditions.h"
-#import "UITableView+SUIToolKit.h"
-#import "UITableViewCell+SUIToolKit.h"
 #import "UIViewController+SUIMVVM.h"
 #import "UITableViewCell+SUIMVVM.h"
 #import "UITableView+FDTemplateLayoutCell.h"

@@ -15,14 +15,6 @@
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  Common
- *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
-
-#import "UITableViewCell+SUIToolKit.h"
-#import "UITableView+SUIToolKit.h"
-
-
-/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  DBHelper
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
@@ -37,8 +29,8 @@
 #import "SUIViewModel.h"
 #import "UITableViewCell+SUIMVVM.h"
 #import "UIViewController+SUIMVVM.h"
-#import "UITableView+SUIVMDBHelper.h"
-
+#import "UITableView+SUIMVVM.h"
+#import "UITableViewCell+SUIMVVM.h"
 
 
 #endif

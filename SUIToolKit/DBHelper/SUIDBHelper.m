@@ -160,7 +160,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (NSMutableArray *)sui_resultAryForEntity:(SUIDBEntity *)cEntity
 {
-    NSMutableArray <SUIDBEntity *>*curResultAry = [cEntity.class searchWithWhere:self.searchTerm orderBy:self.orderTerm offset:self.offset count:self.count];
+    NSMutableArray<SUIDBEntity *> *curResultAry = [cEntity.class searchWithWhere:self.searchTerm orderBy:self.orderTerm offset:self.offset count:self.count];
     
     [curResultAry enumerateObjectsUsingBlock:^(SUIDBEntity * _Nonnull cObj, NSUInteger cIdx, BOOL * _Nonnull cStop) {
         [self.sui_objects enumerateObjectsUsingBlock:^(__kindof SUIDBEntity * _Nonnull sObj, NSUInteger sIdx, BOOL * _Nonnull sStop) {
@@ -184,7 +184,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
     uSUIDBHelperWillChangeContent
     uSUIDBHelperDidChangeObject
     (
-     NSMutableArray <__kindof SUIDBEntity *>*delObjects = [NSMutableArray arrayWithArray:self.sui_objects];
+     NSMutableArray<__kindof SUIDBEntity *> *delObjects = [NSMutableArray arrayWithArray:self.sui_objects];
      [delObjects removeObjectsInArray:cResultAry];
      if (delObjects.count > 0)
      {
@@ -196,7 +196,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
      }
      
      
-     NSMutableArray <__kindof SUIDBEntity *>*addObjects = [NSMutableArray arrayWithArray:cResultAry];
+     NSMutableArray<__kindof SUIDBEntity *> *addObjects = [NSMutableArray arrayWithArray:cResultAry];
      [addObjects removeObjectsInArray:self.sui_objects];
      if (addObjects.count > 0)
      {
@@ -235,7 +235,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)sui_updateObjectsInResultAry:(NSMutableArray *)cResultAry
 {
-    NSMutableArray <__kindof SUIDBEntity *>*updateAry = [NSMutableArray array];
+    NSMutableArray<__kindof SUIDBEntity *> *updateAry = [NSMutableArray array];
     [cResultAry enumerateObjectsUsingBlock:^(SUIDBEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SUIDBEntity *sObj = self.sui_objects[idx];
         if (obj == sObj && obj.sui_updated) {
@@ -260,7 +260,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 - (void)sui_disorderObjects:(SUIDBEntity *)cEntity
 {
 
-    NSMutableArray <SUIDBEntity *>*curResultAry = [self sui_resultAryForEntity:cEntity];
+    NSMutableArray<SUIDBEntity *> *curResultAry = [self sui_resultAryForEntity:cEntity];
     
     if (self.sui_objectCbs.count > 30)
     {

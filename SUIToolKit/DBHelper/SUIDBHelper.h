@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SUIDBHelper : NSObject
 
 
-@property (nonatomic,readonly,strong) NSMutableArray <__kindof SUIDBEntity *>*sui_objects;
+@property (nonatomic,readonly,strong) NSMutableArray<__kindof SUIDBEntity *> *sui_objects;
 
 - (instancetype)initWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm delegate:(id<SUIDBHelperDelegate>)delegate;
 
