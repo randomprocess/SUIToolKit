@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28E76DCB52269C8376DB87FD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA561482F072FF6D556247C /* libPods.a */; };
+		6D3D5C571C3BC2CF00F009C9 /* SUIEmoticonDemo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D5C561C3BC2CF00F009C9 /* SUIEmoticonDemo.plist */; settings = {ASSET_TAGS = (); }; };
 		6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F8451C290A1300BA648B /* SUIDBHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6D43F8601C29162900BA648B /* SUIDBEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F85F1C29162900BA648B /* SUIDBEntity.m */; settings = {ASSET_TAGS = (); }; };
 		6D6A96071C3B865E003D2015 /* SUIToolbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D6A96041C3B865E003D2015 /* SUIToolbar.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -18,8 +19,12 @@
 		6D6A96141C3B8BF4003D2015 /* UITableViewCell+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A96131C3B8BF4003D2015 /* UITableViewCell+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
 		6D6A96171C3B8C90003D2015 /* UITableView+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A96161C3B8C90003D2015 /* UITableView+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
 		6D6A961B1C3B91F2003D2015 /* SUIToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A961A1C3B91F2003D2015 /* SUIToolbar.m */; settings = {ASSET_TAGS = (); }; };
+		6D6A962E1C3BBD70003D2015 /* SUIEmoticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A962D1C3BBD70003D2015 /* SUIEmoticon.m */; settings = {ASSET_TAGS = (); }; };
+		6D6A96331C3BBDD1003D2015 /* SUIEmoticonDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D6A96301C3BBDD0003D2015 /* SUIEmoticonDemo.storyboard */; settings = {ASSET_TAGS = (); }; };
+		6D6A96341C3BBDD1003D2015 /* SUIEmoticonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A96321C3BBDD1003D2015 /* SUIEmoticonVC.m */; settings = {ASSET_TAGS = (); }; };
 		6D7559781C2408E700085A53 /* SUIViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7559731C2408E700085A53 /* SUIViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		6D75597A1C2408E700085A53 /* UIViewController+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7559771C2408E700085A53 /* UIViewController+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
+		6D9D3DA81C3D1E5700770694 /* UIImage+SUIGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9D3DA71C3D1E5700770694 /* UIImage+SUIGIF.m */; settings = {ASSET_TAGS = (); }; };
 		6DA091D21B3A46AC00DA06A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA091D11B3A46AC00DA06A3 /* main.m */; };
 		6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091D91B3A46AC00DA06A3 /* Main.storyboard */; };
 		6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */; };
@@ -37,11 +42,15 @@
 		6DB513441C2AB2550012021D /* SUIMVVMSecondVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513431C2AB2550012021D /* SUIMVVMSecondVM.m */; settings = {ASSET_TAGS = (); }; };
 		6DB513471C2AB2710012021D /* SUIMVVMSecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513461C2AB2710012021D /* SUIMVVMSecondVC.m */; settings = {ASSET_TAGS = (); }; };
 		6DB5134A1C2AB8350012021D /* SUIMVVMRootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513491C2AB8350012021D /* SUIMVVMRootCell.m */; settings = {ASSET_TAGS = (); }; };
+		6DB71D2B1C3E0A4A0009C61B /* Emoticon1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D281C3E0A490009C61B /* Emoticon1.gif */; settings = {ASSET_TAGS = (); }; };
+		6DB71D2C1C3E0A4A0009C61B /* Emoticon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D291C3E0A4A0009C61B /* Emoticon1@2x.png */; settings = {ASSET_TAGS = (); }; };
+		6DB71D2D1C3E0A4A0009C61B /* Emoticon2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D2A1C3E0A4A0009C61B /* Emoticon2.gif */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0020EA114C7BFEDDB6D76CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3FA561482F072FF6D556247C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D3D5C561C3BC2CF00F009C9 /* SUIEmoticonDemo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SUIEmoticonDemo.plist; sourceTree = "<group>"; };
 		6D43F8441C290A1300BA648B /* SUIDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDBHelper.h; sourceTree = "<group>"; };
 		6D43F8451C290A1300BA648B /* SUIDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDBHelper.m; sourceTree = "<group>"; };
 		6D43F85E1C29162900BA648B /* SUIDBEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDBEntity.h; sourceTree = "<group>"; };
@@ -60,11 +69,18 @@
 		6D6A96161C3B8C90003D2015 /* UITableView+SUIMVVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SUIMVVM.m"; sourceTree = "<group>"; };
 		6D6A96191C3B91F2003D2015 /* SUIToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolbar.h; sourceTree = "<group>"; };
 		6D6A961A1C3B91F2003D2015 /* SUIToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIToolbar.m; sourceTree = "<group>"; };
+		6D6A962C1C3BBD70003D2015 /* SUIEmoticon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmoticon.h; sourceTree = "<group>"; };
+		6D6A962D1C3BBD70003D2015 /* SUIEmoticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIEmoticon.m; sourceTree = "<group>"; };
+		6D6A96301C3BBDD0003D2015 /* SUIEmoticonDemo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SUIEmoticonDemo.storyboard; sourceTree = "<group>"; };
+		6D6A96311C3BBDD1003D2015 /* SUIEmoticonVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIEmoticonVC.h; sourceTree = "<group>"; };
+		6D6A96321C3BBDD1003D2015 /* SUIEmoticonVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIEmoticonVC.m; sourceTree = "<group>"; };
 		6D75593C1C239D4800085A53 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
 		6D7559721C2408E700085A53 /* SUIViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIViewModel.h; sourceTree = "<group>"; };
 		6D7559731C2408E700085A53 /* SUIViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIViewModel.m; sourceTree = "<group>"; };
 		6D7559761C2408E700085A53 /* UIViewController+SUIMVVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SUIMVVM.h"; sourceTree = "<group>"; };
 		6D7559771C2408E700085A53 /* UIViewController+SUIMVVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SUIMVVM.m"; sourceTree = "<group>"; };
+		6D9D3DA61C3D1E5700770694 /* UIImage+SUIGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SUIGIF.h"; sourceTree = "<group>"; };
+		6D9D3DA71C3D1E5700770694 /* UIImage+SUIGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SUIGIF.m"; sourceTree = "<group>"; };
 		6DA091CC1B3A46AC00DA06A3 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA091D01B3A46AC00DA06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DA091D11B3A46AC00DA06A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,6 +112,9 @@
 		6DB513461C2AB2710012021D /* SUIMVVMSecondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMSecondVC.m; sourceTree = "<group>"; };
 		6DB513481C2AB8350012021D /* SUIMVVMRootCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCell.h; sourceTree = "<group>"; };
 		6DB513491C2AB8350012021D /* SUIMVVMRootCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCell.m; sourceTree = "<group>"; };
+		6DB71D281C3E0A490009C61B /* Emoticon1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Emoticon1.gif; sourceTree = "<group>"; };
+		6DB71D291C3E0A4A0009C61B /* Emoticon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Emoticon1@2x.png"; sourceTree = "<group>"; };
+		6DB71D2A1C3E0A4A0009C61B /* Emoticon2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Emoticon2.gif; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,9 +175,35 @@
 			path = Toolbar;
 			sourceTree = "<group>";
 		};
+		6D6A96221C3BB2AC003D2015 /* Emoticon */ = {
+			isa = PBXGroup;
+			children = (
+				6D6A962C1C3BBD70003D2015 /* SUIEmoticon.h */,
+				6D6A962D1C3BBD70003D2015 /* SUIEmoticon.m */,
+				6D9D3DA61C3D1E5700770694 /* UIImage+SUIGIF.h */,
+				6D9D3DA71C3D1E5700770694 /* UIImage+SUIGIF.m */,
+			);
+			path = Emoticon;
+			sourceTree = "<group>";
+		};
+		6D6A962F1C3BBDD0003D2015 /* SUIEmoticonDemo */ = {
+			isa = PBXGroup;
+			children = (
+				6D6A96301C3BBDD0003D2015 /* SUIEmoticonDemo.storyboard */,
+				6D6A96311C3BBDD1003D2015 /* SUIEmoticonVC.h */,
+				6D6A96321C3BBDD1003D2015 /* SUIEmoticonVC.m */,
+				6D3D5C561C3BC2CF00F009C9 /* SUIEmoticonDemo.plist */,
+				6DB71D281C3E0A490009C61B /* Emoticon1.gif */,
+				6DB71D291C3E0A4A0009C61B /* Emoticon1@2x.png */,
+				6DB71D2A1C3E0A4A0009C61B /* Emoticon2.gif */,
+			);
+			path = SUIEmoticonDemo;
+			sourceTree = "<group>";
+		};
 		6D7559371C239D4800085A53 /* SUIToolKit */ = {
 			isa = PBXGroup;
 			children = (
+				6D6A96221C3BB2AC003D2015 /* Emoticon */,
 				6D6A96181C3B91F2003D2015 /* Toolbar */,
 				6D43F8431C29098E00BA648B /* DBHelper */,
 				6D7559711C2408E700085A53 /* MVVM */,
@@ -210,6 +255,7 @@
 				6DB513371C2AB0560012021D /* SUIMVVMDemo */,
 				6DB513221C2AA7320012021D /* SUIDBHelperDemo */,
 				6D6A96031C3B865E003D2015 /* SUIToolbarDemo */,
+				6D6A962F1C3BBDD0003D2015 /* SUIEmoticonDemo */,
 				6DA091D91B3A46AC00DA06A3 /* Main.storyboard */,
 				6DA091DC1B3A46AC00DA06A3 /* Images.xcassets */,
 				6DA091F51B3A48A500DA06A3 /* Others */,
@@ -401,7 +447,12 @@
 			files = (
 				6DA091DB1B3A46AC00DA06A3 /* Main.storyboard in Resources */,
 				6DB5133B1C2AB0BE0012021D /* SUIMVVMDemo.storyboard in Resources */,
+				6DB71D2B1C3E0A4A0009C61B /* Emoticon1.gif in Resources */,
 				6DA091DD1B3A46AC00DA06A3 /* Images.xcassets in Resources */,
+				6D3D5C571C3BC2CF00F009C9 /* SUIEmoticonDemo.plist in Resources */,
+				6D6A96331C3BBDD1003D2015 /* SUIEmoticonDemo.storyboard in Resources */,
+				6DB71D2D1C3E0A4A0009C61B /* Emoticon2.gif in Resources */,
+				6DB71D2C1C3E0A4A0009C61B /* Emoticon1@2x.png in Resources */,
 				6DB513241C2AA7400012021D /* SUIDBHelperDemo.storyboard in Resources */,
 				6D6A96071C3B865E003D2015 /* SUIToolbar.storyboard in Resources */,
 				6D6A960F1C3B86CF003D2015 /* SUIViewController.storyboard in Resources */,
@@ -482,8 +533,10 @@
 				6DA091D21B3A46AC00DA06A3 /* main.m in Sources */,
 				6D7559781C2408E700085A53 /* SUIViewModel.m in Sources */,
 				6D6A96101C3B86CF003D2015 /* SUIViewControllerRootVC.m in Sources */,
+				6D9D3DA81C3D1E5700770694 /* UIImage+SUIGIF.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
 				6DB513301C2AAA170012021D /* XXXDBHelperRootViewController.m in Sources */,
+				6D6A96341C3BBDD1003D2015 /* SUIEmoticonVC.m in Sources */,
 				6D6A96171C3B8C90003D2015 /* UITableView+SUIMVVM.m in Sources */,
 				6DB513411C2AB13B0012021D /* SUIMVVMRootVM.m in Sources */,
 				6DB5134A1C2AB8350012021D /* SUIMVVMRootCell.m in Sources */,
@@ -497,6 +550,7 @@
 				6D75597A1C2408E700085A53 /* UIViewController+SUIMVVM.m in Sources */,
 				6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */,
 				6D6A96081C3B865E003D2015 /* SUIToolbarVC.m in Sources */,
+				6D6A962E1C3BBD70003D2015 /* SUIEmoticon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

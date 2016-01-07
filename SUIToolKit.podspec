@@ -39,4 +39,9 @@ Pod::Spec.new do |s|
     ss.source_files = 'SUIToolKit/Toolbar/*.{h,m}'
   end
 
+  s.subspec 'Emoticon' do |ss|
+    ss.frameworks = 'ImageIO'
+    ss.source_files = 'SUIToolKit/Emoticon/*.{h,m}'
+  end
+
 end

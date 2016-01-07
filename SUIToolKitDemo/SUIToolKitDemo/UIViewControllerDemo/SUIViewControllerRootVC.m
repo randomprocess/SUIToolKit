@@ -16,10 +16,6 @@
 
 
 @implementation SUIViewControllerRootVC
-{
-    
-}
-
 
 - (void)viewDidLoad
 {

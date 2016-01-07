@@ -226,6 +226,25 @@
     return curStr;
 }
 
+#pragma mark Resource
+
+- (NSString *)sui_resourceNameCompleteOfType:(nullable NSString *)ext
+{
+    NSString *curName = nil;
+    if (ext.length == 0 || [self hasSuffix:ext]) {
+        curName = self;
+    } else {
+        curName = [self stringByAppendingPathExtension:ext];
+    }
+    return curName;
+}
+- (NSString *)sui_resourcePathForMainBundleOfType:(nullable NSString *)ext
+{
+    NSString *curName = [self sui_resourceNameCompleteOfType:ext];
+    NSString *curPath = [[NSBundle mainBundle] pathForResource:curName ofType:nil];;
+    return curPath;
+}
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Encoded

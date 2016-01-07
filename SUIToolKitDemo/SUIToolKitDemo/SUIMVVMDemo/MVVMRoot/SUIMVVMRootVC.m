@@ -31,7 +31,7 @@
     
     // 请求数据
     [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {
-        return value;
+        return value ? YES : NO;
     }] subscribeNext:^(NSDictionary *cDict) {
         
         // 更新数据

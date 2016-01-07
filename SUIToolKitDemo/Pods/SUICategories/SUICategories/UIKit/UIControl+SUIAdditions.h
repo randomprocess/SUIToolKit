@@ -14,8 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIControl (SUIAdditions)
 
 
-- (RACSignal *)sui_signalForClick;
+@property (nonatomic) BOOL sui_enabled;
+@property (nonatomic) BOOL sui_selected;
+@property (nonatomic) BOOL sui_highlighted;
 
+- (RACSignal *)sui_signalForClick;
 - (RACSignal *)sui_signalForControlEvents:(UIControlEvents)controlEvents;
 
 

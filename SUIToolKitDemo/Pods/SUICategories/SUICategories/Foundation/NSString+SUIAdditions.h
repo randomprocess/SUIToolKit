@@ -64,6 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)sui_replaceString:(NSString *)cString withString:(NSString *)cReplacement options:(NSStringCompareOptions)cOptions;
 - (NSString *)sui_replaceRegex:(NSString *)cRegex withString:(NSString *)cReplacement;
 
+#pragma mark Resource
+
+- (nullable NSString *)sui_resourceNameCompleteOfType:(nullable NSString *)ext;
+- (nullable NSString *)sui_resourcePathForMainBundleOfType:(nullable NSString *)ext;
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Encoded

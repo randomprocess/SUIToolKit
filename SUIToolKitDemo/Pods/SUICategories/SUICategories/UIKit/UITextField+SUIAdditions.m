@@ -13,7 +13,11 @@
 
 - (BOOL)sui_showKeyboard
 {
-    return [self isFirstResponder];
+    if (![self isFirstResponder])
+    {
+        return [self becomeFirstResponder];
+    }
+    return YES;
 }
 - (void)setSui_showKeyboard:(BOOL)sui_showKeyboard
 {

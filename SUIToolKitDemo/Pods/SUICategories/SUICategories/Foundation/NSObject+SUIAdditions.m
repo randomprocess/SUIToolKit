@@ -123,5 +123,9 @@
     return self.frameEnd.size.height;
 }
 
+- (NSString *)description
+{
+    return gFormat(@"KeyboardInfo -> show:%zd, options:%zd, duration:%lf, frameEnd:%@", self.show, self.options, self.duration, NSStringFromCGRect(self.frameEnd));
+}
 
 @end
