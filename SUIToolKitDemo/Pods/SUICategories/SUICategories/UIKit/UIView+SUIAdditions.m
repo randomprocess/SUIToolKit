@@ -23,7 +23,10 @@
 - (BOOL)sui_loadNib
 {
     UIView *curMainView = [self sui_mainView];
-    return (curMainView ? YES : NO);
+    if (!curMainView) {
+        [self setSui_loadNib:YES];
+    }
+    return YES;
 }
 - (void)setSui_loadNib:(BOOL)sui_loadNib
 {
@@ -36,7 +39,7 @@
             
             self.backgroundColor = [UIColor clearColor];
             curMainView.frame = self.bounds;
-            curMainView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            [curMainView sui_layoutPinnedToSuperview];
         }
     } else {
         [self setSui_mainView:nil];
@@ -331,6 +334,24 @@
 - (NSLayoutConstraint *)sui_layoutConstraintHeight
 {
     return [self sui_layoutConstraintWithAttribute:NSLayoutAttributeHeight];
+}
+
+- (void)sui_layoutPinnedToSuperview
+{
+    uAssert(self.superview, @"no superview");
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.superview addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[self]-0-|"
+                                             options:0
+                                             metrics:nil
+                                               views:NSDictionaryOfVariableBindings(self)]];
+    [self.superview addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[self]-0-|"
+                                             options:0
+                                             metrics:nil
+                                               views:NSDictionaryOfVariableBindings(self)]];
 }
 
 

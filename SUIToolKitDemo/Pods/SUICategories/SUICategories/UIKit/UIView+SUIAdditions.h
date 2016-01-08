@@ -94,6 +94,8 @@ typedef enum : NSUInteger {
 - (nullable NSLayoutConstraint *)sui_layoutConstraintWidth;
 - (nullable NSLayoutConstraint *)sui_layoutConstraintHeight;
 
+- (void)sui_layoutPinnedToSuperview;
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Snapshotting

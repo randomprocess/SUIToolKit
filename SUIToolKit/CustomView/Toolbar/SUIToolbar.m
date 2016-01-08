@@ -53,15 +53,13 @@
          RACTupleUnpack(NSNumber *cValue, NSNumber *cDuration) = cTuple;
          
          CGFloat curBottomValue = [cValue doubleValue];
-         
          NSTimeInterval animateDuration = cDuration.doubleValue;
          
-         self.bottomConstraint.constant = curBottomValue;
-         [self setNeedsUpdateConstraints];
          [UIView animateWithDuration:animateDuration
                                delay:0
                              options:UIViewAnimationOptionBeginFromCurrentState
                           animations:^{
+                              self.bottomConstraint.constant = curBottomValue;
                               [self layoutIfNeeded];
                           } completion:^(BOOL finished) {
                           }];

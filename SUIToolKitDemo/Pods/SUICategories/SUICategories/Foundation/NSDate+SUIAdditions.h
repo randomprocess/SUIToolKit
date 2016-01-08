@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSInteger sui_second;
 @property (readonly) NSInteger sui_age;
 
+- (NSDate *)sui_convertToLocalTime;
+- (NSDate *)sui_convertToTimeZoneWithAbbreviation:(NSString *)cAbbreviation; //@"GTM+0800"
+
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
  *  Formatter

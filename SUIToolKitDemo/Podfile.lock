@@ -14,11 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
-    - FMDB/common
+  - FMDB (2.6):
+    - FMDB/standard (= 2.6)
+  - FMDB/standard (2.6)
   - LKDBHelper (2.1.8):
     - FMDB
   - MJExtension (3.0.9)
@@ -29,19 +27,19 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SUICategories (1.1.1):
+  - SUICategories (1.1.2):
     - ReactiveCocoa (~> 2.5)
-    - SUICategories/BlurEffect (= 1.1.1)
-    - SUICategories/Foundation (= 1.1.1)
-    - SUICategories/UIKit (= 1.1.1)
+    - SUICategories/BlurEffect (= 1.1.2)
+    - SUICategories/Foundation (= 1.1.2)
+    - SUICategories/UIKit (= 1.1.2)
     - SUIUtilities (~> 1.0.0)
-  - SUICategories/BlurEffect (1.1.1):
-    - ReactiveCocoa (~> 2.5)
-    - SUIUtilities (~> 1.0.0)
-  - SUICategories/Foundation (1.1.1):
+  - SUICategories/BlurEffect (1.1.2):
     - ReactiveCocoa (~> 2.5)
     - SUIUtilities (~> 1.0.0)
-  - SUICategories/UIKit (1.1.1):
+  - SUICategories/Foundation (1.1.2):
+    - ReactiveCocoa (~> 2.5)
+    - SUIUtilities (~> 1.0.0)
+  - SUICategories/UIKit (1.1.2):
     - ReactiveCocoa (~> 2.5)
     - SUICategories/Foundation
     - SUIUtilities (~> 1.0.0)
@@ -74,7 +72,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SUICategories:
-    :commit: 58d9e10a3ba38c617a3ac7c193e618579e7fc506
+    :commit: 24c74418aeb26845b4345f395df3d5e9df0f5aad
     :git: https://github.com/randomprocess/SUICategories
   SUIUtilities:
     :commit: 2aa769d54ba607a0f312ddcc85a18080a72c70a9
@@ -82,11 +80,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   LKDBHelper: 1b55f67e44f34af8828b31aa36b36141fdde03a8
   MJExtension: 116781b18cb25cee39619e16617f62bb7433ea4e
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SUICategories: 552c4866bb49e234d30d5a0a101e200b722831bf
+  SUICategories: ec7184e2c2e108e9f370cd52b4a90a9b0789780e
   SUIUtilities: 41fc47f71ccb04841733dd89bad96ae1d28e99b0
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 

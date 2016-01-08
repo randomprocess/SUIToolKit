@@ -24,7 +24,6 @@ Pod::Spec.new do |s|
   s.dependency 'SUICategories', '~> 1.1.0'
 
   s.subspec 'DBHelper' do |ss|
-    ss.dependency 'ReactiveCocoa', '~> 2.5'
     ss.dependency 'LKDBHelper', '~> 2.1.7'
     ss.source_files = 'SUIToolKit/DBHelper/*.{h,m}'
   end
@@ -35,13 +34,9 @@ Pod::Spec.new do |s|
     ss.source_files = 'SUIToolKit/MVVM/*.{h,m}'
   end
 
-  s.subspec 'Toolbar' do |ss|
-    ss.source_files = 'SUIToolKit/Toolbar/*.{h,m}'
-  end
-
-  s.subspec 'Emoticon' do |ss|
+  s.subspec 'CustomView' do |ss|
     ss.frameworks = 'ImageIO'
-    ss.source_files = 'SUIToolKit/Emoticon/*.{h,m}'
+    ss.source_files = 'SUIToolKit/CustomView/**/*.{h,m}'
   end
 
 end

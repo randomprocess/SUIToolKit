@@ -78,8 +78,6 @@
 
 - (NSDate *)sui_convertToLocalTime
 {
-    
-    
     NSTimeZone *curTimeZone = [NSTimeZone localTimeZone];
     NSInteger timeOffset = [curTimeZone secondsFromGMTForDate:self];
     NSDate *curDate = [self dateByAddingTimeInterval:timeOffset];

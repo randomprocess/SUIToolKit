@@ -234,25 +234,6 @@
                         if ([cDestVC.sui_identifier isEqualToString:@"ViewControllerSecond"])
                         {
                             return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                                [subscriber sendNext:[RACTuple tupleWithObjectsFromArray:@[@"Instantiate Nav", @"Push"]]];
-                                [subscriber sendCompleted];
-                                return nil;
-                            }];
-                        }
-                        return nil;
-                    }];
-                    
-                    [self sui_storyboardInstantiate:@"SUIViewController" storyboardID:@"ViewControllerNav" segueType:SUISegueTypePush];
-                }
-                    break;
-                    
-                case 5:
-                {
-                    [self sui_signalPassed:^RACSignal * _Nonnull(__kindof UIViewController * _Nonnull cDestVC) {
-                        
-                        if ([cDestVC.sui_identifier isEqualToString:@"ViewControllerSecond"])
-                        {
-                            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                                 [subscriber sendNext:[RACTuple tupleWithObjectsFromArray:@[@"Instantiate Nav", @"Modal"]]];
                                 [subscriber sendCompleted];
                                 return nil;

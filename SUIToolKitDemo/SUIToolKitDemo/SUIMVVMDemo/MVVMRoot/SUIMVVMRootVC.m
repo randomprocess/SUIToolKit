@@ -26,13 +26,17 @@
 {
     [super viewDidLoad];
     
-    // 设置 ViewModel, (这样写需要固定格式的文件名 O_O 我自己偷懒用的, 其他格式文件名参考SUIDBHelperDemo)
-    self.currViewModel = self.sui_vm;
+    // 设置 ViewModel
+    self.currViewModel = [SUIMVVMRootVM new];
+    self.sui_vm = self.currViewModel;
+//    
+//    // 设置 ViewModel, (这样写需要固定格式的文件名 O_O 我自己偷懒用的)
+//    self.currViewModel = self.sui_vm;
     
-    // 请求数据
-    [[RACObserve(self.currViewModel, responseDict) filter:^BOOL(id value) {
-        return value ? YES : NO;
-    }] subscribeNext:^(NSDictionary *cDict) {
+    // 请求数据, 使用自己习惯的网络请求代码就好
+    [[RACObserve(self.currViewModel, responseDict)
+       ignore:nil]
+      subscribeNext:^(NSDictionary *cDict) {
         
         // 更新数据
         NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
@@ -44,18 +48,19 @@
     // *****
     
     /*
-    // 如果需要动态计算cell高度写在这个block中, 需要设置好完整的约束
+    // 如果需要动态计算cell高度,改变高度的代码写在这个block中, 需要设置好cell完整的约束
     [self.sui_tableView sui_willCalculateCellHeight:^(__kindof UITableViewCell * _Nonnull cCell, NSIndexPath * _Nonnull cIndexPath) {
         
     }];
-     
-     // 设置cell的Identifier (不写同需要固定格式的文件名, 偷懒用+1, 其他格式文件名参考SUIDBHelperDemo)
-     [self.sui_tableView sui_cellIdentifier:^NSString * _Nonnull(NSIndexPath * _Nonnull cIndexPath, id  _Nullable model) {
-     
-     }];
      */
     
-    // 将cell和model绑定
+     // cell的Identifier, 和stroyboard中cell的相同
+     [self.sui_tableView sui_cellIdentifier:^NSString * _Nonnull(NSIndexPath * _Nonnull cIndexPath, id  _Nullable model) {
+         return @"SUIMVVMRootCell";
+     }];
+     
+    
+    // 将不会改变cell高度的代码写在这个block中
     [self.sui_tableView sui_willDisplayCell:^(__kindof UITableViewCell * _Nonnull cCell, NSIndexPath * _Nonnull cIndexPath) {
         SUIMVVMRootCell *curCell = cCell;
         SUIAlbumMD *curMd = curCell.sui_md;
