@@ -29,8 +29,10 @@
 #import "SUIViewModel.h"
 #import "UITableViewCell+SUIMVVM.h"
 #import "UIViewController+SUIMVVM.h"
+#import "UIView+SUIMVVM.h"
 #import "UITableView+SUIMVVM.h"
 #import "UITableViewCell+SUIMVVM.h"
+#import "SUITableHelper.h"
 
 
 #endif

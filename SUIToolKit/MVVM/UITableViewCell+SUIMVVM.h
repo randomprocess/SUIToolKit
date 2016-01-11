@@ -7,18 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @class SUIViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UITableViewCell (SUIMVVM)
+@protocol SUIMVVMCellProtocol <NSObject>
+@optional
+
+- (void)sui_willCalculateHeightWithViewModel:(nullable __kindof SUIViewModel *)sui_vm;
+- (void)sui_willDisplayWithViewModel:(nullable __kindof SUIViewModel *)sui_vm;
+
+@end
+
+@interface UITableViewCell (SUIMVVM) <SUIMVVMCellProtocol>
 
 
-@property (nonatomic,weak) id sui_md;
 @property (nonatomic,weak) UITableView *sui_tableView;
-
-@property (nonatomic,weak) __kindof SUIViewModel *sui_vm;
 
 
 @end

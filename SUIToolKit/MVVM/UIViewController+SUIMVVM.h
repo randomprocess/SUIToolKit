@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (SUIMVVM)
 
+
 @property (null_resettable,copy) __kindof SUIViewModel *sui_vm;
+
 
 @end
 

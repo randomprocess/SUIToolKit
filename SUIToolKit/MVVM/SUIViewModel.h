@@ -23,22 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface SUIViewModel : NSObject <
-    SUIViewModelDelagate,
-    UITableViewDataSource,
-    UITableViewDelegate,
-    SUIVMDBHelperDelegate>
+@interface SUIViewModel : NSObject <SUIViewModelDelagate>
 
 @property (nonatomic,weak) UIViewController *sui_vc;
 
-@property (nullable,nonatomic,readonly,strong) id currModel;
-
-@property (nullable,nonatomic,readonly,strong) NSIndexPath *currIndexPath;
+@property (nullable,nonatomic,readonly,strong) id model;
 
 - (instancetype)initWithModel:(nullable id)model;
 
-- (nullable id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath;
-- (nullable id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath tableView:(UITableView *)cTableView;
+
 
 @end
 

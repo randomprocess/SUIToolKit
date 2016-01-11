@@ -7,12 +7,13 @@
 //
 
 #import "UIViewController+SUIMVVM.h"
-#import "UIViewController+SUIAdditions.h"
 #import "NSObject+SUIAdditions.h"
+#import "UIViewController+SUIAdditions.h"
 #import "SUIViewModel.h"
 #import "SUIMacros.h"
 
 @implementation UIViewController (SUIMVVM)
+
 
 - (SUIViewModel *)sui_vm
 {
@@ -40,13 +41,6 @@
 {
     [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
     sui_vm.sui_vc = self;
-    if (![self isKindOfClass:[UITableViewController class]]) {
-        if (self.sui_tableView) {
-            self.sui_tableView.delegate = sui_vm;
-            self.sui_tableView.dataSource = sui_vm;
-        }
-    }
-    [sui_vm commonInit];
 }
 
 

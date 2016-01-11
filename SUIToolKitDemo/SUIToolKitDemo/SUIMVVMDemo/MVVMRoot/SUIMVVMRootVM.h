@@ -7,11 +7,14 @@
 //
 
 #import "SUIViewModel.h"
+#import "SUIMVVMRootTitleVM.h"
 
 @interface SUIMVVMRootVM : SUIViewModel
 
 
-@property (nonatomic,strong) NSDictionary *responseDict;
+@property (readonly,strong) SUIMVVMRootTitleVM *rootTitleVM;
+
+@property (nonatomic,strong) RACSignal *rootTitleClickSignal;
 
 
 @end

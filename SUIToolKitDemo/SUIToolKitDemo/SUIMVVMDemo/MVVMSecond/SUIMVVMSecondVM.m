@@ -12,19 +12,18 @@
 
 @interface SUIMVVMSecondVM ()
 
-@property (nonatomic,strong) SUIAlbumMD *currModel;
+@property (nonatomic,strong) SUIAlbumMD *model;
 
 @end
 
 @implementation SUIMVVMSecondVM
-
-@dynamic currModel;
+@dynamic model;
 
 
 - (void)commonInit
 {
-    RAC(self, coverImage) = RACObserve(self.currModel, coverImage);
-    RAC(self, aId) = [RACObserve(self.currModel, aId) map:^id(NSNumber *cNum) {
+    RAC(self, coverImage) = RACObserve(self.model, coverImage);
+    RAC(self, aId) = [RACObserve(self.model, aId) map:^id(NSNumber *cNum) {
         return gFormat(@"id: %@", cNum);
     }];
 }

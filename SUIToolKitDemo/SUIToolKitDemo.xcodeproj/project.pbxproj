@@ -11,6 +11,9 @@
 		6D3D5C571C3BC2CF00F009C9 /* SUIEmoticonDemo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D3D5C561C3BC2CF00F009C9 /* SUIEmoticonDemo.plist */; settings = {ASSET_TAGS = (); }; };
 		6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F8451C290A1300BA648B /* SUIDBHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6D43F8601C29162900BA648B /* SUIDBEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D43F85F1C29162900BA648B /* SUIDBEntity.m */; settings = {ASSET_TAGS = (); }; };
+		6D68803A1C43642400238B7F /* SUIMVVMRootCellVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6880391C43642400238B7F /* SUIMVVMRootCellVM.m */; settings = {ASSET_TAGS = (); }; };
+		6D68803D1C4364C600238B7F /* SUIMVVMRootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D68803C1C4364C600238B7F /* SUIMVVMRootCell.m */; settings = {ASSET_TAGS = (); }; };
+		6D6880401C437BC100238B7F /* SUITableHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D68803F1C437BC100238B7F /* SUITableHelper.m */; settings = {ASSET_TAGS = (); }; };
 		6D6A96071C3B865E003D2015 /* SUIToolbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D6A96041C3B865E003D2015 /* SUIToolbar.storyboard */; settings = {ASSET_TAGS = (); }; };
 		6D6A96081C3B865E003D2015 /* SUIToolbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A96061C3B865E003D2015 /* SUIToolbarVC.m */; settings = {ASSET_TAGS = (); }; };
 		6D6A960F1C3B86CF003D2015 /* SUIViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D6A960A1C3B86CF003D2015 /* SUIViewController.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -38,7 +41,6 @@
 		6DB513411C2AB13B0012021D /* SUIMVVMRootVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513401C2AB13B0012021D /* SUIMVVMRootVM.m */; settings = {ASSET_TAGS = (); }; };
 		6DB513441C2AB2550012021D /* SUIMVVMSecondVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513431C2AB2550012021D /* SUIMVVMSecondVM.m */; settings = {ASSET_TAGS = (); }; };
 		6DB513471C2AB2710012021D /* SUIMVVMSecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513461C2AB2710012021D /* SUIMVVMSecondVC.m */; settings = {ASSET_TAGS = (); }; };
-		6DB5134A1C2AB8350012021D /* SUIMVVMRootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB513491C2AB8350012021D /* SUIMVVMRootCell.m */; settings = {ASSET_TAGS = (); }; };
 		6DB71D2B1C3E0A4A0009C61B /* Emoticon1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D281C3E0A490009C61B /* Emoticon1.gif */; settings = {ASSET_TAGS = (); }; };
 		6DB71D2C1C3E0A4A0009C61B /* Emoticon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D291C3E0A4A0009C61B /* Emoticon1@2x.png */; settings = {ASSET_TAGS = (); }; };
 		6DB71D2D1C3E0A4A0009C61B /* Emoticon2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6DB71D2A1C3E0A4A0009C61B /* Emoticon2.gif */; settings = {ASSET_TAGS = (); }; };
@@ -46,6 +48,11 @@
 		6DB71D5A1C3E30800009C61B /* UIImage+SUIGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB71D551C3E30800009C61B /* UIImage+SUIGIF.m */; settings = {ASSET_TAGS = (); }; };
 		6DB71D5B1C3E30800009C61B /* SUIToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB71D581C3E30800009C61B /* SUIToolbar.m */; settings = {ASSET_TAGS = (); }; };
 		6DB71D621C3E32EA0009C61B /* SUIAdaptiveHeightTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DB71D611C3E32EA0009C61B /* SUIAdaptiveHeightTextView.m */; settings = {ASSET_TAGS = (); }; };
+		6DE9DF9D1C433ED100AD0A6F /* SUIMVVMRootTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9DF9C1C433ED100AD0A6F /* SUIMVVMRootTitleView.m */; settings = {ASSET_TAGS = (); }; };
+		6DE9DF9F1C433F1A00AD0A6F /* SUIMVVMRootTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DE9DF9E1C433F1A00AD0A6F /* SUIMVVMRootTitleView.xib */; settings = {ASSET_TAGS = (); }; };
+		6DE9DFA21C43406900AD0A6F /* UIView+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9DFA11C43406900AD0A6F /* UIView+SUIMVVM.m */; settings = {ASSET_TAGS = (); }; };
+		6DE9DFA51C434CAA00AD0A6F /* SUIMVVMRootTitleMD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9DFA41C434CAA00AD0A6F /* SUIMVVMRootTitleMD.m */; settings = {ASSET_TAGS = (); }; };
+		6DE9DFA81C434E1500AD0A6F /* SUIMVVMRootTitleVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE9DFA71C434E1500AD0A6F /* SUIMVVMRootTitleVM.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +63,12 @@
 		6D43F8451C290A1300BA648B /* SUIDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDBHelper.m; sourceTree = "<group>"; };
 		6D43F85E1C29162900BA648B /* SUIDBEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIDBEntity.h; sourceTree = "<group>"; };
 		6D43F85F1C29162900BA648B /* SUIDBEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIDBEntity.m; sourceTree = "<group>"; };
+		6D6880381C43642400238B7F /* SUIMVVMRootCellVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCellVM.h; sourceTree = "<group>"; };
+		6D6880391C43642400238B7F /* SUIMVVMRootCellVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCellVM.m; sourceTree = "<group>"; };
+		6D68803B1C4364C600238B7F /* SUIMVVMRootCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCell.h; sourceTree = "<group>"; };
+		6D68803C1C4364C600238B7F /* SUIMVVMRootCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCell.m; sourceTree = "<group>"; };
+		6D68803E1C437BC100238B7F /* SUITableHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUITableHelper.h; sourceTree = "<group>"; };
+		6D68803F1C437BC100238B7F /* SUITableHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUITableHelper.m; sourceTree = "<group>"; };
 		6D6A96041C3B865E003D2015 /* SUIToolbar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SUIToolbar.storyboard; sourceTree = "<group>"; };
 		6D6A96051C3B865E003D2015 /* SUIToolbarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolbarVC.h; sourceTree = "<group>"; };
 		6D6A96061C3B865E003D2015 /* SUIToolbarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIToolbarVC.m; sourceTree = "<group>"; };
@@ -105,8 +118,6 @@
 		6DB513431C2AB2550012021D /* SUIMVVMSecondVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMSecondVM.m; sourceTree = "<group>"; };
 		6DB513451C2AB2710012021D /* SUIMVVMSecondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMSecondVC.h; sourceTree = "<group>"; };
 		6DB513461C2AB2710012021D /* SUIMVVMSecondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMSecondVC.m; sourceTree = "<group>"; };
-		6DB513481C2AB8350012021D /* SUIMVVMRootCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCell.h; sourceTree = "<group>"; };
-		6DB513491C2AB8350012021D /* SUIMVVMRootCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCell.m; sourceTree = "<group>"; };
 		6DB71D281C3E0A490009C61B /* Emoticon1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Emoticon1.gif; sourceTree = "<group>"; };
 		6DB71D291C3E0A4A0009C61B /* Emoticon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Emoticon1@2x.png"; sourceTree = "<group>"; };
 		6DB71D2A1C3E0A4A0009C61B /* Emoticon2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Emoticon2.gif; sourceTree = "<group>"; };
@@ -118,6 +129,15 @@
 		6DB71D581C3E30800009C61B /* SUIToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIToolbar.m; sourceTree = "<group>"; };
 		6DB71D601C3E32EA0009C61B /* SUIAdaptiveHeightTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIAdaptiveHeightTextView.h; sourceTree = "<group>"; };
 		6DB71D611C3E32EA0009C61B /* SUIAdaptiveHeightTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIAdaptiveHeightTextView.m; sourceTree = "<group>"; };
+		6DE9DF9B1C433ED100AD0A6F /* SUIMVVMRootTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootTitleView.h; sourceTree = "<group>"; };
+		6DE9DF9C1C433ED100AD0A6F /* SUIMVVMRootTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootTitleView.m; sourceTree = "<group>"; };
+		6DE9DF9E1C433F1A00AD0A6F /* SUIMVVMRootTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUIMVVMRootTitleView.xib; sourceTree = "<group>"; };
+		6DE9DFA01C43406900AD0A6F /* UIView+SUIMVVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIMVVM.h"; sourceTree = "<group>"; };
+		6DE9DFA11C43406900AD0A6F /* UIView+SUIMVVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SUIMVVM.m"; sourceTree = "<group>"; };
+		6DE9DFA31C434CAA00AD0A6F /* SUIMVVMRootTitleMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootTitleMD.h; sourceTree = "<group>"; };
+		6DE9DFA41C434CAA00AD0A6F /* SUIMVVMRootTitleMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootTitleMD.m; sourceTree = "<group>"; };
+		6DE9DFA61C434E1500AD0A6F /* SUIMVVMRootTitleVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootTitleVM.h; sourceTree = "<group>"; };
+		6DE9DFA71C434E1500AD0A6F /* SUIMVVMRootTitleVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootTitleVM.m; sourceTree = "<group>"; };
 		D3496D95BBB25B52F3635459 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +165,17 @@
 				6D43F85F1C29162900BA648B /* SUIDBEntity.m */,
 			);
 			path = DBHelper;
+			sourceTree = "<group>";
+		};
+		6D6880371C4363F200238B7F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6D68803B1C4364C600238B7F /* SUIMVVMRootCell.h */,
+				6D68803C1C4364C600238B7F /* SUIMVVMRootCell.m */,
+				6D6880381C43642400238B7F /* SUIMVVMRootCellVM.h */,
+				6D6880391C43642400238B7F /* SUIMVVMRootCellVM.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		6D6A96031C3B865E003D2015 /* SUIToolbarDemo */ = {
@@ -206,6 +237,10 @@
 				6D6A96161C3B8C90003D2015 /* UITableView+SUIMVVM.m */,
 				6D6A96121C3B8BF4003D2015 /* UITableViewCell+SUIMVVM.h */,
 				6D6A96131C3B8BF4003D2015 /* UITableViewCell+SUIMVVM.m */,
+				6DE9DFA01C43406900AD0A6F /* UIView+SUIMVVM.h */,
+				6DE9DFA11C43406900AD0A6F /* UIView+SUIMVVM.m */,
+				6D68803E1C437BC100238B7F /* SUITableHelper.h */,
+				6D68803F1C437BC100238B7F /* SUITableHelper.m */,
 			);
 			path = MVVM;
 			sourceTree = "<group>";
@@ -329,8 +364,8 @@
 				6DB5133D1C2AB11B0012021D /* SUIMVVMRootVC.m */,
 				6DB5133F1C2AB13B0012021D /* SUIMVVMRootVM.h */,
 				6DB513401C2AB13B0012021D /* SUIMVVMRootVM.m */,
-				6DB513481C2AB8350012021D /* SUIMVVMRootCell.h */,
-				6DB513491C2AB8350012021D /* SUIMVVMRootCell.m */,
+				6D6880371C4363F200238B7F /* Cell */,
+				6DE9DF941C433A3600AD0A6F /* View */,
 			);
 			path = MVVMRoot;
 			sourceTree = "<group>";
@@ -385,6 +420,20 @@
 			path = AdaptiveHeightTextView;
 			sourceTree = "<group>";
 		};
+		6DE9DF941C433A3600AD0A6F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6DE9DF9B1C433ED100AD0A6F /* SUIMVVMRootTitleView.h */,
+				6DE9DF9C1C433ED100AD0A6F /* SUIMVVMRootTitleView.m */,
+				6DE9DF9E1C433F1A00AD0A6F /* SUIMVVMRootTitleView.xib */,
+				6DE9DFA31C434CAA00AD0A6F /* SUIMVVMRootTitleMD.h */,
+				6DE9DFA41C434CAA00AD0A6F /* SUIMVVMRootTitleMD.m */,
+				6DE9DFA61C434E1500AD0A6F /* SUIMVVMRootTitleVM.h */,
+				6DE9DFA71C434E1500AD0A6F /* SUIMVVMRootTitleVM.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		742B1A476092A04C3208EF19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,7 +485,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "SUIO~";
+				ORGANIZATIONNAME = RandomSuio;
 				TargetAttributes = {
 					6DA091CB1B3A46AC00DA06A3 = {
 						CreatedOnToolsVersion = 6.3;
@@ -475,6 +524,7 @@
 				6DB71D2D1C3E0A4A0009C61B /* Emoticon2.gif in Resources */,
 				6DB71D2C1C3E0A4A0009C61B /* Emoticon1@2x.png in Resources */,
 				6DB513241C2AA7400012021D /* SUIDBHelperDemo.storyboard in Resources */,
+				6DE9DF9F1C433F1A00AD0A6F /* SUIMVVMRootTitleView.xib in Resources */,
 				6D6A96071C3B865E003D2015 /* SUIToolbar.storyboard in Resources */,
 				6D6A960F1C3B86CF003D2015 /* SUIViewController.storyboard in Resources */,
 			);
@@ -556,23 +606,29 @@
 				6DB71D621C3E32EA0009C61B /* SUIAdaptiveHeightTextView.m in Sources */,
 				6D6A96101C3B86CF003D2015 /* SUIViewControllerRootVC.m in Sources */,
 				6DA091F81B3A48C800DA06A3 /* AppDelegate.m in Sources */,
+				6DE9DF9D1C433ED100AD0A6F /* SUIMVVMRootTitleView.m in Sources */,
 				6DB513301C2AAA170012021D /* XXXDBHelperRootViewController.m in Sources */,
 				6D6A96341C3BBDD1003D2015 /* SUIEmoticonVC.m in Sources */,
 				6DB71D591C3E30800009C61B /* SUIEmoticon.m in Sources */,
+				6D68803D1C4364C600238B7F /* SUIMVVMRootCell.m in Sources */,
 				6DB71D5B1C3E30800009C61B /* SUIToolbar.m in Sources */,
 				6D6A96171C3B8C90003D2015 /* UITableView+SUIMVVM.m in Sources */,
+				6D6880401C437BC100238B7F /* SUITableHelper.m in Sources */,
 				6DB513411C2AB13B0012021D /* SUIMVVMRootVM.m in Sources */,
-				6DB5134A1C2AB8350012021D /* SUIMVVMRootCell.m in Sources */,
 				6D6A96141C3B8BF4003D2015 /* UITableViewCell+SUIMVVM.m in Sources */,
 				6DB513281C2AA7C20012021D /* SUIAlbumMD.m in Sources */,
 				6DB71D5A1C3E30800009C61B /* UIImage+SUIGIF.m in Sources */,
 				6D43F8601C29162900BA648B /* SUIDBEntity.m in Sources */,
 				6D6A96111C3B86CF003D2015 /* SUIViewControllerSecondVC.m in Sources */,
 				6DB513471C2AB2710012021D /* SUIMVVMSecondVC.m in Sources */,
+				6DE9DFA51C434CAA00AD0A6F /* SUIMVVMRootTitleMD.m in Sources */,
 				6DB513441C2AB2550012021D /* SUIMVVMSecondVM.m in Sources */,
+				6D68803A1C43642400238B7F /* SUIMVVMRootCellVM.m in Sources */,
 				6D75597A1C2408E700085A53 /* UIViewController+SUIMVVM.m in Sources */,
 				6D43F8461C290A1300BA648B /* SUIDBHelper.m in Sources */,
+				6DE9DFA21C43406900AD0A6F /* UIView+SUIMVVM.m in Sources */,
 				6D6A96081C3B865E003D2015 /* SUIToolbarVC.m in Sources */,
+				6DE9DFA81C434E1500AD0A6F /* SUIMVVMRootTitleVM.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

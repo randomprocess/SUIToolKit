@@ -181,6 +181,7 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)sui_addOrDelObjectsInResultAry:(NSMutableArray *)cResultAry
 {
+    uObj(self.delegate);
     uSUIDBHelperWillChangeContent
     uSUIDBHelperDidChangeObject
     (
