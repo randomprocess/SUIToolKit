@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @class SUIViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (SUIMVVM)
+@protocol SUIMVVMVCProtocol <NSObject>
+@optional
+
+- (Class)sui_classOfViewModel;
+- (void)sui_bindWithViewModel;
+
+@end
+
+@interface UIViewController (SUIMVVM) <SUIMVVMVCProtocol>
 
 
-@property (null_resettable,copy) __kindof SUIViewModel *sui_vm;
+@property (readonly,nonatomic,strong) __kindof SUIViewModel *sui_vm;
 
 
 @end

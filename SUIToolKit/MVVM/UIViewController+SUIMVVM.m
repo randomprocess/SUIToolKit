@@ -10,7 +10,6 @@
 #import "NSObject+SUIAdditions.h"
 #import "UIViewController+SUIAdditions.h"
 #import "SUIViewModel.h"
-#import "SUIMacros.h"
 
 @implementation UIViewController (SUIMVVM)
 
@@ -21,19 +20,14 @@
     if (curVM) return curVM;
     
     if (self.sui_sourceVC) {
-        if ([self.sui_sourceVC.sui_vm respondsToSelector:@selector(viewModelPassed:)]) {
-            curVM = [self.sui_sourceVC.sui_vm viewModelPassed:self];
-            curVM.sui_vc = self;
+        if ([self.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
+            id curModel = [self.sui_sourceVC.sui_vm sui_modelPassed:self];
+            curVM = [[[self sui_classOfViewModel] alloc] initWithModel:curModel];
         }
+    } else {
+        curVM = [[self sui_classOfViewModel] new];
     }
-    
-    if (!curVM) {
-        NSString *classNameOfVM = gFormat(@"SUI%@VM", self.sui_identifier);
-        curVM = [[NSClassFromString(classNameOfVM) alloc] init];
-    }
-    uAssert(curVM, @"className should prefix with 'SUI' and suffix with 'VM'");
     self.sui_vm = curVM;
-    
     return curVM;
 }
 
@@ -41,6 +35,9 @@
 {
     [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
     sui_vm.sui_vc = self;
+    if ([self respondsToSelector:@selector(sui_bindWithViewModel)]) {
+        [self performSelectorOnMainThread:@selector(sui_bindWithViewModel) withObject:nil waitUntilDone:NO];
+    }
 }
 
 

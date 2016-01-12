@@ -10,66 +10,52 @@
 #import "SUIToolKit.h"
 #import "SUIAlbumMD.h"
 #import "SUIMVVMSecondVM.h"
-#import "SUIMVVMRootTitleMD.h"
 #import "MJExtension.h"
 #import "SUIMVVMRootCellVM.h"
 
+
 @interface SUIMVVMRootVM ()
 
-@property (nonatomic,strong) SUIMVVMRootTitleMD *rootTitleMD;
 
 @end
 
 @implementation SUIMVVMRootVM
 
 
-- (void)commonInit
+- (void)sui_commonInit
 {
-    self.rootTitleMD.kw = @"猫";
+    self.rootTitleMD.kw = @"狗";
 
     // 请求数据,这里只简单的封装了AFN,实际使用时替换成自己的网络请求模块
     [[SUINetwork requestWithParameters:@{@"kw" : self.rootTitleMD.kw}].requestSignal subscribeNext:^(NSDictionary *cDict) {
         
-        NSMutableArray *cellVMAry = [NSMutableArray new];
         NSArray *albumAry = [SUIAlbumMD mj_objectArrayWithKeyValuesArray:cDict[@"albums"]];
-        [albumAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            SUIMVVMRootCellVM *curCellVM = [[SUIMVVMRootCellVM alloc] initWithModel:obj];
-            [cellVMAry addObject:curCellVM];
-        }];
         
         self.rootTitleMD.numOfAlbums = albumAry.count;
         
         // 本应丢出去交给VC的, 这里就偷懒写了..
-        [self.sui_vc.sui_tableView sui_resetDataAry:cellVMAry];
+        [self.sui_vc.sui_tableView sui_resetDataAry:albumAry];
     }];
 }
 
 
-- (SUIViewModel *)viewModelPassed:(__kindof UIViewController *)cDestVC
-{
-//    if ([cDestVC isKindOfClass:NSClassFromString(@"SUIMVVMSecondVC")]){
-//        
-//    }
-    
-    SUIMVVMSecondVM *curVM = [[SUIMVVMSecondVM alloc] initWithModel:[self.sui_vc.sui_tableView.sui_tableHelper currentViewModel].model];
-    return curVM;
+- (id)sui_modelPassed:(__kindof UIViewController *)cDestVC
+{    
+    return [self.sui_vc.sui_tableView.sui_tableHelper currentModel];
 }
-
 
 - (RACCommand *)rootTitleClickCommand
 {
-    @weakify(self)
-    return [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self)
-        return (self.rootTitleClickSignal ? self.rootTitleClickSignal : [RACSignal empty]);
-    }];
+    return SUICOMMAND([self rootTitleClickSignal]);
 }
 
-- (SUIMVVMRootTitleVM *)rootTitleVM
+- (RACSignal *)rootTitleClickSignal
 {
-    SUIMVVMRootTitleVM *rootTitleVM = [[SUIMVVMRootTitleVM alloc] initWithModel:self.rootTitleMD];
-    rootTitleVM.clickCommand = [self rootTitleClickCommand];
-    return rootTitleVM;
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        uLog(@"Click TitleView");
+        [subscriber sendCompleted];
+        return nil;
+    }];
 }
 
 - (SUIMVVMRootTitleMD *)rootTitleMD

@@ -20,30 +20,16 @@
 @dynamic model;
 
 
-- (void)commonInit
+- (void)sui_commonInit
 {
-    RAC(self, name) = RACObserve(self.model, name);
-    RAC(self, aId) = [RACObserve(self.model, aId)
-                      map:^id(NSNumber *cNum) {
-                          return gFormat(@"id: %@", cNum);
-                      }];
-    RAC(self, dateText) = RACObserve(self.model, release_date);
-    
-    RAC(self, cover) = RACObserve(self.model, cover);
-}
+    SUIVMRAC(name, name);
+    RAC(self, aId) = [SUIVMObserve(aId) map:^id(NSNumber *cNum) {
+        return gFormat(@"id: %@", cNum);
+    }];
 
-//- (RACSignal *)bindWithModel
-//{
-//    [[RACObserve(self, model) map:^id(id value) {
-//        return [self bindWithModel];
-//    }] switchToLatest];
-//    
-//    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-//        [RACObserve(self.model, name) subscribeNext:^(id x) {
-//            
-//        }];
-//    }];
-//}
+    SUIVMRAC(dateText, release_date);
+    SUIVMRAC(cover, cover);
+}
 
 
 @end

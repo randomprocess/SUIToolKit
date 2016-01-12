@@ -7,13 +7,7 @@
 //
 
 #import "SUIViewModel.h"
-#import "UIViewController+SUIAdditions.h"
-#import "UIViewController+SUIMVVM.h"
-#import "UITableViewCell+SUIMVVM.h"
-#import "UITableView+FDTemplateLayoutCell.h"
-#import "SUIMacros.h"
-#import "SUIDBHelper.h"
-#import "UIView+SUIMVVM.h"
+#import "ReactiveCocoa.h"
 
 @interface SUIViewModel ()
 
@@ -27,7 +21,7 @@
 {
     self = [super init];
     if (self) {
-        [self performSelectorOnMainThread:@selector(commonInit) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(observeModel) withObject:nil waitUntilDone:NO];
     }
     return self;
 }
@@ -37,12 +31,29 @@
     self = [super init];
     if (self) {
         self.model = model;
-        [self performSelectorOnMainThread:@selector(commonInit) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(observeModel) withObject:nil waitUntilDone:NO];
     }
     return self;
 }
 
-- (void)commonInit {}
+- (void)observeModel
+{
+    @weakify(self)
+    [[RACObserve(self, model) distinctUntilChanged] subscribeNext:^(id x) {
+        @strongify(self)
+        [self sui_commonInit];
+    }];
+}
+
+- (void)sui_commonInit {}
+
+
+- (void)bindWithModel:(id)model
+{
+    if (self.model != model) {
+        self.model = model;
+    }
+}
 
 
 @end

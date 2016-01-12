@@ -23,7 +23,7 @@
 @implementation AAADBHelperRootViewModel
 
 
-- (void)commonInit
+- (void)sui_commonInit
 {
     [[SUINetwork requestWithParameters:@{@"kw" : @"猫"}].requestSignal subscribeNext:^(NSDictionary *cDict) {
         
@@ -77,12 +77,9 @@
     }];
 }
 
-
-- (SUIViewModel *)viewModelPassed:(__kindof UIViewController *)cDestVC
+- (id)sui_modelPassed:(__kindof UIViewController *)cDestVC
 {
-    SUIAlbumMD *curMD = [self.sui_vc.sui_tableView.sui_tableHelper currentViewModel].model;
-    SUIMVVMSecondVM *curVM = [[SUIMVVMSecondVM alloc] initWithModel:curMD];
-    return curVM;
+    return [self.sui_vc.sui_tableView.sui_tableHelper currentModel];
 }
 
 

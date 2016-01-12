@@ -8,7 +8,6 @@
 
 #import "UITableViewCell+SUIMVVM.h"
 #import "NSObject+SUIAdditions.h"
-#import "UIView+SUIMVVM.h"
 
 @implementation UITableViewCell (SUIMVVM)
 

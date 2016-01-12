@@ -10,20 +10,29 @@
 #import "SUIToolKit.h"
 #import "SUIMVVMRootTitleVM.h"
 
+@interface SUIMVVMRootTitleView ()
+
+@property (nonatomic,strong) SUIMVVMRootTitleVM *sui_vm;
+
+@end
+
 @implementation SUIMVVMRootTitleView
+@dynamic sui_vm; // ← ←
 
 
-- (void)sui_bindWithViewModel:(__kindof SUIViewModel *)sui_vm
+- (Class)sui_classOfViewModel
 {
-    SUIMVVMRootTitleVM *currVM = sui_vm;
-    
-    RAC(self.lbl01, text) = RACObserve(currVM, text1);
-    RAC(self.lbl02, text) = RACObserve(currVM, text2);
+    return [SUIMVVMRootTitleVM class];
+}
 
-    RAC(self.lbl01, textColor) = RACObserve(currVM, textColo1);
-    RAC(self.lbl02, textColor) = RACObserve(currVM, textColo2);
+- (void)sui_bindWithViewModel
+{
+    RAC(self.lbl01, text) = SUIVIEWObserve(text1);
+    RAC(self.lbl02, text) = SUIVIEWObserve(text2);
+    RAC(self.lbl01, textColor) = SUIVIEWObserve(textColo1);
+    RAC(self.lbl02, textColor) = SUIVIEWObserve(textColo2);
     
-    self.clickBtn.rac_command = [sui_vm clickCommand];
+    self.clickBtn.rac_command = [self.sui_vm clickCommand];
 }
 
 

@@ -131,6 +131,8 @@ NSString *hexString = [__hex stringByReplacingOccurrencesOfString:@"#" withStrin
 #define uWeak(__obj) typeof(__obj) __weak weak_##__obj = __obj;
 #define uBlock(__obj) typeof(__obj) __block block_##__obj = __obj;
 
+#define uTypeof(__TYPE, __PROPERTY) ({typeof(__TYPE *) __CLASS = __PROPERTY; __CLASS;})
+
 #define uBorder(__view) __view.layer.borderColor=[gRandomColo CGColor];__view.layer.borderWidth=1;
 
 #define uMainQueue(__stuff) \
@@ -275,18 +277,18 @@ __PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Warc-performSel
 __stuff \
 __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
-#define uWarcWunreachable(__stuff) \
-__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunreachable-code\"") \
+#define uWarcUnreachable(__stuff) \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunreachable\"") \
 __stuff \
 __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
-#define uWarcWunusedGetter(__stuff) \
-__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunused-getter-return-value\"") \
+#define uWarcUnused(__stuff) \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunused\"") \
 __stuff \
 __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 
-#define uWarcWunusedVariable(__stuff) \
-__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wunused-variable\"") \
+#define uWarcDeprecated(__stuff) \
+__PRAGMA_NO_EXTRA_ARG_WARNINGS_PUSH("clang diagnostic ignored \"-Wdeprecated\"") \
 __stuff \
 __PRAGMA_NO_EXTRA_ARG_WARNINGS_POP
 

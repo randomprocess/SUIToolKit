@@ -32,7 +32,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
-        SUIAlbumMD *curMD = [self currentViewModelAtIndexPath:indexPath].model;
+        SUIAlbumMD *curMD = [self currentModelAtIndexPath:indexPath];
         [SUIAlbumMD deleteToDB:curMD];
     }
 }
@@ -42,33 +42,32 @@
 
 @interface XXXDBHelperRootViewController ()
 
-@property (nonatomic,strong) AAADBHelperRootViewModel *currViewModel;
+@property (nonatomic,strong) AAADBHelperRootViewModel *sui_vm;
 
 @end
 
 @implementation XXXDBHelperRootViewController
+@dynamic sui_vm;
 
+- (Class)sui_classOfViewModel
+{
+    return [AAADBHelperRootViewModel class];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    [self sui_vm];
+    
     // 清空所有数据
     [[SUIAlbumMD getUsingLKDBHelper] dropAllTable];
-    
-    // 当前VC的ViewModel
-    self.currViewModel = [AAADBHelperRootViewModel new];
-    self.sui_vm = self.currViewModel;
     
     self.sui_tableView.sui_tableHelper = [SUIDBHelperRootTableHelper new];
     
     // 目前SUIDBHelper是不支持分组的,估计以后也不会 O_O
     [self.sui_tableView.sui_tableHelper cellIdentifier:^NSString * _Nonnull(NSIndexPath * _Nonnull cIndexPath, __kindof SUIViewModel * _Nullable cVM) {
         return @"SUIMVVMRootCell";
-    }];
-    
-    [self.sui_tableView.sui_tableHelper cellViewModelClassName:^NSString * _Nonnull(NSIndexPath * _Nonnull cIndexPath, id  _Nonnull model) {
-        return @"SUIMVVMRootCellVM";
     }];
     
     // 初始化SUIDBHelper

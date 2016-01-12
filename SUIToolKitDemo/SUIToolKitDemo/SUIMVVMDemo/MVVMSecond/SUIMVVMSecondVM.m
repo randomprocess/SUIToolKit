@@ -20,10 +20,11 @@
 @dynamic model;
 
 
-- (void)commonInit
+- (void)sui_commonInit
 {
-    RAC(self, coverImage) = RACObserve(self.model, coverImage);
-    RAC(self, aId) = [RACObserve(self.model, aId) map:^id(NSNumber *cNum) {
+    SUIVMRAC(cover, cover);
+    
+    RAC(self, aId) = [SUIVMObserve(aId) map:^id(NSNumber *cNum) {
         return gFormat(@"id: %@", cNum);
     }];
 }

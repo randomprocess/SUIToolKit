@@ -20,17 +20,16 @@
 @dynamic model;
 
 
-- (void)commonInit
+- (void)sui_commonInit
 {
-    RAC(self, text1) = RACObserve(self.model, kw);
-    RAC(self, text2) = [RACObserve(self.model, numOfAlbums) map:^id(NSNumber *cNum) {
+    SUIVMRAC(text1, kw);
+    RAC(self, text2) = [SUIVMObserve(numOfAlbums) map:^id(NSNumber *cNum) {
         return gFormat(@"num:%@",cNum);
     }];
-    
-    RAC(self, textColo1) = [RACObserve(self.model, numOfAlbums) map:^id(id value) {
+    RAC(self, textColo1) = [SUIVMObserve(numOfAlbums) map:^id(id value) {
         return gRandomColo;
     }];
-    RAC(self, textColo2) = [RACObserve(self.model, numOfAlbums) map:^id(id value) {
+    RAC(self, textColo2) = [SUIVMObserve(numOfAlbums) map:^id(id value) {
         return gRandomColo;
     }];
 }

@@ -43,16 +43,16 @@ PODS:
     - ReactiveCocoa (~> 2.5)
     - SUICategories/Foundation
     - SUIUtilities (~> 1.0.0)
-  - SUIUtilities (1.0.7):
+  - SUIUtilities (1.0.9):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
-    - SUIUtilities/Network (= 1.0.7)
-    - SUIUtilities/Utilities (= 1.0.7)
-  - SUIUtilities/Network (1.0.7):
+    - SUIUtilities/Network (= 1.0.9)
+    - SUIUtilities/Utilities (= 1.0.9)
+  - SUIUtilities/Network (1.0.9):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
     - SUIUtilities/Utilities
-  - SUIUtilities/Utilities (1.0.7):
+  - SUIUtilities/Utilities (1.0.9):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
   - UITableView+FDTemplateLayoutCell (1.4)
@@ -75,7 +75,7 @@ CHECKOUT OPTIONS:
     :commit: 24c74418aeb26845b4345f395df3d5e9df0f5aad
     :git: https://github.com/randomprocess/SUICategories
   SUIUtilities:
-    :commit: 2aa769d54ba607a0f312ddcc85a18080a72c70a9
+    :commit: 0a29bc343ae0fc9c86074547a117f179361811d0
     :git: https://github.com/randomprocess/SUIUtilities
 
 SPEC CHECKSUMS:
@@ -85,7 +85,7 @@ SPEC CHECKSUMS:
   MJExtension: 116781b18cb25cee39619e16617f62bb7433ea4e
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SUICategories: ec7184e2c2e108e9f370cd52b4a90a9b0789780e
-  SUIUtilities: 41fc47f71ccb04841733dd89bad96ae1d28e99b0
+  SUIUtilities: 5093ba73102c3ad634028d7aacc85270572fd145
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 
 COCOAPODS: 0.39.0

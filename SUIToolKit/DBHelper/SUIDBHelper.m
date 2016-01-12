@@ -181,7 +181,6 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
 
 - (void)sui_addOrDelObjectsInResultAry:(NSMutableArray *)cResultAry
 {
-    uObj(self.delegate);
     uSUIDBHelperWillChangeContent
     uSUIDBHelperDidChangeObject
     (
@@ -195,7 +194,6 @@ if ([self.delegate respondsToSelector:@selector(sui_DBHelperDidChangeContent:)])
          }];
          [self.sui_objects removeObjectsInArray:delObjects];
      }
-     
      
      NSMutableArray<__kindof SUIDBEntity *> *addObjects = [NSMutableArray arrayWithArray:cResultAry];
      [addObjects removeObjectsInArray:self.sui_objects];

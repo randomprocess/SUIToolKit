@@ -7,14 +7,15 @@
 //
 
 #import "SUIViewModel.h"
-#import "SUIMVVMRootTitleVM.h"
+#import "SUIMVVMRootTitleMD.h"
+#import "ReactiveCocoa.h"
 
 @interface SUIMVVMRootVM : SUIViewModel
 
 
-@property (readonly,strong) SUIMVVMRootTitleVM *rootTitleVM;
+@property (nonatomic,strong) SUIMVVMRootTitleMD *rootTitleMD;
 
-@property (nonatomic,strong) RACSignal *rootTitleClickSignal;
+@property (readonly,strong) RACCommand *rootTitleClickCommand;
 
 
 @end

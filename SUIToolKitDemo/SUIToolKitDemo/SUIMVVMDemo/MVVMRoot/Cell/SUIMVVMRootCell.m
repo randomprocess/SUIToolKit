@@ -11,23 +11,32 @@
 #import "SUIMVVMRootCellVM.h"
 #import "UIImageView+AFNetworking.h"
 
+@interface SUIMVVMRootCell ()
+
+@property (nonatomic,strong) SUIMVVMRootCellVM *sui_vm;
+
+@end
+
 @implementation SUIMVVMRootCell
+@dynamic sui_vm; // ← ←
 
 
-- (void)sui_willDisplayWithViewModel:(__kindof SUIViewModel *)sui_vm
+- (Class)sui_classOfViewModel
 {
-    SUIMVVMRootCellVM *currVM = sui_vm;
-    
-    RAC(self.nameLbl, text) = [RACObserve(currVM, name) takeUntil:self.rac_prepareForReuseSignal];
-    RAC(self.idLbl, text) = [RACObserve(currVM, aId) takeUntil:self.rac_prepareForReuseSignal];
-    RAC(self.dateLbl, text) = [RACObserve(currVM, dateText) takeUntil:self.rac_prepareForReuseSignal];
+    return [SUIMVVMRootCellVM class];
+}
+
+- (void)sui_willDisplayWithViewModel
+{
+    RAC(self.nameLbl, text) = SUICELLObserve(name);
+    RAC(self.idLbl, text) = SUICELLObserve(aId);
+    RAC(self.dateLbl, text) = SUICELLObserve(dateText);
     
     @weakify(self)
-    [[RACObserve(currVM, cover) takeUntil:self.rac_prepareForReuseSignal]
-     subscribeNext:^(NSString *cCover) {
-         @strongify(self)
-         [self.coverView setImageWithURL:cCover.sui_toURL];
-     }];
+    [SUICELLObserve(cover) subscribeNext:^(NSString *cCover) {
+        @strongify(self)
+        [self.coverView setImageWithURL:cCover.sui_toURL];
+    }];
 }
 
 

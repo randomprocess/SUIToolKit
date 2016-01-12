@@ -8,10 +8,6 @@
 
 #import "UITableView+SUIMVVM.h"
 #import "NSObject+SUIAdditions.h"
-#import "UIViewController+SUIAdditions.h"
-#import "UIViewController+SUIMVVM.h"
-#import "SUIViewModel.h"
-#import "SUIMacros.h"
 #import "SUITableHelper.h"
 
 @implementation UITableView (SUIMVVM)

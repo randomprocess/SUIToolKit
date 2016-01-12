@@ -14,14 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SUIMVVMViewProtocol <NSObject>
 @optional
 
-- (void)sui_bindWithViewModel:(nullable __kindof SUIViewModel *)sui_vm;
+- (Class)sui_classOfViewModel;
+- (void)sui_bindWithViewModel;
 
 @end
 
 @interface UIView (SUIMVVM) <SUIMVVMViewProtocol>
 
 
-@property (nullable,nonatomic,copy) __kindof SUIViewModel *sui_vm;
+@property (readonly,nonatomic,strong) __kindof SUIViewModel *sui_vm;
 
 
 @end

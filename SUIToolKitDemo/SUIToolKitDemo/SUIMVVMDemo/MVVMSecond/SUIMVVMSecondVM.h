@@ -11,7 +11,7 @@
 @interface SUIMVVMSecondVM : SUIViewModel
 
 
-@property (nonatomic,strong) UIImage *coverImage;
+@property (nonatomic,copy) NSString *cover;
 
 @property (nonatomic,copy) NSString *aId;
 

@@ -15,7 +15,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString * __nonnull (^SUITableHelperCellIdentifierBlock)(NSIndexPath *cIndexPath, id model);
-typedef NSString * __nonnull (^SUITableHelperCellViewModelClassNameBlock)(NSIndexPath *cIndexPath, id model);
 
 @interface SUITableHelper : NSObject <
     UITableViewDataSource,
@@ -23,10 +22,8 @@ typedef NSString * __nonnull (^SUITableHelperCellViewModelClassNameBlock)(NSInde
     SUIDBHelperDelegate>
 
 - (void)cellIdentifier:(SUITableHelperCellIdentifierBlock)cb;
-- (void)cellViewModelClassName:(SUITableHelperCellViewModelClassNameBlock)cb;
 
 @property (nonatomic,weak) UITableView *sui_tableView;
-
 @property (nonatomic,strong) NSIndexPath *sui_indexPath;
 
 - (void)resetDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection;
@@ -35,8 +32,8 @@ typedef NSString * __nonnull (^SUITableHelperCellViewModelClassNameBlock)(NSInde
 - (void)insertData:(id)cModel AtIndex:(NSIndexPath *)cIndexPath;
 - (void)deleteDataAtIndex:(NSIndexPath *)cIndexPath;
 
-- (SUIViewModel *)currentViewModel;
-- (SUIViewModel *)currentViewModelAtIndexPath:(NSIndexPath *)cIndexPath;
+- (id)currentModel;
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath;
 
 @end
 
@@ -60,13 +57,6 @@ typedef NSString * __nonnull (^SUITableHelperCellViewModelClassNameBlock)(NSInde
 - (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm;
 - (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm; // asc desc
 - (void)sui_DBHelperWithClass:(Class)modelClass where:(nullable id)searchTerm orderBy:(nullable NSString *)orderTerm offset:(NSInteger)offset count:(NSInteger)count;
-
-@end
-
-
-@interface NSMutableArray (SUIAdditions)
-
-- (void)sui_moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
 
 @end
 

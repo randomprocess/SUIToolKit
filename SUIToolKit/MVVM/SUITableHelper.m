@@ -7,22 +7,20 @@
 //
 
 #import "SUITableHelper.h"
-#import "NSObject+SUIAdditions.h"
-#import "SUIDBHelper.h"
+#import "SUIUtilities.h"
+#import "SUICategories.h"
 #import "UITableView+SUIMVVM.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "SUIViewModel.h"
-#import "SUIMacros.h"
-#import "NSString+SUIAdditions.h"
 #import "UITableViewCell+SUIMVVM.h"
 #import "UIView+SUIMVVM.h"
 
+
 @interface SUITableHelper ()
 
-@property (nonatomic,strong) NSMutableArray *viewModelArray;
+@property (nonatomic,strong) NSMutableArray<NSMutableArray *> *dataArray;
 
 @property (nonatomic,copy) SUITableHelperCellIdentifierBlock cellIdentifierBlock;
-@property (nonatomic,copy) SUITableHelperCellViewModelClassNameBlock cellViewModelClassNameBlock;
 
 @end
 
@@ -32,11 +30,6 @@
 - (void)cellIdentifier:(SUITableHelperCellIdentifierBlock)cb
 {
     self.cellIdentifierBlock = cb;
-}
-
-- (void)cellViewModelClassName:(SUITableHelperCellViewModelClassNameBlock)cb
-{
-    self.cellViewModelClassNameBlock = cb;
 }
 
 
@@ -51,7 +44,7 @@
     if (self.sui_DBHelper) {
         return 1;
     } else {
-        NSInteger curNumOfSections = self.viewModelArray.count;
+        NSInteger curNumOfSections = self.dataArray.count;
         return curNumOfSections;
     }
 }
@@ -60,11 +53,10 @@
 {
     NSInteger curNumOfRows = 0;
     if (self.sui_DBHelper) {
-//        curNumOfRows = tableView.sui_DBHelper.sui_objects.count;
-        curNumOfRows = self.viewModelArray.count;
+        curNumOfRows = self.sui_DBHelper.sui_objects.count;
     } else {
-        if (self.viewModelArray.count > section) {
-            NSMutableArray *subDataAry = self.viewModelArray[section];
+        if (self.dataArray.count > section) {
+            NSMutableArray *subDataAry = self.dataArray[section];
             curNumOfRows = subDataAry.count;
         }
     }
@@ -74,15 +66,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *curCell = nil;
-    SUIViewModel *curViewModel = [self currentViewModelAtIndexPath:indexPath];
-    NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath viewModel:curViewModel];
+    id curModel = [self currentModelAtIndexPath:indexPath];
+    NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
     curCell = [tableView dequeueReusableCellWithIdentifier:curCellIdentifier];
     uAssert(curCell, @"cell if nil Identifier ⤭ %@ ⤪", curCellIdentifier);
     
     [self sui_configureCell:curCell tableView:tableView atIndexPath:indexPath];
     
-    if ([curCell respondsToSelector:@selector(sui_willDisplayWithViewModel:)]) {
-        [curCell sui_willDisplayWithViewModel:curViewModel];
+    if ([curCell respondsToSelector:@selector(sui_willDisplayWithViewModel)]) {
+        [curCell sui_willDisplayWithViewModel];
     }
     return curCell;
 }
@@ -92,8 +84,8 @@
     CGFloat curHeight = 0;
     if (tableView.sui_calculateCellHeight) {
         uWeakSelf
-        SUIViewModel *curViewModel = [self currentViewModelAtIndexPath:indexPath];
-        NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath viewModel:curViewModel];
+        id curModel = [self currentModelAtIndexPath:indexPath];
+        NSString *curCellIdentifier = [self cellIdentifierForRowAtIndexPath:indexPath model:curModel];
         curHeight = [tableView fd_heightForCellWithIdentifier:curCellIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
             [weakSelf sui_configureCell:cell tableView:tableView atIndexPath:indexPath];
         }];
@@ -116,51 +108,39 @@
 
 #pragma mark - ViewModelHandler
 
-- (NSString *)cellIdentifierForRowAtIndexPath:(NSIndexPath *)cIndexPath viewModel:(SUIViewModel *)cVM
+- (NSString *)cellIdentifierForRowAtIndexPath:(NSIndexPath *)cIndexPath model:(id)model
 {
     NSString *curCellIdentifier = nil;
     if (self.cellIdentifierBlock) {
-        curCellIdentifier = self.cellIdentifierBlock(cIndexPath, cVM.model);
-    } else {
-        NSString *curClassName = NSStringFromClass([cVM class]);
-        curCellIdentifier = [curClassName sui_regex:@"\\S+(?=VM$)"];
+        curCellIdentifier = self.cellIdentifierBlock(cIndexPath, model);
     }
+//    else {
+//        NSString *curClassName = NSStringFromClass([cVM class]);
+//        curCellIdentifier = [curClassName sui_regex:@"\\S+(?=VM$)"];
+//    }
     return curCellIdentifier;
 }
 
-- (NSString *)cellViewModelClassNameForRowAtIndexPath:(NSIndexPath *)cIndexPath model:(id)model
+- (id)currentModel
 {
-    NSString *curClassName = nil;
-    if (self.cellViewModelClassNameBlock) {
-        curClassName = self.cellViewModelClassNameBlock(cIndexPath, model);
-    }
-    return curClassName;
+    return [self currentModelAtIndexPath:self.sui_indexPath];
 }
 
-- (SUIViewModel *)currentViewModel
-{
-    return [self currentViewModelAtIndexPath:self.sui_indexPath];
-}
-
-- (SUIViewModel *)currentViewModelAtIndexPath:(NSIndexPath *)cIndexPath
+- (id)currentModelAtIndexPath:(NSIndexPath *)cIndexPath
 {
     if (self.sui_DBHelper) {
         if (cIndexPath.section == 0) {
-//            if (self.sui_tableView.sui_DBHelper.sui_objects.count > cIndexPath.row) {
-//                id curModel = self.sui_tableView.sui_DBHelper.sui_objects[cIndexPath.row];
-//                return curModel;
-//            }
-            if (self.viewModelArray.count > cIndexPath.row) {
-                id curModel = self.viewModelArray[cIndexPath.row];
+            if (self.sui_DBHelper.sui_objects.count > cIndexPath.row) {
+                id curModel = self.sui_DBHelper.sui_objects[cIndexPath.row];
                 return curModel;
             }
         }
     } else {
-        if (self.viewModelArray.count > cIndexPath.section) {
-            NSMutableArray *subDataAry = self.viewModelArray[cIndexPath.section];
+        if (self.dataArray.count > cIndexPath.section) {
+            NSMutableArray *subDataAry = self.dataArray[cIndexPath.section];
             if (subDataAry.count > cIndexPath.row) {
-                id curViewModel = subDataAry[cIndexPath.row];
-                return curViewModel;
+                id curModel = subDataAry[cIndexPath.row];
+                return curModel;
             }
         }
     }
@@ -169,12 +149,12 @@
 
 - (void)sui_configureCell:(UITableViewCell *)cCell tableView:(UITableView *)cTableView atIndexPath:(NSIndexPath *)cIndexPath
 {
-    SUIViewModel *curViewModel = [self currentViewModelAtIndexPath:cIndexPath];
+    id model = [self currentModelAtIndexPath:cIndexPath];
     cCell.sui_tableView = cTableView;
-    cCell.sui_vm = curViewModel;
+    [cCell.sui_vm bindWithModel:model];
     
-    if ([cCell respondsToSelector:@selector(sui_willCalculateHeightWithViewModel:)]) {
-        [cCell sui_willCalculateHeightWithViewModel:curViewModel];
+    if ([cCell respondsToSelector:@selector(sui_willCalculateHeightWithViewModel)]) {
+        [cCell sui_willCalculateHeightWithViewModel];
     }    
 }
 
@@ -186,7 +166,7 @@
     (
      [self sui_makeUpDataAryForSection:cSection];
      
-     NSMutableArray *subAry = self.viewModelArray[cSection];
+     NSMutableArray *subAry = self.dataArray[cSection];
      if (subAry.count) [subAry removeAllObjects];
      [subAry addObjectsFromArray:newDataAry];
      [self.sui_tableView reloadData];
@@ -198,7 +178,7 @@
     uMainQueue
     (
      NSIndexSet *curIndexSet = [self sui_makeUpDataAryForSection:cSection];
-     NSMutableArray *subAry = self.viewModelArray[cSection];
+     NSMutableArray *subAry = self.dataArray[cSection];
      if (subAry.count) [subAry removeAllObjects];
      [subAry addObjectsFromArray:newDataAry];
      
@@ -217,7 +197,7 @@
     uMainQueue
     (
      NSIndexSet *curIndexSet = [self sui_makeUpDataAryForSection:cSection];
-     NSMutableArray *subAry = self.viewModelArray[cSection];
+     NSMutableArray *subAry = self.dataArray[cSection];
      if (curIndexSet) {
          [subAry addObjectsFromArray:newDataAry];
          [self.sui_tableView beginUpdates];
@@ -240,7 +220,7 @@
     uMainQueue
     (
      NSIndexSet *curIndexSet = [self sui_makeUpDataAryForSection:cIndexPath.section];
-     NSMutableArray *subAry = self.viewModelArray[cIndexPath.section];
+     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
      if (subAry.count < cIndexPath.row) return;
      [subAry insertObject:cModel atIndex:cIndexPath.row];
      if (curIndexSet) {
@@ -259,8 +239,8 @@
 {
     uMainQueue
     (
-     if (self.viewModelArray.count <= cIndexPath.section) return;
-     NSMutableArray *subAry = self.viewModelArray[cIndexPath.section];
+     if (self.dataArray.count <= cIndexPath.section) return;
+     NSMutableArray *subAry = self.dataArray[cIndexPath.section];
      if (subAry.count <= cIndexPath.row) return;
      
      [subAry removeObjectAtIndex:cIndexPath.row];
@@ -273,11 +253,11 @@
 - (NSIndexSet *)sui_makeUpDataAryForSection:(NSInteger)cSection
 {
     NSMutableIndexSet *curIndexSet = nil;
-    if (self.viewModelArray.count <= cSection) {
+    if (self.dataArray.count <= cSection) {
         curIndexSet = [NSMutableIndexSet indexSet];
-        for (NSInteger idx=0; idx<(cSection-self.viewModelArray.count+1); idx++) {
+        for (NSInteger idx=0; idx<(cSection-self.dataArray.count+1); idx++) {
             NSMutableArray *subAry = [NSMutableArray array];
-            [self.viewModelArray addObject:subAry];
+            [self.dataArray addObject:subAry];
             [curIndexSet addIndex:cSection-idx];
         }
     }
@@ -285,12 +265,12 @@
 }
 
 
-- (NSMutableArray *)viewModelArray
+- (NSMutableArray<NSMutableArray *> *)dataArray
 {
-    if (!_viewModelArray) {
-        _viewModelArray = [NSMutableArray new];
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray new];
     }
-    return _viewModelArray;
+    return _dataArray;
 }
 
 @end
@@ -366,18 +346,13 @@
     {
         case SUIDBHelperChangeInsert:
         {
-//            NSString *curClassName = [self cellViewModelClassNameForRowAtIndexPath:newIndexPath model:anObject];
-//            SUIViewModel *curViewModel = [[NSClassFromString(curClassName) alloc] initWithModel:anObject];
-//            [self.viewModelArray insertObject:curViewModel atIndex:newIndexPath.row];
             [self.sui_tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
         }
             break;
         case SUIDBHelperChangeDelete:
-//            [self.viewModelArray removeObjectAtIndex:indexPath.row];
             [self.sui_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
         case SUIDBHelperChangeMove:
-//            [self.viewModelArray sui_moveObjectFromIndex:indexPath.row toIndex:newIndexPath.row];
             [self.sui_tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             break;
         case SUIDBHelperChangeUpdate:
@@ -393,34 +368,8 @@
 
 - (void)sui_DBHelperDidChangeContent:(SUIDBHelper *)cHelper
 {
-    [cHelper.sui_objects enumerateObjectsUsingBlock:^(__kindof SUIDBEntity * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        
-        
-        
-    }];
-    
-    
     [self.sui_tableView endUpdates];
 }
 
-
-@end
-
-
-@implementation NSMutableArray (SUIAdditions)
-
-- (void)sui_moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
-{
-    if (toIndex != fromIndex && fromIndex < [self count] && toIndex< [self count]) {
-        id obj = [self objectAtIndex:fromIndex];
-        [self removeObjectAtIndex:fromIndex];
-        if (toIndex >= [self count]) {
-            [self addObject:obj];
-        } else {
-            [self insertObject:obj atIndex:toIndex];
-        }
-    }
-}
 
 @end
