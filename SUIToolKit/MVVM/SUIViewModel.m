@@ -8,6 +8,7 @@
 
 #import "SUIViewModel.h"
 #import "ReactiveCocoa.h"
+#import "SUICategories.h"
 
 @interface SUIViewModel ()
 
@@ -53,6 +54,22 @@
     if (self.model != model) {
         self.model = model;
     }
+}
+
+- (UIViewController *)sui_vc
+{
+    if (!_sui_vc) {
+        _sui_vc = self.sui_view.sui_currentVC;
+    }
+    return _sui_vc;
+}
+
+- (UIView *)sui_view
+{
+    if (!_sui_view) {
+        _sui_view = self.sui_vc.view;
+    }
+    return _sui_view;
 }
 
 

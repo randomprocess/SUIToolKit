@@ -1,15 +1,11 @@
 
-pod 'SUIUtilities', :git => 'https://github.com/randomprocess/SUIUtilities'
+#pod 'SUIUtilities', :git => 'https://github.com/randomprocess/SUIUtilities'
 
-pod 'SUICategories', :git => 'https://github.com/randomprocess/SUICategories'
+#pod 'SUICategories', :git => 'https://github.com/randomprocess/SUICategories'
 
-#pod 'SUIUtilities', '~> 1.0.0'
+pod 'SUIUtilities', '~> 1.0.0'
 
-#pod 'SUICategories', '~> 1.1.0'
-
-#pod 'AFNetworking', '~> 3.0.2'
-
-#pod 'ReactiveCocoa', '~> 2.5', :inhibit_warnings => true
+pod 'SUICategories', '~> 1.1.0'
 
 
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.3'

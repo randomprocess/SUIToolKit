@@ -38,7 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SUIViewModel : NSObject <SUIViewModelDelagate>
 
-@property (nonatomic,weak) UIViewController *sui_vc;
+@property (nullable,nonatomic,weak) UIViewController *sui_vc;
+@property (nullable,nonatomic,weak) UIView *sui_view;
 
 @property (nullable,nonatomic,readonly,strong) id model;
 
