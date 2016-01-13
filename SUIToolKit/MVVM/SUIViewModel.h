@@ -12,7 +12,11 @@
 
 @class SUIViewModel;
 
-#define SUIVMObserve(__MD_PROPERTY) [RACObserve(self.model, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
+#define SUIVMMDTYPE(__MD_CLASS, __STUFF) ({BOOL ret = [self.model isKindOfClass:[__MD_CLASS class]]; \
+if (ret) { typeof(__MD_CLASS *) __SUIVMRAC = self.model; __STUFF }; ret; \
+});
+
+#define SUIVMObserve(__MD_PROPERTY) [RACObserve(__SUIVMRAC, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
 #define SUIVMRAC(__SELF_PROPERTY, __MD_PROPERTY) RAC(self, __SELF_PROPERTY) = SUIVMObserve(__MD_PROPERTY);
 
 //#define SUIVIEWObserve(__VM_TYPE, __VM_PROPERTY) ({typeof(__VM_TYPE *) __VM = self.sui_vm; \

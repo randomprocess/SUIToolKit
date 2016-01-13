@@ -12,26 +12,29 @@
 
 @interface SUIMVVMRootTitleVM ()
 
-@property (nonatomic,strong) SUIMVVMRootTitleMD *model;
-
 @end
 
 @implementation SUIMVVMRootTitleVM
-@dynamic model;
-
 
 - (void)sui_commonInit
 {
-    SUIVMRAC(text1, kw);
-    RAC(self, text2) = [SUIVMObserve(numOfAlbums) map:^id(NSNumber *cNum) {
-        return gFormat(@"num:%@",cNum);
-    }];
-    RAC(self, textColo1) = [SUIVMObserve(numOfAlbums) map:^id(id value) {
-        return gRandomColo;
-    }];
-    RAC(self, textColo2) = [SUIVMObserve(numOfAlbums) map:^id(id value) {
-        return gRandomColo;
-    }];
+    SUIVMMDTYPE(SUIMVVMRootTitleMD,
+                
+                SUIVMRAC(text1, kw);
+                RAC(self, text2) = [SUIVMObserve(numOfAlbums)
+                                    map:^id(NSNumber *cNum) {
+                                        return gFormat(@"num:%@",cNum);
+                                    }];
+                RAC(self, textColo1) = [SUIVMObserve(numOfAlbums)
+                                        map:^id(id value) {
+                                            return gRandomColo;
+                                        }];
+                RAC(self, textColo2) = [SUIVMObserve(numOfAlbums)
+                                        map:^id(id value) {
+                                            return gRandomColo;
+                                        }];
+                
+                )
 }
 
 

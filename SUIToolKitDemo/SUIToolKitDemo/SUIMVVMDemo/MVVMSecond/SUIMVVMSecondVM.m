@@ -12,21 +12,22 @@
 
 @interface SUIMVVMSecondVM ()
 
-@property (nonatomic,strong) SUIAlbumMD *model;
-
 @end
 
 @implementation SUIMVVMSecondVM
-@dynamic model;
-
 
 - (void)sui_commonInit
 {
-    SUIVMRAC(cover, cover);
-    
-    RAC(self, aId) = [SUIVMObserve(aId) map:^id(NSNumber *cNum) {
-        return gFormat(@"id: %@", cNum);
-    }];
+    SUIVMMDTYPE(SUIAlbumMD,
+                
+                SUIVMRAC(cover, cover);
+                
+                RAC(self, aId) = [SUIVMObserve(aId)
+                                  map:^id(NSNumber *cNum) {
+                                      return gFormat(@"id: %@", cNum);
+                                  }];
+                
+                )
 }
 
 

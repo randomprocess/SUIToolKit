@@ -12,23 +12,39 @@
 
 @interface SUIMVVMRootCellVM ()
 
-@property (nonatomic,strong) SUIAlbumMD *model;
-
 @end
 
 @implementation SUIMVVMRootCellVM
-@dynamic model;
 
 
 - (void)sui_commonInit
 {
-    SUIVMRAC(name, name);
-    RAC(self, aId) = [SUIVMObserve(aId) map:^id(NSNumber *cNum) {
-        return gFormat(@"id: %@", cNum);
-    }];
-
-    SUIVMRAC(dateText, release_date);
-    SUIVMRAC(cover, cover);
+    SUIVMMDTYPE(SUIAlbumMD,
+                
+                SUIVMRAC(name, name);
+                RAC(self, aId) = [SUIVMObserve(aId)
+                                  map:^id(NSNumber *cNum) {
+                                      return gFormat(@"id: %@", cNum);
+                                  }];
+                
+                SUIVMRAC(dateText, release_date);
+                SUIVMRAC(cover, cover);
+                
+                )
+//    
+//#define keypath3(PATH) (((void)(NO && ((void)((SUIAlbumMD *)self.model).PATH, NO)), # PATH))
+//
+//    keypath3(release_date);
+//    
+//    typeof(SUIAlbumMD *)model = self.model;
+//
+//    NSString *versionPath = @keypath(((SUIAlbumMD *)self.model), name);
+//    
+//[RACObserve((typeof(SUIAlbumMD *)self.model), name) takeUntil:[RACObserve(self, model) skip:1]]
+//        
+//        
+//    }
+//    
 }
 
 
