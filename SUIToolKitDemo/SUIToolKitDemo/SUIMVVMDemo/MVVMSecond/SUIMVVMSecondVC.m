@@ -13,16 +13,12 @@
 
 @interface SUIMVVMSecondVC ()
 
-@property (nonatomic,strong) SUIMVVMSecondVM *sui_vm;
-
 @property (weak, nonatomic) IBOutlet UIImageView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *idLbl;
 
 @end
 
 @implementation SUIMVVMSecondVC
-@dynamic sui_vm;
-
 
 - (Class)sui_classOfViewModel
 {
@@ -33,13 +29,18 @@
 {
     [super viewDidLoad];
     
-    @weakify(self)
-    [[SUIVIEWObserve(cover) ignore:nil] subscribeNext:^(NSString *cCover) {
-        @strongify(self)
-        [self.coverView setImageWithURL:cCover.sui_toURL];
-    }];
-    
-    RAC(self.idLbl, text) = RACObserve(self.sui_vm, aId);
+    SUIVIEWBIND(SUIMVVMSecondVM,
+                
+                @weakify(self)
+                [[SUIVIEWObserve(cover) ignore:nil]
+                 subscribeNext:^(NSString *cCover) {
+                     @strongify(self)
+                     [self.coverView setImageWithURL:cCover.sui_toURL];
+                 }];
+                
+                RAC(self.idLbl, text) = SUIVIEWObserve(aId);
+                
+                )
 }
 
 

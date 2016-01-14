@@ -14,14 +14,14 @@
 
 @interface SUIMVVMRootVC ()
 
-@property (nonatomic,strong) SUIMVVMRootVM *sui_vm; // ← ← 加了好多偷懒的宏, 所以这里VM名称要对应
+@property (nonatomic,strong) SUIMVVMRootVM *sui_vm;
 
 @property (weak, nonatomic) IBOutlet SUIMVVMRootTitleView *currTitleView;
 
 @end
 
 @implementation SUIMVVMRootVC
-@dynamic sui_vm; // ← ← VC和View里都要加上这一句.
+@dynamic sui_vm;
 
 
 - (Class)sui_classOfViewModel
@@ -33,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     
     // 懒加载生成VM, 所以这里这句可不写
     [self sui_vm];

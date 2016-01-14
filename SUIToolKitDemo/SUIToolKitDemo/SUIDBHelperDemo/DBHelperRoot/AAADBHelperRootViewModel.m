@@ -16,8 +16,6 @@
 
 @interface AAADBHelperRootViewModel ()
 
-
-
 @end
 
 @implementation AAADBHelperRootViewModel

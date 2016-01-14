@@ -18,16 +18,16 @@
 
 - (void)sui_commonInit
 {
-    SUIVMMDTYPE(SUIAlbumMD,
-                
-                SUIVMRAC(cover, cover);
-                
-                RAC(self, aId) = [SUIVMObserve(aId)
-                                  map:^id(NSNumber *cNum) {
-                                      return gFormat(@"id: %@", cNum);
-                                  }];
-                
-                )
+    SUIVMBIND(SUIAlbumMD,
+              
+              SUIVMRAC(cover, cover);
+              
+              RAC(self, aId) = [SUIVMObserve(aId)
+                                map:^id(NSNumber *cNum) {
+                                    return gFormat(@"id: %@", cNum);
+                                }];
+              )
+    
 }
 
 

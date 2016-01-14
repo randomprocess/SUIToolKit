@@ -18,23 +18,23 @@
 
 - (void)sui_commonInit
 {
-    SUIVMMDTYPE(SUIMVVMRootTitleMD,
-                
-                SUIVMRAC(text1, kw);
-                RAC(self, text2) = [SUIVMObserve(numOfAlbums)
-                                    map:^id(NSNumber *cNum) {
-                                        return gFormat(@"num:%@",cNum);
-                                    }];
-                RAC(self, textColo1) = [SUIVMObserve(numOfAlbums)
-                                        map:^id(id value) {
-                                            return gRandomColo;
-                                        }];
-                RAC(self, textColo2) = [SUIVMObserve(numOfAlbums)
-                                        map:^id(id value) {
-                                            return gRandomColo;
-                                        }];
-                
-                )
+    SUIVMBIND(SUIMVVMRootTitleMD,
+              
+              SUIVMRAC(text1, kw);
+              RAC(self, text2) = [SUIVMObserve(numOfAlbums)
+                                  map:^id(NSNumber *cNum) {
+                                      return gFormat(@"num:%@",cNum);
+                                  }];
+              RAC(self, textColo1) = [SUIVMObserve(numOfAlbums)
+                                      map:^id(id value) {
+                                          return gRandomColo;
+                                      }];
+              RAC(self, textColo2) = [SUIVMObserve(numOfAlbums)
+                                      map:^id(id value) {
+                                          return gRandomColo;
+                                      }];
+              
+              )
 }
 
 

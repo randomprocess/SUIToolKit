@@ -13,13 +13,9 @@
 
 @interface SUIMVVMRootCell ()
 
-@property (nonatomic,strong) SUIMVVMRootCellVM *sui_vm;
-
 @end
 
 @implementation SUIMVVMRootCell
-@dynamic sui_vm; // ← ←
-
 
 - (Class)sui_classOfViewModel
 {
@@ -28,16 +24,20 @@
 
 - (void)sui_willDisplayWithViewModel
 {
-    RAC(self.nameLbl, text) = SUICELLObserve(name);
-    RAC(self.idLbl, text) = SUICELLObserve(aId);
-    RAC(self.dateLbl, text) = SUICELLObserve(dateText);
-    
-    @weakify(self)
-    [SUICELLObserve(cover) subscribeNext:^(NSString *cCover) {
-        @strongify(self)
-        [self.coverView setImageWithURL:cCover.sui_toURL];
-    }];
+    SUIVIEWBIND(SUIMVVMRootCellVM,
+                
+                RAC(self.nameLbl, text) = SUICELLObserve(name);
+                RAC(self.idLbl, text) = SUICELLObserve(aId);
+                RAC(self.dateLbl, text) = SUICELLObserve(dateText);
+                
+                @weakify(self)
+                [SUICELLObserve(cover)
+                 subscribeNext:^(NSString *cCover) {
+                     @strongify(self)
+                     [self.coverView setImageWithURL:cCover.sui_toURL];
+                 }];
+                
+                )
 }
-
 
 @end

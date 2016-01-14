@@ -12,22 +12,40 @@
 
 @class SUIViewModel;
 
-#define SUIVMMDTYPE(__MD_CLASS, __STUFF) ({BOOL ret = [self.model isKindOfClass:[__MD_CLASS class]]; \
-if (ret) { typeof(__MD_CLASS *) __SUIVMRAC = self.model; __STUFF }; ret; \
+#define SUIVIEWBIND(__VM_CLASS, __STUFF) { \
+uAssert([self.sui_vm isKindOfClass:[__VM_CLASS class]], \
+@"check the VM_CLASS in View ⤭ %@ ⤪[;[;", gClassName(self)) \
+typeof(__VM_CLASS *) __SUI_VM = self.sui_vm; \
+__STUFF \
+}
+
+#define SUIVMBIND(__MD_CLASS, __STUFF) ({ \
+uAssert([self isKindOfClass:[SUIViewModel class]], \
+@"check the superclass in VM ⤭ %@ ⤪[;[;", gClassName(self)) \
+BOOL ret = [self.model isKindOfClass:[__MD_CLASS class]]; \
+if (ret) { typeof(__MD_CLASS *) __SUI_MD = self.model; __STUFF }; \
+ret; \
 });
 
-#define SUIVMObserve(__MD_PROPERTY) [RACObserve(__SUIVMRAC, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
+#define SUIVMObserve(__MD_PROPERTY) [RACObserve(__SUI_MD, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
 #define SUIVMRAC(__SELF_PROPERTY, __MD_PROPERTY) RAC(self, __SELF_PROPERTY) = SUIVMObserve(__MD_PROPERTY);
 
-//#define SUIVIEWObserve(__VM_TYPE, __VM_PROPERTY) ({typeof(__VM_TYPE *) __VM = self.sui_vm; \
-RACObserve(__VM, __VM_PROPERTY);})
-#define SUIVIEWObserve(__VM_PROPERTY) RACObserve(self.sui_vm, __VM_PROPERTY)
-#define SUICELLObserve(__VM_PROPERTY) [RACObserve(self.sui_vm, __VM_PROPERTY) takeUntil:self.rac_prepareForReuseSignal]
+#define SUIVIEWObserve(__VM_PROPERTY) ({ \
+uAssert(![self isKindOfClass:[UITableViewCell class]], \
+@"use SUICELLObserve() instead in Cell ⤭ %@ ⤪[;[;", gClassName(self)) \
+RACObserve(__SUI_VM, __VM_PROPERTY); \
+})
+
+#define SUICELLObserve(__VM_PROPERTY) ({ \
+uAssert([self isKindOfClass:[UITableViewCell class]], \
+@"use SUIVIEWObserve() instead in View ⤭ %@ ⤪[;[;", gClassName(self)) \
+[RACObserve(__SUI_VM, __VM_PROPERTY) takeUntil:self.rac_prepareForReuseSignal]; \
+})
 
 #define SUICOMMAND(__SIGNAL) ({@weakify(self);[[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) { \
 uWarcUnused(@strongify(self)) \
 return __SIGNAL; \
-}];}) \
+}];})
 
 NS_ASSUME_NONNULL_BEGIN
 
