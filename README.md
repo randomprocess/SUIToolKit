@@ -23,7 +23,8 @@ SUIToolKit
 
 # Reference
 - Please Refer to the SUIToolKitDemo.
-- 参考SUIToolKitDemo.
+- 参考SUIToolKitDemo. [简书地址](http://www.jianshu.com/p/0a73462df71a)
+
 
 # License
 SUIToolKit is available under the MIT license. See the LICENSE file for more info.
