@@ -2,6 +2,7 @@ SUIToolKit
 ======
 - A collection of convenient classes for iOS.
 - 一些常用或能方便开发的类库集合.
+- MVVM编程模式架构参考[简书地址:http://www.jianshu.com/p/0a73462df71a](http://www.jianshu.com/p/0a73462df71a)
 
 # Include:
 - 常用宏和工具类: [SUIUtilities](https://github.com/randomprocess/SUIUtilities)
@@ -23,7 +24,7 @@ SUIToolKit
 
 # Reference
 - Please Refer to the SUIToolKitDemo.
-- 参考SUIToolKitDemo. [简书地址](http://www.jianshu.com/p/0a73462df71a)
+- 参考SUIToolKitDemo. 
 
 
 # License
