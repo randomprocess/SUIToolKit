@@ -80,3 +80,25 @@
 
 
 @end
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  NSMutableArray
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+@implementation NSMutableArray (SUIAdditions)
+
+- (void)sui_moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
+{
+    if (toIndex != fromIndex && fromIndex < [self count] && toIndex< [self count]) {
+        id obj = [self objectAtIndex:fromIndex];
+        [self removeObjectAtIndex:fromIndex];
+        if (toIndex >= [self count]) {
+            [self addObject:obj];
+        } else {
+            [self insertObject:obj atIndex:toIndex];
+        }
+    }
+}
+
+@end

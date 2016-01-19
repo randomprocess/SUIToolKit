@@ -27,16 +27,6 @@
     return self;
 }
 
-- (instancetype)initWithModel:(id)model
-{
-    self = [super init];
-    if (self) {
-        self.model = model;
-        [self performSelectorOnMainThread:@selector(observeModel) withObject:nil waitUntilDone:NO];
-    }
-    return self;
-}
-
 - (void)observeModel
 {
     @weakify(self)

@@ -3,7 +3,6 @@
 
 #pod 'SUICategories', :git => 'https://github.com/randomprocess/SUICategories'
 
-pod 'SUIUtilities', '~> 1.0.0'
 
 pod 'SUICategories', '~> 1.1.0'
 

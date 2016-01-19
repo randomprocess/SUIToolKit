@@ -17,7 +17,10 @@
 {
     SUIViewModel *curVM = [self sui_getAssociatedObjectWithKey:@selector(sui_vm)];
     if (curVM) return curVM;
-    curVM = [[self sui_classOfViewModel] new];
+    uAssert([self respondsToSelector:@selector(sui_classOfViewModel)], @"you forgot to add sui_classOfViewModel() in View ⤭ %@ ⤪[;", gClassName(self));
+    
+    curVM = [[[self sui_classOfViewModel] alloc] init];
+    uAssert([curVM isKindOfClass:[SUIViewModel class]] , @"return value of sui_classOfViewModel() is not Inherited from SUIViewModel ⤭ %@ ⤪[;", gClassName(curVM));
     self.sui_vm = curVM;
     return curVM;
 }

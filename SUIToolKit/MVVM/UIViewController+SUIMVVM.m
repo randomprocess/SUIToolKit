@@ -10,6 +10,7 @@
 #import "NSObject+SUIAdditions.h"
 #import "UIViewController+SUIAdditions.h"
 #import "SUIViewModel.h"
+#import "SUIMacros.h"
 
 @implementation UIViewController (SUIMVVM)
 
@@ -18,17 +19,26 @@
 {
     SUIViewModel *curVM = [self sui_getAssociatedObjectWithKey:@selector(sui_vm)];
     if (curVM) return curVM;
+    uAssert([self respondsToSelector:@selector(sui_classOfViewModel)], @"you forgot to add sui_classOfViewModel() in VC ⤭ %@ ⤪[;", gClassName(self));
     
     if (self.sui_sourceVC) {
         if ([self.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
             id curModel = [self.sui_sourceVC.sui_vm sui_modelPassed:self];
-            curVM = [[[self sui_classOfViewModel] alloc] initWithModel:curModel];
+            curVM = [[[self sui_classOfViewModel] alloc] init];
+            [self sui_checkClassOfViewModel:curVM];
+            [curVM bindWithModel:curModel];
         }
     } else {
-        curVM = [[self sui_classOfViewModel] new];
+        curVM = [[[self sui_classOfViewModel] alloc] init];
+        [self sui_checkClassOfViewModel:curVM];
     }
     self.sui_vm = curVM;
     return curVM;
+}
+
+- (void)sui_checkClassOfViewModel:(id)cVM
+{
+    uAssert([cVM isKindOfClass:[SUIViewModel class]] , @"return value of sui_classOfViewModel() is not Inherited from SUIViewModel ⤭ %@ ⤪[;", gClassName(cVM));
 }
 
 - (void)setSui_vm:(SUIViewModel *)sui_vm

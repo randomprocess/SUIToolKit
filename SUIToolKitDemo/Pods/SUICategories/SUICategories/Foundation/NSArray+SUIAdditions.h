@@ -44,4 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  NSMutableArray
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+@interface NSMutableArray (SUIAdditions)
+
+- (void)sui_moveObjectFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+
+@end
+
+
 NS_ASSUME_NONNULL_END

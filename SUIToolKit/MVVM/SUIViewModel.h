@@ -42,11 +42,6 @@ uAssert([self isKindOfClass:[UITableViewCell class]], \
 [RACObserve(__SUI_VM, __VM_PROPERTY) takeUntil:self.rac_prepareForReuseSignal]; \
 })
 
-#define SUICOMMAND(__SIGNAL) ({@weakify(self);[[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) { \
-uWarcUnused(@strongify(self)) \
-return __SIGNAL; \
-}];})
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SUIViewModelDelagate <NSObject>
@@ -64,8 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable,nonatomic,weak) UIView *sui_view;
 
 @property (nullable,nonatomic,readonly,strong) id model;
-
-- (instancetype)initWithModel:(nullable id)model;
 
 - (void)bindWithModel:(id)model;
 

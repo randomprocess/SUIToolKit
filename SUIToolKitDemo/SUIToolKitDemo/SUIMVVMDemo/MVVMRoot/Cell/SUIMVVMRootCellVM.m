@@ -19,7 +19,6 @@
 
 - (void)sui_commonInit
 {
-    
     // 用了宏无法在其中设置断点,也不能在宏内部使用LLDB O_O
     // 为了调试方便可能还是自行展开写比较好
     SUIVMBIND(SUIAlbumMD,
@@ -34,8 +33,8 @@
               SUIVMRAC(cover, cover);
               
               )
-    
 }
 
 
 @end
+

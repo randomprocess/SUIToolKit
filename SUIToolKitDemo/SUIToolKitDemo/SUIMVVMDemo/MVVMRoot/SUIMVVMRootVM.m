@@ -51,10 +51,9 @@
 
 - (RACSignal *)rootTitleClickSignal
 {
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [SUISignal signalCompleted:^(id<RACSubscriber>  _Nonnull subscriber) {
         uLog(@"Click TitleView");
         [subscriber sendCompleted];
-        return nil;
     }];
 }
 
