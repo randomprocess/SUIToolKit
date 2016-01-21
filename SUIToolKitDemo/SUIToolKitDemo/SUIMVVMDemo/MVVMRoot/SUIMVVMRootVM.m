@@ -25,7 +25,7 @@
 - (void)sui_commonInit
 {
     self.rootTitleMD.kw = @"狗";
-
+    
     // 请求数据,这里只简单的封装了AFN,实际使用时替换成自己的网络请求模块
     [[SUINetwork requestWithParameters:@{@"kw" : self.rootTitleMD.kw}].requestSignal subscribeNext:^(NSDictionary *cDict) {
         
@@ -46,14 +46,9 @@
 
 - (RACCommand *)rootTitleClickCommand
 {
-    return SUICOMMAND([self rootTitleClickSignal]);
-}
-
-- (RACSignal *)rootTitleClickSignal
-{
-    return [SUISignal signalCompleted:^(id<RACSubscriber>  _Nonnull subscriber) {
+    return [SUICommand command:^RACSignal * _Nonnull{
         uLog(@"Click TitleView");
-        [subscriber sendCompleted];
+        return nil;
     }];
 }
 

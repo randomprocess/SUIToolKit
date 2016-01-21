@@ -43,20 +43,20 @@ PODS:
     - ReactiveCocoa (~> 2.5)
     - SUICategories/Foundation
     - SUIUtilities (~> 1.1.0)
-  - SUIUtilities (1.1.0):
+  - SUIUtilities (1.1.1):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
-    - SUIUtilities/Network (= 1.1.0)
-    - SUIUtilities/RAC (= 1.1.0)
-    - SUIUtilities/Utilities (= 1.1.0)
-  - SUIUtilities/Network (1.1.0):
+    - SUIUtilities/Network (= 1.1.1)
+    - SUIUtilities/RAC (= 1.1.1)
+    - SUIUtilities/Utilities (= 1.1.1)
+  - SUIUtilities/Network (1.1.1):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
     - SUIUtilities/Utilities
-  - SUIUtilities/RAC (1.1.0):
+  - SUIUtilities/RAC (1.1.1):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
-  - SUIUtilities/Utilities (1.1.0):
+  - SUIUtilities/Utilities (1.1.1):
     - AFNetworking (~> 3.0.2)
     - ReactiveCocoa (~> 2.5)
   - UITableView+FDTemplateLayoutCell (1.4)
@@ -74,7 +74,7 @@ SPEC CHECKSUMS:
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SUICategories: 9b2110eb7275f8d47dd7c35a704caf59404604c3
-  SUIUtilities: 030793415f6bd1b40fd583fae0481246bfbf1131
+  SUIUtilities: 0e12e726fcff7bcb961b6f4d848905188a25a83e
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 
 COCOAPODS: 0.39.0

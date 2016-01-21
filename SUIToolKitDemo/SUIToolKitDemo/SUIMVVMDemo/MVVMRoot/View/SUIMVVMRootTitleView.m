@@ -31,9 +31,9 @@
                 RAC(self.lbl01, textColor) = SUIVIEWObserve(textColo1);
                 RAC(self.lbl02, textColor) = SUIVIEWObserve(textColo2);
                 
+                self.clickBtn.rac_command = [sui_vm clickCommand];
+                
                 )
-    
-    self.clickBtn.rac_command = [self.sui_vm clickCommand];
 }
 
 
