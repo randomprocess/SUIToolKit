@@ -10,22 +10,43 @@
 #import <UIKit/UIKit.h>
 #import "SUIMacros.h"
 
-@class SUIViewModel;
+@class SUIViewModel, RACSignal;
 
-#define SUIVIEWBIND(__VM_CLASS, __STUFF) { \
-uAssert([self.sui_vm isKindOfClass:[__VM_CLASS class]], \
-@"check the VM_CLASS in View ⤭ %@ ⤪[;[;", gClassName(self)) \
-typeof(__VM_CLASS *) sui_vm = self.sui_vm; \
-__STUFF \
+//#define SUIVIEWBIND(__VM_CLASS, __STUFF) { \
+//uAssert([self.sui_vm isKindOfClass:[__VM_CLASS class]], \
+//@"check the VM_CLASS in View ⤭ %@ ⤪[;[;", gClassName(self)) \
+//typeof(__VM_CLASS *) sui_vm = self.sui_vm; \
+//__STUFF \
+//}
+
+//#define SUIVMBIND(__MD_CLASS, __STUFF) ({ \
+//uAssert([self isKindOfClass:[SUIViewModel class]], \
+//@"check the superclass in VM ⤭ %@ ⤪[;[;", gClassName(self)) \
+//BOOL ret = [self.model isKindOfClass:[__MD_CLASS class]]; \
+//if (ret) { typeof(__MD_CLASS *) model = self.model; __STUFF }; \
+//ret; \
+//});
+
+#define SUIVIEWVMInit \
+- (void)awakeFromNib { \
+[super awakeFromNib]; \
+[self sui_commonVMInit]; \
+} \
+- (instancetype)init { \
+self = [super init]; \
+if (self) { \
+[self sui_commonVMInit]; \
+} \
+return self; \
+} \
+- (void)sui_commonVMInit { \
+[self sui_vm]; \
 }
 
-#define SUIVMBIND(__MD_CLASS, __STUFF) ({ \
-uAssert([self isKindOfClass:[SUIViewModel class]], \
-@"check the superclass in VM ⤭ %@ ⤪[;[;", gClassName(self)) \
-BOOL ret = [self.model isKindOfClass:[__MD_CLASS class]]; \
-if (ret) { typeof(__MD_CLASS *) model = self.model; __STUFF }; \
-ret; \
-});
+#define SUIVIEWClassOfViewModel(__VM_CLASS) \
+- (Class)sui_classOfViewModel { \
+return [__VM_CLASS class]; \
+}
 
 #define SUIVMObserve(__MD_PROPERTY) [RACObserve(model, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
 #define SUIVMRAC(__SELF_PROPERTY, __MD_PROPERTY) RAC(self, __SELF_PROPERTY) = SUIVMObserve(__MD_PROPERTY);
@@ -48,7 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (void)sui_commonInit;
+- (void)sui_bindWithModel:(id)model;
 - (id)sui_modelPassed:(__kindof UIViewController *)cDestVC;
+- (RACSignal *)sui_signalPassed;
 
 @end
 
@@ -60,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable,nonatomic,readonly,strong) id model;
 
-- (void)bindWithModel:(id)model;
+- (void)bindModel:(id)model;
 
 
 @end

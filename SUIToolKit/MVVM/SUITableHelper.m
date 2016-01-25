@@ -73,8 +73,8 @@
     
     [self sui_configureCell:curCell tableView:tableView atIndexPath:indexPath];
     
-    if ([curCell respondsToSelector:@selector(sui_willDisplayWithViewModel)]) {
-        [curCell sui_willDisplayWithViewModel];
+    if ([curCell respondsToSelector:@selector(sui_willDisplayWithViewModel:)]) {
+        [curCell sui_willDisplayWithViewModel:curCell.sui_vm];
     }
     return curCell;
 }
@@ -151,10 +151,10 @@
 {
     id model = [self currentModelAtIndexPath:cIndexPath];
     cCell.sui_tableView = cTableView;
-    [cCell.sui_vm bindWithModel:model];
+    [cCell.sui_vm bindModel:model];
     
-    if ([cCell respondsToSelector:@selector(sui_willCalculateHeightWithViewModel)]) {
-        [cCell sui_willCalculateHeightWithViewModel];
+    if ([cCell respondsToSelector:@selector(sui_willCalculateHeightWithViewModel:)]) {
+        [cCell sui_willCalculateHeightWithViewModel:cCell.sui_vm];
     }    
 }
 

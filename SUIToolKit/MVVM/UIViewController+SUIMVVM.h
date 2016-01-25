@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 - (Class)sui_classOfViewModel;
-- (void)sui_bindWithViewModel;
+- (void)sui_bindWithViewModel:(SUIViewModel *)sui_vm;
 
 @end
 

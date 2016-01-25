@@ -17,27 +17,22 @@
 
 @implementation SUIMVVMRootCell
 
-- (Class)sui_classOfViewModel
+
+SUIVIEWClassOfViewModel(SUIMVVMRootCellVM)
+
+- (void)sui_willDisplayWithViewModel:(SUIMVVMRootCellVM *)sui_vm
 {
-    return [SUIMVVMRootCellVM class];
+    RAC(self.nameLbl, text) = SUICELLObserve(name);
+    RAC(self.idLbl, text) = SUICELLObserve(aId);
+    RAC(self.dateLbl, text) = SUICELLObserve(dateText);
+    
+    @weakify(self)
+    [SUICELLObserve(cover)
+     subscribeNext:^(NSString *cCover) {
+         @strongify(self)
+         [self.coverView setImageWithURL:cCover.sui_toURL];
+     }];
 }
 
-- (void)sui_willDisplayWithViewModel
-{
-    SUIVIEWBIND(SUIMVVMRootCellVM,
-                
-                RAC(self.nameLbl, text) = SUICELLObserve(name);
-                RAC(self.idLbl, text) = SUICELLObserve(aId);
-                RAC(self.dateLbl, text) = SUICELLObserve(dateText);
-                
-                @weakify(self)
-                [SUICELLObserve(cover)
-                 subscribeNext:^(NSString *cCover) {
-                     @strongify(self)
-                     [self.coverView setImageWithURL:cCover.sui_toURL];
-                 }];
-                
-                )
-}
 
 @end

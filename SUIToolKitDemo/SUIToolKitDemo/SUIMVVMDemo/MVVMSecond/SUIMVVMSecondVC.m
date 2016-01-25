@@ -20,27 +20,28 @@
 
 @implementation SUIMVVMSecondVC
 
-- (Class)sui_classOfViewModel
-{
-    return [SUIMVVMSecondVM class];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    SUIVIEWBIND(SUIMVVMSecondVM,
-                
-                @weakify(self)
-                [[SUIVIEWObserve(cover) ignore:nil]
-                 subscribeNext:^(NSString *cCover) {
-                     @strongify(self)
-                     [self.coverView setImageWithURL:cCover.sui_toURL];
-                 }];
-                
-                RAC(self.idLbl, text) = SUIVIEWObserve(aId);
-                
-                )
+// 懒加载生成VM, 所以要写上这一句, 或者下方写着的SUIVIEWVMInit宏
+//    [self sui_vm];
+}
+
+SUIVIEWVMInit
+
+SUIVIEWClassOfViewModel(SUIMVVMSecondVM)
+
+- (void)sui_bindWithViewModel:(SUIMVVMSecondVM *)sui_vm
+{
+    @weakify(self)
+    [[SUIVIEWObserve(cover) ignore:nil]
+     subscribeNext:^(NSString *cCover) {
+         @strongify(self)
+         [self.coverView setImageWithURL:cCover.sui_toURL];
+     }];
+    
+    RAC(self.idLbl, text) = SUIVIEWObserve(aId);
 }
 
 

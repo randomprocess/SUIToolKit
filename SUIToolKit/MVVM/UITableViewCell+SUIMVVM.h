@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SUIViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SUIMVVMCellProtocol <NSObject>
 @optional
 
-- (void)sui_willCalculateHeightWithViewModel;
-- (void)sui_willDisplayWithViewModel;
+- (void)sui_willCalculateHeightWithViewModel:(SUIViewModel *)sui_vm;
+- (void)sui_willDisplayWithViewModel:(SUIViewModel *)sui_vm;
 
 @end
 

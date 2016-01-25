@@ -23,12 +23,10 @@
 @implementation SUIMVVMRootVC
 @dynamic sui_vm;
 
-
 - (Class)sui_classOfViewModel
 {
     return [SUIMVVMRootVM class];
 }
-
 
 - (void)viewDidLoad
 {
@@ -44,9 +42,9 @@
     /**
      *  自定义视图
      */
-    
+
     // TitleView绑定model
-    [self.currTitleView.sui_vm bindWithModel:self.sui_vm.rootTitleMD];
+    [self.currTitleView.sui_vm bindModel:self.sui_vm.rootTitleMD];
     // TitleView点击事件
     uTypeof(SUIMVVMRootTitleVM, self.currTitleView.sui_vm).clickCommand = self.sui_vm.rootTitleClickCommand;
     

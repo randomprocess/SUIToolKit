@@ -16,25 +16,23 @@
 
 @implementation SUIMVVMRootTitleVM
 
-- (void)sui_commonInit
+
+- (void)sui_bindWithModel:(SUIMVVMRootTitleMD *)model
 {
-    SUIVMBIND(SUIMVVMRootTitleMD,
-              
-              SUIVMRAC(text1, kw);
-              RAC(self, text2) = [SUIVMObserve(numOfAlbums)
-                                  map:^id(NSNumber *cNum) {
-                                      return gFormat(@"num:%@",cNum);
-                                  }];
-              RAC(self, textColo1) = [SUIVMObserve(numOfAlbums)
-                                      map:^id(id value) {
-                                          return gRandomColo;
-                                      }];
-              RAC(self, textColo2) = [SUIVMObserve(numOfAlbums)
-                                      map:^id(id value) {
-                                          return gRandomColo;
-                                      }];
-              
-              )
+    SUIVMRAC(text1, kw);
+    RAC(self, text2) = [SUIVMObserve(numOfAlbums)
+                        map:^id(NSNumber *cNum) {
+                            return gFormat(@"num:%@",cNum);
+                        }];
+    RAC(self, textColo1) = [SUIVMObserve(numOfAlbums)
+                            map:^id(id value) {
+                                return gRandomColo;
+                            }];
+    RAC(self, textColo2) = [SUIVMObserve(numOfAlbums)
+                            map:^id(id value) {
+                                return gRandomColo;
+                            }];
 }
+
 
 @end

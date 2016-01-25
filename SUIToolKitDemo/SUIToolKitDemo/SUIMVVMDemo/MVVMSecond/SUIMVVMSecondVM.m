@@ -16,18 +16,15 @@
 
 @implementation SUIMVVMSecondVM
 
-- (void)sui_commonInit
-{
-    SUIVMBIND(SUIAlbumMD,
-              
-              SUIVMRAC(cover, cover);
-              
-              RAC(self, aId) = [SUIVMObserve(aId)
-                                map:^id(NSNumber *cNum) {
-                                    return gFormat(@"id: %@", cNum);
-                                }];
-              )
+
+- (void)sui_bindWithModel:(SUIAlbumMD *)model
+{    
+    SUIVMRAC(cover, cover);
     
+    RAC(self, aId) = [SUIVMObserve(aId)
+                      map:^id(NSNumber *cNum) {
+                          return gFormat(@"id: %@", cNum);
+                      }];
 }
 
 

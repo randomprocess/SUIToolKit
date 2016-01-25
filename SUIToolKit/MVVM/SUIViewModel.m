@@ -9,6 +9,7 @@
 #import "SUIViewModel.h"
 #import "ReactiveCocoa.h"
 #import "SUICategories.h"
+#import "UIViewController+SUIMVVM.h"
 
 @interface SUIViewModel ()
 
@@ -22,24 +23,35 @@
 {
     self = [super init];
     if (self) {
-        [self performSelectorOnMainThread:@selector(observeModel) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(observeModel)
+                               withObject:nil
+                            waitUntilDone:NO];
     }
     return self;
 }
 
 - (void)observeModel
 {
+    if ([self.sui_vc.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
+        id curModel = [self.sui_vc.sui_sourceVC.sui_vm sui_modelPassed:self.sui_vc];
+        [self bindModel:curModel];
+    }
+    
+    [self sui_commonInit];
+    
     @weakify(self)
-    [[RACObserve(self, model) distinctUntilChanged] subscribeNext:^(id x) {
+    [[RACObserve(self, model) distinctUntilChanged] subscribeNext:^(id cModel) {
         @strongify(self)
-        [self sui_commonInit];
+        [self sui_bindWithModel:cModel];
     }];
 }
 
 - (void)sui_commonInit {}
 
+- (void)sui_bindWithModel:(id)model {}
 
-- (void)bindWithModel:(id)model
+
+- (void)bindModel:(id)model
 {
     if (self.model != model) {
         self.model = model;
