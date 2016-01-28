@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
 s.name         = 'SUIToolKit'
-s.version      = '1.1.1'
+s.version      = '1.1.2'
 s.platform     = :ios, '7.0'
 s.summary      = 'A collection of convenient classes for iOS.'
 
@@ -20,7 +20,7 @@ s.source_files  = 'SUIToolKit/SUIToolKit.h'
 
 s.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'QuartzCore'
 s.dependency 'ReactiveCocoa', '~> 2.5'
-s.dependency 'SUIUtilities', '~> 1.0.0'
+s.dependency 'SUIUtilities', '~> 1.1.0'
 s.dependency 'SUICategories', '~> 1.1.0'
 
 s.subspec 'DBHelper' do |ss|
