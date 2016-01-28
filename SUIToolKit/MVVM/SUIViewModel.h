@@ -63,6 +63,9 @@ uAssert([self isKindOfClass:[UITableViewCell class]], \
 [RACObserve(sui_vm, __VM_PROPERTY) takeUntil:self.rac_prepareForReuseSignal]; \
 })
 
+#define SUIVIEWRAC(__SELF_TARGET, __TARGET_PROPERTY, __VM_PROPERTY) RAC(__SELF_TARGET, __TARGET_PROPERTY) = SUIVIEWObserve(__VM_PROPERTY);
+#define SUICELLRAC(__SELF_TARGET, __TARGET_PROPERTY, __VM_PROPERTY) RAC(__SELF_TARGET, __TARGET_PROPERTY) = SUICELLObserve(__VM_PROPERTY);
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SUIViewModelDelagate <NSObject>

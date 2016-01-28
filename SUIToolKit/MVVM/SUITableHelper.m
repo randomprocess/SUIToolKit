@@ -161,14 +161,14 @@
 
 - (void)resetDataAry:(NSArray *)newDataAry forSection:(NSInteger)cSection
 {
-    if (newDataAry.count == 0) return;
     uMainQueue
     (
      [self sui_makeUpDataAryForSection:cSection];
-     
      NSMutableArray *subAry = self.dataArray[cSection];
      if (subAry.count) [subAry removeAllObjects];
-     [subAry addObjectsFromArray:newDataAry];
+     if (newDataAry.count) {
+         [subAry addObjectsFromArray:newDataAry];
+     }
      [self.sui_tableView reloadData];
      )
 }
