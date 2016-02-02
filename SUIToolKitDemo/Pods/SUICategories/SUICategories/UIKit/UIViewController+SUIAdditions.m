@@ -1,4 +1,4 @@
-                                                                                 //
+//
 //  UIViewController+SUIAdditions.m
 //  SUIToolKitDemo
 //
@@ -43,7 +43,7 @@
 {
     UITableView *curTableView = [self sui_getAssociatedObjectWithKey:@selector(sui_tableView)];
     if (curTableView) return curTableView;
-
+    
     if ([self isKindOfClass:[UITableViewController class]]) {
         curTableView = (UITableView *)self.view;
     } else {
@@ -230,10 +230,10 @@
         curNav.topViewController.sui_sourceVC = self;
         [self presentViewController:curVC animated:YES completion:nil];
     } else {
+        curVC.sui_sourceVC = self;
         if (cType == SUISegueTypePush) {
             [self.navigationController pushViewController:curVC animated:YES];
         } else {
-            curVC.sui_sourceVC = self;
             [self presentViewController:curVC animated:YES completion:nil];
         }
     }
@@ -311,8 +311,8 @@
 }
 
 - (SUIAlertAction *)addTitle:(nullable NSString *)cTitle
-           style:(SUIAlertActionStyle)cStyle
-         handler:(void (^)(SUIAlertAction *cAction))cHandler
+                       style:(SUIAlertActionStyle)cStyle
+                     handler:(void (^)(SUIAlertAction *cAction))cHandler
 {
     SUIAlertAction *curAlertAction = [SUIAlertAction actionWithTitle:cTitle style:cStyle handler:cHandler];
     [self addAction:curAlertAction];
@@ -379,7 +379,7 @@
 #pragma clang diagnostic pop
                 self.sui_actionSheet = curActionSheet;
                 [curActionSheet sui_setAssociatedObject:self key:_cmd policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-
+                
                 [self.sui_actions enumerateObjectsUsingBlock:^(SUIAlertAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (cancelAlertAction != obj) {
                         [curActionSheet addButtonWithTitle:obj.title];
@@ -418,7 +418,6 @@
                 [curAlertView show];
             }
         }
-
     }
     
     {

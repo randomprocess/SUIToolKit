@@ -15,9 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) IBInspectable BOOL sui_setup;
 
-@property (nullable,nonatomic,copy) IBInspectable NSString *sui_storyboardName;
-
-@property (nullable,nonatomic,copy) IBInspectable NSString *sui_storyboardID;
+@property (nullable,nonatomic,copy) IBInspectable NSString *sui_storyboardNameAndID;
 
 
 @end

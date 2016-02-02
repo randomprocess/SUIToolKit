@@ -8,6 +8,7 @@
 
 #import "UIButton+SUIAdditions.h"
 #import "ReactiveCocoa.h"
+#import "UIImage+SUIAdditions.h"
 
 @implementation UIButton (SUIAdditions)
 
@@ -95,7 +96,7 @@
 - (void)setSui_highlightedBackgroundImage:(UIImage *)sui_highlightedBackgroundImage
 {
     [self setBackgroundImage:sui_highlightedBackgroundImage forState:UIControlStateHighlighted];
-
+    
 }
 
 
@@ -217,6 +218,64 @@
 {
     self.contentEdgeInsets = sui_insets;
     [self sizeToFit];
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  TintColor
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - TintColor
+
+- (UIColor *)sui_imageTintColor
+{
+    return nil;
+}
+- (void)setSui_imageTintColor:(UIColor *)sui_imageTintColor
+{
+    if (sui_imageTintColor) {
+        UIImage *curImage = [[self currentImage] sui_imageWithGradientTintColor:sui_imageTintColor];
+        self.sui_normalImage = curImage;
+    }
+}
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Resizable
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Resizable
+
+- (BOOL)sui_resizableImage
+{
+    self.sui_resizableImage = YES;
+    return YES;
+}
+- (void)setSui_resizableImage:(BOOL)sui_resizableImage
+{
+    if (sui_resizableImage) {
+        UIEdgeInsets curInsets = UIEdgeInsetsMake(self.currentImage.size.height/2-1,
+                                                  self.currentImage.size.width/2-1,
+                                                  self.currentImage.size.height/2,
+                                                  self.currentImage.size.width/2);
+        self.sui_normalImage = [self.currentImage resizableImageWithCapInsets:curInsets resizingMode:UIImageResizingModeStretch];
+    }
+}
+
+- (BOOL)sui_resizableBackground
+{
+    self.sui_resizableBackground = YES;
+    return YES;
+}
+- (void)setSui_resizableBackground:(BOOL)sui_resizableBackground
+{
+    if (sui_resizableBackground) {
+        UIEdgeInsets curInsets = UIEdgeInsetsMake(self.currentBackgroundImage.size.height/2-1,
+                                                  self.currentBackgroundImage.size.width/2-1,
+                                                  self.currentBackgroundImage.size.height/2,
+                                                  self.currentBackgroundImage.size.width/2);
+        self.sui_normalBackgroundImage = [self.currentBackgroundImage resizableImageWithCapInsets:curInsets resizingMode:UIImageResizingModeStretch];
+    }
 }
 
 

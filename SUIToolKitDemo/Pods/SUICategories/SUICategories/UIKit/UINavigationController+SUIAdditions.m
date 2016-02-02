@@ -71,7 +71,9 @@
                                                  toViewController:(UIViewController *)toVC
 {
     if (operation == UINavigationControllerOperationPush) {
-        toVC.sui_sourceVC = fromVC;
+        if (!toVC.sui_sourceVC) {
+            toVC.sui_sourceVC = fromVC;
+        }
     }
     if (self.sui_delegate) {
         if ([self.sui_delegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
@@ -129,41 +131,38 @@
 
 #pragma mark - StoryboardLink
 
-- (NSString *)sui_storyboardName
+- (NSString *)sui_storyboardNameAndID
 {
-    return [self sui_getAssociatedObjectWithKey:@selector(sui_storyboardName)];
+    return [self sui_getAssociatedObjectWithKey:@selector(sui_storyboardNameAndID)];
 }
-- (void)setSui_storyboardName:(NSString *)sui_storyboardName
+- (void)setSui_storyboardNameAndID:(NSString *)sui_storyboardNameAndID
 {
-    [self sui_setAssociatedObject:sui_storyboardName key:@selector(sui_storyboardName) policy:OBJC_ASSOCIATION_COPY];
-    [self performSelectorOnMainThread:@selector(sui_setRootViewController) withObject:nil waitUntilDone:NO];
-}
-
-- (NSString *)sui_storyboardID
-{
-    return [self sui_getAssociatedObjectWithKey:@selector(sui_storyboardID)];
-}
-- (void)setSui_storyboardID:(NSString *)sui_storyboardID
-{
-    [self sui_setAssociatedObject:sui_storyboardID key:@selector(sui_storyboardID) policy:OBJC_ASSOCIATION_COPY];
-    [self performSelectorOnMainThread:@selector(sui_setRootViewController) withObject:nil waitUntilDone:NO];
+    [self sui_setAssociatedObject:sui_storyboardNameAndID key:@selector(sui_storyboardNameAndID) policy:OBJC_ASSOCIATION_COPY];
+    [self sui_setRootViewController];
 }
 
 - (void)sui_setRootViewController
 {
-    [self sui_performOnce:^{
-        UIViewController *curRootVC = nil;
-        if (self.sui_storyboardID) {
-            curRootVC = gStoryboardInstantiate(self.sui_storyboardName, self.sui_storyboardID);
-        } else {
-            curRootVC = gStoryboardInitialViewController(self.sui_storyboardName);
+    NSArray *components = [self.sui_storyboardNameAndID componentsSeparatedByString:@"."];
+    NSString *curStoryboardName = nil;
+    NSString *curStoryboardID = nil;
+    if (components.count > 0) {
+        curStoryboardName = components[0];
+        if (components.count > 1) {
+            curStoryboardID = components[1];
         }
-        
-        uAssert(curRootVC, @"should set Initial View Controller OR set storyboardID")
+    }
+    
+    if (curStoryboardName) {
+        UIViewController *curRootVC = nil;
+        if (curStoryboardID) {
+            curRootVC = gStoryboardInstantiate(curStoryboardName, curStoryboardID);
+        } else {
+            curRootVC = gStoryboardInitialViewController(curStoryboardName);
+        }
+        uAssert(curRootVC, @"check storyboardNameAndID");
         [self setViewControllers:@[curRootVC] animated:NO];
-        
-    } key:NSStringFromSelector(_cmd)];
+    }
 }
-
 
 @end

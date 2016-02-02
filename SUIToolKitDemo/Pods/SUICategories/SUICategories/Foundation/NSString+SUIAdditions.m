@@ -118,7 +118,7 @@
 - (BOOL)sui_containsString:(NSString *)cString
 {
     if (cString.length == 0) return NO;
-
+    
     BOOL isContains = ([self rangeOfString:cString].location != NSNotFound);
     return isContains;
 }
@@ -202,6 +202,36 @@
     return curStr;
 }
 
+#pragma mark Substr
+
+- (NSString *)sui_substrToIndex:(NSUInteger)cIndex
+{
+    if (self.length <= cIndex) {
+        uLogError(@"substrTo Str ⤭ %@ ⤪ length <= Index ⤭ %zd ⤪", self, cIndex);
+        return self;
+    }
+    return [self substringToIndex:cIndex];
+}
+- (NSString *)sui_substrFromIndex:(NSUInteger)cIndex
+{
+    if (self.length < cIndex) {
+        uLogError(@"substrFrom Str ⤭ %@ ⤪ length < Index ⤭ %zd ⤪", self, cIndex);
+        return nil;
+    }
+    return [self substringFromIndex:cIndex];
+}
+- (NSString *)sui_substrWithRange:(NSRange)cRange
+{
+    if (self.length < cRange.location) {
+        uLogError(@"substrWithRange Str ⤭ %@ ⤪ length < Range ⤭ %@ ⤪", self, NSStringFromRange(cRange));
+        return nil;
+    } else if (self.length < cRange.location + cRange.length) {
+        uLogError(@"substrWithRange Str ⤭ %@ ⤪ length < Range.location+length ⤭ %@ ⤪", self, NSStringFromRange(cRange));
+        return [self sui_substrFromIndex:cRange.location];
+    }
+    return [self substringWithRange:cRange];
+}
+
 #pragma mark Replace
 
 - (NSString *)sui_replaceString:(NSString *)cString withString:(NSString *)cReplacement
@@ -221,7 +251,7 @@
 - (NSString *)sui_replaceRegex:(NSString *)cRegex withString:(NSString *)cReplacement
 {
     if (cRegex.length == 0) return self;
-
+    
     NSString *curStr = [self stringByReplacingOccurrencesOfString:cRegex withString:cReplacement options:NSRegularExpressionSearch range:NSMakeRange(0, self.length)];
     return curStr;
 }

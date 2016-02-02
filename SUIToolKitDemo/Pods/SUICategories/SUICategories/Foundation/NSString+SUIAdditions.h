@@ -58,6 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)sui_delstrStringInHeadTail:(NSString *)cString;
 - (NSString *)sui_delstrWrapInHeadTail;
 
+#pragma mark Substr
+
+- (NSString *)sui_substrToIndex:(NSUInteger)cIndex;
+- (nullable NSString *)sui_substrFromIndex:(NSUInteger)cIndex;
+- (nullable NSString *)sui_substrWithRange:(NSRange)cRange;
+
 #pragma mark Replace
 
 - (NSString *)sui_replaceString:(NSString *)cString withString:(NSString *)cReplacement;

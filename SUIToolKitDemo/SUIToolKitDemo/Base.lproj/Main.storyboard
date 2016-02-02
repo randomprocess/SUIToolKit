@@ -140,7 +140,7 @@
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sui_setup" value="YES"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardName" value="SUIDBHelperDemo"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardNameAndID" value="SUIDBHelperDemo"/>
                     </userDefinedRuntimeAttributes>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="llg-fk-SBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -174,7 +174,7 @@
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sui_setup" value="YES"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardName" value="SUIMVVMDemo"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardNameAndID" value="SUIMVVMDemo"/>
                     </userDefinedRuntimeAttributes>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ji-5Q-Lap" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -191,7 +191,7 @@
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sui_setup" value="YES"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardName" value="SUIToolbar"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardNameAndID" value="SUIToolbar"/>
                     </userDefinedRuntimeAttributes>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQh-zb-xc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -208,7 +208,7 @@
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sui_setup" value="YES"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardName" value="SUIViewController"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardNameAndID" value="SUIViewController"/>
                     </userDefinedRuntimeAttributes>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tpX-UJ-97N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -225,7 +225,7 @@
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="sui_setup" value="YES"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardName" value="SUIEmoticonDemo"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="sui_storyboardNameAndID" value="SUIEmoticonDemo"/>
                     </userDefinedRuntimeAttributes>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypq-a0-Gip" userLabel="First Responder" sceneMemberID="firstResponder"/>

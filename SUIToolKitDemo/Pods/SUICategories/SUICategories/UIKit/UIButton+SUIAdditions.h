@@ -71,6 +71,25 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) UIEdgeInsets sui_insets;
 
 
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  TintColor
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - TintColor
+
+@property (nullable,nonatomic,copy) IBInspectable UIColor *sui_imageTintColor;
+
+
+/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+ *  Resizable
+ *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+
+#pragma mark - Resizable
+
+@property (nonatomic) IBInspectable BOOL sui_resizableImage;
+@property (nonatomic) IBInspectable BOOL sui_resizableBackground;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

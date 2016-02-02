@@ -32,9 +32,11 @@
 
 - (void)observeModel
 {
-    if ([self.sui_vc.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
-        id curModel = [self.sui_vc.sui_sourceVC.sui_vm sui_modelPassed:self.sui_vc];
-        [self bindModel:curModel];
+    if ([self.sui_vc.sui_sourceVC respondsToSelector:@selector(sui_classOfViewModel)]) {
+        if ([self.sui_vc.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
+            id curModel = [self.sui_vc.sui_sourceVC.sui_vm sui_modelPassed:self.sui_vc];
+            [self bindModel:curModel];
+        }
     }
     
     [self sui_commonInit];

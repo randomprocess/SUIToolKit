@@ -34,11 +34,10 @@
         UIView *curMainView = [self sui_mainView];
         if (!curMainView) {
             curMainView = [[NSBundle mainBundle] loadNibNamed:gClassName(self) owner:self options:nil][0];
+            curMainView.frame = self.bounds;
+            curMainView.backgroundColor = [UIColor clearColor];
             [self setSui_mainView:curMainView];
             [self addSubview:curMainView];
-            
-            self.backgroundColor = [UIColor clearColor];
-            curMainView.frame = self.bounds;
             [curMainView sui_layoutPinnedToSuperview];
         }
     } else {
@@ -197,6 +196,32 @@
     CGRect curRect = self.frame;
     if (curRect.size.height != sui_height) {
         curRect.size.height = sui_height;
+        self.frame = curRect;
+    }
+}
+
+- (CGPoint)sui_origin
+{
+    return self.frame.origin;
+}
+- (void)setSui_origin:(CGPoint)sui_origin
+{
+    CGRect curRect = self.frame;
+    if (!CGPointEqualToPoint(curRect.origin, sui_origin)) {
+        curRect.origin = sui_origin;
+        self.frame = curRect;
+    }
+}
+
+- (CGSize)sui_size
+{
+    return self.frame.size;
+}
+- (void)setSui_size:(CGSize)sui_size
+{
+    CGRect curRect = self.frame;
+    if (!CGSizeEqualToSize(curRect.size, sui_size)) {
+        curRect.size = sui_size;
         self.frame = curRect;
     }
 }
