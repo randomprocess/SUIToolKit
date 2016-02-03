@@ -131,8 +131,7 @@ NSString *hexString = [__hex stringByReplacingOccurrencesOfString:@"#" withStrin
 #define uWeak(__obj) typeof(__obj) __weak weak_##__obj = __obj;
 #define uBlock(__obj) typeof(__obj) __block block_##__obj = __obj;
 
-//#define uTypeof(__TYPE, __PROPERTY) ({typeof(__TYPE *) __CLASS = __PROPERTY; __CLASS;})
-#define uTypeof(__TYPE, __PROPERTY) ((__TYPE *)__PROPERTY)
+#define uTypeof(__TYPE, __PROPERTY) ({typeof(__TYPE *) __CLASS = __PROPERTY; __CLASS;})
 
 #define uBorder(__view) __view.layer.borderColor=[gRandomColo CGColor];__view.layer.borderWidth=1;
 

@@ -18,27 +18,11 @@
 @end
 
 @implementation SUIViewModel
+@synthesize sui_vc = _sui_vc, sui_view = _sui_view;
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self performSelectorOnMainThread:@selector(observeModel)
-                               withObject:nil
-                            waitUntilDone:NO];
-    }
-    return self;
-}
 
 - (void)observeModel
 {
-    if ([self.sui_vc.sui_sourceVC respondsToSelector:@selector(sui_classOfViewModel)]) {
-        if ([self.sui_vc.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
-            id curModel = [self.sui_vc.sui_sourceVC.sui_vm sui_modelPassed:self.sui_vc];
-            [self bindModel:curModel];
-        }
-    }
-    
     [self sui_commonInit];
     
     @weakify(self)
@@ -67,6 +51,24 @@
     }
     return _sui_vc;
 }
+- (void)setSui_vc:(UIViewController *)sui_vc
+{
+    _sui_vc = sui_vc;
+    
+    [[[RACObserve(sui_vc, sui_sourceVC)
+      ignore:nil]
+     take:1]
+     subscribeNext:^(id x) {
+        if ([self.sui_vc.sui_sourceVC respondsToSelector:@selector(sui_classOfViewModel)]) {
+            if ([self.sui_vc.sui_sourceVC.sui_vm respondsToSelector:@selector(sui_modelPassed:)]) {
+                id curModel = [self.sui_vc.sui_sourceVC.sui_vm sui_modelPassed:self.sui_vc];
+                [self bindModel:curModel];
+            }
+        }
+    }];
+    
+    [self observeModel];
+}
 
 - (UIView *)sui_view
 {
@@ -74,6 +76,12 @@
         _sui_view = self.sui_vc.view;
     }
     return _sui_view;
+}
+- (void)setSui_view:(UIView *)sui_view
+{
+    _sui_view = sui_view;
+    
+    [self observeModel];
 }
 
 

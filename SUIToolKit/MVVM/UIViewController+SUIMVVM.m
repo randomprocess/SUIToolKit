@@ -31,7 +31,6 @@
 {
     [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
     sui_vm.sui_vc = self;
-    
     if ([self respondsToSelector:@selector(sui_bindWithViewModel:)]) {
         [self performSelectorOnMainThread:@selector(sui_bindWithViewModel:) withObject:sui_vm waitUntilDone:NO];
     }

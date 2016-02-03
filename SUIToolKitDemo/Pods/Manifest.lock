@@ -65,22 +65,16 @@ DEPENDENCIES:
   - LKDBHelper (~> 2.1.7)
   - MJExtension (~> 3.0.7)
   - SUICategories (from `https://github.com/randomprocess/SUICategories`)
-  - SUIUtilities (from `https://github.com/randomprocess/SUIUtilities`)
   - UITableView+FDTemplateLayoutCell (~> 1.3)
 
 EXTERNAL SOURCES:
   SUICategories:
     :git: https://github.com/randomprocess/SUICategories
-  SUIUtilities:
-    :git: https://github.com/randomprocess/SUIUtilities
 
 CHECKOUT OPTIONS:
   SUICategories:
     :commit: 670a8ca00017974a2a8da60a9a643451f404131f
     :git: https://github.com/randomprocess/SUICategories
-  SUIUtilities:
-    :commit: a631119c1343a7832e0027131142bd1a92c141bf
-    :git: https://github.com/randomprocess/SUIUtilities
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
