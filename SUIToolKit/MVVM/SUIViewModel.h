@@ -48,7 +48,7 @@ return self; \
 return [__VM_CLASS class]; \
 }
 
-#define SUIVMObserve(__MD_PROPERTY) [RACObserve(model, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]]
+#define SUIVMObserve(__MD_PROPERTY) (model ? [RACObserve(model, __MD_PROPERTY) takeUntil:[RACObserve(self, model) skip:1]] : nil)
 #define SUIVMRAC(__SELF_PROPERTY, __MD_PROPERTY) RAC(self, __SELF_PROPERTY) = SUIVMObserve(__MD_PROPERTY);
 
 #define SUIVIEWObserve(__VM_PROPERTY) ({ \
