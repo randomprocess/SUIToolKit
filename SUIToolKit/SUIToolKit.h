@@ -10,16 +10,15 @@
 #define SUIToolKitDemo_SUIToolKit_h
 
 
-#import "SUIUtilities.h"
-#import "SUICategories.h"
+#import "SUIUtils.h"
 
 
-/*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
- *  DBHelper
- *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
-
-#import "SUIDBHelper.h"
-#import "SUIDBEntity.h"
+///*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
+// *  DBHelper
+// *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
+//
+//#import "SUIDBHelper.h"
+//#import "SUIDBEntity.h"
 
 
 /*o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o*
@@ -27,12 +26,9 @@
  *o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~o~*/
 
 #import "SUIViewModel.h"
-#import "UITableViewCell+SUIMVVM.h"
-#import "UIViewController+SUIMVVM.h"
 #import "UIView+SUIMVVM.h"
-#import "UITableView+SUIMVVM.h"
-#import "UITableViewCell+SUIMVVM.h"
-#import "SUITableHelper.h"
+#import "UIViewController+SUIMVVM.h"
+#import "SUITableHelper+SUIMVVM.h"
 
 
 #endif

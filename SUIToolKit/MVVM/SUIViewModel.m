@@ -8,7 +8,6 @@
 
 #import "SUIViewModel.h"
 #import "ReactiveCocoa.h"
-#import "SUICategories.h"
 #import "UIViewController+SUIMVVM.h"
 
 @interface SUIViewModel ()
@@ -26,7 +25,9 @@
     [self sui_commonInit];
     
     @weakify(self)
-    [[RACObserve(self, model) distinctUntilChanged] subscribeNext:^(id cModel) {
+    [[[RACObserve(self, model) skipWhileBlock:^BOOL(id cModel) {
+        return cModel == nil;
+    }] distinctUntilChanged] subscribeNext:^(id cModel) {
         @strongify(self)
         [self sui_bindWithModel:cModel];
     }];

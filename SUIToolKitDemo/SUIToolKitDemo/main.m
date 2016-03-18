@@ -2,8 +2,8 @@
 //  main.m
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/6/24.
-//  Copyright (c) 2015年 SUIO~. All rights reserved.
+//  Created by 姜雨良 on 16/3/17.
+//  Copyright © 2016年 RainfallMax. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

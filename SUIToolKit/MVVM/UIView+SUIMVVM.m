@@ -7,7 +7,7 @@
 //
 
 #import "UIView+SUIMVVM.h"
-#import "NSObject+SUIAdditions.h"
+#import "SUIUtils.h"
 #import "SUIViewModel.h"
 
 @implementation UIView (SUIMVVM)
@@ -17,20 +17,25 @@
 {
     SUIViewModel *curVM = [self sui_getAssociatedObjectWithKey:@selector(sui_vm)];
     if (curVM) return curVM;
-    uAssert([self respondsToSelector:@selector(sui_classOfViewModel)], @"you forgot to add sui_classOfViewModel() in View ⤭ %@ ⤪[;", gClassName(self));
     
+    SUIAssert([self respondsToSelector:@selector(sui_classOfViewModel)], @"you forgot to add sui_classOfViewModel() in View ⤭ %@ ⤪[;", gClassName(self));
     curVM = [[[self sui_classOfViewModel] alloc] init];
-    uAssert([curVM isKindOfClass:[SUIViewModel class]] , @"return value of sui_classOfViewModel() is not Inherited from SUIViewModel ⤭ %@ ⤪[;", gClassName(curVM));
+    
+    SUIAssert([curVM isKindOfClass:[SUIViewModel class]] , @"return value of sui_classOfViewModel() is not Inherited from SUIViewModel ⤭ %@ ⤪[;", gClassName(curVM));
     self.sui_vm = curVM;
+    
     return curVM;
 }
 
 - (void)setSui_vm:(SUIViewModel *)sui_vm
 {
-    [self sui_setAssociatedObject:sui_vm key:@selector(sui_vm) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+    [self sui_setAssociatedRetainObject:sui_vm key:@selector(sui_vm)];
     sui_vm.sui_view = self;
-    if ([self respondsToSelector:@selector(sui_bindWithViewModel:)]) {
-        [self performSelectorOnMainThread:@selector(sui_bindWithViewModel:) withObject:sui_vm waitUntilDone:NO];
+    
+    if (![self isKindOfClass:[UITableViewCell class]]) {
+        if ([self respondsToSelector:@selector(sui_bindWithViewModel:)]) {
+            [self performSelectorOnMainThread:@selector(sui_bindWithViewModel:) withObject:sui_vm waitUntilDone:NO];
+        }
     }
 }
 
