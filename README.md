@@ -5,8 +5,6 @@ SUIToolKit
 - MVVM编程模式架构参考[简书地址:http://www.jianshu.com/p/0a73462df71a](http://www.jianshu.com/p/0a73462df71a)
 
 # Include:
-- 常用宏和工具类: [SUIUtilities](https://github.com/randomprocess/SUIUtilities)
-- 常用的类别: [SUICategories](https://github.com/randomprocess/SUICategories)
 - 基于storyboard的界面传值和跳转方式
 - 基于MVVM编程模式架构
 - 简单封装了[LKDBHelper](https://github.com/li6185377/LKDBHelper-SQLite-ORM)监听数据源变化
