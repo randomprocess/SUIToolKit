@@ -7,7 +7,6 @@ SUIToolKit
 # Include:
 - 基于storyboard的界面传值和跳转方式
 - 基于MVVM编程模式架构
-- 简单封装了[LKDBHelper](https://github.com/li6185377/LKDBHelper-SQLite-ORM)监听数据源变化
 - 一些奇怪功能的自定义视图
 
 ------
@@ -16,9 +15,7 @@ SUIToolKit
 - iOS7.0+
 - ARC
 - [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)
-- [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 - [UITableView+FDTemplateLayoutCell](https://github.com/forkingdog/UITableView-FDTemplateLayoutCell)
-- [LKDBHelper](https://github.com/li6185377/LKDBHelper-SQLite-ORM)
 
 # Reference
 - Please Refer to the SUIToolKitDemo.
