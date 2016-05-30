@@ -1,0 +1,42 @@
+PODS:
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - SUIUtils (0.0.2):
+    - SUIUtils/Foundation (= 0.0.2)
+    - SUIUtils/Helper (= 0.0.2)
+    - SUIUtils/Tool (= 0.0.2)
+    - SUIUtils/UIKit (= 0.0.2)
+  - SUIUtils/Foundation (0.0.2):
+    - SUIUtils/Tool
+  - SUIUtils/Helper (0.0.2):
+    - SUIUtils/UIKit
+    - UITableView+FDTemplateLayoutCell (~> 1.4)
+  - SUIUtils/Tool (0.0.2)
+  - SUIUtils/UIKit (0.0.2):
+    - SUIUtils/Foundation
+  - UITableView+FDTemplateLayoutCell (1.4)
+
+DEPENDENCIES:
+  - ReactiveCocoa (= 2.5)
+  - SUIUtils (from `https://github.com/randomprocess/SUIUtils`)
+
+EXTERNAL SOURCES:
+  SUIUtils:
+    :git: https://github.com/randomprocess/SUIUtils
+
+CHECKOUT OPTIONS:
+  SUIUtils:
+    :commit: f0685ad7a76db3f5880fc3fbe894b31a2085d308
+    :git: https://github.com/randomprocess/SUIUtils
+
+SPEC CHECKSUMS:
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SUIUtils: b4dc603df7a7f08dab0005522353414260a1b719
+  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+
+COCOAPODS: 0.39.0

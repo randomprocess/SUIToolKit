@@ -2,13 +2,12 @@
 //  AppDelegate.m
 //  SUIToolKitDemo
 //
-//  Created by zzZ on 15/6/24.
-//  Copyright (c) 2015年 SUIO~. All rights reserved.
+//  Created by 姜雨良 on 16/3/17.
+//  Copyright © 2016年 RainfallMax. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "SUIUtilities.h"
-#import "SUICategories.h"
+#import "SUILoginVC.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +19,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [SUINetworkConfig sharedInstance].baseURL = @"http://v5.pc.duomi.com/search-ajaxsearch-searchall";
+    SUILoginVC *loginVC = [[SUILoginVC alloc] init];
+    
+    UITabBarController *tabbarController = [[UITabBarController alloc] init];
+    
+    NSMutableArray *curArray = [NSMutableArray array];
+    for (NSInteger i=0; i<3; i++) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [curArray addObject:nav];
+    }
+    [tabbarController setViewControllers:curArray];    
+    
+    self.window.rootViewController = tabbarController;
     
     return YES;
 }
@@ -45,10 +55,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    
-//#ifdef DEBUG
-//    [MagicalRecord cleanUp];
-//#endif
 }
 
 @end

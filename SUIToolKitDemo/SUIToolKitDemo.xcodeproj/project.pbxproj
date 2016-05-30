@@ -9,25 +9,15 @@
 /* Begin PBXBuildFile section */
 		A8260C44051426731A478B69 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2618F59E2C129849AD883EE1 /* libPods.a */; };
 		BC32588A1C9A816400598141 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258891C9A816400598141 /* main.m */; };
-		BC3258931C9A816400598141 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3258911C9A816400598141 /* Main.storyboard */; };
 		BC3258951C9A816400598141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC3258941C9A816400598141 /* Assets.xcassets */; };
 		BC3258981C9A816400598141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3258961C9A816400598141 /* LaunchScreen.storyboard */; };
 		BC3258A41C9A84A200598141 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258A31C9A84A200598141 /* AppDelegate.m */; };
-		BC3258D31C9A875600598141 /* MVVMDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3258D21C9A875600598141 /* MVVMDemo.storyboard */; };
-		BC3258D81C9A881E00598141 /* SUIMVVMRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258D71C9A881E00598141 /* SUIMVVMRootVC.m */; };
 		BC3259001C9A889E00598141 /* SUIViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258EF1C9A889E00598141 /* SUIViewModel.m */; };
 		BC3259031C9A889E00598141 /* UIView+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258F51C9A889E00598141 /* UIView+SUIMVVM.m */; };
 		BC3259041C9A889E00598141 /* UIViewController+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3258F71C9A889E00598141 /* UIViewController+SUIMVVM.m */; };
-		BC3259071C9A920800598141 /* SUIMVVMRootVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3259061C9A920800598141 /* SUIMVVMRootVM.m */; };
-		BC32591D1C9A98BC00598141 /* SUIMVVMRootMD.m in Sources */ = {isa = PBXBuildFile; fileRef = BC32591C1C9A98BC00598141 /* SUIMVVMRootMD.m */; };
 		BC3259201C9ABCDF00598141 /* SUITableHelper+SUIMVVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC32591F1C9ABCDF00598141 /* SUITableHelper+SUIMVVM.m */; };
-		BC32592D1C9B141200598141 /* SUIMVVMRootCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3259291C9B141200598141 /* SUIMVVMRootCell.m */; };
-		BC32592E1C9B141200598141 /* SUIMVVMRootCellVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC32592B1C9B141200598141 /* SUIMVVMRootCellVM.m */; };
-		BC3259311C9B168900598141 /* SUIMVVMRootTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3259301C9B168900598141 /* SUIMVVMRootTitleView.m */; };
-		BC3259341C9B197100598141 /* SUIMVVMRootTitleViewVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3259331C9B197100598141 /* SUIMVVMRootTitleViewVM.m */; };
-		BC3259361C9B1DB200598141 /* SUIMVVMRootTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC3259351C9B1DB200598141 /* SUIMVVMRootTitleView.xib */; };
-		BCC90BF61C9BD3E8009ABC8D /* SUIMVVMSecondVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC90BF51C9BD3E8009ABC8D /* SUIMVVMSecondVC.m */; };
-		BCC90BF91C9BD407009ABC8D /* SUIMVVMSecondVM.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC90BF81C9BD407009ABC8D /* SUIMVVMSecondVM.m */; };
+		BC9093F61CA3BCBC008BA45F /* SUILoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9093F51CA3BCBC008BA45F /* SUILoginVC.m */; };
+		BC9093F91CA3CF76008BA45F /* SUIRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9093F81CA3CF76008BA45F /* SUIRegisterVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,15 +26,11 @@
 		A1A1B65A3CA4C37F3746CE20 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BC3258851C9A816400598141 /* SUIToolKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUIToolKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3258891C9A816400598141 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BC3258921C9A816400598141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BC3258941C9A816400598141 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC3258971C9A816400598141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC3258991C9A816400598141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC3258A21C9A84A200598141 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BC3258A31C9A84A200598141 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BC3258D21C9A875600598141 /* MVVMDemo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MVVMDemo.storyboard; sourceTree = "<group>"; };
-		BC3258D61C9A881E00598141 /* SUIMVVMRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootVC.h; sourceTree = "<group>"; };
-		BC3258D71C9A881E00598141 /* SUIMVVMRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootVC.m; sourceTree = "<group>"; };
 		BC3258EE1C9A889E00598141 /* SUIViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIViewModel.h; sourceTree = "<group>"; };
 		BC3258EF1C9A889E00598141 /* SUIViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIViewModel.m; sourceTree = "<group>"; };
 		BC3258F41C9A889E00598141 /* UIView+SUIMVVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SUIMVVM.h"; sourceTree = "<group>"; };
@@ -52,25 +38,12 @@
 		BC3258F61C9A889E00598141 /* UIViewController+SUIMVVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SUIMVVM.h"; sourceTree = "<group>"; };
 		BC3258F71C9A889E00598141 /* UIViewController+SUIMVVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SUIMVVM.m"; sourceTree = "<group>"; };
 		BC3258F81C9A889E00598141 /* SUIToolKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIToolKit.h; sourceTree = "<group>"; };
-		BC3259051C9A920800598141 /* SUIMVVMRootVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootVM.h; sourceTree = "<group>"; };
-		BC3259061C9A920800598141 /* SUIMVVMRootVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootVM.m; sourceTree = "<group>"; };
-		BC32591B1C9A98BC00598141 /* SUIMVVMRootMD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootMD.h; sourceTree = "<group>"; };
-		BC32591C1C9A98BC00598141 /* SUIMVVMRootMD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootMD.m; sourceTree = "<group>"; };
 		BC32591E1C9ABCDF00598141 /* SUITableHelper+SUIMVVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SUITableHelper+SUIMVVM.h"; sourceTree = "<group>"; };
 		BC32591F1C9ABCDF00598141 /* SUITableHelper+SUIMVVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SUITableHelper+SUIMVVM.m"; sourceTree = "<group>"; };
-		BC3259281C9B141200598141 /* SUIMVVMRootCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCell.h; sourceTree = "<group>"; };
-		BC3259291C9B141200598141 /* SUIMVVMRootCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCell.m; sourceTree = "<group>"; };
-		BC32592A1C9B141200598141 /* SUIMVVMRootCellVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootCellVM.h; sourceTree = "<group>"; };
-		BC32592B1C9B141200598141 /* SUIMVVMRootCellVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootCellVM.m; sourceTree = "<group>"; };
-		BC32592F1C9B168900598141 /* SUIMVVMRootTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootTitleView.h; sourceTree = "<group>"; };
-		BC3259301C9B168900598141 /* SUIMVVMRootTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootTitleView.m; sourceTree = "<group>"; };
-		BC3259321C9B197100598141 /* SUIMVVMRootTitleViewVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMRootTitleViewVM.h; sourceTree = "<group>"; };
-		BC3259331C9B197100598141 /* SUIMVVMRootTitleViewVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMRootTitleViewVM.m; sourceTree = "<group>"; };
-		BC3259351C9B1DB200598141 /* SUIMVVMRootTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUIMVVMRootTitleView.xib; sourceTree = "<group>"; };
-		BCC90BF41C9BD3E8009ABC8D /* SUIMVVMSecondVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMSecondVC.h; sourceTree = "<group>"; };
-		BCC90BF51C9BD3E8009ABC8D /* SUIMVVMSecondVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMSecondVC.m; sourceTree = "<group>"; };
-		BCC90BF71C9BD407009ABC8D /* SUIMVVMSecondVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIMVVMSecondVM.h; sourceTree = "<group>"; };
-		BCC90BF81C9BD407009ABC8D /* SUIMVVMSecondVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIMVVMSecondVM.m; sourceTree = "<group>"; };
+		BC9093F41CA3BCBC008BA45F /* SUILoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUILoginVC.h; sourceTree = "<group>"; };
+		BC9093F51CA3BCBC008BA45F /* SUILoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUILoginVC.m; sourceTree = "<group>"; };
+		BC9093F71CA3CF76008BA45F /* SUIRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUIRegisterVC.h; sourceTree = "<group>"; };
+		BC9093F81CA3CF76008BA45F /* SUIRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUIRegisterVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +89,6 @@
 			children = (
 				BC3258D91C9A889E00598141 /* SUIToolKit */,
 				BC3258D11C9A873500598141 /* MVVMDemo */,
-				BC3258911C9A816400598141 /* Main.storyboard */,
 				BC3258941C9A816400598141 /* Assets.xcassets */,
 				BC3258A11C9A84A200598141 /* Others */,
 				BC3258881C9A816400598141 /* Supporting Files */,
@@ -146,37 +118,9 @@
 		BC3258D11C9A873500598141 /* MVVMDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BC3258D21C9A875600598141 /* MVVMDemo.storyboard */,
-				BC3258D41C9A87F900598141 /* MVVMRoot */,
-				BC3258D51C9A87F900598141 /* MVVMSecond */,
+				BC9093EF1CA3BAF1008BA45F /* LoginDemo */,
 			);
 			path = MVVMDemo;
-			sourceTree = "<group>";
-		};
-		BC3258D41C9A87F900598141 /* MVVMRoot */ = {
-			isa = PBXGroup;
-			children = (
-				BC3258D61C9A881E00598141 /* SUIMVVMRootVC.h */,
-				BC3258D71C9A881E00598141 /* SUIMVVMRootVC.m */,
-				BC3259051C9A920800598141 /* SUIMVVMRootVM.h */,
-				BC3259061C9A920800598141 /* SUIMVVMRootVM.m */,
-				BC32591B1C9A98BC00598141 /* SUIMVVMRootMD.h */,
-				BC32591C1C9A98BC00598141 /* SUIMVVMRootMD.m */,
-				BC3259271C9B141200598141 /* Cell */,
-				BC32592C1C9B141200598141 /* View */,
-			);
-			path = MVVMRoot;
-			sourceTree = "<group>";
-		};
-		BC3258D51C9A87F900598141 /* MVVMSecond */ = {
-			isa = PBXGroup;
-			children = (
-				BCC90BF41C9BD3E8009ABC8D /* SUIMVVMSecondVC.h */,
-				BCC90BF51C9BD3E8009ABC8D /* SUIMVVMSecondVC.m */,
-				BCC90BF71C9BD407009ABC8D /* SUIMVVMSecondVM.h */,
-				BCC90BF81C9BD407009ABC8D /* SUIMVVMSecondVM.m */,
-			);
-			path = MVVMSecond;
 			sourceTree = "<group>";
 		};
 		BC3258D91C9A889E00598141 /* SUIToolKit */ = {
@@ -204,27 +148,31 @@
 			path = MVVM;
 			sourceTree = "<group>";
 		};
-		BC3259271C9B141200598141 /* Cell */ = {
+		BC9093EF1CA3BAF1008BA45F /* LoginDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BC3259281C9B141200598141 /* SUIMVVMRootCell.h */,
-				BC3259291C9B141200598141 /* SUIMVVMRootCell.m */,
-				BC32592A1C9B141200598141 /* SUIMVVMRootCellVM.h */,
-				BC32592B1C9B141200598141 /* SUIMVVMRootCellVM.m */,
+				BC9093F01CA3BB56008BA45F /* Login */,
+				BC9093F11CA3BB56008BA45F /* Register */,
 			);
-			path = Cell;
+			path = LoginDemo;
 			sourceTree = "<group>";
 		};
-		BC32592C1C9B141200598141 /* View */ = {
+		BC9093F01CA3BB56008BA45F /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				BC32592F1C9B168900598141 /* SUIMVVMRootTitleView.h */,
-				BC3259301C9B168900598141 /* SUIMVVMRootTitleView.m */,
-				BC3259351C9B1DB200598141 /* SUIMVVMRootTitleView.xib */,
-				BC3259321C9B197100598141 /* SUIMVVMRootTitleViewVM.h */,
-				BC3259331C9B197100598141 /* SUIMVVMRootTitleViewVM.m */,
+				BC9093F41CA3BCBC008BA45F /* SUILoginVC.h */,
+				BC9093F51CA3BCBC008BA45F /* SUILoginVC.m */,
 			);
-			path = View;
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BC9093F11CA3BB56008BA45F /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				BC9093F71CA3CF76008BA45F /* SUIRegisterVC.h */,
+				BC9093F81CA3CF76008BA45F /* SUIRegisterVC.m */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		DB5BB7B239BAB77986198FEC /* Pods */ = {
@@ -297,11 +245,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC3259361C9B1DB200598141 /* SUIMVVMRootTitleView.xib in Resources */,
 				BC3258981C9A816400598141 /* LaunchScreen.storyboard in Resources */,
-				BC3258D31C9A875600598141 /* MVVMDemo.storyboard in Resources */,
 				BC3258951C9A816400598141 /* Assets.xcassets in Resources */,
-				BC3258931C9A816400598141 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,34 +306,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC3259001C9A889E00598141 /* SUIViewModel.m in Sources */,
+				BC9093F91CA3CF76008BA45F /* SUIRegisterVC.m in Sources */,
 				BC3258A41C9A84A200598141 /* AppDelegate.m in Sources */,
 				BC32588A1C9A816400598141 /* main.m in Sources */,
 				BC3259041C9A889E00598141 /* UIViewController+SUIMVVM.m in Sources */,
-				BCC90BF91C9BD407009ABC8D /* SUIMVVMSecondVM.m in Sources */,
 				BC3259031C9A889E00598141 /* UIView+SUIMVVM.m in Sources */,
-				BC3259341C9B197100598141 /* SUIMVVMRootTitleViewVM.m in Sources */,
-				BC3259311C9B168900598141 /* SUIMVVMRootTitleView.m in Sources */,
-				BC3259071C9A920800598141 /* SUIMVVMRootVM.m in Sources */,
-				BC32592E1C9B141200598141 /* SUIMVVMRootCellVM.m in Sources */,
-				BC32591D1C9A98BC00598141 /* SUIMVVMRootMD.m in Sources */,
 				BC3259201C9ABCDF00598141 /* SUITableHelper+SUIMVVM.m in Sources */,
-				BC3258D81C9A881E00598141 /* SUIMVVMRootVC.m in Sources */,
-				BCC90BF61C9BD3E8009ABC8D /* SUIMVVMSecondVC.m in Sources */,
-				BC32592D1C9B141200598141 /* SUIMVVMRootCell.m in Sources */,
+				BC9093F61CA3BCBC008BA45F /* SUILoginVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BC3258911C9A816400598141 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BC3258921C9A816400598141 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BC3258961C9A816400598141 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -489,6 +419,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RainfallMax.SUIToolKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -501,6 +432,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = RainfallMax.SUIToolKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
